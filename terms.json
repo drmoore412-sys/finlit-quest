@@ -1,0 +1,22 @@
+[
+  {"word":"TOKEN","definition":"A digital unit that can represent value, access, or voting power in a blockchain project."},
+  {"word":"NODE","definition":"A computer that helps a blockchain network store, check, or share transaction data."},
+  {"word":"COIN","definition":"A digital asset native to its own blockchain, often used to pay network fees."},
+  {"word":"MINT","definition":"To create new tokens or record a new digital asset on a blockchain."},
+  {"word":"POOL","definition":"A shared supply of tokens that traders or borrowers can use through a protocol."},
+  {"word":"LOCK","definition":"To make tokens unavailable for a period, often to secure a network or earn rewards."},
+  {"word":"BLOCK","definition":"A batch of verified transactions added as one new record in a blockchain."},
+  {"word":"FORK","definition":"A change to blockchain rules that can create a new version of the network."},
+  {"word":"HASH","definition":"A fixed-length digital fingerprint used to identify and protect blockchain data."},
+  {"word":"GAS","definition":"The fee paid to process a transaction or run an action on a blockchain."},
+  {"word":"CHAIN","definition":"The linked record of transaction blocks that forms a blockchain's history."},
+  {"word":"YIELD","definition":"The return earned from putting digital assets to work in a DeFi protocol."},
+  {"word":"LEDGER","definition":"A shared record of balances and transactions that a blockchain keeps in sync."},
+  {"word":"PEER","definition":"Another participant in a network that communicates directly without a central server."},
+  {"word":"STAKE","definition":"To lock tokens to help secure a network or protocol, usually in return for rewards."},
+  {"word":"SWAP","definition":"To exchange one token for another, often through a decentralized exchange."},
+  {"word":"BURN","definition":"To permanently remove tokens from circulation by sending them where they cannot be spent."},
+  {"word":"VAULT","definition":"A smart-contract strategy that manages deposited assets to pursue a return."},
+  {"word":"WALLET","definition":"Software or hardware that manages the keys used to control blockchain assets."},
+  {"word":"MINER","definition":"A participant that uses computing work to validate transactions on some blockchains."}
+]

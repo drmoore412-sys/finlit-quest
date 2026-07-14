@@ -1,0 +1,38 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://finlit.quest/schemas/term.schema.json",
+  "title":"FinLit Quest educational term",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["id","word","normalizedWord","world","category","difficulty","definition","pronunciation","realLifeExample","didYouKnow","commonMistake","quickChallenge","relatedTermIds","xpValue","reviewWeight"],
+  "properties":{
+    "id":{"type":"string","pattern":"^[a-z0-9_-]+\\.[a-z0-9_-]+$"},
+    "word":{"type":"string","pattern":"^[A-Z]+$"},
+    "normalizedWord":{"type":"string","pattern":"^[a-z]+$"},
+    "world":{"type":"string","minLength":1},
+    "category":{"enum":["digital_assets","network_infrastructure","network_governance","network_security","token_mechanics","transactions","defi","security"]},
+    "difficulty":{"enum":["beginner","intermediate","advanced","expert","master"]},
+    "definition":{"type":"string","minLength":10},
+    "pronunciation":{"type":"string","minLength":1},
+    "realLifeExample":{"type":"string","minLength":10},
+    "didYouKnow":{"type":"string","minLength":10},
+    "commonMistake":{"type":"string","minLength":10},
+    "relatedTermIds":{"type":"array","uniqueItems":true,"items":{"type":"string"}},
+    "xpValue":{"type":"number","exclusiveMinimum":0},
+    "reviewWeight":{"type":"number","exclusiveMinimum":0},
+    "quickChallenge":{
+      "type":"object","additionalProperties":false,
+      "required":["id","type","prompt","options","correctAnswer","explanation","difficulty","relatedTermId"],
+      "properties":{
+        "id":{"type":"string","minLength":1},
+        "type":{"enum":["multiple_choice","scenario_choice","true_false","identify_best_example","identify_common_mistake","compare_choices"]},
+        "prompt":{"type":"string","minLength":10},
+        "options":{"type":"array","minItems":2,"items":{"type":"string","minLength":1}},
+        "correctAnswer":{"type":"integer","minimum":0},
+        "explanation":{"type":"string","minLength":10},
+        "difficulty":{"enum":["beginner","intermediate","advanced","expert","master"]},
+        "relatedTermId":{"type":"string","minLength":1}
+      }
+    }
+  }
+}

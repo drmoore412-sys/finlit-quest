@@ -1,0 +1,9 @@
+(function(root,factory){const api=factory();if(typeof module==="object"&&module.exports)module.exports=api;root.FinLitCurriculumImport=api})(typeof globalThis!=="undefined"?globalThis:this,function(){
+  "use strict";
+  function rowsFromMatrix(matrix,headerRow=1){if(!Array.isArray(matrix)||headerRow<1||headerRow>matrix.length)throw new Error("Invalid worksheet matrix or header row.");const headers=matrix[headerRow-1].map(value=>String(value??"").trim());if(headers.some(value=>!value))throw new Error("Mapped worksheet headers must be non-empty.");return matrix.slice(headerRow).filter(row=>row.some(value=>String(value??"").trim())).map(row=>Object.fromEntries(headers.map((header,index)=>[header,row[index]])))}
+  function parseList(value,delimiter="|"){if(Array.isArray(value))return value.map(String);if(value===null||value===undefined||value==="")return [];return String(value).split(delimiter).map(item=>item.trim()).filter(Boolean)}
+  function setPath(record,path,value){const parts=path.split(".");let cursor=record;parts.slice(0,-1).forEach(part=>cursor=cursor[part]||(cursor[part]={}));cursor[parts.at(-1)]=value}
+  function mapRecord(row,spec){const record={};Object.entries(spec.fields||{}).forEach(([target,header])=>{if(!(header in row))throw new Error(`Required workbook column '${header}' was not found.`);setPath(record,target,row[header])});Object.entries(spec.listFields||{}).forEach(([target,config])=>{const header=typeof config==="string"?config:config.header,delimiter=typeof config==="string"?"|":config.delimiter||"|";if(!(header in row))throw new Error(`Required workbook column '${header}' was not found.`);setPath(record,target,parseList(row[header],delimiter))});return record}
+  function mapDataset(matrix,spec){return rowsFromMatrix(matrix,spec.headerRow||1).map(row=>mapRecord(row,spec))}
+  return {rowsFromMatrix,parseList,setPath,mapRecord,mapDataset};
+});

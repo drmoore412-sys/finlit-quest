@@ -1,0 +1,10 @@
+{
+  "pipelineVersion": 1,
+  "status": "awaiting_first_successful_import",
+  "freezeAfterFirstSuccessfulImport": true,
+  "worldSpecificImportersAllowed": false,
+  "gameReadsWorkbooks": false,
+  "sourceDirectory": "curriculum/<world>/approved/workbooks",
+  "runtimeDirectory": "curriculum/<world>/approved/runtime",
+  "reportsDirectory": "curriculum/<world>/approved/reports"
+}

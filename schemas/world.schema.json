@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://finlit.quest/schemas/world.schema.json",
+  "title":"FinLit Quest world manifest",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schemaVersion","id","name","eyebrow","termsSource","reward","levels","bonusWords"],
+  "properties":{
+    "schemaVersion":{"type":"integer","minimum":1},
+    "id":{"type":"string","pattern":"^[a-z0-9_-]+$"},
+    "name":{"type":"string","minLength":1},
+    "eyebrow":{"type":"string","minLength":1},
+    "termsSource":{"type":"string","minLength":1},
+    "reward":{"type":"object","required":["label","name","multiplier","bonus"],"properties":{"label":{"type":"string"},"name":{"type":"string"},"multiplier":{"type":"number","exclusiveMinimum":0},"bonus":{"type":"number","minimum":0}}},
+    "levels":{"type":"array","minItems":1,"items":{"type":"object","required":["id","difficulty","title","letters","words"],"properties":{"id":{"type":"string"},"difficulty":{"enum":["beginner","intermediate","advanced","expert","master"]},"title":{"type":"string"},"letters":{"type":"string","pattern":"^[A-Z]+$"},"words":{"type":"array","minItems":1,"items":{"type":"string","pattern":"^[A-Z]+$"}}}}},
+    "bonusWords":{"type":"array","items":{"type":"string","pattern":"^[A-Z]+$"}}
+  }
+}

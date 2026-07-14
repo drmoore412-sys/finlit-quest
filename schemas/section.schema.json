@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://finlit.quest/schemas/section.schema.json",
+  "title":"FinLit Quest approved curriculum section",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["id","world","title","approvalStatus","curriculumVersion","objectiveIds","metadata"],
+  "properties":{
+    "id":{"type":"string","minLength":1},
+    "world":{"type":"string","minLength":1},
+    "title":{"type":"string","minLength":1},
+    "approvalStatus":{"const":"approved_locked"},
+    "curriculumVersion":{"type":"string","minLength":1},
+    "objectiveIds":{"type":"array","uniqueItems":true,"items":{"type":"string"}},
+    "metadata":{"type":"object","additionalProperties":true,"required":["order"],"properties":{"order":{"type":"integer","minimum":0}}}
+  }
+}

@@ -1,0 +1,15 @@
+# Manual distribution and backup archives
+*.zip
+
+# macOS and editor-local files
+.DS_Store
+._*
+*.swp
+*.swo
+*~
+
+# Local dependency and test output directories
+node_modules/
+coverage/
+.nyc_output/
+
