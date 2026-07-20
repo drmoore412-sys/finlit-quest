@@ -1,0 +1,965 @@
+[
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-001",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-002",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-002",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-003",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-003",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-003",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-004",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-004",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-004",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-005",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-005",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-005",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-005",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-006",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-006",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-006",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-006",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-006",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-006",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-007",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-007",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-007",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-007",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-007",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-007",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-008",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-008",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-008",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-008",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-008",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-008",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-009",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-009",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-009",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-009",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-009",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-009",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "DISCLOSURE",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-010",
+    "term": "PREPAYMENT",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "DISCLOSURE",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "PREPAYMENT",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "COLLATERAL",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "REPOSSESSION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-011",
+    "term": "FORECLOSURE",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "DISCLOSURE",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "PREPAYMENT",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "COLLATERAL",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "REPOSSESSION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-012",
+    "term": "FORECLOSURE",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "DISCLOSURE",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "PREPAYMENT",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "COLLATERAL",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "REPOSSESSION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "FORECLOSURE",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-013",
+    "term": "CREDITWORTHINESS",
+    "normalizedLength": 16,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 16 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "DISCLOSURE",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "PREPAYMENT",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "COLLATERAL",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "REPOSSESSION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "FORECLOSURE",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "CREDITWORTHINESS",
+    "normalizedLength": 16,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 16 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-014",
+    "term": "DELINQUENCY",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "OBLIGATION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "AFFORDABILITY",
+    "normalizedLength": 13,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 13 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "UNDERWRITING",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "DISBURSEMENT",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "CAPITALIZATION",
+    "normalizedLength": 14,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 14 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "AMORTIZATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "DISCLOSURE",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "PREPAYMENT",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "COLLATERAL",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "REPOSSESSION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "FORECLOSURE",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "CREDITWORTHINESS",
+    "normalizedLength": 16,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 16 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "DELINQUENCY",
+    "normalizedLength": 11,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 11 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "ACCELERATION",
+    "normalizedLength": 12,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 12 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  },
+  {
+    "worldId": "credit",
+    "lessonId": "CRF-015",
+    "term": "COLLECTION",
+    "normalizedLength": 10,
+    "configuredWheelLimit": 9,
+    "reason": "Wheel size 10 exceeds the configured budget of 9 letters.",
+    "status": "unplayable_under_current_budget"
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://finlit.quest/schemas/workbook.schema.json",
+  "title": "FinLit Quest workbook (lesson + practice + assessment module)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "worldId", "sequence", "title", "difficulty", "estimatedMinutes", "xp", "prerequisiteWorkbookId", "learningObjective", "lesson", "flashcards", "assessment", "masteryRule"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[A-Z]{2,6}-[0-9]{3}$"},
+    "worldId": {"type": "string", "pattern": "^[a-z0-9_-]+$"},
+    "sequence": {"type": "integer", "minimum": 1},
+    "title": {"type": "string", "minLength": 1},
+    "difficulty": {"enum": ["beginner", "intermediate", "advanced", "expert", "master"]},
+    "estimatedMinutes": {
+      "type": "object", "additionalProperties": false, "required": ["min", "max"],
+      "properties": {"min": {"type": "integer", "exclusiveMinimum": 0}, "max": {"type": "integer", "exclusiveMinimum": 0}}
+    },
+    "xp": {"type": "integer", "exclusiveMinimum": 0},
+    "prerequisiteWorkbookId": {"type": ["string", "null"], "pattern": "^[A-Z]{2,6}-[0-9]{3}$"},
+    "learningObjective": {"type": "string", "minLength": 10},
+    "lesson": {
+      "type": "object", "additionalProperties": false,
+      "required": ["coreLesson", "example", "nonExample", "commonMisconception", "keyTakeaway"],
+      "properties": {
+        "coreLesson": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 10}},
+        "example": {"type": "string", "minLength": 5},
+        "nonExample": {"type": "string", "minLength": 5},
+        "commonMisconception": {"type": "string", "minLength": 5},
+        "keyTakeaway": {"type": "string", "minLength": 5}
+      }
+    },
+    "flashcards": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["term", "definition"],
+        "properties": {"term": {"type": "string", "minLength": 1}, "definition": {"type": "string", "minLength": 5}}
+      }
+    },
+    "assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["multipleChoice", "trueFalse", "matching", "scenario"],
+      "properties": {
+        "multipleChoice": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "prompt", "options", "correctIndex", "explanation"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "prompt": {"type": "string", "minLength": 5},
+              "options": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+              "correctIndex": {"type": "integer", "minimum": 0},
+              "explanation": {"type": "string", "minLength": 5}
+            }
+          }
+        },
+        "trueFalse": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "answer", "explanation"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "statement": {"type": "string", "minLength": 5},
+              "answer": {"type": "boolean"},
+              "explanation": {"type": "string", "minLength": 5}
+            }
+          }
+        },
+        "matching": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["left", "right"],
+            "properties": {"left": {"type": "string", "minLength": 1}, "right": {"type": "string", "minLength": 1}}
+          }
+        },
+        "scenario": {
+          "type": "object", "additionalProperties": false, "required": ["prompt", "expectedAnswer"],
+          "properties": {"prompt": {"type": "string", "minLength": 5}, "expectedAnswer": {"type": "string", "minLength": 5}}
+        }
+      }
+    },
+    "masteryRule": {
+      "type": "object", "additionalProperties": false, "required": ["passingScore", "description"],
+      "properties": {
+        "passingScore": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "description": {"type": "string", "minLength": 5}
+      }
+    }
+  }
+}

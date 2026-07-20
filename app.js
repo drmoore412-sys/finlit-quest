@@ -5,7 +5,8 @@ const BONUS = WORLD.bonusWords;
 const {layoutWords,canForm,wheelFor}=FinLitGameEngine;
 const learning=new FinLitLearning.LearningEngine({terms:WORLD.terms,storage:localStorage});
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const state={level:0,found:new Set(),hints:new Set(),selected:[],yield:Number(localStorage.getItem("yw_yield")||0),tries:{},started:Date.now(),skip:false,review:false};
+const state={level:0,found:new Set(),hints:new Set(),selected:[],yield:Number(localStorage.getItem("yw_yield")||0),tries:{},started:Date.now(),skip:false,review:false,custom:false,level1GamesPlayed:0};
+const LEVEL1_GAMES_REQUIRED=5;
 let pointerDown=false, gestureLetters=0, rating=0, pendingAdvance=false, activeTermId=null, activeLesson=null, lessonStep=0, quizAnswered=false;
 const JOURNEY_SECTIONS=[
   {name:"Credit Foundations",evolution:"Restore the bank and build a foundation for your financial future."},
@@ -18,10 +19,11 @@ const JOURNEY_SECTIONS=[
   {name:"Loans & Comparing Offers",evolution:"Connect the dealership, mortgage office, and home with smarter choices."}
 ];
 
+function shuffled(list){const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function renderLevel(){
-  const level=LEVELS[state.level]; state.found=new Set(); state.hints=new Set(); state.selected=[]; state.tries={}; state.started=Date.now(); state.skip=false; pendingAdvance=false;
+  const level=LEVELS[state.level]; state.found=new Set(); state.hints=new Set(); state.selected=[]; state.tries={}; state.started=Date.now(); state.skip=Boolean(learning.save.settings.skipLessons); state.clueOrder=shuffled(level.words); pendingAdvance=false;
   $("#gameScreen").classList.remove("hidden"); $("#feedbackPanel").classList.add("hidden"); $("#levelPanel").classList.add("hidden");
-  $("#levelLabel").textContent=state.review?"Daily review":`Level ${state.level+1}`; $("#levelTitle").textContent=level.title; renderGrid(); renderWheel(level.letters.split("")); updateProgress(); renderLevelList(); clearSelection();
+  $("#levelLabel").textContent=state.review?"Daily review":state.custom?"New game":state.level===0&&state.level1GamesPlayed<LEVEL1_GAMES_REQUIRED?`Game ${state.level1GamesPlayed+1} of ${LEVEL1_GAMES_REQUIRED}`:`Level ${state.level+1}`; $("#levelTitle").textContent=level.title; renderGrid(); renderWheel(shuffled(level.letters.split(""))); updateProgress(); renderLevelList(); clearSelection();
 }
 function renderGrid(){
   const grid=$("#crossword"), clues=$("#clueList"); grid.innerHTML=""; clues.innerHTML="";
@@ -29,7 +31,7 @@ function renderGrid(){
   const clueCard=$("#clueCard");
   if(state.level===0&&!state.review){
     grid.classList.remove("hidden"); clueCard.classList.remove("hidden");
-    words.forEach((word,i)=>{const item=document.createElement("div");item.className=`clue ${state.found.has(word)?"found":""}`;item.innerHTML=`<span class="clue-number">${state.found.has(word)?"✓":i+1}</span><span>${TERMS[word].definition}<span class="clue-answer">${state.found.has(word)?word:hintPattern(word)}</span></span>`;clues.append(item)});
+    (state.clueOrder||words).forEach((word,i)=>{const item=document.createElement("div");item.className=`clue ${state.found.has(word)?"found":""}`;item.innerHTML=`<span class="clue-number">${state.found.has(word)?"✓":i+1}</span><span>${TERMS[word].definition}<span class="clue-answer">${state.found.has(word)?word:hintPattern(word)}</span></span>`;clues.append(item)});
   } else {
     grid.classList.remove("hidden"); clueCard.classList.add("hidden");
   }
@@ -75,13 +77,44 @@ function renderQuiz(){const options=$("#quizOptions");options.innerHTML="";activ
 function answerQuiz(index,button){if(quizAnswered)return;quizAnswered=true;const challenge=activeLesson.quickChallenge,correct=index===challenge.correctAnswer;button.classList.add(correct?"correct":"incorrect");if(!correct){const buttons=$$("#quizOptions button");buttons[challenge.correctAnswer].classList.add("correct")}learning.recordChallenge(activeTermId,{correct,misconceptionFlag:correct?null:challenge.id});activeLesson={...learning.learningObject(activeTermId),rewardGain:activeLesson.rewardGain};const feedback=$("#lessonFeedback");feedback.textContent=`${correct?"Correct.":"Not quite."} ${challenge.explanation}`;feedback.classList.remove("hidden");updateDashboard();$("#lessonNext").classList.remove("hidden")}
 function nextLessonStep(){if(lessonStep<6){lessonStep++;renderLesson()}}
 function rateLearning(rating){if(!activeTermId)return;const result=learning.review(activeTermId,rating),interval=result.review.currentInterval,days=interval<1?"10 minutes":`${Math.round(interval)} day${Math.round(interval)===1?"":"s"}`,mastery=result.masteryPercent;$("#lessonFlow").classList.add("hidden");$("#lessonComplete").classList.remove("hidden");$("#lessonXp").textContent=activeLesson.xpValue;$("#reviewSchedule").textContent=`Next review scheduled in ${days}.`;$("#lessonMastery").textContent=`${mastery}%`;$("#lessonMasteryRing").style.setProperty("--term-mastery",`${mastery}%`);$("#masteryMessage").textContent=["Keep exploring","Learning started","Becoming familiar","Proficient","Mastered"][result.masteryLevel];celebrate();activeTermId=null;updateDashboard()}
-function advance(){celebrate();if(state.review||state.level===LEVELS.length-1)return showFeedback();state.level++;renderLevel()}
+function advance(){
+  celebrate();
+  if(state.review||state.custom)return showFeedback();
+  if(state.level===0){
+    state.level1GamesPlayed++;
+    if(state.level1GamesPlayed<LEVEL1_GAMES_REQUIRED){
+      const puzzle=buildRandomPuzzle();
+      if(puzzle)LEVELS[0]={...LEVELS[0],words:puzzle.words,letters:puzzle.letters.join("")};
+      return renderLevel();
+    }
+  }
+  if(state.level===LEVELS.length-1)return showFeedback();
+  state.level++;renderLevel();
+}
 function showFeedback(){$("#gameScreen").classList.add("hidden");$("#feedbackPanel").classList.remove("hidden");window.scrollTo(0,0)}
-function startReview(){const due=learning.due(WORLD.id,20),allProgress=Object.entries(learning.save.termProgress).filter(([id])=>id.startsWith(`${WORLD.id}.`)).sort(([,a],[,b])=>a.masteryPercent-b.masteryPercent||a.challenge.challengesCorrect-b.challenge.challengesCorrect).map(([id])=>learning.repository.get(id)).filter(Boolean),ranked=[...due,...allProgress].filter((term,index,list)=>term.word.length<=6&&list.findIndex(item=>item.id===term.id)===index),chosen=ranked.slice(0,3).map(term=>term.word);if(!chosen.length)return toast("Complete your first lesson to unlock review");const letters=wheelFor(chosen);if(letters.length>9)return toast("More learned words will unlock a compatible review");LEVELS.push({id:`${WORLD.id}-review-${Date.now()}`,difficulty:"review",title:"Words worth another look",letters:letters.join(""),words:chosen});state.level=LEVELS.length-1;state.review=true;renderLevel()}
-function shuffle(){const letters=$$(".letter").map(b=>b.textContent).sort(()=>Math.random()-.5);renderWheel(letters);clearSelection()}
+function startReview(){const due=learning.due(WORLD.id,20),allProgress=Object.entries(learning.save.termProgress).filter(([id])=>id.startsWith(`${WORLD.id}.`)).sort(([,a],[,b])=>a.masteryPercent-b.masteryPercent||a.challenge.challengesCorrect-b.challenge.challengesCorrect).map(([id])=>learning.repository.get(id)).filter(Boolean),ranked=[...due,...allProgress].filter((term,index,list)=>term.word.length<=6&&list.findIndex(item=>item.id===term.id)===index),chosen=ranked.slice(0,3).map(term=>term.word);if(!chosen.length)return toast("Complete your first lesson to unlock review");const letters=wheelFor(chosen);if(letters.length>9)return toast("More learned words will unlock a compatible review");LEVELS.push({id:`${WORLD.id}-review-${Date.now()}`,difficulty:"review",title:"Words worth another look",letters:letters.join(""),words:chosen});state.level=LEVELS.length-1;state.review=true;state.custom=false;renderLevel()}
+function buildRandomPuzzle(){
+  const pool=shuffled(WORLD.terms.map(term=>term.word));
+  const words=[];let letters=[];
+  for(const word of pool){
+    if(words.length>=5)break;
+    const candidateLetters=wheelFor([...words,word]);
+    if(candidateLetters.length<=9){words.push(word);letters=candidateLetters}
+  }
+  return words.length>=2?{words,letters}:null;
+}
+function newGame(){
+  const puzzle=buildRandomPuzzle();
+  if(!puzzle)return toast("Couldn't build a new puzzle — try again");
+  const {words,letters}=puzzle;
+  LEVELS.push({id:`${WORLD.id}-new-${Date.now()}`,difficulty:"custom",title:"New game",letters:letters.join(""),words});
+  state.level=LEVELS.length-1;state.review=false;state.custom=true;renderLevel();
+  toast("New puzzle ready");
+}
+function shuffle(){const letters=shuffled($$(".letter").map(b=>b.textContent));renderWheel(letters);clearSelection()}
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t.timer);t.timer=setTimeout(()=>t.classList.remove("show"),1500)}
-function showPlay(){updateDashboard();$("#app").classList.remove("journey-mode");$("#dashboardScreen").classList.add("hidden");$("#playScreen").classList.remove("hidden");window.scrollTo(0,0)}
-function showDashboard(){$("#playScreen").classList.add("hidden");$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
+function showPlay(){updateDashboard();$("#app").classList.remove("journey-mode");$("#dashboardScreen").classList.add("hidden");$("#worldGameScreen").classList.add("hidden");$("#workbookScreen").classList.add("hidden");$("#playScreen").classList.remove("hidden");window.scrollTo(0,0)}
+function showDashboard(){$("#playScreen").classList.add("hidden");$("#worldGameScreen").classList.add("hidden");$("#workbookScreen").classList.add("hidden");$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
 function updateJourneyNodes(activeIndex){
   $$(".journey-node").forEach((node,index)=>{
     const status=index<activeIndex?"completed":index===activeIndex?"active":"locked";
@@ -104,14 +137,21 @@ function updateDashboard(){
   const copy=achievementCopy[latest];$("#achievementTitle").textContent=copy?copy[0]:"No achievements unlocked";$("#achievementDescription").textContent=copy?copy[1]:"Complete your first applied challenge.";$("#achievementReward").textContent=copy?copy[2]:"";
 }
 function toggleTheme(){const next=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=next;learning.save.settings.theme=next;learning.persist();localStorage.removeItem("fq_theme");$("#themeToggle").textContent=next==="dark"?"☀":"☾"}
+window.updateSkipLessonsButton=function updateSkipLessonsButton(){const on=Boolean(learning.save.settings.skipLessons);const button=$("#skipLessonsToggle");button.classList.toggle("active",on);button.setAttribute("aria-pressed",String(on));button.title=on?"Lessons skipped — tap to turn them back on":"Skip flashcards and quizzes — just play"};
+window.toggleSkipLessons=function toggleSkipLessons(){const next=!learning.save.settings.skipLessons;learning.save.settings.skipLessons=next;learning.persist();state.skip=next;updateSkipLessonsButton();toast(next?"Lessons skipped — just playing":"Lessons back on");if(next&&!$("#learnModal").classList.contains("hidden")){pendingAdvance=state.found.size===LEVELS[state.level].words.length;closeLearn()}};
 function celebrate(){const colors=["#34d399","#f6c453","#7ca7ff","#f472b6"];for(let i=0;i<28;i++){const bit=document.createElement("i");bit.className="confetti";bit.style.left=`${10+Math.random()*80}%`;bit.style.top="-20px";bit.style.background=colors[i%colors.length];bit.style.setProperty("--x",`${(Math.random()-.5)*180}px`);bit.style.animationDelay=`${Math.random()*.3}s`;document.body.append(bit);setTimeout(()=>bit.remove(),1900)}}
-function renderLevelList(){const list=$("#levelList");list.innerHTML="";LEVELS.slice(0,5).forEach((l,i)=>{const b=document.createElement("button");b.className=`level-choice ${i===state.level&&!state.review?"active":""}`;b.innerHTML=`<div><strong>Level ${i+1}</strong><span>${l.title}</span></div><b>${l.words.length} terms</b>`;b.onclick=()=>{state.level=i;state.review=false;renderLevel()};list.append(b)})}
+function renderLevelList(){const list=$("#levelList");list.innerHTML="";LEVELS.slice(0,5).forEach((l,i)=>{const b=document.createElement("button");b.className=`level-choice ${i===state.level&&!state.review?"active":""}`;b.innerHTML=`<div><strong>Level ${i+1}</strong><span>${l.title}</span></div><b>${l.words.length} terms</b>`;b.onclick=()=>{state.level=i;state.review=false;state.custom=false;renderLevel()};list.append(b)})}
 $("#worldEyebrow").textContent=WORLD.eyebrow;$("#rewardName").textContent=WORLD.reward.name;$("#rewardLabel").textContent=WORLD.reward.label;$("#yieldValue").textContent=state.yield.toFixed(1);$("#checkButton").onclick=submitWord;$("#hintButton").onclick=revealHint;$("#shuffleButton").onclick=shuffle;$("#skipLessons").onclick=()=>{activeTermId=null;state.skip=true;updateDashboard();closeLearn()};$("#levelsButton").onclick=()=>$("#levelPanel").classList.remove("hidden");$("#closeLevels").onclick=()=>$("#levelPanel").classList.add("hidden");$("#dailyReview").onclick=startReview;
 $$('#reviewActions button').forEach(button=>button.onclick=()=>rateLearning(button.dataset.rating));
-$("#continueLearning").onclick=showPlay;$("#backHome").onclick=showDashboard;$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>{showPlay();$("#levelPanel").classList.remove("hidden")};$("#dashboardReview").onclick=()=>{showPlay();startReview()};
-$$(".journey-node").forEach((node,index)=>node.onclick=()=>{if(node.disabled)return;state.level=Math.min(index,LEVELS.length-1);state.review=false;renderLevel();showPlay()});
+$("#continueLearning").onclick=()=>wgOpenWorld("crypto");$("#backHome").onclick=showDashboard;$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("crypto");$("#dashboardReview").onclick=()=>wgOpenWorld("crypto");
+$("#skipLessonsToggle").onclick=toggleSkipLessons;
+$$(".journey-node").forEach((node,index)=>node.onclick=()=>{if(node.disabled)return;state.level=Math.min(index,LEVELS.length-1);state.review=false;state.custom=false;renderLevel();showPlay()});
+$("#newGameButton").onclick=newGame;
 $("#continentPreview").onclick=()=>toast("More financial regions unlock after their curriculum is approved");
 $("#lessonNext").onclick=nextLessonStep;$("#finishLesson").onclick=closeLearn;
 for(let i=1;i<=5;i++){const b=document.createElement("button");b.textContent=i;b.onclick=()=>{rating=i;$$("#rating button").forEach((x,j)=>x.classList.toggle("selected",j<i))};$("#rating").append(b)}
 $("#saveFeedback").onclick=()=>{if(!rating)return toast("Tap a rating first");const result={rating,comment:$("#feedbackText").value.trim(),yield:state.yield,savedAt:new Date().toLocaleString()};localStorage.setItem("yw_feedback",JSON.stringify(result));const receipt=$("#feedbackReceipt");receipt.textContent=`Saved locally\nRating: ${result.rating}/5\nComment: ${result.comment||"—"}\nSession yield: ${result.yield.toFixed(1)} YLD\n${result.savedAt}`;receipt.classList.remove("hidden")};
-document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$("#themeToggle").textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾";$("#app").classList.add("journey-mode");renderLevel();updateDashboard();
+document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$("#themeToggle").textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾";updateSkipLessonsButton();
+{const firstPuzzle=buildRandomPuzzle();if(firstPuzzle)LEVELS[0]={...LEVELS[0],words:firstPuzzle.words,letters:firstPuzzle.letters.join("")}}
+renderLevel();
+$("#continuedEducation").onclick=showDashboard;

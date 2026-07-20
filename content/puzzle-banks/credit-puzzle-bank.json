@@ -1,0 +1,2008 @@
+{
+  "worldId": "credit",
+  "generatedAt": "2026-07-20T18:42:19.158Z",
+  "count": 58,
+  "puzzles": [
+    {
+      "id": "CREDIT-P0001",
+      "worldId": "credit",
+      "tags": [
+        "DEFAULT",
+        "APY"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "P",
+        "Y"
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "APY"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEFAULT",
+      "definition": "Serious failure to meet agreement obligations.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Serious failure to meet agreement obligations.",
+      "estimatedSolveSeconds": 62,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:14:31.726Z"
+    },
+    {
+      "id": "CREDIT-P0002",
+      "worldId": "credit",
+      "tags": [
+        "CREDITOR",
+        "TERM",
+        "CREDIT"
+      ],
+      "letters": [
+        "C",
+        "R",
+        "R",
+        "E",
+        "D",
+        "I",
+        "T",
+        "O",
+        "M"
+      ],
+      "requiredWords": [
+        "CREDITOR",
+        "TERM",
+        "CREDIT"
+      ],
+      "bonusWords": [],
+      "focusWord": "CREDITOR",
+      "definition": "A party to whom money is owed.",
+      "difficulty": "Easy",
+      "hint": "A 8-letter word. A party to whom money is owed.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.836Z"
+    },
+    {
+      "id": "CREDIT-P0003",
+      "worldId": "credit",
+      "tags": [
+        "AUTOPAY",
+        "LOAN",
+        "APY"
+      ],
+      "letters": [
+        "A",
+        "A",
+        "U",
+        "T",
+        "O",
+        "P",
+        "Y",
+        "L",
+        "N"
+      ],
+      "requiredWords": [
+        "AUTOPAY",
+        "LOAN",
+        "APY"
+      ],
+      "bonusWords": [],
+      "focusWord": "AUTOPAY",
+      "definition": "Automatic scheduled electronic payment.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Automatic scheduled electronic payment.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.837Z"
+    },
+    {
+      "id": "CREDIT-P0004",
+      "worldId": "credit",
+      "tags": [
+        "REMEDY",
+        "APY",
+        "TERM",
+        "APR"
+      ],
+      "letters": [
+        "R",
+        "E",
+        "E",
+        "M",
+        "D",
+        "Y",
+        "A",
+        "P",
+        "T"
+      ],
+      "requiredWords": [
+        "REMEDY",
+        "APY",
+        "TERM",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "REMEDY",
+      "definition": "An action available under contract or law after breach.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An action available under contract or law after breach.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.839Z"
+    },
+    {
+      "id": "CREDIT-P0005",
+      "worldId": "credit",
+      "tags": [
+        "TERMS",
+        "LOAN",
+        "TERM"
+      ],
+      "letters": [
+        "T",
+        "E",
+        "R",
+        "M",
+        "S",
+        "L",
+        "O",
+        "A",
+        "N"
+      ],
+      "requiredWords": [
+        "TERMS",
+        "LOAN",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "TERMS",
+      "definition": "The rules governing repayment, cost, timing, and responsibilities.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The rules governing repayment, cost, timing, and responsibilities.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.840Z"
+    },
+    {
+      "id": "CREDIT-P0006",
+      "worldId": "credit",
+      "tags": [
+        "APY",
+        "CREDIT",
+        "APR"
+      ],
+      "letters": [
+        "A",
+        "P",
+        "Y",
+        "C",
+        "R",
+        "E",
+        "D",
+        "I",
+        "T"
+      ],
+      "requiredWords": [
+        "APY",
+        "CREDIT",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "APY",
+      "definition": "Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "estimatedSolveSeconds": 73,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.841Z"
+    },
+    {
+      "id": "CREDIT-P0007",
+      "worldId": "credit",
+      "tags": [
+        "CAPACITY",
+        "APR",
+        "APY"
+      ],
+      "letters": [
+        "C",
+        "C",
+        "A",
+        "A",
+        "P",
+        "I",
+        "T",
+        "Y",
+        "R"
+      ],
+      "requiredWords": [
+        "CAPACITY",
+        "APR",
+        "APY"
+      ],
+      "bonusWords": [],
+      "focusWord": "CAPACITY",
+      "definition": "Ability to make payments from available resources.",
+      "difficulty": "Easy",
+      "hint": "A 8-letter word. Ability to make payments from available resources.",
+      "estimatedSolveSeconds": 77,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.842Z"
+    },
+    {
+      "id": "CREDIT-P0008",
+      "worldId": "credit",
+      "tags": [
+        "APY",
+        "BALANCE"
+      ],
+      "letters": [
+        "A",
+        "A",
+        "P",
+        "Y",
+        "B",
+        "L",
+        "N",
+        "C",
+        "E"
+      ],
+      "requiredWords": [
+        "APY",
+        "BALANCE"
+      ],
+      "bonusWords": [],
+      "focusWord": "APY",
+      "definition": "Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "estimatedSolveSeconds": 60,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.844Z"
+    },
+    {
+      "id": "CREDIT-P0009",
+      "worldId": "credit",
+      "tags": [
+        "INTEREST",
+        "TERM",
+        "TERMS"
+      ],
+      "letters": [
+        "I",
+        "N",
+        "T",
+        "T",
+        "E",
+        "E",
+        "R",
+        "S",
+        "M"
+      ],
+      "requiredWords": [
+        "INTEREST",
+        "TERM",
+        "TERMS"
+      ],
+      "bonusWords": [],
+      "focusWord": "INTEREST",
+      "definition": "The cost charged for borrowing money.",
+      "difficulty": "Easy",
+      "hint": "A 8-letter word. The cost charged for borrowing money.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.846Z"
+    },
+    {
+      "id": "CREDIT-P0010",
+      "worldId": "credit",
+      "tags": [
+        "ACCOUNT",
+        "APR"
+      ],
+      "letters": [
+        "A",
+        "C",
+        "C",
+        "O",
+        "U",
+        "N",
+        "T",
+        "P",
+        "R"
+      ],
+      "requiredWords": [
+        "ACCOUNT",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "ACCOUNT",
+      "definition": "The record used to track a credit relationship.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The record used to track a credit relationship.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.847Z"
+    },
+    {
+      "id": "CREDIT-P0011",
+      "worldId": "credit",
+      "tags": [
+        "REMEDY",
+        "LENDER",
+        "TERM"
+      ],
+      "letters": [
+        "R",
+        "E",
+        "E",
+        "M",
+        "D",
+        "Y",
+        "L",
+        "N",
+        "T"
+      ],
+      "requiredWords": [
+        "REMEDY",
+        "LENDER",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "REMEDY",
+      "definition": "An action available under contract or law after breach.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An action available under contract or law after breach.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.853Z"
+    },
+    {
+      "id": "CREDIT-P0012",
+      "worldId": "credit",
+      "tags": [
+        "RISK",
+        "COSIGNER"
+      ],
+      "letters": [
+        "R",
+        "I",
+        "S",
+        "K",
+        "C",
+        "O",
+        "G",
+        "N",
+        "E"
+      ],
+      "requiredWords": [
+        "RISK",
+        "COSIGNER"
+      ],
+      "bonusWords": [],
+      "focusWord": "RISK",
+      "definition": "The possibility that repayment will not occur as agreed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. The possibility that repayment will not occur as agreed.",
+      "estimatedSolveSeconds": 61,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.854Z"
+    },
+    {
+      "id": "CREDIT-P0013",
+      "worldId": "credit",
+      "tags": [
+        "TERMS",
+        "REMEDY",
+        "DEBT",
+        "TERM"
+      ],
+      "letters": [
+        "T",
+        "E",
+        "E",
+        "R",
+        "M",
+        "S",
+        "D",
+        "Y",
+        "B"
+      ],
+      "requiredWords": [
+        "TERMS",
+        "REMEDY",
+        "DEBT",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "TERMS",
+      "definition": "The rules governing repayment, cost, timing, and responsibilities.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The rules governing repayment, cost, timing, and responsibilities.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.860Z"
+    },
+    {
+      "id": "CREDIT-P0014",
+      "worldId": "credit",
+      "tags": [
+        "PRINCIPAL",
+        "APR"
+      ],
+      "letters": [
+        "P",
+        "P",
+        "R",
+        "I",
+        "I",
+        "N",
+        "C",
+        "A",
+        "L"
+      ],
+      "requiredWords": [
+        "PRINCIPAL",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "PRINCIPAL",
+      "definition": "The amount borrowed or remaining loan amount.",
+      "difficulty": "Easy",
+      "hint": "A 9-letter word. The amount borrowed or remaining loan amount.",
+      "estimatedSolveSeconds": 62,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.861Z"
+    },
+    {
+      "id": "CREDIT-P0015",
+      "worldId": "credit",
+      "tags": [
+        "CREDIT",
+        "REMEDY",
+        "TERM"
+      ],
+      "letters": [
+        "C",
+        "R",
+        "E",
+        "E",
+        "D",
+        "I",
+        "T",
+        "M",
+        "Y"
+      ],
+      "requiredWords": [
+        "CREDIT",
+        "REMEDY",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "CREDIT",
+      "definition": "An arrangement that provides value now in exchange for repayment later.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An arrangement that provides value now in exchange for repayment later.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.863Z"
+    },
+    {
+      "id": "CREDIT-P0016",
+      "worldId": "credit",
+      "tags": [
+        "TERMS",
+        "RISK",
+        "APR",
+        "TERM"
+      ],
+      "letters": [
+        "T",
+        "E",
+        "R",
+        "M",
+        "S",
+        "I",
+        "K",
+        "A",
+        "P"
+      ],
+      "requiredWords": [
+        "TERMS",
+        "RISK",
+        "APR",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "TERMS",
+      "definition": "The rules governing repayment, cost, timing, and responsibilities.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The rules governing repayment, cost, timing, and responsibilities.",
+      "estimatedSolveSeconds": 88,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.866Z"
+    },
+    {
+      "id": "CREDIT-P0017",
+      "worldId": "credit",
+      "tags": [
+        "INTEREST",
+        "RISK"
+      ],
+      "letters": [
+        "I",
+        "N",
+        "T",
+        "T",
+        "E",
+        "E",
+        "R",
+        "S",
+        "K"
+      ],
+      "requiredWords": [
+        "INTEREST",
+        "RISK"
+      ],
+      "bonusWords": [],
+      "focusWord": "INTEREST",
+      "definition": "The cost charged for borrowing money.",
+      "difficulty": "Medium",
+      "hint": "A 8-letter word. The cost charged for borrowing money.",
+      "estimatedSolveSeconds": 64,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.868Z"
+    },
+    {
+      "id": "CREDIT-P0018",
+      "worldId": "credit",
+      "tags": [
+        "LENDER",
+        "CREDIT"
+      ],
+      "letters": [
+        "L",
+        "E",
+        "E",
+        "N",
+        "D",
+        "R",
+        "C",
+        "I",
+        "T"
+      ],
+      "requiredWords": [
+        "LENDER",
+        "CREDIT"
+      ],
+      "bonusWords": [],
+      "focusWord": "LENDER",
+      "definition": "A party that provides funds or credit.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. A party that provides funds or credit.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.870Z"
+    },
+    {
+      "id": "CREDIT-P0019",
+      "worldId": "credit",
+      "tags": [
+        "DEBT",
+        "RISK",
+        "TERMS",
+        "TERM"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "B",
+        "T",
+        "R",
+        "I",
+        "S",
+        "K",
+        "M"
+      ],
+      "requiredWords": [
+        "DEBT",
+        "RISK",
+        "TERMS",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEBT",
+      "definition": "An amount or obligation owed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. An amount or obligation owed.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.871Z"
+    },
+    {
+      "id": "CREDIT-P0020",
+      "worldId": "credit",
+      "tags": [
+        "BALANCE",
+        "APR"
+      ],
+      "letters": [
+        "B",
+        "A",
+        "A",
+        "L",
+        "N",
+        "C",
+        "E",
+        "P",
+        "R"
+      ],
+      "requiredWords": [
+        "BALANCE",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "BALANCE",
+      "definition": "The amount currently owed on an account.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The amount currently owed on an account.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.873Z"
+    },
+    {
+      "id": "CREDIT-P0021",
+      "worldId": "credit",
+      "tags": [
+        "DEBT",
+        "CREDITOR",
+        "CREDIT"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "B",
+        "T",
+        "C",
+        "R",
+        "R",
+        "I",
+        "O"
+      ],
+      "requiredWords": [
+        "DEBT",
+        "CREDITOR",
+        "CREDIT"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEBT",
+      "definition": "An amount or obligation owed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. An amount or obligation owed.",
+      "estimatedSolveSeconds": 73,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.874Z"
+    },
+    {
+      "id": "CREDIT-P0022",
+      "worldId": "credit",
+      "tags": [
+        "SERVICER",
+        "RISK"
+      ],
+      "letters": [
+        "S",
+        "E",
+        "E",
+        "R",
+        "R",
+        "V",
+        "I",
+        "C",
+        "K"
+      ],
+      "requiredWords": [
+        "SERVICER",
+        "RISK"
+      ],
+      "bonusWords": [],
+      "focusWord": "SERVICER",
+      "definition": "The company that manages billing and payment administration.",
+      "difficulty": "Medium",
+      "hint": "A 8-letter word. The company that manages billing and payment administration.",
+      "estimatedSolveSeconds": 67,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.875Z"
+    },
+    {
+      "id": "CREDIT-P0023",
+      "worldId": "credit",
+      "tags": [
+        "LENDER",
+        "APY",
+        "APR"
+      ],
+      "letters": [
+        "L",
+        "E",
+        "E",
+        "N",
+        "D",
+        "R",
+        "A",
+        "P",
+        "Y"
+      ],
+      "requiredWords": [
+        "LENDER",
+        "APY",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "LENDER",
+      "definition": "A party that provides funds or credit.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. A party that provides funds or credit.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.877Z"
+    },
+    {
+      "id": "CREDIT-P0024",
+      "worldId": "credit",
+      "tags": [
+        "REPAYMENT",
+        "APR",
+        "APY",
+        "TERM"
+      ],
+      "letters": [
+        "R",
+        "E",
+        "E",
+        "P",
+        "A",
+        "Y",
+        "M",
+        "N",
+        "T"
+      ],
+      "requiredWords": [
+        "REPAYMENT",
+        "APR",
+        "APY",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "REPAYMENT",
+      "definition": "The process of paying a debt.",
+      "difficulty": "Medium",
+      "hint": "A 9-letter word. The process of paying a debt.",
+      "estimatedSolveSeconds": 93,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.880Z"
+    },
+    {
+      "id": "CREDIT-P0025",
+      "worldId": "credit",
+      "tags": [
+        "DEFAULT",
+        "DEBT"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "B"
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "DEBT"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEFAULT",
+      "definition": "Serious failure to meet agreement obligations.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Serious failure to meet agreement obligations.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.882Z"
+    },
+    {
+      "id": "CREDIT-P0026",
+      "worldId": "credit",
+      "tags": [
+        "LOAN",
+        "RISK",
+        "APR"
+      ],
+      "letters": [
+        "L",
+        "O",
+        "A",
+        "N",
+        "R",
+        "I",
+        "S",
+        "K",
+        "P"
+      ],
+      "requiredWords": [
+        "LOAN",
+        "RISK",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "LOAN",
+      "definition": "Money provided with an obligation to repay.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Money provided with an obligation to repay.",
+      "estimatedSolveSeconds": 73,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.883Z"
+    },
+    {
+      "id": "CREDIT-P0027",
+      "worldId": "credit",
+      "tags": [
+        "APR",
+        "APY",
+        "TERMS",
+        "TERM"
+      ],
+      "letters": [
+        "A",
+        "P",
+        "R",
+        "Y",
+        "T",
+        "E",
+        "M",
+        "S"
+      ],
+      "requiredWords": [
+        "APR",
+        "APY",
+        "TERMS",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "APR",
+      "definition": "Annual Percentage Rate, an annual borrowing-cost measure.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Rate, an annual borrowing-cost measure.",
+      "estimatedSolveSeconds": 87,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.888Z"
+    },
+    {
+      "id": "CREDIT-P0028",
+      "worldId": "credit",
+      "tags": [
+        "ACCOUNT",
+        "APY"
+      ],
+      "letters": [
+        "A",
+        "C",
+        "C",
+        "O",
+        "U",
+        "N",
+        "T",
+        "P",
+        "Y"
+      ],
+      "requiredWords": [
+        "ACCOUNT",
+        "APY"
+      ],
+      "bonusWords": [],
+      "focusWord": "ACCOUNT",
+      "definition": "The record used to track a credit relationship.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The record used to track a credit relationship.",
+      "estimatedSolveSeconds": 62,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.889Z"
+    },
+    {
+      "id": "CREDIT-P0029",
+      "worldId": "credit",
+      "tags": [
+        "APR",
+        "LOAN",
+        "LENDER"
+      ],
+      "letters": [
+        "A",
+        "P",
+        "R",
+        "L",
+        "O",
+        "N",
+        "E",
+        "E",
+        "D"
+      ],
+      "requiredWords": [
+        "APR",
+        "LOAN",
+        "LENDER"
+      ],
+      "bonusWords": [],
+      "focusWord": "APR",
+      "definition": "Annual Percentage Rate, an annual borrowing-cost measure.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Rate, an annual borrowing-cost measure.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.894Z"
+    },
+    {
+      "id": "CREDIT-P0030",
+      "worldId": "credit",
+      "tags": [
+        "APR",
+        "CREDIT",
+        "DEBT"
+      ],
+      "letters": [
+        "A",
+        "P",
+        "R",
+        "C",
+        "E",
+        "D",
+        "I",
+        "T",
+        "B"
+      ],
+      "requiredWords": [
+        "APR",
+        "CREDIT",
+        "DEBT"
+      ],
+      "bonusWords": [],
+      "focusWord": "APR",
+      "definition": "Annual Percentage Rate, an annual borrowing-cost measure.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Rate, an annual borrowing-cost measure.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.895Z"
+    },
+    {
+      "id": "CREDIT-P0031",
+      "worldId": "credit",
+      "tags": [
+        "LOAN",
+        "APY",
+        "APR"
+      ],
+      "letters": [
+        "L",
+        "O",
+        "A",
+        "N",
+        "P",
+        "Y",
+        "R"
+      ],
+      "requiredWords": [
+        "LOAN",
+        "APY",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "LOAN",
+      "definition": "Money provided with an obligation to repay.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Money provided with an obligation to repay.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.899Z"
+    },
+    {
+      "id": "CREDIT-P0032",
+      "worldId": "credit",
+      "tags": [
+        "DEFAULT",
+        "LOAN"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "O",
+        "N"
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "LOAN"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEFAULT",
+      "definition": "Serious failure to meet agreement obligations.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Serious failure to meet agreement obligations.",
+      "estimatedSolveSeconds": 60,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.900Z"
+    },
+    {
+      "id": "CREDIT-P0033",
+      "worldId": "credit",
+      "tags": [
+        "RISK",
+        "DEBT",
+        "CREDIT"
+      ],
+      "letters": [
+        "R",
+        "I",
+        "S",
+        "K",
+        "D",
+        "E",
+        "B",
+        "T",
+        "C"
+      ],
+      "requiredWords": [
+        "RISK",
+        "DEBT",
+        "CREDIT"
+      ],
+      "bonusWords": [],
+      "focusWord": "RISK",
+      "definition": "The possibility that repayment will not occur as agreed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. The possibility that repayment will not occur as agreed.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.905Z"
+    },
+    {
+      "id": "CREDIT-P0034",
+      "worldId": "credit",
+      "tags": [
+        "RISK",
+        "CREDIT",
+        "TERM",
+        "TERMS"
+      ],
+      "letters": [
+        "R",
+        "I",
+        "S",
+        "K",
+        "C",
+        "E",
+        "D",
+        "T",
+        "M"
+      ],
+      "requiredWords": [
+        "RISK",
+        "CREDIT",
+        "TERM",
+        "TERMS"
+      ],
+      "bonusWords": [],
+      "focusWord": "RISK",
+      "definition": "The possibility that repayment will not occur as agreed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. The possibility that repayment will not occur as agreed.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.908Z"
+    },
+    {
+      "id": "CREDIT-P0035",
+      "worldId": "credit",
+      "tags": [
+        "BALANCE",
+        "DEBT"
+      ],
+      "letters": [
+        "B",
+        "A",
+        "A",
+        "L",
+        "N",
+        "C",
+        "E",
+        "D",
+        "T"
+      ],
+      "requiredWords": [
+        "BALANCE",
+        "DEBT"
+      ],
+      "bonusWords": [],
+      "focusWord": "BALANCE",
+      "definition": "The amount currently owed on an account.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The amount currently owed on an account.",
+      "estimatedSolveSeconds": 60,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.910Z"
+    },
+    {
+      "id": "CREDIT-P0036",
+      "worldId": "credit",
+      "tags": [
+        "LOAN",
+        "TERM",
+        "APR"
+      ],
+      "letters": [
+        "L",
+        "O",
+        "A",
+        "N",
+        "T",
+        "E",
+        "R",
+        "M",
+        "P"
+      ],
+      "requiredWords": [
+        "LOAN",
+        "TERM",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "LOAN",
+      "definition": "Money provided with an obligation to repay.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Money provided with an obligation to repay.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.915Z"
+    },
+    {
+      "id": "CREDIT-P0037",
+      "worldId": "credit",
+      "tags": [
+        "APY",
+        "RISK",
+        "APR"
+      ],
+      "letters": [
+        "A",
+        "P",
+        "Y",
+        "R",
+        "I",
+        "S",
+        "K"
+      ],
+      "requiredWords": [
+        "APY",
+        "RISK",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "APY",
+      "definition": "Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.917Z"
+    },
+    {
+      "id": "CREDIT-P0038",
+      "worldId": "credit",
+      "tags": [
+        "TERMS",
+        "DEBT",
+        "APR",
+        "TERM"
+      ],
+      "letters": [
+        "T",
+        "E",
+        "R",
+        "M",
+        "S",
+        "D",
+        "B",
+        "A",
+        "P"
+      ],
+      "requiredWords": [
+        "TERMS",
+        "DEBT",
+        "APR",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "TERMS",
+      "definition": "The rules governing repayment, cost, timing, and responsibilities.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The rules governing repayment, cost, timing, and responsibilities.",
+      "estimatedSolveSeconds": 85,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.925Z"
+    },
+    {
+      "id": "CREDIT-P0039",
+      "worldId": "credit",
+      "tags": [
+        "LENDER",
+        "RISK"
+      ],
+      "letters": [
+        "L",
+        "E",
+        "E",
+        "N",
+        "D",
+        "R",
+        "I",
+        "S",
+        "K"
+      ],
+      "requiredWords": [
+        "LENDER",
+        "RISK"
+      ],
+      "bonusWords": [],
+      "focusWord": "LENDER",
+      "definition": "A party that provides funds or credit.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. A party that provides funds or credit.",
+      "estimatedSolveSeconds": 61,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.939Z"
+    },
+    {
+      "id": "CREDIT-P0040",
+      "worldId": "credit",
+      "tags": [
+        "LENDER",
+        "DEBT",
+        "TERM"
+      ],
+      "letters": [
+        "L",
+        "E",
+        "E",
+        "N",
+        "D",
+        "R",
+        "B",
+        "T",
+        "M"
+      ],
+      "requiredWords": [
+        "LENDER",
+        "DEBT",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "LENDER",
+      "definition": "A party that provides funds or credit.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. A party that provides funds or credit.",
+      "estimatedSolveSeconds": 72,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.945Z"
+    },
+    {
+      "id": "CREDIT-P0041",
+      "worldId": "credit",
+      "tags": [
+        "DEFAULT",
+        "APR"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "P",
+        "R"
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEFAULT",
+      "definition": "Serious failure to meet agreement obligations.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Serious failure to meet agreement obligations.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.955Z"
+    },
+    {
+      "id": "CREDIT-P0042",
+      "worldId": "credit",
+      "tags": [
+        "CREDIT",
+        "TERMS",
+        "DEBT",
+        "TERM"
+      ],
+      "letters": [
+        "C",
+        "R",
+        "E",
+        "D",
+        "I",
+        "T",
+        "M",
+        "S",
+        "B"
+      ],
+      "requiredWords": [
+        "CREDIT",
+        "TERMS",
+        "DEBT",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "CREDIT",
+      "definition": "An arrangement that provides value now in exchange for repayment later.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An arrangement that provides value now in exchange for repayment later.",
+      "estimatedSolveSeconds": 87,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.956Z"
+    },
+    {
+      "id": "CREDIT-P0043",
+      "worldId": "credit",
+      "tags": [
+        "BALANCE",
+        "LOAN"
+      ],
+      "letters": [
+        "B",
+        "A",
+        "A",
+        "L",
+        "N",
+        "C",
+        "E",
+        "O"
+      ],
+      "requiredWords": [
+        "BALANCE",
+        "LOAN"
+      ],
+      "bonusWords": [],
+      "focusWord": "BALANCE",
+      "definition": "The amount currently owed on an account.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The amount currently owed on an account.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.960Z"
+    },
+    {
+      "id": "CREDIT-P0044",
+      "worldId": "credit",
+      "tags": [
+        "RISK",
+        "REMEDY"
+      ],
+      "letters": [
+        "R",
+        "I",
+        "S",
+        "K",
+        "E",
+        "E",
+        "M",
+        "D",
+        "Y"
+      ],
+      "requiredWords": [
+        "RISK",
+        "REMEDY"
+      ],
+      "bonusWords": [],
+      "focusWord": "RISK",
+      "definition": "The possibility that repayment will not occur as agreed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. The possibility that repayment will not occur as agreed.",
+      "estimatedSolveSeconds": 63,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.967Z"
+    },
+    {
+      "id": "CREDIT-P0045",
+      "worldId": "credit",
+      "tags": [
+        "DEFAULT",
+        "APY"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "P",
+        "Y"
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "APY"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEFAULT",
+      "definition": "Serious failure to meet agreement obligations.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Serious failure to meet agreement obligations.",
+      "estimatedSolveSeconds": 62,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.970Z"
+    },
+    {
+      "id": "CREDIT-P0046",
+      "worldId": "credit",
+      "tags": [
+        "TERMS",
+        "LENDER",
+        "TERM"
+      ],
+      "letters": [
+        "T",
+        "E",
+        "E",
+        "R",
+        "M",
+        "S",
+        "L",
+        "N",
+        "D"
+      ],
+      "requiredWords": [
+        "TERMS",
+        "LENDER",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "TERMS",
+      "definition": "The rules governing repayment, cost, timing, and responsibilities.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The rules governing repayment, cost, timing, and responsibilities.",
+      "estimatedSolveSeconds": 72,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.972Z"
+    },
+    {
+      "id": "CREDIT-P0047",
+      "worldId": "credit",
+      "tags": [
+        "APY",
+        "DEBT",
+        "APR",
+        "TERM"
+      ],
+      "letters": [
+        "A",
+        "P",
+        "Y",
+        "D",
+        "E",
+        "B",
+        "T",
+        "R",
+        "M"
+      ],
+      "requiredWords": [
+        "APY",
+        "DEBT",
+        "APR",
+        "TERM"
+      ],
+      "bonusWords": [],
+      "focusWord": "APY",
+      "definition": "Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "difficulty": "Easy",
+      "hint": "A 3-letter word. Annual Percentage Yield, an annual deposit-yield measure reflecting compounding.",
+      "estimatedSolveSeconds": 88,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:14.976Z"
+    },
+    {
+      "id": "CREDIT-P0048",
+      "worldId": "credit",
+      "tags": [
+        "AUTOPAY",
+        "APR",
+        "APY"
+      ],
+      "letters": [
+        "A",
+        "A",
+        "U",
+        "T",
+        "O",
+        "P",
+        "Y",
+        "R"
+      ],
+      "requiredWords": [
+        "AUTOPAY",
+        "APR",
+        "APY"
+      ],
+      "bonusWords": [],
+      "focusWord": "AUTOPAY",
+      "definition": "Automatic scheduled electronic payment.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. Automatic scheduled electronic payment.",
+      "estimatedSolveSeconds": 75,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:15.036Z"
+    },
+    {
+      "id": "CREDIT-P0049",
+      "worldId": "credit",
+      "tags": [
+        "CREDIT",
+        "TERM",
+        "APR"
+      ],
+      "letters": [
+        "C",
+        "R",
+        "E",
+        "D",
+        "I",
+        "T",
+        "M",
+        "A",
+        "P"
+      ],
+      "requiredWords": [
+        "CREDIT",
+        "TERM",
+        "APR"
+      ],
+      "bonusWords": [],
+      "focusWord": "CREDIT",
+      "definition": "An arrangement that provides value now in exchange for repayment later.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An arrangement that provides value now in exchange for repayment later.",
+      "estimatedSolveSeconds": 72,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:15.048Z"
+    },
+    {
+      "id": "CREDIT-P0050",
+      "worldId": "credit",
+      "tags": [
+        "ACCOUNT",
+        "LOAN"
+      ],
+      "letters": [
+        "A",
+        "C",
+        "C",
+        "O",
+        "U",
+        "N",
+        "T",
+        "L"
+      ],
+      "requiredWords": [
+        "ACCOUNT",
+        "LOAN"
+      ],
+      "bonusWords": [],
+      "focusWord": "ACCOUNT",
+      "definition": "The record used to track a credit relationship.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The record used to track a credit relationship.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:15.064Z"
+    },
+    {
+      "id": "CREDIT-P0051",
+      "worldId": "credit",
+      "tags": [
+        "DEBT",
+        "LOAN"
+      ],
+      "letters": [
+        "D",
+        "E",
+        "B",
+        "T",
+        "L",
+        "O",
+        "A",
+        "N"
+      ],
+      "requiredWords": [
+        "DEBT",
+        "LOAN"
+      ],
+      "bonusWords": [],
+      "focusWord": "DEBT",
+      "definition": "An amount or obligation owed.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. An amount or obligation owed.",
+      "estimatedSolveSeconds": 54,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:12:15.082Z"
+    },
+    {
+      "id": "CREDIT-P0052",
+      "worldId": "credit",
+      "tags": [
+        "CREDIT",
+        "TERMS"
+      ],
+      "letters": [
+        "C",
+        "R",
+        "E",
+        "D",
+        "I",
+        "T",
+        "M",
+        "S"
+      ],
+      "requiredWords": [
+        "CREDIT",
+        "TERMS"
+      ],
+      "bonusWords": [
+        "TERM"
+      ],
+      "focusWord": "CREDIT",
+      "definition": "An arrangement that provides value now in exchange for repayment later.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An arrangement that provides value now in exchange for repayment later.",
+      "estimatedSolveSeconds": 64,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:38:11.568Z",
+      "puzzleMode": "multi-term",
+      "eligibleLessonIds": [
+        "CRF-001",
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-001"
+      }
+    },
+    {
+      "id": "CREDIT-P0053",
+      "worldId": "credit",
+      "tags": [
+        "CREDIT"
+      ],
+      "letters": [
+        "C",
+        "R",
+        "E",
+        "D",
+        "I",
+        "T"
+      ],
+      "requiredWords": [
+        "CREDIT"
+      ],
+      "bonusWords": [],
+      "focusWord": "CREDIT",
+      "definition": "An arrangement that provides value now in exchange for repayment later.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. An arrangement that provides value now in exchange for repayment later.",
+      "estimatedSolveSeconds": 41,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:42:19.156Z",
+      "puzzleMode": "single-term",
+      "eligibleLessonIds": [
+        "CRF-001",
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-001"
+      }
+    },
+    {
+      "id": "CREDIT-P0054",
+      "worldId": "credit",
+      "tags": [
+        "TERMS"
+      ],
+      "letters": [
+        "T",
+        "E",
+        "R",
+        "M",
+        "S"
+      ],
+      "requiredWords": [
+        "TERMS"
+      ],
+      "bonusWords": [
+        "TERM"
+      ],
+      "focusWord": "TERMS",
+      "definition": "The rules governing repayment, cost, timing, and responsibilities.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The rules governing repayment, cost, timing, and responsibilities.",
+      "estimatedSolveSeconds": 44,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:38:11.677Z",
+      "puzzleMode": "single-term",
+      "eligibleLessonIds": [
+        "CRF-001",
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-001"
+      }
+    },
+    {
+      "id": "CREDIT-P0055",
+      "worldId": "credit",
+      "tags": [
+        "ACCOUNT"
+      ],
+      "letters": [
+        "A",
+        "C",
+        "C",
+        "O",
+        "U",
+        "N",
+        "T"
+      ],
+      "requiredWords": [
+        "ACCOUNT"
+      ],
+      "bonusWords": [],
+      "focusWord": "ACCOUNT",
+      "definition": "The record used to track a credit relationship.",
+      "difficulty": "Easy",
+      "hint": "A 7-letter word. The record used to track a credit relationship.",
+      "estimatedSolveSeconds": 45,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:38:11.677Z",
+      "puzzleMode": "single-term",
+      "eligibleLessonIds": [
+        "CRF-001",
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-001"
+      }
+    },
+    {
+      "id": "CREDIT-P0056",
+      "worldId": "credit",
+      "tags": [
+        "BORROWER"
+      ],
+      "letters": [
+        "B",
+        "O",
+        "O",
+        "R",
+        "R",
+        "R",
+        "W",
+        "E"
+      ],
+      "requiredWords": [
+        "BORROWER"
+      ],
+      "bonusWords": [],
+      "focusWord": "BORROWER",
+      "definition": "The party receiving credit and agreeing to repay.",
+      "difficulty": "Medium",
+      "hint": "A 8-letter word. The party receiving credit and agreeing to repay.",
+      "estimatedSolveSeconds": 51,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:38:11.740Z",
+      "puzzleMode": "single-term",
+      "eligibleLessonIds": [
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-002"
+      }
+    },
+    {
+      "id": "CREDIT-P0057",
+      "worldId": "credit",
+      "tags": [
+        "APPLICANT"
+      ],
+      "letters": [
+        "A",
+        "A",
+        "P",
+        "P",
+        "L",
+        "I",
+        "C",
+        "N",
+        "T"
+      ],
+      "requiredWords": [
+        "APPLICANT"
+      ],
+      "bonusWords": [],
+      "focusWord": "APPLICANT",
+      "definition": "A person requesting credit before approval.",
+      "difficulty": "Medium",
+      "hint": "A 9-letter word. A person requesting credit before approval.",
+      "estimatedSolveSeconds": 52,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:38:11.740Z",
+      "puzzleMode": "single-term",
+      "eligibleLessonIds": [
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-002"
+      }
+    },
+    {
+      "id": "CREDIT-P0058",
+      "worldId": "credit",
+      "tags": [
+        "COSIGNER"
+      ],
+      "letters": [
+        "C",
+        "O",
+        "S",
+        "I",
+        "G",
+        "N",
+        "E",
+        "R"
+      ],
+      "requiredWords": [
+        "COSIGNER"
+      ],
+      "bonusWords": [],
+      "focusWord": "COSIGNER",
+      "definition": "A person who agrees to repay if the primary borrower does not.",
+      "difficulty": "Medium",
+      "hint": "A 8-letter word. A person who agrees to repay if the primary borrower does not.",
+      "estimatedSolveSeconds": 48,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:38:11.740Z",
+      "puzzleMode": "single-term",
+      "eligibleLessonIds": [
+        "CRF-002",
+        "CRF-003",
+        "CRF-004",
+        "CRF-005",
+        "CRF-006",
+        "CRF-007",
+        "CRF-008",
+        "CRF-009",
+        "CRF-010",
+        "CRF-011",
+        "CRF-012",
+        "CRF-013",
+        "CRF-014",
+        "CRF-015"
+      ],
+      "sourceGenerationScope": {
+        "type": "lesson",
+        "lessonId": "CRF-002"
+      }
+    }
+  ]
+}

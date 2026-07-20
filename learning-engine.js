@@ -2,13 +2,26 @@
   "use strict";
   const CURRENT_SAVE_VERSION=3,SAVE_KEY="finlitQuest.save",DAY_MS=86400000;
   const DEFAULT_MASTERY_CONFIG=Object.freeze({puzzleWeight:.2,challengeWeight:.45,reviewWeight:.35,puzzleSolvesForFullCredit:2,challengeAttemptsForConfidence:3,reviewAttemptsForConfidence:3,masteryThresholds:[0,25,50,75,90],maxReviewIntervalDays:3650});
+  // Single source of truth for the word game's coin economy. startingCoins is
+  // derived from fullRevealCost (not a second hardcoded number) so a new player
+  // can always afford exactly one full word-and-definition reveal, and the two
+  // values can never drift apart — see word-game-app.js's WG_FULL_REVEAL_COST,
+  // which reads fullRevealCost from here instead of hardcoding its own copy.
+  const DEFAULT_FULL_REVEAL_COST=300;
+  function buildEconomyConfig(fullRevealCost=DEFAULT_FULL_REVEAL_COST){return Object.freeze({fullRevealCost,startingCoins:fullRevealCost})}
+  const DEFAULT_ECONOMY_CONFIG=buildEconomyConfig();
   const iso=(date=new Date())=>date.toISOString(),clamp=(value,min,max)=>Math.min(max,Math.max(min,value)),addDays=(date,days)=>new Date(date.getTime()+days*DAY_MS);
+  // Guards against a corrupted/tampered save persisting a non-numeric or
+  // negative xp value forever (every runtime path only ever adds validated
+  // positive amounts to player.xp, so the one realistic way it could go bad
+  // is a hand-edited or corrupted localStorage value at load time).
+  function sanitizeXp(value){return Number.isFinite(value)&&value>=0?value:0}
   function puzzleDefaults(){return {timesSeen:0,timesSolved:0,lettersRevealed:0,hintsUsed:0,validAttempts:0,invalidAttempts:0,totalSolveTimeMs:0,lastSolveDate:null}}
   function challengeDefaults(){return {challengesSeen:0,challengesCorrect:0,challengesIncorrect:0,lastChallengeDate:null,lastChallengeResult:null,consecutiveCorrect:0,misconceptionFlags:[]}}
   function reviewDefaults(){return {againCount:0,hardCount:0,goodCount:0,easyCount:0,currentEaseFactor:2.5,currentInterval:0,nextReviewDate:null,lastReviewed:null}}
   function emptyProgress(){return {masteryLevel:0,masteryPercent:0,puzzle:puzzleDefaults(),challenge:challengeDefaults(),review:reviewDefaults(),dateUnlocked:null,dateMastered:null}}
-  function playerDefaults(){return {xp:0,level:1,streak:0,lastPlayed:null,activityDates:[],weeklyGoal:5,achievements:[]}}
-  function createSave(now=new Date()){return {saveVersion:CURRENT_SAVE_VERSION,player:playerDefaults(),termProgress:{},objectiveProgress:{},scenarioProgress:{},libraryChallengeProgress:{},worlds:{},settings:{theme:"light",reducedMotion:false},updatedAt:iso(now)}}
+  function playerDefaults(){return {xp:0,level:1,coins:DEFAULT_ECONOMY_CONFIG.startingCoins,streak:0,lastPlayed:null,activityDates:[],weeklyGoal:5,achievements:[]}}
+  function createSave(now=new Date()){return {saveVersion:CURRENT_SAVE_VERSION,player:playerDefaults(),termProgress:{},objectiveProgress:{},scenarioProgress:{},libraryChallengeProgress:{},worlds:{},settings:{theme:"light",reducedMotion:false,skipLessons:false},updatedAt:iso(now)}}
   function mergeProgress(value={}){
     const progress={...emptyProgress(),...value,puzzle:{...puzzleDefaults(),...(value.puzzle||{})},challenge:{...challengeDefaults(),...(value.challenge||{})},review:{...reviewDefaults(),...(value.review||{})}};
     if(value.timesSeen&&!progress.puzzle.timesSeen)progress.puzzle.timesSeen=value.timesSeen;
@@ -27,7 +40,8 @@
       Object.entries(legacyReview).forEach(([word,weight])=>{const id=`crypto.${word.toLowerCase()}`,p=emptyProgress();p.dateUnlocked=iso(now);p.puzzle.timesSeen=Math.max(1,Number(weight)||1);p.puzzle.timesSolved=1;save.termProgress[id]=p});
       return save;
     }
-    const save={...createSave(now),...raw,player:{...playerDefaults(),...(raw.player||{})},settings:{theme:"light",reducedMotion:false,...(raw.settings||{})},termProgress:{...(raw.termProgress||{})},objectiveProgress:{...(raw.objectiveProgress||{})},scenarioProgress:{...(raw.scenarioProgress||{})},libraryChallengeProgress:{...(raw.libraryChallengeProgress||{})},worlds:{...(raw.worlds||{})}};
+    const save={...createSave(now),...raw,player:{...playerDefaults(),...(raw.player||{})},settings:{theme:"light",reducedMotion:false,skipLessons:false,...(raw.settings||{})},termProgress:{...(raw.termProgress||{})},objectiveProgress:{...(raw.objectiveProgress||{})},scenarioProgress:{...(raw.scenarioProgress||{})},libraryChallengeProgress:{...(raw.libraryChallengeProgress||{})},worlds:{...(raw.worlds||{})}};
+    save.player.xp=sanitizeXp(save.player.xp);
     Object.keys(save.termProgress).forEach(id=>save.termProgress[id]=mergeProgress(save.termProgress[id]));
     save.saveVersion=CURRENT_SAVE_VERSION;return save;
   }
@@ -60,6 +74,11 @@
     persist(){this.save.updatedAt=iso(this.now());this.storage.setItem(SAVE_KEY,JSON.stringify(this.save))}
     progressFor(id){if(!this.repository.get(id))throw new Error(`Unknown term id: ${id}`);if(!this.save.termProgress[id])this.save.termProgress[id]=emptyProgress();return this.save.termProgress[id]}
     learningObject(id){const content=this.repository.get(id);return content?{...content,...this.progressFor(id)}:null}
+    // Single source of truth for spending coins: checks the balance, deducts
+    // the exact cost once, persists immediately, and never allows a negative
+    // balance. Used for both the letter hint and the full word-and-definition
+    // reveal (word-game-app.js) so every purchase path shares one guarantee.
+    spendCoins(cost){if((this.save.player.coins||0)<cost)return false;this.save.player.coins-=cost;this.persist();return true}
     touchActivity(){const today=dateKey(this.now());if(!this.save.player.activityDates.includes(today))this.save.player.activityDates.push(today);this.save.player.activityDates=this.save.player.activityDates.slice(-400);this.save.player.lastPlayed=iso(this.now());this.save.player.streak=calculateStreak(this.save.player.activityDates,this.now())}
     unlock(id){const p=this.progressFor(id);if(!p.dateUnlocked)p.dateUnlocked=iso(this.now());return p}
     recordPuzzleSeen(id){const p=this.unlock(id);p.puzzle.timesSeen++;this.touchActivity();this.updateMastery(id);this.persist();return this.learningObject(id)}
@@ -80,6 +99,10 @@
     due(world,limit=20){const now=this.now().getTime();return this.repository.idsForWorld(world).filter(id=>{const date=this.save.termProgress[id]?.review.nextReviewDate;return date&&new Date(date).getTime()<=now}).sort((a,b)=>new Date(this.save.termProgress[a].review.nextReviewDate)-new Date(this.save.termProgress[b].review.nextReviewDate)).slice(0,limit).map(id=>this.learningObject(id))}
     worldStats(world){const ids=this.repository.idsForWorld(world),records=ids.map(id=>this.save.termProgress[id]).filter(Boolean),learned=records.filter(p=>p.dateUnlocked).length,totalChallengeCorrect=records.reduce((n,p)=>n+p.challenge.challengesCorrect,0),totalChallengeIncorrect=records.reduce((n,p)=>n+p.challenge.challengesIncorrect,0),intervals=records.map(p=>p.review.currentInterval).filter(Boolean),masteryTotal=records.reduce((n,p)=>n+p.masteryPercent,0);return {world,totalTerms:ids.length,completionPercent:ids.length?Math.round(learned/ids.length*100):0,masteryPercent:ids.length?Math.round(masteryTotal/ids.length):0,wordsLearned:learned,wordsRemaining:Math.max(0,ids.length-learned),averageAccuracy:accuracy(totalChallengeCorrect,totalChallengeIncorrect),averageReviewInterval:intervals.length?Number((intervals.reduce((a,b)=>a+b,0)/intervals.length).toFixed(1)):0,reviewsDue:this.due(world,50000).length}}
     termMetrics(id){const p=this.progressFor(id);return {puzzle:{...p.puzzle,solveAccuracy:accuracy(p.puzzle.validAttempts,p.puzzle.invalidAttempts),averageSolveSpeedMs:p.puzzle.timesSolved?Math.round(p.puzzle.totalSolveTimeMs/p.puzzle.timesSolved):0},challenge:{...p.challenge,challengeAccuracy:accuracy(p.challenge.challengesCorrect,p.challenge.challengesIncorrect)},review:{...p.review},mastery:calculateMastery(p,this.masteryConfig)}}
+    workbookProgress(worldId,workbookId){const worlds=this.save.worlds;if(!worlds[worldId])worlds[worldId]={workbooks:{}};if(!worlds[worldId].workbooks)worlds[worldId].workbooks={};if(!worlds[worldId].workbooks[workbookId])worlds[worldId].workbooks[workbookId]={status:"available",attempts:0,bestScorePercent:0,dateCompleted:null,xpAwarded:0,practiceCompleted:false};return worlds[worldId].workbooks[workbookId]}
+    recordWorkbookPractice(worldId,workbookId){const p=this.workbookProgress(worldId,workbookId);p.practiceCompleted=true;this.touchActivity();this.persist();return p}
+    recordWorkbookAttempt(worldId,workbookId,{percent,passed,xpValue}){const p=this.workbookProgress(worldId,workbookId);p.attempts++;p.bestScorePercent=Math.max(p.bestScorePercent,percent);let xpGained=0;if(passed&&p.status!=="completed"){p.status="completed";p.dateCompleted=iso(this.now());xpGained=xpValue;p.xpAwarded=xpValue;this.save.player.xp+=xpValue;this.save.player.level=Math.floor(this.save.player.xp/250)+1;this.unlockAchievements()}this.touchActivity();this.persist();return {progress:{...p},xpGained}}
+    workbookWorldStats(worldId,workbookIds){const worlds=this.save.worlds[worldId]||{workbooks:{}};const records=workbookIds.map(id=>worlds.workbooks?.[id]).filter(Boolean);const completed=records.filter(r=>r.status==="completed").length;const xpEarned=records.reduce((sum,r)=>sum+(r.xpAwarded||0),0);return {worldId,totalWorkbooks:workbookIds.length,completed,completionPercent:workbookIds.length?Math.round(completed/workbookIds.length*100):0,xpEarned}}
   }
-  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,DEFAULT_MASTERY_CONFIG,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
+  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
 });

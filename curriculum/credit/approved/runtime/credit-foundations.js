@@ -1,0 +1,2385 @@
+// Generated from credit-foundations.json. Do not edit by hand.
+window.CREDIT_FOUNDATIONS_RUNTIME = {
+  "schemaVersion": 1,
+  "world": "credit-foundations",
+  "workbooks": [
+    {
+      "id": "CRF-001",
+      "worldId": "credit-foundations",
+      "sequence": 1,
+      "title": "What Is Credit?",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 12,
+        "max": 15
+      },
+      "xp": 100,
+      "prerequisiteWorkbookId": null,
+      "learningObjective": "Explain credit as an agreement that allows a person to receive money, goods, or services now and repay later under stated terms.",
+      "lesson": {
+        "coreLesson": [
+          "Credit is borrowed purchasing power. It lets a borrower receive value now and promises repayment later. Credit may take the form of a loan, credit card, line of credit, service account, or other agreement.",
+          "Credit is not free money. Every credit arrangement creates obligations. The borrower may have to repay principal, interest, fees, or all three according to a schedule.",
+          "Using credit can help a person handle major purchases, build a payment history, or manage timing differences between income and expenses. Poorly managed credit can increase costs and create long-term financial pressure.",
+          "The central question is not simply whether credit is available. It is whether the borrower understands the total cost, payment obligation, risks, and alternatives before accepting it."
+        ],
+        "example": "Jordan uses an auto loan to buy a vehicle and agrees to repay the amount borrowed plus interest over five years.",
+        "nonExample": "A cash purchase is not credit because no repayment obligation is created.",
+        "commonMisconception": "Having a high credit limit does not mean the money belongs to the cardholder. It is the maximum amount the lender currently permits the person to borrow.",
+        "keyTakeaway": "Credit is a tool that trades future income for purchasing power today."
+      },
+      "flashcards": [
+        {
+          "term": "Credit",
+          "definition": "An arrangement that provides value now in exchange for repayment later."
+        },
+        {
+          "term": "Credit limit",
+          "definition": "The maximum amount a lender currently allows a borrower to use."
+        },
+        {
+          "term": "Terms",
+          "definition": "The rules governing repayment, cost, timing, and responsibilities."
+        },
+        {
+          "term": "Account",
+          "definition": "The record used to track a credit relationship."
+        },
+        {
+          "term": "Obligation",
+          "definition": "A duty to repay or perform under an agreement."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-001.mc.1",
+            "prompt": "Which statement best defines credit?",
+            "options": [
+              "Money received as a gift",
+              "An agreement to receive value now and repay later",
+              "Income earned from work",
+              "Money held in savings"
+            ],
+            "correctIndex": 1,
+            "explanation": "Credit creates a repayment obligation."
+          },
+          {
+            "id": "crf-001.mc.2",
+            "prompt": "Which is usually part of a credit agreement?",
+            "options": [
+              "Repayment terms",
+              "A guaranteed profit",
+              "Free insurance",
+              "Permanent ownership of borrowed money"
+            ],
+            "correctIndex": 0,
+            "explanation": "Credit agreements establish repayment rules."
+          },
+          {
+            "id": "crf-001.mc.3",
+            "prompt": "Why can credit increase the cost of a purchase?",
+            "options": [
+              "Credit always lowers prices",
+              "Interest and fees may be added",
+              "Borrowers never compare offers",
+              "Cash becomes illegal"
+            ],
+            "correctIndex": 1,
+            "explanation": "Interest and fees can raise total cost."
+          },
+          {
+            "id": "crf-001.mc.4",
+            "prompt": "Which action shows responsible credit use?",
+            "options": [
+              "Ignoring statements",
+              "Borrowing without reading terms",
+              "Confirming affordability before borrowing",
+              "Using every available limit"
+            ],
+            "correctIndex": 2,
+            "explanation": "Affordability should be assessed before borrowing."
+          },
+          {
+            "id": "crf-001.mc.5",
+            "prompt": "Which purchase does not use credit?",
+            "options": [
+              "A financed car",
+              "A credit-card purchase",
+              "A cash purchase",
+              "A personal loan"
+            ],
+            "correctIndex": 2,
+            "explanation": "Cash does not create a repayment obligation."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-001.tf.1",
+            "statement": "Credit is the same as free money.",
+            "answer": false,
+            "explanation": "Credit must generally be repaid under agreed terms."
+          },
+          {
+            "id": "crf-001.tf.2",
+            "statement": "A borrower should understand total cost before accepting credit.",
+            "answer": true,
+            "explanation": "Cost, timing, and risk matter."
+          },
+          {
+            "id": "crf-001.tf.3",
+            "statement": "Credit can be useful and still carry risk.",
+            "answer": true,
+            "explanation": "Its value depends on the terms and how it is managed."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Credit",
+            "right": "Value now, repayment later"
+          },
+          {
+            "left": "Terms",
+            "right": "Rules of the agreement"
+          },
+          {
+            "left": "Credit limit",
+            "right": "Maximum allowed borrowing"
+          },
+          {
+            "left": "Obligation",
+            "right": "Duty to repay"
+          }
+        ],
+        "scenario": {
+          "prompt": "Maya can pay $300 cash for a phone or finance it for twelve months with fees. What should she compare before deciding?",
+          "expectedAnswer": "She should compare the financed total, payment schedule, fees, consequences of late payment, and whether the monthly payment fits her budget."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete the lesson, one practice activity, and earn at least 80% on the assessment."
+      }
+    },
+    {
+      "id": "CRF-002",
+      "worldId": "credit-foundations",
+      "sequence": 2,
+      "title": "Borrower",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 10,
+        "max": 12
+      },
+      "xp": 100,
+      "prerequisiteWorkbookId": "CRF-001",
+      "learningObjective": "Identify the borrower’s role, duties, decision points, and risks in a credit relationship.",
+      "lesson": {
+        "coreLesson": [
+          "A borrower is the person or organization that receives money, goods, services, or access to credit and agrees to repay according to stated terms.",
+          "The borrower is responsible for understanding the agreement, making required payments, monitoring the account, protecting account access, and contacting the lender when problems arise.",
+          "Approval does not prove affordability. A lender may approve an amount that strains the borrower’s actual budget. The borrower must independently decide whether the obligation is manageable.",
+          "A borrower can reduce risk by comparing offers, asking questions, keeping records, paying on time, and addressing mistakes or hardship early."
+        ],
+        "example": "Sam signs a personal loan agreement, receives $4,000, and becomes responsible for scheduled payments.",
+        "nonExample": "A person who gives money as an unconditional gift is not acting as a borrower.",
+        "commonMisconception": "The lender’s approval is not a guarantee that the borrower can comfortably afford the debt.",
+        "keyTakeaway": "The borrower receives the benefit of credit and accepts the responsibility for repayment."
+      },
+      "flashcards": [
+        {
+          "term": "Borrower",
+          "definition": "The party receiving credit and agreeing to repay."
+        },
+        {
+          "term": "Applicant",
+          "definition": "A person requesting credit before approval."
+        },
+        {
+          "term": "Co-borrower",
+          "definition": "A second borrower who shares legal responsibility."
+        },
+        {
+          "term": "Cosigner",
+          "definition": "A person who agrees to repay if the primary borrower does not."
+        },
+        {
+          "term": "Affordability",
+          "definition": "Whether payments fit within available income and obligations."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-002.mc.1",
+            "prompt": "Who is the borrower?",
+            "options": [
+              "The party extending credit",
+              "The party receiving credit and promising repayment",
+              "The credit bureau",
+              "The merchant only"
+            ],
+            "correctIndex": 1,
+            "explanation": "The borrower receives value and assumes repayment duties."
+          },
+          {
+            "id": "crf-002.mc.2",
+            "prompt": "What should a borrower do before signing?",
+            "options": [
+              "Assume approval means affordability",
+              "Review payment terms and total cost",
+              "Ignore fees",
+              "Borrow the maximum"
+            ],
+            "correctIndex": 1,
+            "explanation": "The agreement should be understood first."
+          },
+          {
+            "id": "crf-002.mc.3",
+            "prompt": "What is a co-borrower?",
+            "options": [
+              "A person with no responsibility",
+              "A second person sharing repayment responsibility",
+              "A collector",
+              "A credit-report company"
+            ],
+            "correctIndex": 1,
+            "explanation": "Co-borrowers are jointly responsible."
+          },
+          {
+            "id": "crf-002.mc.4",
+            "prompt": "Which action reduces borrower risk?",
+            "options": [
+              "Keeping no records",
+              "Waiting until default to call",
+              "Comparing offers",
+              "Hiding account statements"
+            ],
+            "correctIndex": 2,
+            "explanation": "Comparison helps identify better terms."
+          },
+          {
+            "id": "crf-002.mc.5",
+            "prompt": "Who may have to repay when the primary borrower fails?",
+            "options": [
+              "A cosigner",
+              "A cashier",
+              "A landlord in every case",
+              "A credit bureau"
+            ],
+            "correctIndex": 0,
+            "explanation": "A cosigner accepts contingent responsibility."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-002.tf.1",
+            "statement": "A borrower may be approved for more than is comfortably affordable.",
+            "answer": true,
+            "explanation": "Approval standards and a household budget are not identical."
+          },
+          {
+            "id": "crf-002.tf.2",
+            "statement": "A borrower has no responsibility to check account statements.",
+            "answer": false,
+            "explanation": "Statements should be reviewed for accuracy and payment information."
+          },
+          {
+            "id": "crf-002.tf.3",
+            "statement": "Contacting a lender early may create more options during hardship.",
+            "answer": true,
+            "explanation": "Early communication can matter."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Borrower",
+            "right": "Receives credit"
+          },
+          {
+            "left": "Cosigner",
+            "right": "Backs another borrower"
+          },
+          {
+            "left": "Affordability",
+            "right": "Ability to manage payments"
+          },
+          {
+            "left": "Applicant",
+            "right": "Requests credit"
+          }
+        ],
+        "scenario": {
+          "prompt": "Lee is approved for a $20,000 loan but only needs $8,000. What borrower-centered decision is strongest?",
+          "expectedAnswer": "Borrow only what is needed and affordable after reviewing the payment, cost, and alternatives."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all required learning steps and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-003",
+      "worldId": "credit-foundations",
+      "sequence": 3,
+      "title": "Creditor (Lender)",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 10,
+        "max": 12
+      },
+      "xp": 100,
+      "prerequisiteWorkbookId": "CRF-002",
+      "learningObjective": "Explain the lender’s role, how lenders earn money, and how they assess risk.",
+      "lesson": {
+        "coreLesson": [
+          "A creditor or lender is the person, bank, credit union, finance company, card issuer, merchant, or other organization that extends credit.",
+          "The lender provides access to money or purchasing power and sets the agreement’s approved amount, interest rate, fees, repayment schedule, and other conditions, subject to applicable law.",
+          "Lenders evaluate risk before approval. Depending on the product, they may review income, existing debt, credit history, collateral, employment, and other information.",
+          "Lenders earn revenue through interest and permitted fees. The lender’s offer serves its business interests, so borrowers should compare alternatives rather than assume the first offer is best."
+        ],
+        "example": "A credit union lends Priya $12,000 for a car and receives monthly principal and interest payments.",
+        "nonExample": "A credit bureau generally reports credit information; it does not automatically become the lender on an account.",
+        "commonMisconception": "A familiar brand or approved application does not guarantee favorable terms.",
+        "keyTakeaway": "The lender supplies credit, prices risk, and expects repayment under the agreement."
+      },
+      "flashcards": [
+        {
+          "term": "Creditor",
+          "definition": "A party to whom money is owed."
+        },
+        {
+          "term": "Lender",
+          "definition": "A party that provides funds or credit."
+        },
+        {
+          "term": "Underwriting",
+          "definition": "The process used to evaluate an application and risk."
+        },
+        {
+          "term": "Risk",
+          "definition": "The possibility that repayment will not occur as agreed."
+        },
+        {
+          "term": "Servicer",
+          "definition": "The company that manages billing and payment administration."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-003.mc.1",
+            "prompt": "What does a lender do?",
+            "options": [
+              "Receives credit only",
+              "Provides credit under stated terms",
+              "Creates a credit score for every person",
+              "Guarantees affordability"
+            ],
+            "correctIndex": 1,
+            "explanation": "A lender extends credit."
+          },
+          {
+            "id": "crf-003.mc.2",
+            "prompt": "Why do lenders review applications?",
+            "options": [
+              "To estimate repayment risk",
+              "To eliminate all fees",
+              "To guarantee wealth",
+              "To create employment"
+            ],
+            "correctIndex": 0,
+            "explanation": "Underwriting estimates risk."
+          },
+          {
+            "id": "crf-003.mc.3",
+            "prompt": "How may lenders earn money?",
+            "options": [
+              "Interest and permitted fees",
+              "Borrower wages",
+              "Credit-report ownership",
+              "Tax refunds"
+            ],
+            "correctIndex": 0,
+            "explanation": "Interest and fees are common revenue sources."
+          },
+          {
+            "id": "crf-003.mc.4",
+            "prompt": "What is a servicer?",
+            "options": [
+              "The borrower’s employer",
+              "A company managing account billing and payments",
+              "A gift provider",
+              "A regulator"
+            ],
+            "correctIndex": 1,
+            "explanation": "Servicers handle administration."
+          },
+          {
+            "id": "crf-003.mc.5",
+            "prompt": "Which borrower action is prudent?",
+            "options": [
+              "Accept the first offer automatically",
+              "Compare lender terms",
+              "Ignore disclosures",
+              "Focus only on monthly payment"
+            ],
+            "correctIndex": 1,
+            "explanation": "Offers can differ significantly."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-003.tf.1",
+            "statement": "The lender and loan servicer are always the same company.",
+            "answer": false,
+            "explanation": "Servicing can be handled by another company."
+          },
+          {
+            "id": "crf-003.tf.2",
+            "statement": "A lender may evaluate income and existing debt.",
+            "answer": true,
+            "explanation": "These factors may help estimate repayment ability."
+          },
+          {
+            "id": "crf-003.tf.3",
+            "statement": "An approval guarantees the offer is the cheapest available.",
+            "answer": false,
+            "explanation": "Borrowers should compare offers."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Lender",
+            "right": "Extends credit"
+          },
+          {
+            "left": "Underwriting",
+            "right": "Evaluates risk"
+          },
+          {
+            "left": "Servicer",
+            "right": "Manages payments"
+          },
+          {
+            "left": "Creditor",
+            "right": "Party owed money"
+          }
+        ],
+        "scenario": {
+          "prompt": "Two lenders approve the same loan amount, but one has a lower rate and higher fees. What should the borrower compare?",
+          "expectedAnswer": "Compare APR when applicable, total fees, payment amount, term, total repayment, and product conditions."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete required activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-004",
+      "worldId": "credit-foundations",
+      "sequence": 4,
+      "title": "Debt",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 12,
+        "max": 15
+      },
+      "xp": 110,
+      "prerequisiteWorkbookId": "CRF-003",
+      "learningObjective": "Define debt, distinguish balances from payments, and evaluate when debt becomes difficult to manage.",
+      "lesson": {
+        "coreLesson": [
+          "Debt is money or another obligation owed to another party. It may result from a loan, credit-card balance, unpaid bill, financing plan, judgment, or other agreement.",
+          "The balance is the amount currently owed. The required payment is the amount due by a particular date. Paying only the required minimum may leave a large balance outstanding.",
+          "Debt can support useful goals, but every debt competes with future income. Multiple manageable payments can become unmanageable when combined.",
+          "Evaluating debt requires more than labeling it good or bad. Consider purpose, cost, risk, term, payment burden, alternatives, and the consequences if income changes."
+        ],
+        "example": "A $3,000 personal-loan balance is debt until it is repaid or otherwise resolved.",
+        "nonExample": "A monthly expense paid in full before any amount is owed is not an outstanding debt.",
+        "commonMisconception": "A small monthly payment does not necessarily mean a debt is inexpensive.",
+        "keyTakeaway": "Debt is a claim on future resources and should be judged by total impact."
+      },
+      "flashcards": [
+        {
+          "term": "Debt",
+          "definition": "An amount or obligation owed."
+        },
+        {
+          "term": "Balance",
+          "definition": "The amount currently owed on an account."
+        },
+        {
+          "term": "Minimum payment",
+          "definition": "The least amount required for a billing period."
+        },
+        {
+          "term": "Debt load",
+          "definition": "The combined burden of outstanding obligations."
+        },
+        {
+          "term": "Debt-to-income ratio",
+          "definition": "A comparison of certain monthly debt payments with gross monthly income."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-004.mc.1",
+            "prompt": "What is debt?",
+            "options": [
+              "Only credit-card spending",
+              "An amount or obligation owed",
+              "All monthly expenses",
+              "Only unpaid taxes"
+            ],
+            "correctIndex": 1,
+            "explanation": "Debt is broader than any single product."
+          },
+          {
+            "id": "crf-004.mc.2",
+            "prompt": "What is a balance?",
+            "options": [
+              "The current amount owed",
+              "The original income",
+              "A credit limit",
+              "A payment date"
+            ],
+            "correctIndex": 0,
+            "explanation": "Balance reflects the amount outstanding."
+          },
+          {
+            "id": "crf-004.mc.3",
+            "prompt": "Why can a low monthly payment be misleading?",
+            "options": [
+              "It may extend repayment and increase total cost",
+              "It always reduces interest",
+              "It means no debt exists",
+              "It guarantees affordability"
+            ],
+            "correctIndex": 0,
+            "explanation": "Small payments can lengthen repayment."
+          },
+          {
+            "id": "crf-004.mc.4",
+            "prompt": "What does debt compete with?",
+            "options": [
+              "Future income and financial goals",
+              "Only cash purchases",
+              "Credit-report companies",
+              "Nothing"
+            ],
+            "correctIndex": 0,
+            "explanation": "Payments use future resources."
+          },
+          {
+            "id": "crf-004.mc.5",
+            "prompt": "Which is the best debt evaluation?",
+            "options": [
+              "Good debt versus bad debt only",
+              "Purpose, cost, risk, term, and affordability",
+              "Payment color",
+              "Lender logo"
+            ],
+            "correctIndex": 1,
+            "explanation": "Several dimensions matter."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-004.tf.1",
+            "statement": "Debt always indicates irresponsible behavior.",
+            "answer": false,
+            "explanation": "Debt can be used for many legitimate purposes."
+          },
+          {
+            "id": "crf-004.tf.2",
+            "statement": "The balance and the monthly payment are the same thing.",
+            "answer": false,
+            "explanation": "The balance is total owed; the payment is an amount due."
+          },
+          {
+            "id": "crf-004.tf.3",
+            "statement": "Several individually affordable debts can create a heavy combined burden.",
+            "answer": true,
+            "explanation": "Combined obligations matter."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Debt",
+            "right": "Amount owed"
+          },
+          {
+            "left": "Balance",
+            "right": "Current outstanding amount"
+          },
+          {
+            "left": "Minimum payment",
+            "right": "Least periodic amount due"
+          },
+          {
+            "left": "Debt load",
+            "right": "Combined obligation burden"
+          }
+        ],
+        "scenario": {
+          "prompt": "A borrower has four small debts with low minimum payments. What should be reviewed before adding another?",
+          "expectedAnswer": "Review total monthly obligations, balances, interest, payoff timelines, emergency capacity, and overall affordability."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all learning activities and earn at least 80%."
+      }
+    },
+    {
+      "id": "CRF-005",
+      "worldId": "credit-foundations",
+      "sequence": 5,
+      "title": "Loan",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 12,
+        "max": 15
+      },
+      "xp": 110,
+      "prerequisiteWorkbookId": "CRF-004",
+      "learningObjective": "Describe how a loan works and identify its major components.",
+      "lesson": {
+        "coreLesson": [
+          "A loan is a credit transaction in which a lender provides money to a borrower, who agrees to repay it under specified terms.",
+          "Key loan elements include principal, interest rate, APR when applicable, fees, term, payment schedule, collateral if any, and default provisions.",
+          "Loans can have fixed or variable rates and may be secured or unsecured. They can be repaid in equal installments, changing payments, or another structure.",
+          "Before accepting a loan, compare the total amount financed, total repayment, payment timing, penalties, optional products, and what happens if payment becomes difficult."
+        ],
+        "example": "A bank provides a $10,000 fixed-rate personal loan repayable in 36 monthly installments.",
+        "nonExample": "A scholarship that does not require repayment is not a loan.",
+        "commonMisconception": "The loan amount is not the same as the total amount ultimately repaid.",
+        "keyTakeaway": "A loan combines borrowed principal with a binding repayment structure."
+      },
+      "flashcards": [
+        {
+          "term": "Loan",
+          "definition": "Money provided with an obligation to repay."
+        },
+        {
+          "term": "Term",
+          "definition": "The period allowed for repayment."
+        },
+        {
+          "term": "Disbursement",
+          "definition": "Release of loan funds."
+        },
+        {
+          "term": "Fixed rate",
+          "definition": "A rate that does not change under the agreement."
+        },
+        {
+          "term": "Variable rate",
+          "definition": "A rate that may change according to stated rules."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-005.mc.1",
+            "prompt": "What creates a loan?",
+            "options": [
+              "A gift",
+              "Funds provided with repayment terms",
+              "A paycheck",
+              "A savings deposit"
+            ],
+            "correctIndex": 1,
+            "explanation": "A loan requires repayment."
+          },
+          {
+            "id": "crf-005.mc.2",
+            "prompt": "What is the loan term?",
+            "options": [
+              "The lender’s name",
+              "The repayment period",
+              "The borrower’s job title",
+              "The credit limit"
+            ],
+            "correctIndex": 1,
+            "explanation": "Term means duration."
+          },
+          {
+            "id": "crf-005.mc.3",
+            "prompt": "What may happen with a variable rate?",
+            "options": [
+              "It never changes",
+              "It can change under the agreement",
+              "It becomes a gift",
+              "It removes principal"
+            ],
+            "correctIndex": 1,
+            "explanation": "Variable rates may adjust."
+          },
+          {
+            "id": "crf-005.mc.4",
+            "prompt": "Which should be compared before borrowing?",
+            "options": [
+              "Total repayment and fees",
+              "Logo colors",
+              "Only approval speed",
+              "Only the first payment"
+            ],
+            "correctIndex": 0,
+            "explanation": "Total economics matter."
+          },
+          {
+            "id": "crf-005.mc.5",
+            "prompt": "Which is not usually a loan component?",
+            "options": [
+              "Principal",
+              "Interest",
+              "Term",
+              "Guaranteed investment return"
+            ],
+            "correctIndex": 3,
+            "explanation": "Loans do not guarantee investment returns."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-005.tf.1",
+            "statement": "A loan can be secured or unsecured.",
+            "answer": true,
+            "explanation": "Collateral distinguishes some loan types."
+          },
+          {
+            "id": "crf-005.tf.2",
+            "statement": "All loans have identical repayment structures.",
+            "answer": false,
+            "explanation": "Structures differ."
+          },
+          {
+            "id": "crf-005.tf.3",
+            "statement": "The amount borrowed can be less than total repayment.",
+            "answer": true,
+            "explanation": "Interest and fees may increase total cost."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Loan",
+            "right": "Borrowed funds with repayment"
+          },
+          {
+            "left": "Term",
+            "right": "Repayment duration"
+          },
+          {
+            "left": "Disbursement",
+            "right": "Release of funds"
+          },
+          {
+            "left": "Variable rate",
+            "right": "Rate that may adjust"
+          }
+        ],
+        "scenario": {
+          "prompt": "A 60-month auto loan has a lower payment than a 36-month option. What tradeoff should be checked?",
+          "expectedAnswer": "The longer term may reduce the monthly payment but increase total interest and keep the borrower in debt longer."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all required activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-006",
+      "worldId": "credit-foundations",
+      "sequence": 6,
+      "title": "Principal",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 10,
+        "max": 12
+      },
+      "xp": 100,
+      "prerequisiteWorkbookId": "CRF-005",
+      "learningObjective": "Explain principal and distinguish it from interest, fees, and total repayment.",
+      "lesson": {
+        "coreLesson": [
+          "Principal is the amount borrowed or the unpaid portion of that amount. It is the base on which interest is commonly calculated.",
+          "A payment may be divided among fees, interest, and principal. Early payments on some amortizing loans may apply more to interest than later payments.",
+          "Reducing principal generally reduces the balance on which future interest is calculated, although exact results depend on the agreement and payment method.",
+          "Borrowers making extra payments should check how the lender applies them. Some accounts may apply excess amounts to future payments unless the borrower gives permitted instructions."
+        ],
+        "example": "If Amina borrows $5,000 before fees, the starting principal is generally $5,000.",
+        "nonExample": "The $400 interest charged over time is not principal unless an agreement later capitalizes unpaid interest into the balance.",
+        "commonMisconception": "Every dollar of a monthly payment does not automatically reduce principal.",
+        "keyTakeaway": "Principal is the core amount borrowed; interest and fees are additional costs."
+      },
+      "flashcards": [
+        {
+          "term": "Principal",
+          "definition": "The amount borrowed or remaining loan amount."
+        },
+        {
+          "term": "Principal payment",
+          "definition": "The portion of a payment reducing principal."
+        },
+        {
+          "term": "Capitalization",
+          "definition": "Adding certain unpaid interest or charges to principal."
+        },
+        {
+          "term": "Amortization",
+          "definition": "Repayment through scheduled payments over time."
+        },
+        {
+          "term": "Principal-only payment",
+          "definition": "An extra payment directed to principal when permitted."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-006.mc.1",
+            "prompt": "What is principal?",
+            "options": [
+              "The borrowing cost only",
+              "The amount borrowed or still owed from it",
+              "A late fee",
+              "A credit score"
+            ],
+            "correctIndex": 1,
+            "explanation": "Principal is the borrowed amount."
+          },
+          {
+            "id": "crf-006.mc.2",
+            "prompt": "A payment may be applied to which items?",
+            "options": [
+              "Fees, interest, and principal",
+              "Income only",
+              "Credit limits only",
+              "Insurance only"
+            ],
+            "correctIndex": 0,
+            "explanation": "Allocation can include multiple components."
+          },
+          {
+            "id": "crf-006.mc.3",
+            "prompt": "Why can extra principal payments help?",
+            "options": [
+              "They may reduce future interest and payoff time",
+              "They increase the rate automatically",
+              "They erase all fees",
+              "They create new debt"
+            ],
+            "correctIndex": 0,
+            "explanation": "Lower principal can lower future interest."
+          },
+          {
+            "id": "crf-006.mc.4",
+            "prompt": "What is capitalization?",
+            "options": [
+              "Removing principal",
+              "Adding certain unpaid amounts to principal",
+              "Closing an account",
+              "Lowering a payment"
+            ],
+            "correctIndex": 1,
+            "explanation": "Capitalized amounts become part of principal."
+          },
+          {
+            "id": "crf-006.mc.5",
+            "prompt": "What should a borrower verify about extra payments?",
+            "options": [
+              "How the lender applies them",
+              "The lender’s building size",
+              "The logo",
+              "The borrower’s age only"
+            ],
+            "correctIndex": 0,
+            "explanation": "Application rules affect the outcome."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-006.tf.1",
+            "statement": "Principal and interest mean the same thing.",
+            "answer": false,
+            "explanation": "Principal is borrowed amount; interest is cost."
+          },
+          {
+            "id": "crf-006.tf.2",
+            "statement": "Some payments may reduce fees or interest before principal.",
+            "answer": true,
+            "explanation": "Payment allocation varies by agreement."
+          },
+          {
+            "id": "crf-006.tf.3",
+            "statement": "Unpaid interest can sometimes be added to principal.",
+            "answer": true,
+            "explanation": "This is capitalization."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Principal",
+            "right": "Amount borrowed"
+          },
+          {
+            "left": "Interest",
+            "right": "Cost of borrowing"
+          },
+          {
+            "left": "Capitalization",
+            "right": "Adds unpaid amount to principal"
+          },
+          {
+            "left": "Amortization",
+            "right": "Scheduled payoff process"
+          }
+        ],
+        "scenario": {
+          "prompt": "Noah pays an extra $100 on a loan. What should he confirm?",
+          "expectedAnswer": "Confirm whether it was applied to principal, future scheduled payments, fees, or another category and whether any instructions are required."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete the module and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-007",
+      "worldId": "credit-foundations",
+      "sequence": 7,
+      "title": "Interest",
+      "difficulty": "beginner",
+      "estimatedMinutes": {
+        "min": 12,
+        "max": 15
+      },
+      "xp": 110,
+      "prerequisiteWorkbookId": "CRF-006",
+      "learningObjective": "Explain interest as a borrowing cost and identify factors that affect total interest.",
+      "lesson": {
+        "coreLesson": [
+          "Interest is the price charged for using borrowed money. It is commonly expressed through a rate and calculated using principal, time, and the agreement’s method.",
+          "Total interest depends on more than the stated rate. Principal amount, repayment term, payment timing, compounding or accrual method, and extra payments can all affect cost.",
+          "Simple interest is calculated using a principal base under stated rules. Compound interest includes interest calculated on amounts that may include previously accrued interest.",
+          "Borrowers should distinguish the interest rate from total interest paid. A moderate rate over a long period can produce a large total cost."
+        ],
+        "example": "A lender charges interest on the unpaid balance of a personal loan until it is repaid.",
+        "nonExample": "The original amount borrowed is principal, not interest.",
+        "commonMisconception": "The lowest monthly payment does not always produce the lowest interest cost.",
+        "keyTakeaway": "Interest measures the cost of time and risk in borrowing."
+      },
+      "flashcards": [
+        {
+          "term": "Interest",
+          "definition": "The cost charged for borrowing money."
+        },
+        {
+          "term": "Interest rate",
+          "definition": "A percentage used to calculate interest."
+        },
+        {
+          "term": "Accrued interest",
+          "definition": "Interest that has accumulated but may not yet be paid."
+        },
+        {
+          "term": "Simple interest",
+          "definition": "Interest calculated under a non-compounding method."
+        },
+        {
+          "term": "Compound interest",
+          "definition": "Interest that may be calculated on principal plus prior interest."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-007.mc.1",
+            "prompt": "What is interest?",
+            "options": [
+              "The borrowed amount",
+              "The cost of borrowing",
+              "A credit limit",
+              "A payment date"
+            ],
+            "correctIndex": 1,
+            "explanation": "Interest is a borrowing cost."
+          },
+          {
+            "id": "crf-007.mc.2",
+            "prompt": "Which can affect total interest?",
+            "options": [
+              "Term and payment timing",
+              "Only the logo",
+              "Only the account number",
+              "Nothing but income"
+            ],
+            "correctIndex": 0,
+            "explanation": "Time and payment behavior matter."
+          },
+          {
+            "id": "crf-007.mc.3",
+            "prompt": "Why might a longer term cost more?",
+            "options": [
+              "Interest can accrue for more time",
+              "Principal disappears",
+              "The rate becomes zero",
+              "Fees are always refunded"
+            ],
+            "correctIndex": 0,
+            "explanation": "Longer exposure can increase cost."
+          },
+          {
+            "id": "crf-007.mc.4",
+            "prompt": "What is accrued interest?",
+            "options": [
+              "Interest that has accumulated",
+              "A gift",
+              "The original principal only",
+              "A credit limit"
+            ],
+            "correctIndex": 0,
+            "explanation": "Accrued interest has built up."
+          },
+          {
+            "id": "crf-007.mc.5",
+            "prompt": "Which statement is accurate?",
+            "options": [
+              "Rate and total interest are identical",
+              "Total interest depends on amount, rate, time, and structure",
+              "Interest is optional on every loan",
+              "All payments reduce principal first"
+            ],
+            "correctIndex": 1,
+            "explanation": "Several factors determine total interest."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-007.tf.1",
+            "statement": "Interest is generally separate from principal.",
+            "answer": true,
+            "explanation": "It is the cost of borrowing the principal."
+          },
+          {
+            "id": "crf-007.tf.2",
+            "statement": "A longer repayment period can increase total interest.",
+            "answer": true,
+            "explanation": "Interest may accrue longer."
+          },
+          {
+            "id": "crf-007.tf.3",
+            "statement": "A lower payment always means a cheaper loan.",
+            "answer": false,
+            "explanation": "It may reflect a longer term."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Interest",
+            "right": "Cost of borrowing"
+          },
+          {
+            "left": "Accrued interest",
+            "right": "Accumulated interest"
+          },
+          {
+            "left": "Simple interest",
+            "right": "Non-compounding calculation"
+          },
+          {
+            "left": "Compound interest",
+            "right": "Interest may build on prior interest"
+          }
+        ],
+        "scenario": {
+          "prompt": "Two loans have the same rate, but one lasts twice as long. What should the borrower expect to compare?",
+          "expectedAnswer": "Compare total interest, total repayment, payment amount, and the length of the obligation."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-008",
+      "worldId": "credit-foundations",
+      "sequence": 8,
+      "title": "Interest Rate, APR, and APY",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 18
+      },
+      "xp": 130,
+      "prerequisiteWorkbookId": "CRF-007",
+      "learningObjective": "Distinguish an interest rate, APR, and APY and use the appropriate measure when comparing products.",
+      "lesson": {
+        "coreLesson": [
+          "An interest rate is the percentage used to calculate interest on borrowed money or paid on deposits.",
+          "For many consumer loans, APR is a standardized annual measure that may reflect the interest rate plus certain finance charges. It can help borrowers compare loan offers, but the included charges depend on product and disclosure rules.",
+          "APY is commonly used for deposit accounts and reflects the effect of compounding over a year. It describes how much a deposit may earn under stated assumptions.",
+          "APR and APY are not interchangeable. Borrowers generally compare borrowing costs using APR and other loan disclosures; savers compare deposit yields using APY.",
+          "Even when APRs match, loan term, variable-rate features, optional products, payment schedule, and total dollars paid can differ."
+        ],
+        "example": "A loan may advertise a 7% interest rate but an APR above 7% because certain fees are included.",
+        "nonExample": "APY on a savings account does not describe the total cost of a personal loan.",
+        "commonMisconception": "APR is not always identical to the note interest rate.",
+        "keyTakeaway": "Use the right annual measure: APR for borrowing comparisons and APY for deposit earnings."
+      },
+      "flashcards": [
+        {
+          "term": "Interest rate",
+          "definition": "Percentage used to calculate interest."
+        },
+        {
+          "term": "APR",
+          "definition": "Annual Percentage Rate, an annual borrowing-cost measure."
+        },
+        {
+          "term": "APY",
+          "definition": "Annual Percentage Yield, an annual deposit-yield measure reflecting compounding."
+        },
+        {
+          "term": "Finance charge",
+          "definition": "Certain costs of consumer credit."
+        },
+        {
+          "term": "Variable rate",
+          "definition": "A rate that may change under the agreement."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-008.mc.1",
+            "prompt": "Which measure is generally used to compare borrowing costs?",
+            "options": [
+              "APY",
+              "APR",
+              "Credit limit",
+              "Principal only"
+            ],
+            "correctIndex": 1,
+            "explanation": "APR is a standardized borrowing-cost measure."
+          },
+          {
+            "id": "crf-008.mc.2",
+            "prompt": "Which measure is commonly used for deposit earnings?",
+            "options": [
+              "APY",
+              "APR only",
+              "Late fee",
+              "Minimum payment"
+            ],
+            "correctIndex": 0,
+            "explanation": "APY reflects deposit yield."
+          },
+          {
+            "id": "crf-008.mc.3",
+            "prompt": "Why can APR exceed the interest rate?",
+            "options": [
+              "Certain fees may be included",
+              "Principal vanishes",
+              "APY is added",
+              "The term becomes shorter"
+            ],
+            "correctIndex": 0,
+            "explanation": "APR may include certain finance charges."
+          },
+          {
+            "id": "crf-008.mc.4",
+            "prompt": "Are APR and APY interchangeable?",
+            "options": [
+              "Yes, always",
+              "No, they serve different purposes",
+              "Only on weekends",
+              "Only for cash"
+            ],
+            "correctIndex": 1,
+            "explanation": "Borrowing and saving measures differ."
+          },
+          {
+            "id": "crf-008.mc.5",
+            "prompt": "What else should be compared when APRs match?",
+            "options": [
+              "Term and total dollars paid",
+              "Logo",
+              "Branch color",
+              "Account nickname"
+            ],
+            "correctIndex": 0,
+            "explanation": "Other terms still matter."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-008.tf.1",
+            "statement": "APY commonly reflects compounding on deposit accounts.",
+            "answer": true,
+            "explanation": "That is its core purpose."
+          },
+          {
+            "id": "crf-008.tf.2",
+            "statement": "APR is always exactly the same as the interest rate.",
+            "answer": false,
+            "explanation": "Certain fees may make APR higher."
+          },
+          {
+            "id": "crf-008.tf.3",
+            "statement": "A variable APR may change according to the agreement.",
+            "answer": true,
+            "explanation": "Variable rates can adjust."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Interest rate",
+            "right": "Percentage used for interest"
+          },
+          {
+            "left": "APR",
+            "right": "Annual borrowing-cost measure"
+          },
+          {
+            "left": "APY",
+            "right": "Annual deposit-yield measure"
+          },
+          {
+            "left": "Finance charge",
+            "right": "Certain cost of credit"
+          }
+        ],
+        "scenario": {
+          "prompt": "Offer A has a lower interest rate but a higher APR than Offer B. What does that suggest?",
+          "expectedAnswer": "Offer A may include higher finance charges or fees. Compare disclosures, total repayment, term, and whether the rates are fixed or variable."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all practice and earn at least 80%."
+      }
+    },
+    {
+      "id": "CRF-009",
+      "worldId": "credit-foundations",
+      "sequence": 9,
+      "title": "Repayment",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 12,
+        "max": 15
+      },
+      "xp": 120,
+      "prerequisiteWorkbookId": "CRF-008",
+      "learningObjective": "Explain repayment schedules, payment allocation, payoff, and strategies for avoiding missed payments.",
+      "lesson": {
+        "coreLesson": [
+          "Repayment is the process of satisfying a debt according to the agreement. It may involve one payment, scheduled installments, revolving minimum payments, or another structure.",
+          "A payment schedule states the amount due, due date, frequency, and sometimes how payments may change. Borrowers should understand whether payments are fixed, variable, interest-only, deferred, or subject to a final balloon payment.",
+          "Payments may be allocated to fees, interest, and principal. The exact order depends on the product and agreement.",
+          "Automatic payments, reminders, a payment calendar, and an emergency buffer can reduce missed-payment risk. Borrowers should still review statements and verify that payments posted correctly.",
+          "Payoff means satisfying the amount required to close or fully repay the obligation. A payoff amount can differ from the displayed balance because of accrued interest or fees."
+        ],
+        "example": "A borrower makes 36 scheduled monthly payments until a personal loan is paid in full.",
+        "nonExample": "Ignoring the due date is not a repayment plan.",
+        "commonMisconception": "The online balance is not always the exact payoff amount.",
+        "keyTakeaway": "Repayment succeeds when payments are timely, correctly applied, and consistent with the agreement."
+      },
+      "flashcards": [
+        {
+          "term": "Repayment",
+          "definition": "The process of paying a debt."
+        },
+        {
+          "term": "Payment schedule",
+          "definition": "The timing and amount rules for payments."
+        },
+        {
+          "term": "Due date",
+          "definition": "The date payment must be received or credited under the agreement."
+        },
+        {
+          "term": "Payoff amount",
+          "definition": "The amount required to fully satisfy an account on a stated date."
+        },
+        {
+          "term": "Autopay",
+          "definition": "Automatic scheduled electronic payment."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-009.mc.1",
+            "prompt": "What is repayment?",
+            "options": [
+              "Borrowing more",
+              "Paying a debt under agreed terms",
+              "Opening savings",
+              "Checking a score"
+            ],
+            "correctIndex": 1,
+            "explanation": "Repayment satisfies the obligation."
+          },
+          {
+            "id": "crf-009.mc.2",
+            "prompt": "Why can payoff differ from balance?",
+            "options": [
+              "Accrued interest or fees may be included",
+              "The borrower changes identity",
+              "Principal is ignored",
+              "The loan becomes a gift"
+            ],
+            "correctIndex": 0,
+            "explanation": "Payoff is date-specific."
+          },
+          {
+            "id": "crf-009.mc.3",
+            "prompt": "What can reduce missed-payment risk?",
+            "options": [
+              "Reminders and payment planning",
+              "Ignoring statements",
+              "Using every limit",
+              "Waiting for collection"
+            ],
+            "correctIndex": 0,
+            "explanation": "Systems support consistency."
+          },
+          {
+            "id": "crf-009.mc.4",
+            "prompt": "What should borrowers verify with autopay?",
+            "options": [
+              "That payments posted correctly",
+              "That no statement exists",
+              "That balances increase",
+              "That rates are hidden"
+            ],
+            "correctIndex": 0,
+            "explanation": "Automation still requires monitoring."
+          },
+          {
+            "id": "crf-009.mc.5",
+            "prompt": "Which may appear in a payment schedule?",
+            "options": [
+              "Due date and frequency",
+              "Credit bureau ownership",
+              "Borrower’s favorite color",
+              "Guaranteed approval"
+            ],
+            "correctIndex": 0,
+            "explanation": "Schedules govern timing."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-009.tf.1",
+            "statement": "A payoff quote may be valid only through a stated date.",
+            "answer": true,
+            "explanation": "Interest can continue to accrue."
+          },
+          {
+            "id": "crf-009.tf.2",
+            "statement": "Autopay removes the need to monitor an account.",
+            "answer": false,
+            "explanation": "Payments and balances should still be reviewed."
+          },
+          {
+            "id": "crf-009.tf.3",
+            "statement": "Payments may be divided among fees, interest, and principal.",
+            "answer": true,
+            "explanation": "Allocation varies by account."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Repayment",
+            "right": "Paying the debt"
+          },
+          {
+            "left": "Due date",
+            "right": "Payment deadline"
+          },
+          {
+            "left": "Payoff amount",
+            "right": "Amount to satisfy account"
+          },
+          {
+            "left": "Autopay",
+            "right": "Automatic scheduled payment"
+          }
+        ],
+        "scenario": {
+          "prompt": "A borrower wants to pay off a loan today. What should be requested?",
+          "expectedAnswer": "Request a current payoff amount and instructions, then confirm the account closes or shows paid in full after processing."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete the lesson, practice, and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-010",
+      "worldId": "credit-foundations",
+      "sequence": 10,
+      "title": "Loan Agreement",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 18
+      },
+      "xp": 130,
+      "prerequisiteWorkbookId": "CRF-009",
+      "learningObjective": "Identify important loan-agreement terms and recognize provisions requiring careful review.",
+      "lesson": {
+        "coreLesson": [
+          "A loan agreement is the contract describing the rights and responsibilities of the borrower and lender.",
+          "Important terms may include principal, rate, APR, finance charge, term, payment amount, due dates, fees, collateral, default, late-payment treatment, prepayment, variable-rate rules, arbitration, and servicing information.",
+          "Borrowers should not rely only on advertisements or verbal explanations. The signed agreement and required disclosures control many important details.",
+          "Before signing, confirm that blank spaces are completed, numbers match the offer, optional products are identified, and copies are provided.",
+          "Keeping the agreement, disclosures, statements, payment confirmations, and lender communications creates a record if a dispute occurs."
+        ],
+        "example": "A car-loan contract states the amount financed, APR, payment schedule, security interest, and late-payment terms.",
+        "nonExample": "A promotional slogan is not a complete loan agreement.",
+        "commonMisconception": "The monthly payment alone does not reveal every important loan term.",
+        "keyTakeaway": "Read the agreement as a map of cost, responsibility, risk, and remedies."
+      },
+      "flashcards": [
+        {
+          "term": "Loan agreement",
+          "definition": "The contract governing a loan."
+        },
+        {
+          "term": "Disclosure",
+          "definition": "Required or provided information about terms and cost."
+        },
+        {
+          "term": "Prepayment",
+          "definition": "Paying part or all of a loan early."
+        },
+        {
+          "term": "Arbitration clause",
+          "definition": "A provision addressing how certain disputes may be resolved."
+        },
+        {
+          "term": "Security interest",
+          "definition": "A lender’s legal interest in pledged collateral."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-010.mc.1",
+            "prompt": "What is the loan agreement?",
+            "options": [
+              "A complete contract governing the loan",
+              "A credit score",
+              "A bank advertisement",
+              "A savings statement"
+            ],
+            "correctIndex": 0,
+            "explanation": "It defines rights and duties."
+          },
+          {
+            "id": "crf-010.mc.2",
+            "prompt": "Which term should be reviewed?",
+            "options": [
+              "APR and fees",
+              "Only the logo",
+              "Only the first payment",
+              "Only the lender address"
+            ],
+            "correctIndex": 0,
+            "explanation": "Cost terms are essential."
+          },
+          {
+            "id": "crf-010.mc.3",
+            "prompt": "Why keep copies?",
+            "options": [
+              "To preserve evidence of terms and payments",
+              "To raise the rate",
+              "To create debt",
+              "To replace budgeting"
+            ],
+            "correctIndex": 0,
+            "explanation": "Records matter in disputes."
+          },
+          {
+            "id": "crf-010.mc.4",
+            "prompt": "What should happen before signing?",
+            "options": [
+              "Confirm numbers and blank spaces",
+              "Ignore optional products",
+              "Rely only on verbal promises",
+              "Skip disclosures"
+            ],
+            "correctIndex": 0,
+            "explanation": "The written terms should be checked."
+          },
+          {
+            "id": "crf-010.mc.5",
+            "prompt": "What is prepayment?",
+            "options": [
+              "Paying early",
+              "Missing a payment",
+              "Borrowing more",
+              "Changing a credit report"
+            ],
+            "correctIndex": 0,
+            "explanation": "Prepayment is early repayment."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-010.tf.1",
+            "statement": "Advertisements always contain every binding term.",
+            "answer": false,
+            "explanation": "The agreement and disclosures contain critical details."
+          },
+          {
+            "id": "crf-010.tf.2",
+            "statement": "Collateral provisions can be part of a loan agreement.",
+            "answer": true,
+            "explanation": "Secured loans identify collateral rights."
+          },
+          {
+            "id": "crf-010.tf.3",
+            "statement": "Borrowers should keep payment records.",
+            "answer": true,
+            "explanation": "Records support account management and disputes."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Agreement",
+            "right": "Governing contract"
+          },
+          {
+            "left": "Disclosure",
+            "right": "Term and cost information"
+          },
+          {
+            "left": "Prepayment",
+            "right": "Early repayment"
+          },
+          {
+            "left": "Security interest",
+            "right": "Claim tied to collateral"
+          }
+        ],
+        "scenario": {
+          "prompt": "A salesperson promises a fee will be removed, but the contract still lists it. What should the borrower do?",
+          "expectedAnswer": "Do not sign until the written agreement is corrected and the borrower receives a complete copy."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all learning tasks and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-011",
+      "worldId": "credit-foundations",
+      "sequence": 11,
+      "title": "Secured vs. Unsecured Credit",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 18
+      },
+      "xp": 130,
+      "prerequisiteWorkbookId": "CRF-010",
+      "learningObjective": "Differentiate secured and unsecured credit and explain the role of collateral.",
+      "lesson": {
+        "coreLesson": [
+          "Secured credit is backed by collateral—property the lender may have rights to take or sell if the borrower fails to meet the agreement.",
+          "Common secured products include many auto loans and mortgages. The vehicle or home serves as collateral.",
+          "Unsecured credit is not tied to specific collateral. Credit cards and many personal loans are common examples, although exact product terms vary.",
+          "Because collateral may reduce lender risk, secured credit may have different rates or approval standards. But the borrower risks losing the pledged property.",
+          "Unsecured does not mean consequence-free. A lender may report missed payments, pursue collection, close accounts, or sue when permitted."
+        ],
+        "example": "An auto loan secured by the financed vehicle gives the lender a security interest in the vehicle.",
+        "nonExample": "A typical unsecured credit card does not give the issuer a claim to a specific household item merely because the balance exists.",
+        "commonMisconception": "Unsecured debt does not mean the borrower can ignore repayment.",
+        "keyTakeaway": "Secured credit adds collateral risk; unsecured credit still carries legal and financial consequences."
+      },
+      "flashcards": [
+        {
+          "term": "Secured credit",
+          "definition": "Credit backed by collateral."
+        },
+        {
+          "term": "Unsecured credit",
+          "definition": "Credit not backed by specified collateral."
+        },
+        {
+          "term": "Collateral",
+          "definition": "Property pledged to support repayment."
+        },
+        {
+          "term": "Repossession",
+          "definition": "Taking secured property after default under applicable rules."
+        },
+        {
+          "term": "Foreclosure",
+          "definition": "A legal process involving property securing a mortgage debt."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-011.mc.1",
+            "prompt": "What supports secured credit?",
+            "options": [
+              "Collateral",
+              "A gift",
+              "A paycheck only",
+              "A credit bureau"
+            ],
+            "correctIndex": 0,
+            "explanation": "Collateral backs the obligation."
+          },
+          {
+            "id": "crf-011.mc.2",
+            "prompt": "Which is commonly secured?",
+            "options": [
+              "Auto loan",
+              "Typical general-purpose credit card",
+              "Utility bill",
+              "Cash purchase"
+            ],
+            "correctIndex": 0,
+            "explanation": "The vehicle commonly serves as collateral."
+          },
+          {
+            "id": "crf-011.mc.3",
+            "prompt": "What is a major borrower risk of secured credit?",
+            "options": [
+              "Loss of collateral",
+              "Automatic wealth",
+              "No payment duty",
+              "Guaranteed low cost"
+            ],
+            "correctIndex": 0,
+            "explanation": "Collateral may be taken after default."
+          },
+          {
+            "id": "crf-011.mc.4",
+            "prompt": "Does unsecured mean no consequences?",
+            "options": [
+              "Yes",
+              "No",
+              "Only for students",
+              "Only for cash"
+            ],
+            "correctIndex": 1,
+            "explanation": "Collection and credit consequences may still occur."
+          },
+          {
+            "id": "crf-011.mc.5",
+            "prompt": "Why may secured rates differ?",
+            "options": [
+              "Collateral can reduce lender risk",
+              "Collateral removes principal",
+              "The borrower owns the bank",
+              "Interest is prohibited"
+            ],
+            "correctIndex": 0,
+            "explanation": "Security can change risk pricing."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-011.tf.1",
+            "statement": "A mortgage is commonly secured by real property.",
+            "answer": true,
+            "explanation": "The property serves as collateral."
+          },
+          {
+            "id": "crf-011.tf.2",
+            "statement": "Unsecured debt cannot be collected.",
+            "answer": false,
+            "explanation": "Collection remedies may still exist."
+          },
+          {
+            "id": "crf-011.tf.3",
+            "statement": "Collateral should be considered before accepting secured credit.",
+            "answer": true,
+            "explanation": "Loss of property is a serious risk."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Secured credit",
+            "right": "Backed by collateral"
+          },
+          {
+            "left": "Unsecured credit",
+            "right": "No specified collateral"
+          },
+          {
+            "left": "Collateral",
+            "right": "Pledged property"
+          },
+          {
+            "left": "Repossession",
+            "right": "Taking secured property"
+          }
+        ],
+        "scenario": {
+          "prompt": "Rina considers using her paid-off car as collateral for a loan. What is the critical added risk?",
+          "expectedAnswer": "If she fails to meet the agreement, she may lose the car under the contract and applicable law."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-012",
+      "worldId": "credit-foundations",
+      "sequence": 12,
+      "title": "Installment vs. Revolving Credit",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 18
+      },
+      "xp": 140,
+      "prerequisiteWorkbookId": "CRF-011",
+      "learningObjective": "Compare installment and revolving credit structures, payments, balances, and reuse.",
+      "lesson": {
+        "coreLesson": [
+          "Installment credit generally provides a set amount that is repaid through scheduled payments over a defined period. Auto loans and many personal loans are examples.",
+          "Revolving credit provides a credit limit that can be borrowed, repaid, and borrowed again while the account remains open and available. Credit cards are a common example.",
+          "Installment accounts usually have a planned end date. Revolving accounts may remain open indefinitely and their balances and required payments can change.",
+          "Revolving minimum payments can make debt appear affordable while allowing balances and interest to continue. Installment loans can also become costly when terms are long or fees are high.",
+          "Neither structure is automatically better. The right evaluation depends on purpose, cost, predictability, flexibility, and the borrower’s behavior."
+        ],
+        "example": "A three-year personal loan is installment credit; a credit card with a reusable limit is revolving credit.",
+        "nonExample": "A debit-card purchase directly from a bank account is not revolving credit.",
+        "commonMisconception": "Revolving credit is not an unlimited source of money; it is limited and repayable borrowing.",
+        "keyTakeaway": "Installment credit follows a payoff schedule; revolving credit can be reused but requires stronger balance control."
+      },
+      "flashcards": [
+        {
+          "term": "Installment credit",
+          "definition": "Credit repaid through scheduled payments over a term."
+        },
+        {
+          "term": "Revolving credit",
+          "definition": "Reusable credit up to a limit."
+        },
+        {
+          "term": "Credit limit",
+          "definition": "Maximum authorized revolving balance."
+        },
+        {
+          "term": "Available credit",
+          "definition": "Unused portion of a revolving limit."
+        },
+        {
+          "term": "Minimum payment",
+          "definition": "Lowest required periodic revolving payment."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-012.mc.1",
+            "prompt": "Which is usually installment credit?",
+            "options": [
+              "Auto loan",
+              "Debit card",
+              "Cash",
+              "Gift card"
+            ],
+            "correctIndex": 0,
+            "explanation": "Auto loans typically use fixed schedules."
+          },
+          {
+            "id": "crf-012.mc.2",
+            "prompt": "Which feature defines revolving credit?",
+            "options": [
+              "Reusable borrowing up to a limit",
+              "One-time gift",
+              "No repayment",
+              "Mandatory collateral"
+            ],
+            "correctIndex": 0,
+            "explanation": "Paid amounts can restore available credit."
+          },
+          {
+            "id": "crf-012.mc.3",
+            "prompt": "What happens to available credit after repayment?",
+            "options": [
+              "It may increase",
+              "It always disappears",
+              "It becomes income",
+              "It changes into collateral"
+            ],
+            "correctIndex": 0,
+            "explanation": "Repaid balance may become available again."
+          },
+          {
+            "id": "crf-012.mc.4",
+            "prompt": "Which usually has a planned payoff date?",
+            "options": [
+              "Installment loan",
+              "Open credit card",
+              "Checking account",
+              "Cash purchase"
+            ],
+            "correctIndex": 0,
+            "explanation": "Installment terms define an end."
+          },
+          {
+            "id": "crf-012.mc.5",
+            "prompt": "What is a revolving-credit risk?",
+            "options": [
+              "Minimum payments can prolong debt",
+              "No interest is possible",
+              "Limits are infinite",
+              "Statements are optional"
+            ],
+            "correctIndex": 0,
+            "explanation": "Small payments can extend repayment."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-012.tf.1",
+            "statement": "Revolving balances can change from month to month.",
+            "answer": true,
+            "explanation": "Use and repayment change the balance."
+          },
+          {
+            "id": "crf-012.tf.2",
+            "statement": "Installment credit can never have a variable rate.",
+            "answer": false,
+            "explanation": "Some installment loans may have variable rates."
+          },
+          {
+            "id": "crf-012.tf.3",
+            "statement": "A credit limit is not the same as available credit.",
+            "answer": true,
+            "explanation": "Available credit reflects unused limit."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Installment",
+            "right": "Scheduled payoff"
+          },
+          {
+            "left": "Revolving",
+            "right": "Reusable limit"
+          },
+          {
+            "left": "Available credit",
+            "right": "Unused limit"
+          },
+          {
+            "left": "Minimum payment",
+            "right": "Least amount due"
+          }
+        ],
+        "scenario": {
+          "prompt": "A card has a $2,000 limit and a $600 balance. What is the approximate available credit before pending items or holds?",
+          "expectedAnswer": "Approximately $1,400, subject to pending transactions, fees, and issuer processing."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete module activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-013",
+      "worldId": "credit-foundations",
+      "sequence": 13,
+      "title": "Creditworthiness",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 18
+      },
+      "xp": 140,
+      "prerequisiteWorkbookId": "CRF-012",
+      "learningObjective": "Explain creditworthiness and distinguish it from a credit score alone.",
+      "lesson": {
+        "coreLesson": [
+          "Creditworthiness is a lender’s assessment of how likely and able an applicant is to meet a credit obligation.",
+          "A credit score may be one input, but lenders can also consider income, employment, existing obligations, payment history, collateral, application details, and product-specific rules.",
+          "Creditworthiness is not a permanent personal label. It is an assessment made for a specific decision using available information and the lender’s criteria.",
+          "Strong creditworthiness does not guarantee approval or the best rate. Different lenders, products, timing, and policies can produce different outcomes.",
+          "Borrowers can support creditworthiness by paying as agreed, keeping obligations manageable, checking reports for errors, maintaining stable information, and applying selectively."
+        ],
+        "example": "A lender reviews Kai’s credit history, income, and current debt before deciding whether to approve a loan.",
+        "nonExample": "A person’s character or worth as a human being is not measured by creditworthiness.",
+        "commonMisconception": "Creditworthiness is broader than a single credit score.",
+        "keyTakeaway": "Creditworthiness is a risk assessment, not a measure of personal value."
+      },
+      "flashcards": [
+        {
+          "term": "Creditworthiness",
+          "definition": "Assessment of ability and likelihood to repay."
+        },
+        {
+          "term": "Credit history",
+          "definition": "Record of past and current credit activity."
+        },
+        {
+          "term": "Credit score",
+          "definition": "A numerical risk estimate based on a scoring model."
+        },
+        {
+          "term": "Capacity",
+          "definition": "Ability to make payments from available resources."
+        },
+        {
+          "term": "Underwriting criteria",
+          "definition": "Rules used to evaluate an application."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-013.mc.1",
+            "prompt": "What is creditworthiness?",
+            "options": [
+              "A measure of personal worth",
+              "A lender’s assessment of repayment risk",
+              "A bank balance only",
+              "A guarantee"
+            ],
+            "correctIndex": 1,
+            "explanation": "It is a credit-risk assessment."
+          },
+          {
+            "id": "crf-013.mc.2",
+            "prompt": "Is a credit score the only possible factor?",
+            "options": [
+              "Yes",
+              "No",
+              "Only for mortgages",
+              "Only after default"
+            ],
+            "correctIndex": 1,
+            "explanation": "Lenders may consider several factors."
+          },
+          {
+            "id": "crf-013.mc.3",
+            "prompt": "Can lenders reach different decisions?",
+            "options": [
+              "Yes, criteria and products differ",
+              "No, all decisions are identical",
+              "Only by accident",
+              "Only if scores are hidden"
+            ],
+            "correctIndex": 0,
+            "explanation": "Underwriting varies."
+          },
+          {
+            "id": "crf-013.mc.4",
+            "prompt": "Which may support creditworthiness?",
+            "options": [
+              "Consistent on-time payment",
+              "Ignoring errors",
+              "Excessive applications",
+              "Missing due dates"
+            ],
+            "correctIndex": 0,
+            "explanation": "Payment history is relevant."
+          },
+          {
+            "id": "crf-013.mc.5",
+            "prompt": "What does creditworthiness not measure?",
+            "options": [
+              "Personal value",
+              "Repayment likelihood",
+              "Capacity",
+              "Credit history"
+            ],
+            "correctIndex": 0,
+            "explanation": "It is not a judgment of human worth."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-013.tf.1",
+            "statement": "Creditworthiness can change over time.",
+            "answer": true,
+            "explanation": "Financial circumstances and records change."
+          },
+          {
+            "id": "crf-013.tf.2",
+            "statement": "A high score guarantees approval.",
+            "answer": false,
+            "explanation": "Other criteria and policies apply."
+          },
+          {
+            "id": "crf-013.tf.3",
+            "statement": "Income may be considered separately from credit history.",
+            "answer": true,
+            "explanation": "Capacity is often evaluated."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Creditworthiness",
+            "right": "Repayment-risk assessment"
+          },
+          {
+            "left": "Credit score",
+            "right": "Numerical risk estimate"
+          },
+          {
+            "left": "Capacity",
+            "right": "Ability to pay"
+          },
+          {
+            "left": "Underwriting",
+            "right": "Application evaluation"
+          }
+        ],
+        "scenario": {
+          "prompt": "Tara has a strong score but very high monthly debt obligations. Why might a lender still hesitate?",
+          "expectedAnswer": "The lender may conclude that her remaining payment capacity is limited despite the score."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-014",
+      "worldId": "credit-foundations",
+      "sequence": 14,
+      "title": "Delinquency",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 18
+      },
+      "xp": 150,
+      "prerequisiteWorkbookId": "CRF-013",
+      "learningObjective": "Define delinquency, explain its progression, and identify early-response actions.",
+      "lesson": {
+        "coreLesson": [
+          "Delinquency generally means a required payment is past due. The exact status, fees, reporting, and consequences depend on the agreement, product, timing, and applicable law.",
+          "An account may become contractually late after the due date. Credit reporting commonly uses 30-day increments for many accounts, but borrowers should not assume that every creditor or product follows the same reporting timeline.",
+          "Consequences may include late fees, additional interest, loss of promotional terms, restricted account access, collection contact, and negative credit reporting.",
+          "Delinquency is an early-warning stage, not necessarily the same as default. Acting quickly may preserve more options.",
+          "Useful steps include verifying the amount due, contacting the lender or servicer, asking about hardship or payment options, documenting communications, and avoiding promises that cannot be kept."
+        ],
+        "example": "A required payment due June 1 remains unpaid after the due date, making the account past due under its terms.",
+        "nonExample": "A payment made and credited on time is not delinquent.",
+        "commonMisconception": "One missed due date and legal default are not always the same stage.",
+        "keyTakeaway": "Respond to delinquency early, before costs and consequences escalate."
+      },
+      "flashcards": [
+        {
+          "term": "Delinquency",
+          "definition": "Past-due payment status."
+        },
+        {
+          "term": "Past due",
+          "definition": "Not paid by the required date."
+        },
+        {
+          "term": "Late fee",
+          "definition": "A charge permitted for late payment under terms and law."
+        },
+        {
+          "term": "Days past due",
+          "definition": "A measure of how long a payment has remained unpaid."
+        },
+        {
+          "term": "Hardship option",
+          "definition": "A temporary or modified arrangement offered in some situations."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-014.mc.1",
+            "prompt": "What is delinquency?",
+            "options": [
+              "A past-due status",
+              "A new loan",
+              "A savings reward",
+              "A guaranteed lawsuit"
+            ],
+            "correctIndex": 0,
+            "explanation": "Delinquency begins with missed required payment."
+          },
+          {
+            "id": "crf-014.mc.2",
+            "prompt": "Is delinquency always identical to default?",
+            "options": [
+              "Yes",
+              "No",
+              "Only for cash",
+              "Only on weekends"
+            ],
+            "correctIndex": 1,
+            "explanation": "Default is often a later or separately defined stage."
+          },
+          {
+            "id": "crf-014.mc.3",
+            "prompt": "What is a strong early action?",
+            "options": [
+              "Contact the lender or servicer",
+              "Ignore notices",
+              "Borrow without a plan",
+              "Delete statements"
+            ],
+            "correctIndex": 0,
+            "explanation": "Early communication may preserve options."
+          },
+          {
+            "id": "crf-014.mc.4",
+            "prompt": "What can delinquency cause?",
+            "options": [
+              "Fees and negative reporting",
+              "Automatic debt cancellation",
+              "Guaranteed approval",
+              "Higher savings yield"
+            ],
+            "correctIndex": 0,
+            "explanation": "Consequences can escalate."
+          },
+          {
+            "id": "crf-014.mc.5",
+            "prompt": "Why keep communication records?",
+            "options": [
+              "To document requests and responses",
+              "To increase principal",
+              "To avoid all payments",
+              "To create credit"
+            ],
+            "correctIndex": 0,
+            "explanation": "Documentation supports account resolution."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-014.tf.1",
+            "statement": "The exact consequences of delinquency depend on the product and agreement.",
+            "answer": true,
+            "explanation": "Terms and laws differ."
+          },
+          {
+            "id": "crf-014.tf.2",
+            "statement": "Waiting generally creates more options.",
+            "answer": false,
+            "explanation": "Delay can reduce options and increase cost."
+          },
+          {
+            "id": "crf-014.tf.3",
+            "statement": "A borrower should verify whether a payment was credited.",
+            "answer": true,
+            "explanation": "Posting errors or timing issues should be checked."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Delinquency",
+            "right": "Past-due status"
+          },
+          {
+            "left": "Days past due",
+            "right": "Length of lateness"
+          },
+          {
+            "left": "Late fee",
+            "right": "Charge for late payment"
+          },
+          {
+            "left": "Hardship option",
+            "right": "Possible temporary assistance"
+          }
+        ],
+        "scenario": {
+          "prompt": "A borrower knows next week’s payment cannot be made. What should happen now?",
+          "expectedAnswer": "Review the account, contact the servicer before or as early as possible, ask about available options, and document the conversation."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete all activities and score at least 80%."
+      }
+    },
+    {
+      "id": "CRF-015",
+      "worldId": "credit-foundations",
+      "sequence": 15,
+      "title": "Default",
+      "difficulty": "intermediate",
+      "estimatedMinutes": {
+        "min": 18,
+        "max": 20
+      },
+      "xp": 170,
+      "prerequisiteWorkbookId": "CRF-014",
+      "learningObjective": "Explain default, distinguish it from delinquency, and identify possible consequences and response steps.",
+      "lesson": {
+        "coreLesson": [
+          "Default is a serious failure to meet the obligations of a credit agreement. The agreement and applicable law define when default occurs.",
+          "Default may result from extended nonpayment, but some contracts identify other default events. Timelines vary by product and lender, so borrowers must check the actual agreement.",
+          "Possible consequences include account closure, acceleration of the balance, collections, lawsuits, repossession or foreclosure for secured debts, negative credit reporting, and additional permitted costs.",
+          "Default does not erase the obligation. It changes the account’s status and may activate stronger collection or collateral remedies.",
+          "A person facing default should gather records, verify the debt and status, communicate with the lender or servicer, understand proposed arrangements, seek qualified nonprofit, legal, or housing guidance when appropriate, and avoid scams."
+        ],
+        "example": "After prolonged missed payments, an auto lender declares the loan in default and may pursue remedies allowed by the contract and law.",
+        "nonExample": "A payment posted one day before the due date is not a default.",
+        "commonMisconception": "Default does not occur on one universal timetable for every credit product.",
+        "keyTakeaway": "Default is a contract-defined escalation with serious consequences; early informed action matters."
+      },
+      "flashcards": [
+        {
+          "term": "Default",
+          "definition": "Serious failure to meet agreement obligations."
+        },
+        {
+          "term": "Acceleration",
+          "definition": "Requiring the full outstanding amount to become due."
+        },
+        {
+          "term": "Collection",
+          "definition": "Efforts to recover an unpaid obligation."
+        },
+        {
+          "term": "Charge-off",
+          "definition": "An accounting action by a creditor; it does not automatically cancel the debt."
+        },
+        {
+          "term": "Remedy",
+          "definition": "An action available under contract or law after breach."
+        }
+      ],
+      "assessment": {
+        "multipleChoice": [
+          {
+            "id": "crf-015.mc.1",
+            "prompt": "What defines when default occurs?",
+            "options": [
+              "The agreement and applicable law",
+              "A universal 30-day rule",
+              "The borrower’s preference",
+              "A credit score alone"
+            ],
+            "correctIndex": 0,
+            "explanation": "Default timing and events vary."
+          },
+          {
+            "id": "crf-015.mc.2",
+            "prompt": "Which can follow default on secured debt?",
+            "options": [
+              "Repossession or foreclosure",
+              "Automatic ownership transfer to borrower",
+              "Guaranteed forgiveness",
+              "Savings interest"
+            ],
+            "correctIndex": 0,
+            "explanation": "Collateral remedies may apply."
+          },
+          {
+            "id": "crf-015.mc.3",
+            "prompt": "Does charge-off automatically erase debt?",
+            "options": [
+              "Yes",
+              "No",
+              "Only for mortgages",
+              "Only after seven days"
+            ],
+            "correctIndex": 1,
+            "explanation": "It is generally an accounting treatment, not automatic forgiveness."
+          },
+          {
+            "id": "crf-015.mc.4",
+            "prompt": "What is acceleration?",
+            "options": [
+              "Making the full balance due",
+              "Lowering every rate",
+              "Opening a new account",
+              "Pausing all collection"
+            ],
+            "correctIndex": 0,
+            "explanation": "Acceleration changes the amount immediately due."
+          },
+          {
+            "id": "crf-015.mc.5",
+            "prompt": "Which is a strong response step?",
+            "options": [
+              "Verify records and seek legitimate help",
+              "Ignore all communications",
+              "Pay an unverified scammer",
+              "Destroy agreements"
+            ],
+            "correctIndex": 0,
+            "explanation": "Accurate information and qualified help matter."
+          }
+        ],
+        "trueFalse": [
+          {
+            "id": "crf-015.tf.1",
+            "statement": "Default and delinquency are always identical.",
+            "answer": false,
+            "explanation": "Default is often a later or contract-defined escalation."
+          },
+          {
+            "id": "crf-015.tf.2",
+            "statement": "Default can have legal and collateral consequences.",
+            "answer": true,
+            "explanation": "Remedies may include collection or loss of collateral."
+          },
+          {
+            "id": "crf-015.tf.3",
+            "statement": "A charged-off account can still be subject to collection.",
+            "answer": true,
+            "explanation": "Charge-off does not automatically cancel the debt."
+          }
+        ],
+        "matching": [
+          {
+            "left": "Default",
+            "right": "Serious agreement failure"
+          },
+          {
+            "left": "Acceleration",
+            "right": "Full balance becomes due"
+          },
+          {
+            "left": "Charge-off",
+            "right": "Creditor accounting action"
+          },
+          {
+            "left": "Remedy",
+            "right": "Contractual or legal response"
+          }
+        ],
+        "scenario": {
+          "prompt": "A collector claims a loan is in default and demands immediate payment. What should the borrower do before agreeing?",
+          "expectedAnswer": "Verify the collector, debt, amount, account status, legal notices, and options; keep records and seek qualified help when needed."
+        }
+      },
+      "masteryRule": {
+        "passingScore": 0.8,
+        "description": "Complete the final assessment with at least 80% and finish all prerequisite workbooks."
+      }
+    }
+  ]
+};

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "finlit-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [".claude/no-cache-server.py"],
+      "port": 8756
+    }
+  ]
+}

@@ -1,0 +1,1325 @@
+{
+  "worldId": "crypto",
+  "generatedAt": "2026-07-20T18:13:01.467Z",
+  "count": 40,
+  "puzzles": [
+    {
+      "id": "CRYPTO-P0001",
+      "worldId": "crypto",
+      "tags": [
+        "YIELD",
+        "VAULT"
+      ],
+      "letters": [
+        "Y",
+        "I",
+        "E",
+        "L",
+        "D",
+        "V",
+        "A",
+        "U",
+        "T"
+      ],
+      "requiredWords": [
+        "YIELD",
+        "VAULT"
+      ],
+      "bonusWords": [],
+      "focusWord": "YIELD",
+      "definition": "The return earned by putting digital assets into a DeFi strategy, usually expressed as a percentage.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The return earned by putting digital assets into a DeFi strategy, usually expressed as a percentage.",
+      "estimatedSolveSeconds": 63,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.408Z"
+    },
+    {
+      "id": "CRYPTO-P0002",
+      "worldId": "crypto",
+      "tags": [
+        "PEER",
+        "NODE",
+        "POOL"
+      ],
+      "letters": [
+        "P",
+        "E",
+        "E",
+        "R",
+        "N",
+        "O",
+        "O",
+        "D",
+        "L"
+      ],
+      "requiredWords": [
+        "PEER",
+        "NODE",
+        "POOL"
+      ],
+      "bonusWords": [],
+      "focusWord": "PEER",
+      "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Another network participant that communicates directly with your node rather than through one central server.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.418Z"
+    },
+    {
+      "id": "CRYPTO-P0003",
+      "worldId": "crypto",
+      "tags": [
+        "POOL",
+        "BURN"
+      ],
+      "letters": [
+        "P",
+        "O",
+        "O",
+        "L",
+        "B",
+        "U",
+        "R",
+        "N"
+      ],
+      "requiredWords": [
+        "POOL",
+        "BURN"
+      ],
+      "bonusWords": [],
+      "focusWord": "POOL",
+      "definition": "A shared collection of tokens that a DeFi protocol uses for trading, lending, or other services.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A shared collection of tokens that a DeFi protocol uses for trading, lending, or other services.",
+      "estimatedSolveSeconds": 54,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.423Z"
+    },
+    {
+      "id": "CRYPTO-P0004",
+      "worldId": "crypto",
+      "tags": [
+        "WALLET",
+        "PEER"
+      ],
+      "letters": [
+        "W",
+        "A",
+        "L",
+        "L",
+        "E",
+        "E",
+        "T",
+        "P",
+        "R"
+      ],
+      "requiredWords": [
+        "WALLET",
+        "PEER"
+      ],
+      "bonusWords": [],
+      "focusWord": "WALLET",
+      "definition": "Software or hardware that manages the private keys used to control blockchain assets and sign transactions.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. Software or hardware that manages the private keys used to control blockchain assets and sign transactions.",
+      "estimatedSolveSeconds": 61,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.424Z"
+    },
+    {
+      "id": "CRYPTO-P0005",
+      "worldId": "crypto",
+      "tags": [
+        "FORK",
+        "BLOCK",
+        "POOL",
+        "LOCK"
+      ],
+      "letters": [
+        "F",
+        "O",
+        "O",
+        "R",
+        "K",
+        "B",
+        "L",
+        "C",
+        "P"
+      ],
+      "requiredWords": [
+        "FORK",
+        "BLOCK",
+        "POOL",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "FORK",
+      "definition": "A change in blockchain rules that creates a new path for the network's software or transaction history.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A change in blockchain rules that creates a new path for the network's software or transaction history.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.425Z"
+    },
+    {
+      "id": "CRYPTO-P0006",
+      "worldId": "crypto",
+      "tags": [
+        "NODE",
+        "LOCK",
+        "BLOCK",
+        "TOKEN"
+      ],
+      "letters": [
+        "N",
+        "O",
+        "D",
+        "E",
+        "L",
+        "C",
+        "K",
+        "B",
+        "T"
+      ],
+      "requiredWords": [
+        "NODE",
+        "LOCK",
+        "BLOCK",
+        "TOKEN"
+      ],
+      "bonusWords": [],
+      "focusWord": "NODE",
+      "definition": "A computer connected to a blockchain network that stores, checks, or shares network data.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A computer connected to a blockchain network that stores, checks, or shares network data.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.426Z"
+    },
+    {
+      "id": "CRYPTO-P0007",
+      "worldId": "crypto",
+      "tags": [
+        "BURN",
+        "HASH",
+        "GAS"
+      ],
+      "letters": [
+        "B",
+        "U",
+        "R",
+        "N",
+        "H",
+        "H",
+        "A",
+        "S",
+        "G"
+      ],
+      "requiredWords": [
+        "BURN",
+        "HASH",
+        "GAS"
+      ],
+      "bonusWords": [],
+      "focusWord": "BURN",
+      "definition": "To permanently remove tokens from usable circulation, usually by sending them to an inaccessible address.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To permanently remove tokens from usable circulation, usually by sending them to an inaccessible address.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.434Z"
+    },
+    {
+      "id": "CRYPTO-P0008",
+      "worldId": "crypto",
+      "tags": [
+        "LOCK",
+        "WALLET"
+      ],
+      "letters": [
+        "L",
+        "L",
+        "O",
+        "C",
+        "K",
+        "W",
+        "A",
+        "E",
+        "T"
+      ],
+      "requiredWords": [
+        "LOCK",
+        "WALLET"
+      ],
+      "bonusWords": [],
+      "focusWord": "LOCK",
+      "definition": "To restrict tokens from being transferred or withdrawn for a set time or until conditions are met.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To restrict tokens from being transferred or withdrawn for a set time or until conditions are met.",
+      "estimatedSolveSeconds": 63,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.434Z"
+    },
+    {
+      "id": "CRYPTO-P0009",
+      "worldId": "crypto",
+      "tags": [
+        "PEER",
+        "LOCK",
+        "POOL"
+      ],
+      "letters": [
+        "P",
+        "E",
+        "E",
+        "R",
+        "L",
+        "O",
+        "O",
+        "C",
+        "K"
+      ],
+      "requiredWords": [
+        "PEER",
+        "LOCK",
+        "POOL"
+      ],
+      "bonusWords": [],
+      "focusWord": "PEER",
+      "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Another network participant that communicates directly with your node rather than through one central server.",
+      "estimatedSolveSeconds": 73,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.435Z"
+    },
+    {
+      "id": "CRYPTO-P0010",
+      "worldId": "crypto",
+      "tags": [
+        "STAKE",
+        "POOL"
+      ],
+      "letters": [
+        "S",
+        "T",
+        "A",
+        "K",
+        "E",
+        "P",
+        "O",
+        "O",
+        "L"
+      ],
+      "requiredWords": [
+        "STAKE",
+        "POOL"
+      ],
+      "bonusWords": [],
+      "focusWord": "STAKE",
+      "definition": "To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "estimatedSolveSeconds": 59,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.435Z"
+    },
+    {
+      "id": "CRYPTO-P0011",
+      "worldId": "crypto",
+      "tags": [
+        "PEER",
+        "COIN",
+        "NODE"
+      ],
+      "letters": [
+        "P",
+        "E",
+        "E",
+        "R",
+        "C",
+        "O",
+        "I",
+        "N",
+        "D"
+      ],
+      "requiredWords": [
+        "PEER",
+        "COIN",
+        "NODE"
+      ],
+      "bonusWords": [],
+      "focusWord": "PEER",
+      "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Another network participant that communicates directly with your node rather than through one central server.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.439Z"
+    },
+    {
+      "id": "CRYPTO-P0012",
+      "worldId": "crypto",
+      "tags": [
+        "VAULT",
+        "LOCK",
+        "BLOCK"
+      ],
+      "letters": [
+        "V",
+        "A",
+        "U",
+        "L",
+        "T",
+        "O",
+        "C",
+        "K",
+        "B"
+      ],
+      "requiredWords": [
+        "VAULT",
+        "LOCK",
+        "BLOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "VAULT",
+      "definition": "A smart-contract strategy that manages deposited assets according to predefined rules to pursue a return.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. A smart-contract strategy that manages deposited assets according to predefined rules to pursue a return.",
+      "estimatedSolveSeconds": 77,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.440Z"
+    },
+    {
+      "id": "CRYPTO-P0013",
+      "worldId": "crypto",
+      "tags": [
+        "VAULT",
+        "SWAP",
+        "GAS"
+      ],
+      "letters": [
+        "V",
+        "A",
+        "U",
+        "L",
+        "T",
+        "S",
+        "W",
+        "P",
+        "G"
+      ],
+      "requiredWords": [
+        "VAULT",
+        "SWAP",
+        "GAS"
+      ],
+      "bonusWords": [],
+      "focusWord": "VAULT",
+      "definition": "A smart-contract strategy that manages deposited assets according to predefined rules to pursue a return.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. A smart-contract strategy that manages deposited assets according to predefined rules to pursue a return.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.440Z"
+    },
+    {
+      "id": "CRYPTO-P0014",
+      "worldId": "crypto",
+      "tags": [
+        "HASH",
+        "CHAIN",
+        "SWAP"
+      ],
+      "letters": [
+        "H",
+        "H",
+        "A",
+        "S",
+        "C",
+        "I",
+        "N",
+        "W",
+        "P"
+      ],
+      "requiredWords": [
+        "HASH",
+        "CHAIN",
+        "SWAP"
+      ],
+      "bonusWords": [],
+      "focusWord": "HASH",
+      "definition": "A fixed-length digital fingerprint produced from data, used to detect changes and link blockchain records.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A fixed-length digital fingerprint produced from data, used to detect changes and link blockchain records.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.441Z"
+    },
+    {
+      "id": "CRYPTO-P0015",
+      "worldId": "crypto",
+      "tags": [
+        "STAKE",
+        "FORK",
+        "TOKEN"
+      ],
+      "letters": [
+        "S",
+        "T",
+        "A",
+        "K",
+        "E",
+        "F",
+        "O",
+        "R",
+        "N"
+      ],
+      "requiredWords": [
+        "STAKE",
+        "FORK",
+        "TOKEN"
+      ],
+      "bonusWords": [],
+      "focusWord": "STAKE",
+      "definition": "To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.442Z"
+    },
+    {
+      "id": "CRYPTO-P0016",
+      "worldId": "crypto",
+      "tags": [
+        "PEER",
+        "BLOCK",
+        "LOCK"
+      ],
+      "letters": [
+        "P",
+        "E",
+        "E",
+        "R",
+        "B",
+        "L",
+        "O",
+        "C",
+        "K"
+      ],
+      "requiredWords": [
+        "PEER",
+        "BLOCK",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "PEER",
+      "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Another network participant that communicates directly with your node rather than through one central server.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.442Z"
+    },
+    {
+      "id": "CRYPTO-P0017",
+      "worldId": "crypto",
+      "tags": [
+        "HASH",
+        "COIN",
+        "GAS",
+        "CHAIN"
+      ],
+      "letters": [
+        "H",
+        "H",
+        "A",
+        "S",
+        "C",
+        "O",
+        "I",
+        "N",
+        "G"
+      ],
+      "requiredWords": [
+        "HASH",
+        "COIN",
+        "GAS",
+        "CHAIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "HASH",
+      "definition": "A fixed-length digital fingerprint produced from data, used to detect changes and link blockchain records.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A fixed-length digital fingerprint produced from data, used to detect changes and link blockchain records.",
+      "estimatedSolveSeconds": 85,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.443Z"
+    },
+    {
+      "id": "CRYPTO-P0018",
+      "worldId": "crypto",
+      "tags": [
+        "CHAIN",
+        "POOL",
+        "COIN"
+      ],
+      "letters": [
+        "C",
+        "H",
+        "A",
+        "I",
+        "N",
+        "P",
+        "O",
+        "O",
+        "L"
+      ],
+      "requiredWords": [
+        "CHAIN",
+        "POOL",
+        "COIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "CHAIN",
+      "definition": "The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.448Z"
+    },
+    {
+      "id": "CRYPTO-P0019",
+      "worldId": "crypto",
+      "tags": [
+        "MINT",
+        "NODE",
+        "COIN",
+        "MINER"
+      ],
+      "letters": [
+        "M",
+        "I",
+        "N",
+        "T",
+        "O",
+        "D",
+        "E",
+        "C",
+        "R"
+      ],
+      "requiredWords": [
+        "MINT",
+        "NODE",
+        "COIN",
+        "MINER"
+      ],
+      "bonusWords": [],
+      "focusWord": "MINT",
+      "definition": "To create new coins or tokens according to a blockchain or smart contract's rules.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To create new coins or tokens according to a blockchain or smart contract's rules.",
+      "estimatedSolveSeconds": 86,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.449Z"
+    },
+    {
+      "id": "CRYPTO-P0020",
+      "worldId": "crypto",
+      "tags": [
+        "CHAIN",
+        "LOCK",
+        "COIN",
+        "BLOCK"
+      ],
+      "letters": [
+        "C",
+        "H",
+        "A",
+        "I",
+        "N",
+        "L",
+        "O",
+        "K",
+        "B"
+      ],
+      "requiredWords": [
+        "CHAIN",
+        "LOCK",
+        "COIN",
+        "BLOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "CHAIN",
+      "definition": "The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.449Z"
+    },
+    {
+      "id": "CRYPTO-P0021",
+      "worldId": "crypto",
+      "tags": [
+        "HASH",
+        "SWAP",
+        "STAKE"
+      ],
+      "letters": [
+        "H",
+        "H",
+        "A",
+        "S",
+        "W",
+        "P",
+        "T",
+        "K",
+        "E"
+      ],
+      "requiredWords": [
+        "HASH",
+        "SWAP",
+        "STAKE"
+      ],
+      "bonusWords": [],
+      "focusWord": "HASH",
+      "definition": "A fixed-length digital fingerprint produced from data, used to detect changes and link blockchain records.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A fixed-length digital fingerprint produced from data, used to detect changes and link blockchain records.",
+      "estimatedSolveSeconds": 77,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.450Z"
+    },
+    {
+      "id": "CRYPTO-P0022",
+      "worldId": "crypto",
+      "tags": [
+        "POOL",
+        "GAS",
+        "LOCK"
+      ],
+      "letters": [
+        "P",
+        "O",
+        "O",
+        "L",
+        "G",
+        "A",
+        "S",
+        "C",
+        "K"
+      ],
+      "requiredWords": [
+        "POOL",
+        "GAS",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "POOL",
+      "definition": "A shared collection of tokens that a DeFi protocol uses for trading, lending, or other services.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A shared collection of tokens that a DeFi protocol uses for trading, lending, or other services.",
+      "estimatedSolveSeconds": 73,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.450Z"
+    },
+    {
+      "id": "CRYPTO-P0023",
+      "worldId": "crypto",
+      "tags": [
+        "MINT",
+        "COIN",
+        "CHAIN"
+      ],
+      "letters": [
+        "M",
+        "I",
+        "N",
+        "T",
+        "C",
+        "O",
+        "H",
+        "A"
+      ],
+      "requiredWords": [
+        "MINT",
+        "COIN",
+        "CHAIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "MINT",
+      "definition": "To create new coins or tokens according to a blockchain or smart contract's rules.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To create new coins or tokens according to a blockchain or smart contract's rules.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.451Z"
+    },
+    {
+      "id": "CRYPTO-P0024",
+      "worldId": "crypto",
+      "tags": [
+        "LOCK",
+        "BLOCK",
+        "HASH"
+      ],
+      "letters": [
+        "L",
+        "O",
+        "C",
+        "K",
+        "B",
+        "H",
+        "H",
+        "A",
+        "S"
+      ],
+      "requiredWords": [
+        "LOCK",
+        "BLOCK",
+        "HASH"
+      ],
+      "bonusWords": [],
+      "focusWord": "LOCK",
+      "definition": "To restrict tokens from being transferred or withdrawn for a set time or until conditions are met.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To restrict tokens from being transferred or withdrawn for a set time or until conditions are met.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.453Z"
+    },
+    {
+      "id": "CRYPTO-P0025",
+      "worldId": "crypto",
+      "tags": [
+        "FORK",
+        "PEER",
+        "LOCK"
+      ],
+      "letters": [
+        "F",
+        "O",
+        "R",
+        "K",
+        "P",
+        "E",
+        "E",
+        "L",
+        "C"
+      ],
+      "requiredWords": [
+        "FORK",
+        "PEER",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "FORK",
+      "definition": "A change in blockchain rules that creates a new path for the network's software or transaction history.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A change in blockchain rules that creates a new path for the network's software or transaction history.",
+      "estimatedSolveSeconds": 73,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.454Z"
+    },
+    {
+      "id": "CRYPTO-P0026",
+      "worldId": "crypto",
+      "tags": [
+        "MINER",
+        "LOCK",
+        "COIN"
+      ],
+      "letters": [
+        "M",
+        "I",
+        "N",
+        "E",
+        "R",
+        "L",
+        "O",
+        "C",
+        "K"
+      ],
+      "requiredWords": [
+        "MINER",
+        "LOCK",
+        "COIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "MINER",
+      "definition": "A participant that uses computing work to compete to add blocks on a proof-of-work blockchain.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. A participant that uses computing work to compete to add blocks on a proof-of-work blockchain.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.454Z"
+    },
+    {
+      "id": "CRYPTO-P0027",
+      "worldId": "crypto",
+      "tags": [
+        "NODE",
+        "GAS",
+        "HASH"
+      ],
+      "letters": [
+        "N",
+        "O",
+        "D",
+        "E",
+        "G",
+        "A",
+        "S",
+        "H",
+        "H"
+      ],
+      "requiredWords": [
+        "NODE",
+        "GAS",
+        "HASH"
+      ],
+      "bonusWords": [],
+      "focusWord": "NODE",
+      "definition": "A computer connected to a blockchain network that stores, checks, or shares network data.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A computer connected to a blockchain network that stores, checks, or shares network data.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.455Z"
+    },
+    {
+      "id": "CRYPTO-P0028",
+      "worldId": "crypto",
+      "tags": [
+        "LEDGER",
+        "LOCK"
+      ],
+      "letters": [
+        "L",
+        "E",
+        "E",
+        "D",
+        "G",
+        "R",
+        "O",
+        "C",
+        "K"
+      ],
+      "requiredWords": [
+        "LEDGER",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "LEDGER",
+      "definition": "A record of transactions and balances that a blockchain network keeps synchronized across participants.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. A record of transactions and balances that a blockchain network keeps synchronized across participants.",
+      "estimatedSolveSeconds": 61,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.456Z"
+    },
+    {
+      "id": "CRYPTO-P0029",
+      "worldId": "crypto",
+      "tags": [
+        "LOCK",
+        "STAKE",
+        "BLOCK"
+      ],
+      "letters": [
+        "L",
+        "O",
+        "C",
+        "K",
+        "S",
+        "T",
+        "A",
+        "E",
+        "B"
+      ],
+      "requiredWords": [
+        "LOCK",
+        "STAKE",
+        "BLOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "LOCK",
+      "definition": "To restrict tokens from being transferred or withdrawn for a set time or until conditions are met.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To restrict tokens from being transferred or withdrawn for a set time or until conditions are met.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.457Z"
+    },
+    {
+      "id": "CRYPTO-P0030",
+      "worldId": "crypto",
+      "tags": [
+        "STAKE",
+        "NODE",
+        "GAS",
+        "TOKEN"
+      ],
+      "letters": [
+        "S",
+        "T",
+        "A",
+        "K",
+        "E",
+        "N",
+        "O",
+        "D",
+        "G"
+      ],
+      "requiredWords": [
+        "STAKE",
+        "NODE",
+        "GAS",
+        "TOKEN"
+      ],
+      "bonusWords": [],
+      "focusWord": "STAKE",
+      "definition": "To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.457Z"
+    },
+    {
+      "id": "CRYPTO-P0031",
+      "worldId": "crypto",
+      "tags": [
+        "CHAIN",
+        "BURN",
+        "COIN"
+      ],
+      "letters": [
+        "C",
+        "H",
+        "A",
+        "I",
+        "N",
+        "B",
+        "U",
+        "R",
+        "O"
+      ],
+      "requiredWords": [
+        "CHAIN",
+        "BURN",
+        "COIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "CHAIN",
+      "definition": "The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.459Z"
+    },
+    {
+      "id": "CRYPTO-P0032",
+      "worldId": "crypto",
+      "tags": [
+        "LEDGER",
+        "YIELD",
+        "PEER"
+      ],
+      "letters": [
+        "L",
+        "E",
+        "E",
+        "D",
+        "G",
+        "R",
+        "Y",
+        "I",
+        "P"
+      ],
+      "requiredWords": [
+        "LEDGER",
+        "YIELD",
+        "PEER"
+      ],
+      "bonusWords": [],
+      "focusWord": "LEDGER",
+      "definition": "A record of transactions and balances that a blockchain network keeps synchronized across participants.",
+      "difficulty": "Easy",
+      "hint": "A 6-letter word. A record of transactions and balances that a blockchain network keeps synchronized across participants.",
+      "estimatedSolveSeconds": 76,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.460Z"
+    },
+    {
+      "id": "CRYPTO-P0033",
+      "worldId": "crypto",
+      "tags": [
+        "STAKE",
+        "COIN",
+        "TOKEN"
+      ],
+      "letters": [
+        "S",
+        "T",
+        "A",
+        "K",
+        "E",
+        "C",
+        "O",
+        "I",
+        "N"
+      ],
+      "requiredWords": [
+        "STAKE",
+        "COIN",
+        "TOKEN"
+      ],
+      "bonusWords": [],
+      "focusWord": "STAKE",
+      "definition": "To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.461Z"
+    },
+    {
+      "id": "CRYPTO-P0034",
+      "worldId": "crypto",
+      "tags": [
+        "MINT",
+        "GAS",
+        "CHAIN"
+      ],
+      "letters": [
+        "M",
+        "I",
+        "N",
+        "T",
+        "G",
+        "A",
+        "S",
+        "C",
+        "H"
+      ],
+      "requiredWords": [
+        "MINT",
+        "GAS",
+        "CHAIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "MINT",
+      "definition": "To create new coins or tokens according to a blockchain or smart contract's rules.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. To create new coins or tokens according to a blockchain or smart contract's rules.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.461Z"
+    },
+    {
+      "id": "CRYPTO-P0035",
+      "worldId": "crypto",
+      "tags": [
+        "VAULT",
+        "FORK"
+      ],
+      "letters": [
+        "V",
+        "A",
+        "U",
+        "L",
+        "T",
+        "F",
+        "O",
+        "R",
+        "K"
+      ],
+      "requiredWords": [
+        "VAULT",
+        "FORK"
+      ],
+      "bonusWords": [],
+      "focusWord": "VAULT",
+      "definition": "A smart-contract strategy that manages deposited assets according to predefined rules to pursue a return.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. A smart-contract strategy that manages deposited assets according to predefined rules to pursue a return.",
+      "estimatedSolveSeconds": 62,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.462Z"
+    },
+    {
+      "id": "CRYPTO-P0036",
+      "worldId": "crypto",
+      "tags": [
+        "CHAIN",
+        "TOKEN",
+        "COIN"
+      ],
+      "letters": [
+        "C",
+        "H",
+        "A",
+        "I",
+        "N",
+        "T",
+        "O",
+        "K",
+        "E"
+      ],
+      "requiredWords": [
+        "CHAIN",
+        "TOKEN",
+        "COIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "CHAIN",
+      "definition": "The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. The ordered, linked history of transaction blocks maintained by a blockchain network.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.463Z"
+    },
+    {
+      "id": "CRYPTO-P0037",
+      "worldId": "crypto",
+      "tags": [
+        "COIN",
+        "FORK",
+        "BLOCK",
+        "LOCK"
+      ],
+      "letters": [
+        "C",
+        "O",
+        "I",
+        "N",
+        "F",
+        "R",
+        "K",
+        "B",
+        "L"
+      ],
+      "requiredWords": [
+        "COIN",
+        "FORK",
+        "BLOCK",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "COIN",
+      "definition": "A digital asset native to its own blockchain, often used to pay network fees or transfer value.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A digital asset native to its own blockchain, often used to pay network fees or transfer value.",
+      "estimatedSolveSeconds": 89,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.464Z"
+    },
+    {
+      "id": "CRYPTO-P0038",
+      "worldId": "crypto",
+      "tags": [
+        "PEER",
+        "NODE",
+        "BURN"
+      ],
+      "letters": [
+        "P",
+        "E",
+        "E",
+        "R",
+        "N",
+        "O",
+        "D",
+        "B",
+        "U"
+      ],
+      "requiredWords": [
+        "PEER",
+        "NODE",
+        "BURN"
+      ],
+      "bonusWords": [],
+      "focusWord": "PEER",
+      "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. Another network participant that communicates directly with your node rather than through one central server.",
+      "estimatedSolveSeconds": 70,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.465Z"
+    },
+    {
+      "id": "CRYPTO-P0039",
+      "worldId": "crypto",
+      "tags": [
+        "STAKE",
+        "TOKEN",
+        "LOCK"
+      ],
+      "letters": [
+        "S",
+        "T",
+        "A",
+        "K",
+        "E",
+        "O",
+        "N",
+        "L",
+        "C"
+      ],
+      "requiredWords": [
+        "STAKE",
+        "TOKEN",
+        "LOCK"
+      ],
+      "bonusWords": [],
+      "focusWord": "STAKE",
+      "definition": "To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "difficulty": "Easy",
+      "hint": "A 5-letter word. To commit tokens to help secure a proof-of-stake network or participate in a protocol, often for rewards.",
+      "estimatedSolveSeconds": 74,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.466Z"
+    },
+    {
+      "id": "CRYPTO-P0040",
+      "worldId": "crypto",
+      "tags": [
+        "COIN",
+        "MINER",
+        "CHAIN"
+      ],
+      "letters": [
+        "C",
+        "O",
+        "I",
+        "N",
+        "M",
+        "E",
+        "R",
+        "H",
+        "A"
+      ],
+      "requiredWords": [
+        "COIN",
+        "MINER",
+        "CHAIN"
+      ],
+      "bonusWords": [],
+      "focusWord": "COIN",
+      "definition": "A digital asset native to its own blockchain, often used to pay network fees or transfer value.",
+      "difficulty": "Easy",
+      "hint": "A 4-letter word. A digital asset native to its own blockchain, often used to pay network fees or transfer value.",
+      "estimatedSolveSeconds": 71,
+      "generatorVersion": 1,
+      "createdAt": "2026-07-20T18:13:01.467Z"
+    }
+  ]
+}
