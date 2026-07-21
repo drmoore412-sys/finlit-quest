@@ -10,6 +10,36 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (latest) — Blocker 5: Save/load persistence verified; found and fixed an unsanitized-streak bug
+
+Investigated the full Blocker 5 scope: save schema, coins, XP, score, current position, solvedWords, streak, settings, corruption/version handling. Most of it was already correct — coins, XP, workbook score, solvedWords, and settings all persist correctly with no drift risk.
+
+**Root cause:** `player.streak` was never sanitized on load, unlike `xp` (which Blocker 2 already hardened). A corrupted save — a non-numeric or negative streak value — would render straight into the UI, since streak only gets recomputed after the player's first action of the session, not on load. Same bug class as Blocker 4's XP double-award: in-memory/persisted state can drift from what's actually valid. `coins` had a milder version of the same gap (self-heals on first write, but not sanitized on initial load/display).
+
+**Fix:** generalized `sanitizeXp` into a shared `sanitizeCount()` in `learning-engine.js`, applied to `xp` (unchanged), `coins`, and `streak` in `normalizeSave`.
+
+### Live re-verification
+
+Seeded a corrupted save directly into localStorage (`streak:-99, coins:"corrupted", xp:100`) and loaded it through the real bootstrap: `xp` stayed 100, `coins` and `streak` both correctly sanitized to 0 (header showed "0", not "corrupted"). Separately confirmed coins/theme/solvedWords/xp all survive a real reload unchanged. Zero console errors.
+
+**Noted, not fixed (no live risk):** the save-version field exists but there's no real branching migration — old saves merge via object-spread, which only works for additive schema changes. Flagged for whoever next makes a non-additive save-schema change.
+
+### Tests added
+
+`tests/learning-engine.test.js` — corrupted streak (NaN/string/negative) sanitizes to 0; valid streak preserved exactly; corrupted coins sanitizes to 0. Full suite: **167/167 passing**.
+
+### Files modified
+
+- `learning-engine.js` (`sanitizeCount`, applied to coins/streak)
+- `tests/learning-engine.test.js`
+- `docs/V1_RELEASE_CHECKLIST.md` (Blocker 5 marked Verified, full log entry added)
+
+### Remaining blockers
+
+Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up from Blocker 12.
+
+---
+
 ## 2026-07-21 (latest) — Blocker 4: Puzzle progression verified; found and fixed a real duplicate-XP economy bug
 
 Investigated the five criteria in Blocker 4 (word wheel/crossword generation, random selection, 5-puzzles-per-lesson, no duplicates in a playthrough, persistence after restart). Four were already correct. The fifth uncovered a genuine bug, reproduced live before touching any code.

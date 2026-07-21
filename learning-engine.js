@@ -12,10 +12,12 @@
   const DEFAULT_ECONOMY_CONFIG=buildEconomyConfig();
   const iso=(date=new Date())=>date.toISOString(),clamp=(value,min,max)=>Math.min(max,Math.max(min,value)),addDays=(date,days)=>new Date(date.getTime()+days*DAY_MS);
   // Guards against a corrupted/tampered save persisting a non-numeric or
-  // negative xp value forever (every runtime path only ever adds validated
-  // positive amounts to player.xp, so the one realistic way it could go bad
-  // is a hand-edited or corrupted localStorage value at load time).
-  function sanitizeXp(value){return Number.isFinite(value)&&value>=0?value:0}
+  // negative value forever for any counter field (every runtime path only
+  // ever adds validated positive amounts, so the one realistic way it could
+  // go bad is a hand-edited or corrupted localStorage value at load time).
+  // Shared by xp, coins, and streak below.
+  function sanitizeCount(value){return Number.isFinite(value)&&value>=0?value:0}
+  function sanitizeXp(value){return sanitizeCount(value)}
   // Single source of truth for level progression. Previously duplicated as a
   // literal "250" in four places (this file's review()/recordWorkbookAttempt(),
   // word-game-app.js's wgFoundWord()/wgUpdateHeader()) and, separately, as a
@@ -51,6 +53,8 @@
     }
     const save={...createSave(now),...raw,player:{...playerDefaults(),...(raw.player||{})},settings:{theme:"light",reducedMotion:false,skipLessons:false,...(raw.settings||{})},termProgress:{...(raw.termProgress||{})},objectiveProgress:{...(raw.objectiveProgress||{})},scenarioProgress:{...(raw.scenarioProgress||{})},libraryChallengeProgress:{...(raw.libraryChallengeProgress||{})},worlds:{...(raw.worlds||{})}};
     save.player.xp=sanitizeXp(save.player.xp);
+    save.player.coins=sanitizeCount(save.player.coins);
+    save.player.streak=sanitizeCount(save.player.streak);
     Object.keys(save.termProgress).forEach(id=>save.termProgress[id]=mergeProgress(save.termProgress[id]));
     save.saveVersion=CURRENT_SAVE_VERSION;return save;
   }

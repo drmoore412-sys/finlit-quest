@@ -36,6 +36,23 @@ test("a corrupted xp value (NaN, string, negative) is sanitized to 0 on load rat
 });
 test("a valid existing xp value (including 0) is preserved exactly, not treated as corrupted",()=>{const raw={saveVersion:3,player:{xp:0}},storage=memoryStorage({[learning.SAVE_KEY]:JSON.stringify(raw)}),{instance}=engine(storage);assert.equal(instance.save.player.xp,0);const raw2={saveVersion:3,player:{xp:275}},storage2=memoryStorage({[learning.SAVE_KEY]:JSON.stringify(raw2)}),{instance:instance2}=engine(storage2);assert.equal(instance2.save.player.xp,275)});
 
+// --- Streak/coins corruption: V1.0 Blocker 5 (same bug class as xp above — a
+// hand-edited or corrupted localStorage value must not render/persist forever) ---
+
+test("a corrupted streak value (NaN, string, negative) is sanitized to 0 on load rather than rendering directly",()=>{
+  [NaN,"not-a-number",-5].forEach(bad=>{
+    const raw={saveVersion:3,player:{streak:bad}},storage=memoryStorage({[learning.SAVE_KEY]:JSON.stringify(raw)}),{instance}=engine(storage);
+    assert.equal(instance.save.player.streak,0,`expected corrupted streak ${JSON.stringify(bad)} to sanitize to 0`);
+  });
+});
+test("a valid existing streak value (including 0) is preserved exactly, not treated as corrupted",()=>{const raw={saveVersion:3,player:{streak:0}},storage=memoryStorage({[learning.SAVE_KEY]:JSON.stringify(raw)}),{instance}=engine(storage);assert.equal(instance.save.player.streak,0);const raw2={saveVersion:3,player:{streak:7}},storage2=memoryStorage({[learning.SAVE_KEY]:JSON.stringify(raw2)}),{instance:instance2}=engine(storage2);assert.equal(instance2.save.player.streak,7)});
+test("a corrupted coins value (NaN, string, negative) is sanitized to 0 on load rather than rendering directly",()=>{
+  [NaN,"not-a-number",-20].forEach(bad=>{
+    const raw={saveVersion:3,player:{coins:bad}},storage=memoryStorage({[learning.SAVE_KEY]:JSON.stringify(raw)}),{instance}=engine(storage);
+    assert.equal(instance.save.player.coins,0,`expected corrupted coins ${JSON.stringify(bad)} to sanitize to 0`);
+  });
+});
+
 test("XP is awarded exactly once per workbook pass and is not duplicated by retrying",()=>{
   const {instance}=engine();
   const first=instance.recordWorkbookAttempt("credit-foundations","CRF-001",{percent:100,passed:true,xpValue:100});

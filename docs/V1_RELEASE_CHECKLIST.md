@@ -15,7 +15,7 @@ This file is updated after every completed item. Status values: `Not Started` / 
 
 - [x] **Blocker 3 — Level progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [x] **Blocker 4 — Puzzle progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
-- [ ] **Blocker 5 — Save/load persistence.** Coins, XP, score, current world/lesson/puzzle, completed puzzles, streak, settings — all survive restart.
+- [x] **Blocker 5 — Save/load persistence — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [ ] **Blocker 6 — Crypto end-to-end.** Every puzzle loads/solvable, definitions match, rewards work, lesson completes, next unlocks. No placeholder content, no dead ends.
 - [ ] **Blocker 7 — Credit end-to-end.** Same checklist as Blocker 6.
 - [x] Coins — verified 2026-07-20 (see Blocker Log)
@@ -155,6 +155,26 @@ Entries added after each completed blocker, in execution order. Each entry: root
 **Files modified:** `src/puzzle-bank-engine.js`, `word-game-app.js`, `tests/puzzle-bank-engine.test.js`.
 
 **Remaining blockers:** save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up flagged during Blocker 12 (not blocking, tracked separately).
+
+### Blocker 5 — Save/load persistence — VERIFIED 2026-07-21
+
+**Scope of investigation:** save schema, coins, XP, score, current position, completed puzzles/solvedWords, streak, settings, corruption/version handling, existing test coverage.
+
+**Found correct, no changes needed:** coins (single shared balance, always followed by `persist()`), XP (already hardened in Blockers 2/3), workbook score (`scoreQuiz`/`recordWorkbookAttempt`, single call site, no bypass), `solvedWords` (persists with the same `persist()` call as coins/xp, can't drift apart), settings (`theme`/`reducedMotion`/`skipLessons`, part of the same save object, all mutations followed by persist). Current world/lesson/puzzle position intentionally resets on reload — established and accepted as correct behavior during Blocker 4, not re-litigated here.
+
+**Root cause (real bug found and fixed):** `player.streak` was never sanitized on load, unlike `xp` — `normalizeSave` (`learning-engine.js`) only ran `sanitizeXp()` on the xp field. A corrupted save (`streak` as a non-numeric string or a negative number, e.g. from manual tampering or a bug elsewhere) would render straight into the UI, since the only place `streak` gets recomputed (`touchActivity()`) runs *after* the player's first action of the session, not on load — same bug class as Blocker 4 (in-memory/persisted-state can drift from what's actually valid). `coins` had a milder version of the same gap: not sanitized on load, though every coin-mutating write path already self-heals via `(coins||0)+reward`, so it couldn't get stuck corrupted forever — but a corrupted value could still render incorrectly before the first write.
+
+**Changes made:** generalized `sanitizeXp` in `learning-engine.js` into a shared `sanitizeCount(value)` (identical guard: finite and non-negative, else 0), applied to `player.xp` (unchanged behavior), `player.coins`, and `player.streak` in `normalizeSave`.
+
+**Tests added:** `tests/learning-engine.test.js` — corrupted streak (NaN/string/negative) sanitizes to 0 on load; a valid streak including 0 is preserved exactly; corrupted coins (NaN/string/negative) sanitizes to 0 on load. Full suite: **167/167 passing**.
+
+**Live verification** (`http://localhost:8756`, real save injected directly into localStorage to simulate corruption, then loaded through the real bootstrap — not a test mock): seeded `{xp:100, coins:"corrupted", streak:-99}`, reloaded. Result: `xp:100` (preserved), `coins:0` (sanitized, header correctly showed "0" not "corrupted"), `streak:0` (sanitized). Separately verified the already-correct areas live: set coins/theme, solved a word (XP/coins/solvedWords all updated), reloaded — `coins`, `theme`, `solvedWords`, and `xp` all survived exactly. Zero console errors throughout.
+
+**Noted but not fixed (no live risk today):** `saveVersion` exists (`CURRENT_SAVE_VERSION=3`) but there's no real branching migration logic — old saves are merged via object-spread defaults, which only works because schema changes so far have been purely additive. No fixture exists for an old numbered save undergoing an actual field transformation. Flagged for whoever changes the save schema next (e.g. renaming or restructuring a field, not just adding one) — spread-merging won't handle that safely without real migration logic.
+
+**Files modified:** `learning-engine.js`, `tests/learning-engine.test.js`.
+
+**Remaining blockers:** Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up from Blocker 12.
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 
