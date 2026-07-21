@@ -16,6 +16,15 @@
   // positive amounts to player.xp, so the one realistic way it could go bad
   // is a hand-edited or corrupted localStorage value at load time).
   function sanitizeXp(value){return Number.isFinite(value)&&value>=0?value:0}
+  // Single source of truth for level progression. Previously duplicated as a
+  // literal "250" in four places (this file's review()/recordWorkbookAttempt(),
+  // word-game-app.js's wgFoundWord()/wgUpdateHeader()) and, separately, as a
+  // stale "100" in app.js's legacy dashboard — the two divisors disagreed,
+  // so the same xp value displayed a different level depending which screen
+  // you were on (found during V1.0 Blocker 2, fixed in Blocker 3).
+  const XP_PER_LEVEL=250;
+  function levelForXp(xp){return Math.floor(sanitizeXp(xp)/XP_PER_LEVEL)+1}
+  function xpIntoLevel(xp){return sanitizeXp(xp)%XP_PER_LEVEL}
   function puzzleDefaults(){return {timesSeen:0,timesSolved:0,lettersRevealed:0,hintsUsed:0,validAttempts:0,invalidAttempts:0,totalSolveTimeMs:0,lastSolveDate:null}}
   function challengeDefaults(){return {challengesSeen:0,challengesCorrect:0,challengesIncorrect:0,lastChallengeDate:null,lastChallengeResult:null,consecutiveCorrect:0,misconceptionFlags:[]}}
   function reviewDefaults(){return {againCount:0,hardCount:0,goodCount:0,easyCount:0,currentEaseFactor:2.5,currentInterval:0,nextReviewDate:null,lastReviewed:null}}
@@ -92,7 +101,7 @@
       if(rating==="hard"){r.currentEaseFactor=clamp(r.currentEaseFactor-.15,1.3,3);r.currentInterval=Math.max(1,previous*1.2||1)}
       if(rating==="good")r.currentInterval=previous===0?1:previous<2?3:Math.max(3,previous*r.currentEaseFactor*term.reviewWeight);
       if(rating==="easy"){r.currentEaseFactor=clamp(r.currentEaseFactor+.15,1.3,3);r.currentInterval=previous===0?4:Math.max(4,previous*r.currentEaseFactor*1.3*term.reviewWeight)}
-      r.currentInterval=Math.min(r.currentInterval,this.masteryConfig.maxReviewIntervalDays);r.nextReviewDate=iso(addDays(now,r.currentInterval));this.save.player.xp+=term.xpValue;this.save.player.level=Math.floor(this.save.player.xp/250)+1;this.touchActivity();this.updateMastery(id);this.unlockAchievements();this.persist();return this.learningObject(id)
+      r.currentInterval=Math.min(r.currentInterval,this.masteryConfig.maxReviewIntervalDays);r.nextReviewDate=iso(addDays(now,r.currentInterval));this.save.player.xp+=term.xpValue;this.save.player.level=levelForXp(this.save.player.xp);this.touchActivity();this.updateMastery(id);this.unlockAchievements();this.persist();return this.learningObject(id)
     }
     updateMastery(id){const p=this.progressFor(id),result=calculateMastery(p,this.masteryConfig);p.masteryPercent=result.percent;p.masteryLevel=result.level;if(result.level>=4&&!p.dateMastered)p.dateMastered=iso(this.now());if(result.level<4)p.dateMastered=null;return result}
     unlockAchievements(){const achievements=this.save.player.achievements;if(Object.values(this.save.termProgress).some(p=>p.challenge.challengesCorrect>0)&&!achievements.includes("first_application"))achievements.push("first_application");if(this.save.player.streak>=3&&!achievements.includes("three_day_streak"))achievements.push("three_day_streak")}
@@ -101,8 +110,8 @@
     termMetrics(id){const p=this.progressFor(id);return {puzzle:{...p.puzzle,solveAccuracy:accuracy(p.puzzle.validAttempts,p.puzzle.invalidAttempts),averageSolveSpeedMs:p.puzzle.timesSolved?Math.round(p.puzzle.totalSolveTimeMs/p.puzzle.timesSolved):0},challenge:{...p.challenge,challengeAccuracy:accuracy(p.challenge.challengesCorrect,p.challenge.challengesIncorrect)},review:{...p.review},mastery:calculateMastery(p,this.masteryConfig)}}
     workbookProgress(worldId,workbookId){const worlds=this.save.worlds;if(!worlds[worldId])worlds[worldId]={workbooks:{}};if(!worlds[worldId].workbooks)worlds[worldId].workbooks={};if(!worlds[worldId].workbooks[workbookId])worlds[worldId].workbooks[workbookId]={status:"available",attempts:0,bestScorePercent:0,dateCompleted:null,xpAwarded:0,practiceCompleted:false};return worlds[worldId].workbooks[workbookId]}
     recordWorkbookPractice(worldId,workbookId){const p=this.workbookProgress(worldId,workbookId);p.practiceCompleted=true;this.touchActivity();this.persist();return p}
-    recordWorkbookAttempt(worldId,workbookId,{percent,passed,xpValue}){const p=this.workbookProgress(worldId,workbookId);p.attempts++;p.bestScorePercent=Math.max(p.bestScorePercent,percent);let xpGained=0;if(passed&&p.status!=="completed"){p.status="completed";p.dateCompleted=iso(this.now());xpGained=xpValue;p.xpAwarded=xpValue;this.save.player.xp+=xpValue;this.save.player.level=Math.floor(this.save.player.xp/250)+1;this.unlockAchievements()}this.touchActivity();this.persist();return {progress:{...p},xpGained}}
+    recordWorkbookAttempt(worldId,workbookId,{percent,passed,xpValue}){const p=this.workbookProgress(worldId,workbookId);p.attempts++;p.bestScorePercent=Math.max(p.bestScorePercent,percent);let xpGained=0;if(passed&&p.status!=="completed"){p.status="completed";p.dateCompleted=iso(this.now());xpGained=xpValue;p.xpAwarded=xpValue;this.save.player.xp+=xpValue;this.save.player.level=levelForXp(this.save.player.xp);this.unlockAchievements()}this.touchActivity();this.persist();return {progress:{...p},xpGained}}
     workbookWorldStats(worldId,workbookIds){const worlds=this.save.worlds[worldId]||{workbooks:{}};const records=workbookIds.map(id=>worlds.workbooks?.[id]).filter(Boolean);const completed=records.filter(r=>r.status==="completed").length;const xpEarned=records.reduce((sum,r)=>sum+(r.xpAwarded||0),0);return {worldId,totalWorkbooks:workbookIds.length,completed,completionPercent:workbookIds.length?Math.round(completed/workbookIds.length*100):0,xpEarned}}
   }
-  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
+  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,XP_PER_LEVEL,levelForXp,xpIntoLevel,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
 });

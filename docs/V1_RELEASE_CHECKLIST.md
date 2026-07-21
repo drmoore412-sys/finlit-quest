@@ -1,70 +1,80 @@
-# FinLit Quest — Version 1.0 Release Checklist
+# FinLit Quest — Version 1.0 Submission Readiness Checklist
 
-**Mission (locked 2026-07-20):** ship Version 1.0 to the Apple App Store and Google Play with exactly Crypto World, Credit World, and the existing word-wheel/crossword game. No new worlds, modes, educational features, or projects. Every change from this point forward is a bug fix, a stability improvement, a launch requirement, or store-submission prep — nothing else. Anything else goes on a future roadmap, not into code.
+**Mission (locked 2026-07-20, phase structure updated 2026-07-21):** ship Version 1.0 to the Apple App Store with exactly Crypto World, Credit World, and the existing word-wheel/crossword game. No new worlds, modes, educational features, or projects. Stability over new features; every change should reduce App Store rejection risk or improve quality/reliability/accessibility/compliance. Work one issue at a time; verify before marking complete; no assumptions.
 
-**Scope note (confirmed by user 2026-07-20):** "Credit World" for V1.0 means the completed Credit Foundations content currently in the app. Credit Cards, Interest & Borrowing, Credit Reports, Building Credit, and any other unfinished Credit chapters are frozen/roadmap, not built for launch. They must stay locked/hidden/clearly marked unavailable so users can't enter incomplete content — confirmed already true today (the 7 not-yet-built Credit World journey nodes are dynamically `.disabled=true` by `updateDashboard()` and unclickable; verified live during Blocker 2, see below). No code change was needed for this — noted here as a confirmed-correct finding, not an open item.
+**Scope note (confirmed by user 2026-07-20):** "Credit World" for V1.0 means the completed Credit Foundations content currently in the app. Credit Cards, Interest & Borrowing, Credit Reports, Building Credit, and any other unfinished Credit chapters are frozen/roadmap, not built for launch. They must stay locked/hidden/clearly marked unavailable so users can't enter incomplete content — confirmed already true today (the 7 not-yet-built Credit World journey nodes are dynamically `.disabled=true` by `updateDashboard()` and unclickable; verified live during Blocker 2). No code change was needed for this.
 
-This file is updated after every completed blocker. Status values: `Not Started` / `In Progress` / `Verified`.
+**Submission plan context (2026-07-21):** the app is live at finlitquest.com and Capacitor-wrapped for iOS (Blocker 9b), but this Mac cannot run the Xcode version Apple currently requires (see `docs/FQ-APP-002-native-build-release-standard.md` §1) and never will (hardware ceiling, not fixable). Plan is to hand off only the final build/sign/TestFlight/submit step to an outside specialist once this Mac's-worth of work is done — everything in this document is aimed at that specialist needing to touch nothing but Apple-specific tooling, not application code.
+
+This file is updated after every completed item. Status values: `Not Started` / `In Progress` / `Verified`. Phase numbering below supersedes the original Phase 1-7 structure (reconciled 2026-07-21) — the **Blocker Log** further down is an append-only historical record and is not renumbered retroactively.
 
 ---
 
-## Phase 1 — Critical Gameplay (Release Blockers)
+## Phase 1 — Gameplay Completion
+*(supersedes old "Puzzle Engine" / "Save System" sections; = Blockers 3, 4, 5, 6, 7 below)*
 
-### Puzzle Engine — Not Started
-- [ ] Word wheel functions correctly
-- [ ] Crossword boards load correctly
-- [ ] Random puzzle selection works
-- [ ] Five puzzles complete a lesson
-- [ ] Puzzle progression works
-- [ ] No duplicate puzzles during a playthrough
-- [ ] Puzzle persistence works after app restart
+- [x] **Blocker 3 — Level progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
+- [ ] **Blocker 4 — Puzzle progression.** Word wheel, crossword boards, random selection, 5-puzzles-per-lesson, no duplicates in a playthrough, persistence after restart.
+- [ ] **Blocker 5 — Save/load persistence.** Coins, XP, score, current world/lesson/puzzle, completed puzzles, streak, settings — all survive restart.
+- [ ] **Blocker 6 — Crypto end-to-end.** Every puzzle loads/solvable, definitions match, rewards work, lesson completes, next unlocks. No placeholder content, no dead ends.
+- [ ] **Blocker 7 — Credit end-to-end.** Same checklist as Blocker 6.
+- [x] Coins — verified 2026-07-20 (see Blocker Log)
+- [x] XP — verified 2026-07-20 (see Blocker Log)
+- [x] Score (quiz scoring) — verified 2026-07-20 (see Blocker Log)
 
-### Economy — In Progress
-- [x] Coins — verified 2026-07-20 (starting balance, single-source economy config, spend/deduct guard, persistence — see PROJECT_LOG.md "Fix starting coins and hint purchase logic")
-- [x] XP — verified 2026-07-20 (see Blocker 2 below)
-- [x] Score — verified 2026-07-20, workbook quiz scoring (see Blocker 1 below)
-- [ ] Level progression — **known bug found during Blocker 2, not fixed (out of scope for that pass)**: the Credit World journey screen's "CURRENT LEVEL" display (`#journeyLevel`, app.js `updateDashboard()`) uses `floor(xp/100)+1`, while the canonical/persisted level (learning-engine.js, word-game header) uses `floor(xp/250)+1`. Same player, two different level numbers depending which screen you're on. Reproduced live at xp=100: stored/word-game level = 1, journey-screen level = 2.
-- [ ] Rewards
-- [ ] Hint purchases
-- [ ] Full reveal purchases
-- [x] Coin persistence — verified 2026-07-20
-- [x] XP persistence — verified 2026-07-20
+## Phase 2 — Full QA
+*(supersedes old "Bug Sweep"; = part of Blocker 8 below)*
 
-### Save System — Not Started
-- [ ] Coins
-- [ ] XP
-- [ ] Score
-- [ ] Current world
-- [ ] Current lesson
-- [ ] Current puzzle
-- [ ] Completed puzzles
-- [ ] Streak
-- [ ] Settings
+- [ ] Every screen, button, menu, popup, animation
+- [ ] Portrait / landscape (if supported) / mobile / tablet / different browser sizes
+- [ ] New install, returning user, refresh, clearing storage, full playthrough
+- [ ] Deliberate break-attempts, every reproducible defect documented and fixed
+- [ ] Console errors, missing assets, broken navigation, duplicate rewards, layout problems
 
-## Phase 2 — Gameplay Verification — Not Started
-- [ ] Crypto: every puzzle loads / solvable / definitions match / answers accepted / rewards work / lesson completes / next lesson unlocks
-- [ ] Credit: same checklist
+## Phase 3 — Apple Guideline Review
+*(new 2026-07-21, not previously tracked as its own item)*
 
-## Phase 3 — Progression — Not Started
-- [ ] First launch → tutorial (if present) → Crypto → Credit → Completion → return player experience, no manual intervention required at any transition
+- [ ] Research current official Apple App Review Guidelines (not assumed from training knowledge — verify against live documentation)
+- [ ] Audit against 4.2 Minimum Functionality specifically (real risk for a Capacitor-wrapped web app — see prior concerns raised before Blocker 9b)
+- [ ] Audit: user experience, performance, educational value, privacy, accessibility, offline behavior, loading experience, navigation, error handling
+- [ ] Produce a PASS / FAIL / NOT APPLICABLE checklist — nothing left as "unknown"
 
-## Phase 4 — Bug Sweep — Not Started
-- [ ] Console errors / missing assets / broken buttons / broken navigation / incorrect animations / incorrect scoring / duplicate rewards / layout problems / mobile responsiveness / slow loading / crashes
+## Phase 4 — Privacy & Compliance
+*(overlaps old Phase 6's Privacy Policy/ToS item and FQ-APP-002 §7)*
 
-## Phase 5 — Performance — Not Started
-- [ ] Startup time / puzzle loading / save speed / animation smoothness / memory leaks / offline behavior
+- [ ] Privacy Policy — document exactly what's stored (all local `localStorage`, no backend, confirmed architecturally), whether analytics/tracking exist (none currently), whether accounts exist (none), whether purchases exist (none currently — coin economy is earn-only)
+- [ ] Terms of Service
+- [ ] Support page + contact information
+- [ ] Every statement verified accurate against the actual app, not boilerplate
 
-## Phase 6 — App Store Readiness — In Progress
-- [x] App icon, splash screen, app name, version number — native iOS project now exists (see Blocker 9b), real app icon and branded splash screen installed
-- [ ] Privacy Policy, Terms of Service, support email
-- [ ] Screenshots, feature graphic, description, keywords, categories, age rating
+## Phase 5 — Accessibility
+*(new 2026-07-21, not previously tracked)*
 
-## Phase 7 — Acceptance Testing — Not Started
-- [ ] Crypto: every lesson playable / every puzzle solvable / every lesson completable / world completion works
-- [ ] Credit: same
-- [ ] Economy: coins / XP / score / rewards / purchases all correct
-- [ ] Persistence: everything saves / everything reloads / no progress lost
-- [ ] Stability: no crashes / no console errors / all automated tests passing
+- [ ] Font sizing, contrast
+- [ ] Touch target sizes
+- [ ] Screen-reader labels where applicable
+- [ ] Keyboard accessibility where applicable
+- [ ] Color dependency (information not conveyed by color alone)
+- [ ] Focus states
+
+## Phase 6 — Performance
+*(supersedes old Phase 5; = part of Blocker 8 below)*
+
+- [ ] Initial load time, memory usage, bundle size, rendering performance, image/asset optimization
+
+## Phase 7 — App Store Assets
+*(= Blocker 10 below, supersedes old Phase 6's asset items)*
+
+- [x] App icon — done (Blocker 9b, real 1024×1024 icon installed)
+- [x] Splash screen — done (Blocker 9b, branded navy + compass mark)
+- [ ] App name, subtitle, description, keywords, screenshots, feature graphics, age rating, category, support URL, Privacy Policy URL (Phase 4 dependency)
+
+## Phase 8 — Submission Readiness Review
+*(new 2026-07-21; formal gate before Blocker 11 — Submit)*
+
+- [ ] Formal PASS/FAIL per category: technical readiness, educational completeness, production quality, compliance, user experience, App Store readiness
+- [ ] Outstanding issues listed with severity and estimated effort
+- [ ] No submission until every critical blocker is resolved
 
 ---
 
@@ -99,6 +109,34 @@ Entries added after each completed blocker, in execution order. Each entry: root
 **Live verification** (`http://localhost:8756`, real clicks/UI functions, no test mocks): confirmed 100 XP already persisted from Blocker 1. Completed a fresh Credit activity (CRF-002 quiz, real clicks, 8/8) → XP correctly went 100→200. Reloaded → stayed 200. Retried the same completed quiz (8/8 again) → stayed 200, no duplicate. Solved a real Crypto word-game puzzle word ("PEER", via the actual selection/submit handlers) → XP went 200→206, exactly matching `Math.round(4×1.5)=6`. Switched Credit→Crypto→Credit → same 206 shown on both. Relaunched → 206 persisted, in both the engine and localStorage. Zero console errors throughout.
 
 **Remaining blockers (renumbered 2026-07-20 to insert Branding and Domain Integration before store-assets/submission):** level progression (3), puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8 — carries forward the dead-legacy-code finding above), **branding and domain integration (9, new)**, store assets and metadata (10, was 9), submission (11, was 10). Stopping per your instruction; awaiting go-ahead for Blocker 3.
+
+### Blocker 3 — Level progression — VERIFIED 2026-07-21
+
+**Root cause:** the level number shown to the player was computed independently in four places instead of one — `learning-engine.js`'s `review()` and `recordWorkbookAttempt()` (correctly, `floor(xp/250)+1`), `word-game-app.js`'s `wgFoundWord()`/`wgUpdateHeader()` (correctly, same formula), and `app.js`'s legacy `updateDashboard()` (**wrongly**, `floor(xp/100)+1`). Same player, different level number depending which screen was open. The underlying persisted `player.level` field was always computed correctly — this was a display bug, not a data-corruption bug, so no save migration was needed for existing data.
+
+**Changes made:** consolidated into one canonical source in `learning-engine.js` — `XP_PER_LEVEL=250`, `levelForXp(xp)`, `xpIntoLevel(xp)`, all exported. `app.js` and `word-game-app.js` now call these instead of hardcoding the divisor (or, in app.js's case, the wrong one). Per the broader principle raised during this fix — **consolidate duplicated business logic before release, not after** — went further than patching the one known bug: `word-game-app.js`'s level *label* (`wgLevelLabel`) was still reading the cached `player.level` field directly rather than recomputing from `xp` like everything else now does. Fixed that too, so the displayed level is never trusted from a possibly-stale cached field anywhere — always derived fresh from `xp`, on every render, on every screen.
+
+**Bugs found by testing before declaring done (exactly per the "verify before marking complete" rule):**
+1. First pass missed a second, separate usage of the old `levelXp` variable name later in the same `updateDashboard()` function (`#xpToNext`/`#footerProgressFill`, also with the same wrong `/100` denominator) — caught immediately by a live `ReferenceError` on first real-browser test, not by code review. Fixed and re-verified.
+2. A deliberate "simulate an old/corrupted save" test (manually set `player.level=1` in localStorage while `xp=300`) caught that `wgLevelLabel` still trusted the stale cached field — the word-game screen showed "LEVEL 1" while the dashboard correctly self-healed to "LEVEL 2" from the exact same save. This is the fix described above; re-verified after.
+
+**Tests added:** `tests/learning-engine.test.js` — `levelForXp` boundary correctness (0/249/250/499/500 → levels 1/1/2/2/3); `xpIntoLevel` resets to 0 exactly at each boundary; both functions never throw or return garbage on `NaN`/negative/`undefined` input; `XP_PER_LEVEL` is exported (no caller needs to hardcode 250); `review()` and `recordWorkbookAttempt()` both set `player.level` via the exact same formula as the exported `levelForXp` (including a case that crosses a level boundary). Full suite: **161/161 passing**.
+
+**Live verification, full checklist (`http://localhost:8756`, real clicks, fresh player, no test mocks):**
+- [x] Word Game screen displays the correct XP — confirmed `wgXp` matches `learning.save.player.xp` exactly throughout
+- [x] Credit Workbook screen displays the same XP — confirmed `workbookHeaderXp` matches
+- [x] XP awarded after completing a level is correct — 3 real CRF quizzes via actual button clicks, 100 XP each, exactly matching `workbook.xp`; crossed the 250 boundary at the third (200→300 XP, level 1→2)
+- [x] XP persists after refreshing the page — reloaded, xp/level/coins all unchanged
+- [x] Progress bars update correctly — at xp=300 (50 into level 2), both `journeyLevelProgress` and `wgLevelBar` independently computed to exactly 20% width (50/250×100)
+- [x] Level unlocks still occur at the intended thresholds — 200 XP → level 1, 300 XP → level 2, confirmed against the 250-per-level design
+- [x] Coin rewards remain unchanged — 300 coins throughout, untouched by this fix (confirmed unaffected, not just unmentioned)
+- [x] Existing saved games migrate correctly — no migration needed (persisted data was never wrong), but stress-tested the more important property: a save with a deliberately wrong cached `player.level` now displays correctly everywhere anyway, because display no longer trusts that cache
+- [x] No console errors — checked twice, clean both times
+- [x] All automated tests still pass — 161/161
+
+**Files modified:** `learning-engine.js`, `word-game-app.js`, `app.js`, `tests/learning-engine.test.js`.
+
+**Remaining blockers:** puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done — see below), store assets (10), submission (11). Plus the new Phase 3 (Apple Guideline Review), Phase 4 (Privacy & Compliance), Phase 5 (Accessibility), Phase 8 (Submission Readiness Review) from the 2026-07-21 plan restructure.
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 

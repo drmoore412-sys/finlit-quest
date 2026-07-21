@@ -204,7 +204,7 @@ function wgFoundWord(word) {
   wgState.puzzleXp += reward.xp;
   learning.save.player.coins = (learning.save.player.coins || 0) + reward.coins;
   learning.save.player.xp += reward.xp;
-  learning.save.player.level = Math.floor(learning.save.player.xp / 250) + 1;
+  learning.save.player.level = FinLitLearning.levelForXp(learning.save.player.xp);
   const progress = wgProgress();
   if (!progress.solvedWords.includes(word)) progress.solvedWords.push(word);
   learning.touchActivity();
@@ -270,10 +270,10 @@ function wgUpdateHeader() {
   $("#wgCoins").textContent = player.coins || 0;
   $("#wgXp").textContent = player.xp;
   $("#wgGems").textContent = player.gems || 0;
-  $("#wgLevelLabel").textContent = `LEVEL ${player.level}`;
-  const xpIntoLevel = player.xp % 250;
-  $("#wgLevelBar").style.width = `${(xpIntoLevel / 250) * 100}%`;
-  $("#wgLevelXpText").textContent = `${xpIntoLevel} / 250 XP`;
+  $("#wgLevelLabel").textContent = `LEVEL ${FinLitLearning.levelForXp(player.xp)}`;
+  const xpIntoLevel = FinLitLearning.xpIntoLevel(player.xp);
+  $("#wgLevelBar").style.width = `${(xpIntoLevel / FinLitLearning.XP_PER_LEVEL) * 100}%`;
+  $("#wgLevelXpText").textContent = `${xpIntoLevel} / ${FinLitLearning.XP_PER_LEVEL} XP`;
   $("#wgStreak").textContent = player.streak;
   const todayCount = player.activityDates.includes(new Date().toISOString().slice(0, 10)) ? 1 : 0;
   const dailyGoal = 4;

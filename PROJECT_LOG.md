@@ -10,6 +10,27 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (later) — Blocker 3 (level progression) verified; restructured V1.0 plan into 8 submission-readiness phases
+
+**Plan restructure:** adopted the user's 8-phase "Version 1.0 Submission Readiness" plan into `docs/V1_RELEASE_CHECKLIST.md`, mapping the existing 11 blockers onto it (Phase 1 = Blockers 3-7, Phase 2 = part of 8, Phase 6 = rest of 8, Phase 7 = Blocker 10) and adding four genuinely new tracked items: Phase 3 (formal Apple Guideline Review), Phase 4 (Privacy & Compliance), Phase 5 (Accessibility), Phase 8 (Submission Readiness Review gate). Context: the plan is to hand off only the final build/sign/TestFlight/submit step to an outside specialist, so everything here is aimed at that person needing to touch nothing but Apple-specific tooling.
+
+**Blocker 3 fixed and verified**, including a mid-fix process note: consolidated the level-progression formula (previously duplicated as a literal `250` in four places, and separately hardcoded — wrongly — as `100` in app.js's legacy dashboard) into one canonical `learning-engine.js` export (`XP_PER_LEVEL`, `levelForXp()`, `xpIntoLevel()`). Testing before declaring it done caught two further bugs beyond the one already known: a second stale usage of the renamed variable in the same function (real `ReferenceError`, caught on first live test), and `word-game-app.js`'s level label still trusting a cached `player.level` field instead of recomputing — caught by deliberately corrupting a test save to simulate an old pre-fix save. Both fixed and re-verified. Full 10-item live checklist passed (XP/level agreement across both screens, correct XP-per-quiz, persistence, progress bar math, level-unlock thresholds, coins unaffected, corrupted-save resilience, zero console errors, 161/161 tests).
+
+Also: the local dev server needed restarting for this verification pass. Previously did this reflexively via a backgrounded Bash process without checking first — user stopped that. Going forward: ask before starting/restarting the local server rather than doing it automatically, and prefer the Browser pane's own server-launch mechanism when it's actually usable in this environment (it currently isn't, for this project, due to an unrelated project's `launch.json`/port binding).
+
+**Standing principle adopted for the rest of Version 1.0** (user's explicit instruction, recorded here so it's not just tribal knowledge): whenever duplicated business logic is found — XP, coins, progression, unlock rules, scoring, etc. — consolidate it into a single canonical source before release, not after. Apply this proactively for the remaining blockers, not just reactively when a bug is reported.
+
+### Files modified
+
+- `learning-engine.js`, `word-game-app.js`, `app.js`, `tests/learning-engine.test.js`
+- `docs/V1_RELEASE_CHECKLIST.md` (Blocker 3 entry + full phase restructure)
+
+### Remaining blockers
+
+Puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), plus Phases 3/4/5/8 from the restructure.
+
+---
+
 ## 2026-07-21 (later) — Confirmed this Mac can never submit to the App Store; added FQ-APP-002 release standard doc
 
 Researched step 1 of the user's own "what's next" plan (verify Xcode compatibility) before spending effort on steps 2-3 (free storage, install Xcode). Good thing — it changes the plan.

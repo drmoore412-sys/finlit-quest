@@ -98,3 +98,46 @@ test("puzzle and challenge analytics remain separate",()=>{const {instance}=engi
 test("crossword completion alone cannot create full mastery",()=>{const {instance}=engine();for(let i=0;i<10;i++)instance.recordPuzzleSolved("crypto.token");assert.equal(instance.termMetrics("crypto.token").mastery.percent,20);assert.ok(instance.progressFor("crypto.token").masteryLevel<4)});
 test("repeated applied success and reviews can set mastery date",()=>{const {instance}=engine();for(let i=0;i<2;i++)instance.recordPuzzleSolved("crypto.token");for(let i=0;i<3;i++)instance.recordChallenge("crypto.token",{correct:true});for(let i=0;i<3;i++)instance.review("crypto.token","easy");const progress=instance.progressFor("crypto.token");assert.equal(progress.masteryPercent,100);assert.ok(progress.dateMastered)});
 test("review counts and term unlock are recorded",()=>{const {instance}=engine();instance.review("crypto.token","hard");const p=instance.progressFor("crypto.token");assert.equal(p.review.hardCount,1);assert.ok(p.dateUnlocked)});
+
+// --- Level progression: single source of truth (V1.0 Blocker 3) ---
+// Bug found during Blocker 2: app.js's legacy dashboard computed level as
+// floor(xp/100)+1 while every other screen used floor(xp/250)+1 — same
+// player, two different level numbers depending which screen was open.
+// Fixed by centralizing the formula here; app.js and word-game-app.js now
+// both call learning.levelForXp()/xpIntoLevel() instead of hardcoding 250
+// (or, in app.js's case, the wrong 100) themselves.
+
+test("levelForXp matches the 250-xp-per-level boundaries exactly",()=>{
+  assert.equal(learning.levelForXp(0),1);
+  assert.equal(learning.levelForXp(249),1);
+  assert.equal(learning.levelForXp(250),2);
+  assert.equal(learning.levelForXp(499),2);
+  assert.equal(learning.levelForXp(500),3);
+});
+
+test("xpIntoLevel resets to 0 exactly at each level boundary",()=>{
+  assert.equal(learning.xpIntoLevel(0),0);
+  assert.equal(learning.xpIntoLevel(249),249);
+  assert.equal(learning.xpIntoLevel(250),0);
+  assert.equal(learning.xpIntoLevel(300),50);
+});
+
+test("levelForXp/xpIntoLevel never throw or return garbage on corrupted input",()=>{
+  assert.equal(learning.levelForXp(NaN),1);
+  assert.equal(learning.levelForXp(-50),1);
+  assert.equal(learning.levelForXp(undefined),1);
+  assert.equal(learning.xpIntoLevel(NaN),0);
+});
+
+test("XP_PER_LEVEL is exported so no caller needs to hardcode 250 independently",()=>{
+  assert.equal(learning.XP_PER_LEVEL,250);
+});
+
+test("review() and recordWorkbookAttempt() both set player.level via the exact same formula as levelForXp",()=>{
+  const {instance}=engine();
+  instance.review("crypto.token","easy"); // awards term.xpValue
+  assert.equal(instance.save.player.level,learning.levelForXp(instance.save.player.xp));
+  instance.recordWorkbookAttempt("credit-foundations","CRF-001",{percent:100,passed:true,xpValue:600}); // crosses a level boundary
+  assert.equal(instance.save.player.level,learning.levelForXp(instance.save.player.xp));
+  assert.ok(instance.save.player.level>=3,"600+ xp should be at least level 3 under the 250-per-level formula");
+});
