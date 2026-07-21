@@ -10,6 +10,113 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 — Native iOS app wrapper (Capacitor) scaffolded and branded
+
+App Store submission was flagged as impossible before this: Apple requires a compiled binary, not a website/PWA, and this repo had zero native project. Wrapped the existing static site with Capacitor (no rewrite — thin native shell around what already exists).
+
+### Environment problems hit and fixed
+
+- No Node.js anywhere on this Mac. `brew install node` silently tried to compile from source (no Homebrew "bottle" for macOS 12 Monterey anymore) and **failed** after ~15 min: `Error: You are using macOS 12. We (and Apple) do not provide support for this old version.` The background-task notification said "exit code 0" — misleading, that was `tail`'s exit code from the `| tail -30` pipe, not `brew install`'s. Caught by reading the actual captured output rather than trusting the status summary.
+- Fixed by downloading Node's official prebuilt binary directly from nodejs.org (queried their release API for the real current version rather than guessing one) into `~/.local/nodejs` — no compilation, no sudo, no system-wide install. Added to `~/.zshrc` PATH.
+
+### What was built
+
+- `package.json`, Capacitor 8.4.2 (`core`/`cli`/`ios`), `capacitor.config.json` (appId `com.finlitquest.app`, appName "FinLit Quest").
+- `scripts/build-www.sh`: traced every file `index.html`/manifest actually reference and built a script that copies exactly those ~33 files (908K) into `www/` — deliberately not pointing Capacitor's `webDir` at the repo root, which would have shipped `.git`, `node_modules`, `tests/`, `docs/`, raw multi-MB brand source PNGs, and internal project docs inside the actual App Store binary. Verified the trimmed bundle live (served locally, loaded both the word-game and Credit workbook screens, zero console errors) before wiring it into Capacitor.
+- `npx cap add ios` succeeded without Xcode installed (scaffolding only; building/signing needs Xcode). Uses Swift Package Manager, no CocoaPods needed.
+- Replaced Capacitor's default app icon and splash screen with real branding: the prepared 1024×1024 App Store icon, and a new branded splash (transparent compass mark centered on the app's own navy background color, verified no hidden transparency by flattening to JPEG). Fixed the storyboard's white fallback background to navy too.
+- `.gitignore`: `www/` excluded (regenerable), `ios/App/App/public/` (what Xcode actually builds from) committed so the project builds immediately after a fresh clone.
+
+### Still blocked — needs the user, not more code
+
+No Xcode installed, and macOS 12.7.6 may not support a current-enough Xcode version for Apple's present submission requirements (needs checking). Only ~9.8GB free disk space, likely insufficient for Xcode. Installing Xcode needs interactive Apple ID sign-in. Apple Developer Program enrollment status unknown. All of real device testing, signing, TestFlight, and submission are still ahead once Xcode exists.
+
+### Files modified
+
+- New: `package.json`, `package-lock.json`, `capacitor.config.json`, `scripts/build-www.sh`, `ios/` (native Xcode project)
+- Modified: `.gitignore`
+
+Full suite still 156/156 passing — no existing JS logic touched.
+
+---
+
+## 2026-07-20 (latest) — finlitquest.com confirmed live end-to-end; root cause was local DNS cache, not GoDaddy
+
+Closes out the deployment from the entry below. GitHub's Pages settings UI showed a DNS check failure after the A records were added, which looked like a GoDaddy problem at first — it wasn't.
+
+### Root cause
+
+Not GoDaddy domain forwarding (user confirmed both domain and subdomain forwarding were off). The actual A records were correct the entire time, confirmed independently via `dig` against the local resolver, Google's 8.8.8.8, Cloudflare's 1.1.1.1, and GoDaddy's own authoritative nameserver — all four agreed on GitHub's IPs. The mismatch was that `curl`/browsers on the user's Mac don't consult `dig`'s resolution path — they go through macOS's `dscacheutil`/`mDNSResponder` cache, which had a stale entry (GoDaddy's old parking IP, `76.223.105.230`) cached from before the DNS records were fixed. Confirmed by forcing a direct connection to GitHub's real IP with `curl --resolve`, which worked immediately (valid Let's Encrypt cert, HTTP/2 200) — proving the server side was already correct and the fault was purely local-machine DNS caching.
+
+### Fix
+
+`sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder` on the user's Mac. (First attempt got stuck at a `quote>` zsh prompt from pasting text containing an apostrophe — resolved with Ctrl+C, then typing the command directly instead of pasting.)
+
+### Live verification
+
+Loaded `https://finlitquest.com` for real in the browser: correct logo/branding in the header, a fresh player starts at 300 coins (economy fix confirmed live) and 0 XP, puzzle board and letter wheel render and are interactive, zero console errors. Fetched every brand asset (favicon.ico, both favicon PNGs, apple-touch-icon, icon-192/512, the OG image, manifest.webmanifest) directly from the live domain — all 200 OK. Enabled "Enforce HTTPS" on the GitHub Pages settings (was `false`, now `true` — couldn't be turned on earlier because it requires cert issuance to complete first, which happens automatically once DNS is verified). Confirmed plain `http://finlitquest.com` now 301-redirects to `https://`.
+
+### Files modified
+
+None (infrastructure-only: GitHub Pages HTTPS-enforcement setting, and the user's local machine DNS cache — no repo changes this entry).
+
+### Remaining blockers
+
+Unchanged: level progression (3), puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), store assets (10), submission (11). Branding/domain (9) is now fully live and verified.
+
+---
+
+## 2026-07-20 (latest) — Deployed to GitHub Pages / finlitquest.com
+
+Moved the app off `localhost:8756` onto real hosting, per request.
+
+### What happened
+
+- **Git remote was misconfigured**: pointed at `cmmoore412-SYS/finlit-quest`, which the authenticated `gh`/git credentials (`drmoore412-sys`) had no access to (repo not found). Confirmed with the user this was simply the wrong account and fixed the remote to `https://github.com/drmoore412-sys/finlit-quest.git`, an existing private repo with only GitHub's default scaffolding (`.gitignore`, 14-byte `README.md`) — no real content to lose.
+- **First real commit of the session's work**: this repo had exactly one prior commit ("Establish verified FinLit Quest baseline") and 75 files' worth of changes had never been committed. Reviewed the full diff for secrets before staging (none found) and committed everything in one commit, then merged in the remote's unrelated scaffolding history with `--allow-unrelated-histories` (non-destructive — no force-push used anywhere). Resolved one `.gitignore` merge conflict by combining both versions (kept the project-specific entries — `.DS_Store`, `*.zip` — alongside the remote's generic Node template).
+- **Push initially failed** (`RPC failed; HTTP 400`) — the push payload (~7.7MB, mostly the brand PNG assets) exceeded git's default HTTP post buffer. Fixed with `git config http.postBuffer 524288000` and retried successfully.
+- **Added `CNAME`** (containing `finlitquest.com`) to the repo root — required by GitHub Pages to serve a custom domain.
+- **GitHub Pages initially failed to enable**: "current plan does not support GitHub Pages for this repository" — private repos require a paid GitHub plan for Pages. Presented the three real options (make public / switch to a host that supports private-repo deploys / upgrade to GitHub Pro) rather than picking one — user chose to make the repo public. Changed visibility, then enabled Pages (branch `main`, path `/`).
+- **Verified the deployment is actually live**: build status went to `"built"`, and the fallback `https://drmoore412-sys.github.io/finlit-quest/` URL now 301/308-redirects to `https://finlitquest.com/` — proof the site built and the custom domain is correctly wired on GitHub's side.
+
+### What's still needed (cannot be done from here — requires the user's domain registrar access)
+
+`finlitquest.com` will not actually resolve to the new site until DNS is updated at wherever the domain is registered. Required records:
+
+**Apex domain (`finlitquest.com`)** — four A records:
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+Optional IPv6 (AAAA records), if the registrar supports them:
+```
+2606:50c0:8000::153
+2606:50c0:8001::153
+2606:50c0:8002::153
+2606:50c0:8003::153
+```
+
+**`www.finlitquest.com`** (optional, only if a `www` version should also work) — one CNAME record:
+```
+www → drmoore412-sys.github.io
+```
+
+Once DNS propagates (usually minutes, sometimes up to ~24–48h) and GitHub verifies the domain, HTTPS certificate issuance is automatic — `https_enforced` should then be flipped on (currently `false`; not done yet since the cert isn't issued until DNS is live).
+
+### Files modified
+
+- `.git` remote config (not a tracked file)
+- `.gitignore` (merge-resolved), `CNAME` (new), `README.md` (from remote scaffolding)
+- Everything else: the full session's accumulated, previously-uncommitted work (see the single commit `1527bab` for the complete file list)
+
+### Remaining blockers
+
+Unchanged, unrelated to this deployment step: level progression (3), puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), store assets (10), submission (11). Branding (9) is otherwise complete pending native app project / store listing infrastructure.
+
+---
+
 ## 2026-07-20 (latest) — Blocker 9: transparent logo variant supplied and integrated
 
 Closes the one open quality gap from the previous entry. User supplied `FinLit_Quest_Icon_Mark_transparent.png` (1254×1254, `hasAlpha: yes`) to `assets/brand/source/`.

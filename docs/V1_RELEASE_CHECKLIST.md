@@ -55,7 +55,7 @@ This file is updated after every completed blocker. Status values: `Not Started`
 - [ ] Startup time / puzzle loading / save speed / animation smoothness / memory leaks / offline behavior
 
 ## Phase 6 — App Store Readiness — In Progress
-- [~] App icon, splash screen, app name, version number — web-facing branding done (favicon/manifest/in-app logo/social meta); native app icon catalogs blocked on a native iOS/Android project not existing yet — see Blocker 9 for full detail
+- [x] App icon, splash screen, app name, version number — native iOS project now exists (see Blocker 9b), real app icon and branded splash screen installed
 - [ ] Privacy Policy, Terms of Service, support email
 - [ ] Screenshots, feature graphic, description, keywords, categories, age rating
 
@@ -128,5 +128,34 @@ No SVG source was provided (raster PNG only) — noted against §9, not blocking
 **§9 Asset quality — checked, transparency gap closed 2026-07-20.** No case inconsistencies in "FinLit Quest" anywhere added (grepped to confirm). No upscaling anywhere (source 1254px, largest derivative 630px). Fixed one real seam (OG image pad-color mismatch, caught by sampling actual pixels rather than assuming a color) before calling it done. User supplied `FinLit_Quest_Icon_Mark_transparent.png` (1254×1254, real alpha) closing the transparency gap flagged earlier. Verified it was genuinely transparent (not just RGBA-with-alpha-255-everywhere) by flattening it to JPEG with `sips` and confirming the outer square corners composited to white while the inner navy disc/gold ring/needle stayed intact — a clean circular cutout, not a hard square edge. Regenerated `favicon-16/32.png`, `favicon.ico`, and the in-app header logo (`wg-logo-96.png`) from this transparent source instead of the opaque master, since those are the three places background-independence actually matters (unknown browser-chrome color; unknown future header background). Deliberately did **not** switch the Apple/PWA app icons (`apple-touch-icon-180`, `icon-192`, `icon-512`, `icon-1024-appstore`) to the transparent source — app icons are expected/required to be opaque (this doc's own §5 already flags "no accidental transparency where Apple prohibits it"), so those correctly stay generated from the opaque master.
 
 **§10 Live verification — done for what's reachable from this environment.** Verified in the Browser pane (Chromium-based): logo renders correctly in the app header on both Crypto and Credit (same shared element); clicking it navigates home; `favicon.ico`/`favicon-16/32`/`apple-touch-icon-180`/`icon-192`/`icon-512`/`icon-512-maskable`/`og-image-1200x630`/`manifest.webmanifest` all fetch 200 OK (checked via `fetch()` from the live page, not just static file existence); manifest serves the correct `application/manifest+json` content type; zero console errors; zero 404s in the network log. **Not verified** (no access from this environment): real desktop Safari, real mobile Safari, real Android Chrome, an actual installed PWA, a TestFlight build, or an Android test build — those need real devices/tooling this sandboxed environment doesn't have.
+
+---
+
+### Blocker 9b — Native App Wrapper (Capacitor) — In Progress (scaffolded and branded; cannot build/sign/submit from this machine)
+
+Direct follow-on from the App Store readiness conversation: **this app could not be submitted to the App Store at all before this** — Apple requires a compiled native binary through Xcode, not a website or PWA, and this repo had zero native project (no `.xcodeproj`, no Capacitor/Cordova/Gradle anywhere). Chose Capacitor (thin native `WKWebView` shell around the existing static files, no rewrite) over a full native rewrite.
+
+**Environment problems hit and resolved along the way:**
+1. **No Node.js on this Mac at all.** `brew install node` was attempted first — it silently tried to compile Node from source (no prebuilt Homebrew "bottle" exists for macOS 12 Monterey anymore) and after ~15+ minutes **failed**: `Error: You are using macOS 12. We (and Apple) do not provide support for this old version.` The background-task notification reported "exit code 0," which was misleading — that was `tail`'s exit code from the `| tail -30` pipe, not `brew install`'s; the actual install had failed partway through a broken Python/sphinx-doc sub-dependency. Caught this by reading the actual captured output, not trusting the exit-code summary alone.
+2. **Fix**: abandoned Homebrew for this entirely. Downloaded Node's official prebuilt binary directly (`node-v24.18.0-darwin-x64.tar.gz` from nodejs.org, queried via their release API rather than assuming a version number) into `~/.local/nodejs` — no compilation, no sudo, no system-wide install. Added it to `~/.zshrc` PATH for future terminal sessions.
+
+**What was built:**
+- `package.json` (new — this repo had never had one) + `@capacitor/core`, `@capacitor/cli`, `@capacitor/ios` (v8.4.2).
+- `capacitor.config.json` — appId `com.finlitquest.app` (placeholder-but-real; trivially changeable now, becomes permanent once registered in App Store Connect — flagged, not blocking), appName "FinLit Quest".
+- **`scripts/build-www.sh`** — deliberately did *not* point Capacitor's `webDir` at the repo root. Traced every file `index.html`/`manifest.webmanifest` actually reference (script tags, link tags, CSS `url()`, and confirmed zero runtime `fetch()` calls exist anywhere in the codebase) and built a script that copies exactly those ~33 files into `www/` (908K). Pointing `webDir` at the repo root would have shipped `.git`, `node_modules`, `tests/`, `docs/`, `scripts/`, the multi-MB raw brand source PNGs, and every internal project doc (`PROJECT_LOG.md`, `CLAUDE.md`, etc.) inside the actual App Store binary.
+- Verified the trimmed `www/` bundle live before wiring it into Capacitor at all — served it locally, loaded both the word-game screen and the Credit workbook screen in the browser, zero console errors, confirming nothing was missed.
+- `npx cap add ios` — succeeded **without Xcode installed** (it only scaffolds files; building/signing/running needs Xcode). Uses Swift Package Manager, not CocoaPods (no CocoaPods install needed).
+- Replaced Capacitor's default generic app icon (`ios/App/App/Assets.xcassets/AppIcon.appiconset`) with the real, already-prepared `icon-1024-appstore.png` (1024×1024, no alpha — matches Apple's single-size icon format and the "no accidental transparency" requirement from §5).
+- Replaced Capacitor's default splash screen (small logo on white) with a real branded one: the transparent compass mark centered on the app's own navy (`#0A1120`, matching the manifest's `theme_color`/`background_color` for visual continuity into the app). Verified there was no hidden transparency leaking through by flattening to JPEG and confirming pixel-identical output. Also fixed the storyboard's fallback background color (was white, now navy) for the edge case before the image itself paints.
+- `.gitignore`: `www/` excluded (regenerable via the build script) but `ios/App/App/public/` (the copy Capacitor actually builds from) is committed, so the Xcode project builds immediately after a fresh clone without anyone needing to remember a build step.
+
+**What's still blocked, and why — cannot be done from this environment:**
+- **No Xcode installed**, and this Mac may not even be able to run one — macOS 12.7.6 (Monterey) is old enough that Apple's *current* minimum-Xcode/SDK requirement for new App Store submissions needs checking before assuming any locally-installable Xcode version will even qualify.
+- **~9.8GB free disk space** — likely not enough room for a full Xcode install (commonly 15-20GB+).
+- Installing Xcode itself requires interactive Apple ID sign-in through the App Store or developer.apple.com — cannot be automated from here.
+- Apple Developer Program enrollment ($99/year, tied to the user's own Apple ID/business) — status unknown, needed before any real signing/TestFlight/submission.
+- Once Xcode exists: real device/simulator testing, code signing, TestFlight upload, and the actual App Store Connect submission are all still ahead.
+
+**Full suite still 156/156 passing** (this work touched zero existing JS logic — new files and native-project scaffolding only).
 
 **Remaining blockers, this item:** a native iOS/Android app project needs to exist before §5/§6 can proceed; a store listing needs to exist before §7 can proceed (both handed to Blocker 10); real-device/real-browser verification beyond this dev environment. (Transparent-logo gap closed 2026-07-20 — no longer outstanding.)

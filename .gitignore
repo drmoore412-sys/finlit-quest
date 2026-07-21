@@ -1,6 +1,16 @@
 # Manual distribution and backup archives
 *.zip
 
+# Capacitor: www/ is a generated staging copy (regenerate with
+# scripts/build-www.sh) — ios/App/App/public/ is the one that actually needs
+# to be committed since Xcode builds against it directly.
+/www/
+
+# Xcode user-specific state (not project config)
+ios/**/xcuserdata/
+ios/**/*.xcuserstate
+ios/**/DerivedData/
+
 # macOS and editor-local files
 .DS_Store
 ._*
