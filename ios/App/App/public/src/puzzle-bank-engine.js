@@ -7,8 +7,13 @@
   // while the combined letter-wheel size stays within budget. Same algorithm the
   // engine already used for on-the-fly puzzle generation; kept pure/injectable here
   // (wheelFor passed in) so it's usable identically from Node tests and the browser.
-  function buildOneCandidate(vocabularyWords,shuffleFn,wheelForFn,maxWords=5,wheelBudget=9){
-    const pool=shuffleFn(vocabularyWords);
+  // forcedWord (optional): tried first in the pool instead of shuffled in at
+  // random, so a candidate containing it can be found in one attempt instead
+  // of waiting for random luck — used by buildBank's coverage guarantee below
+  // to pair a hard-to-reach word with others rather than isolating it alone.
+  function buildOneCandidate(vocabularyWords,shuffleFn,wheelForFn,maxWords=5,wheelBudget=9,forcedWord=null){
+    const rest=forcedWord?vocabularyWords.filter(w=>w!==forcedWord):vocabularyWords;
+    const pool=forcedWord?[forcedWord,...shuffleFn(rest)]:shuffleFn(rest);
     const words=[];let letters=[];
     for(const word of pool){
       if(words.length>=maxWords)break;
@@ -33,6 +38,30 @@
       if(seenIds.has(id))continue;
       seenIds.add(id);
       bank.push({id,words:candidate.words,letters:candidate.letters});
+    }
+    // Guarantee every vocabulary word is reachable. A bank built purely by
+    // random attempts can permanently miss a handful of words (confirmed
+    // live: a 10-slot bank drawn from 20 words omitted 3 of them) — the bank
+    // is only topped up when its size is below target, never re-checked for
+    // coverage, so a missed word would stay unreachable for the life of a
+    // save. Uses forcedWord so the missing word pairs naturally with others
+    // (a real multi-word puzzle) instead of burning many blind attempts.
+    // Grows past `size` only for the words actually missing.
+    const coveredWords=new Set(bank.flatMap(p=>p.words));
+    const missingWords=vocabularyWords.filter(w=>!coveredWords.has(w));
+    for(const word of missingWords){
+      let found=false,wordAttempts=0;
+      while(!found&&wordAttempts<20){
+        wordAttempts++;
+        const candidate=buildOneCandidate(vocabularyWords,shuffleFn,wheelForFn,5,9,word);
+        if(!candidate)continue;
+        const id=puzzleId(candidate.words);
+        if(seenIds.has(id))continue;
+        seenIds.add(id);
+        bank.push({id,words:candidate.words,letters:candidate.letters});
+        coveredWords.add(word);
+        found=true;
+      }
     }
     return bank;
   }

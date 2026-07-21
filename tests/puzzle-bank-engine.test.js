@@ -23,26 +23,40 @@ test("puzzleId is stable regardless of word order",()=>{
   assert.equal(puzzleId(["TOKEN","COIN"]),puzzleId(["COIN","TOKEN"]));
 });
 
-test("buildBank produces the requested number of distinct puzzles",()=>{
+test("buildBank produces at least the requested number of distinct puzzles",()=>{
   const bank=buildBank(VOCAB,10,shuffled,wheelFor);
-  assert.equal(bank.length,10);
+  assert.ok(bank.length>=10,"must reach at least the requested size");
   const ids=new Set(bank.map(p=>p.id));
-  assert.equal(ids.size,10,"all bank entries must be distinct puzzles");
+  assert.equal(ids.size,bank.length,"all bank entries must be distinct puzzles");
   bank.forEach(p=>assert.ok(p.words.length>=2&&p.letters.length<=9));
 });
 
+// buildBank may need to grow past the requested size to guarantee every
+// vocabulary word is reachable (see the coverage test below) — it is a
+// floor, not an exact count.
 test("buildBank supports different sizes without code changes (10, 15, 20)",()=>{
   [10,15,20].forEach(size=>{
     const bank=buildBank(VOCAB,size,shuffled,wheelFor);
-    assert.equal(bank.length,size,`expected a bank of size ${size}`);
+    assert.ok(bank.length>=size,`expected at least a bank of size ${size}`);
   });
 });
 
 test("buildBank tops up an existing bank rather than discarding it",()=>{
   const first=buildBank(VOCAB,5,shuffled,wheelFor);
   const topped=buildBank(VOCAB,10,shuffled,wheelFor,first);
-  assert.equal(topped.length,10);
+  assert.ok(topped.length>=10);
   first.forEach(p=>assert.ok(topped.some(q=>q.id===p.id),"original entries must be preserved"));
+});
+
+// V1.0 Blocker 6: confirmed live that a 10-slot bank drawn from Crypto's real
+// 20-word vocabulary permanently omitted 3 words (MINT, LEDGER, MINER) for
+// the lifetime of a save, since the bank is only topped up when short of
+// size and never re-checked for coverage. Every word must be reachable.
+test("buildBank guarantees every vocabulary word appears in at least one puzzle",()=>{
+  const bank=buildBank(VOCAB,10,shuffled,wheelFor);
+  const covered=new Set(bank.flatMap(p=>p.words));
+  const missing=VOCAB.filter(w=>!covered.has(w));
+  assert.deepEqual(missing,[],`expected full coverage, missing: ${missing.join(", ")}`);
 });
 
 test("selectPlaythrough with no history returns a random 5 from the bank",()=>{
@@ -55,7 +69,10 @@ test("selectPlaythrough with no history returns a random 5 from the bank",()=>{
 });
 
 test("selectPlaythrough prefers never-played puzzles over played ones",()=>{
-  const bank=buildBank(VOCAB,10,shuffled,wheelFor);
+  // buildBank is a floor, not an exact count (it may grow to guarantee
+  // coverage) — take a fixed first-10 slice so this test's own 8/2 played
+  // split stays exact regardless of how many entries buildBank returned.
+  const bank=buildBank(VOCAB,10,shuffled,wheelFor).slice(0,10);
   // Mark 8 of 10 as played, leave 2 never-played.
   const history={};
   bank.slice(0,8).forEach((p,i)=>{history[p.id]={timesPlayed:1,lastPlayedAt:1000+i}});
@@ -129,7 +146,7 @@ for(const [bankSize,requiredPuzzles] of [[10,5],[15,5],[20,8],[50,10],[150,15]])
   test(`bankSize ${bankSize} / requiredPuzzles ${requiredPuzzles}: builds the full bank and selects exactly requiredPuzzles unique puzzles`,()=>{
     const vocab=makeVocab(Math.max(60,bankSize*3));
     const bank=buildBank(vocab,bankSize,shuffled,wheelFor);
-    assert.equal(bank.length,bankSize,`expected a full bank of ${bankSize}`);
+    assert.ok(bank.length>=bankSize,`expected at least a full bank of ${bankSize}`);
     const selection=selectPlaythrough(bank,{},[],requiredPuzzles,shuffled);
     assert.equal(selection.length,requiredPuzzles,`expected exactly ${requiredPuzzles} puzzles selected`);
     assert.equal(new Set(selection.map(p=>p.id)).size,requiredPuzzles,"selected puzzles must be unique");

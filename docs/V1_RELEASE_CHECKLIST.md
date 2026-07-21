@@ -16,7 +16,7 @@ This file is updated after every completed item. Status values: `Not Started` / 
 - [x] **Blocker 3 — Level progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [x] **Blocker 4 — Puzzle progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [x] **Blocker 5 — Save/load persistence — VERIFIED 2026-07-21.** See Blocker Log for full detail.
-- [ ] **Blocker 6 — Crypto end-to-end.** Every puzzle loads/solvable, definitions match, rewards work, lesson completes, next unlocks. No placeholder content, no dead ends.
+- [x] **Blocker 6 — Crypto end-to-end — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [ ] **Blocker 7 — Credit end-to-end.** Same checklist as Blocker 6.
 - [x] Coins — verified 2026-07-20 (see Blocker Log)
 - [x] XP — verified 2026-07-20 (see Blocker Log)
@@ -175,6 +175,37 @@ Entries added after each completed blocker, in execution order. Each entry: root
 **Files modified:** `learning-engine.js`, `tests/learning-engine.test.js`.
 
 **Remaining blockers:** Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up from Blocker 12.
+
+### Blocker 6 — Crypto end-to-end — VERIFIED 2026-07-21
+
+Full first-time-player walkthrough, real UI clicks and real drag/tap gestures (not just function calls), plus targeted scripted checks for reward/progression integrity across repeated completions, refreshes, and navigation — per the explicit instruction that Blockers 4/5 exposed a real pattern (unsafe state that drifts between in-memory and persisted) worth specifically re-testing here.
+
+**Scope clarifications made before testing (confirmed with the user):**
+- "Every Crypto level can be completed" — `worlds/crypto.js`'s `levels` array (crypto-1..5) is dead/unused legacy scaffold data, zero references from live gameplay. What's actually played is one continuous 20-term vocabulary bank with randomized 5-puzzle playthroughs. Verified the real structure instead: every one of the 20 terms is reachable and solvable (see Bug 2 below — this wasn't true until fixed).
+- "Pause/resume works" — `#wgNavPause` was wired identically to Back/Journey (discards the whole in-progress puzzle, no real pause state). Relabeled to an honest "Exit" (🚪) rather than building real pause/resume, per your direction — small, safe, no behavior change.
+
+**Bug 1 (real, high severity) — discrete tap-to-build-word could never submit, contradicting the on-screen instructions.** The wheel's on-screen copy reads "Swipe or tap letters to build words," but `wgSubmitWord()` was only ever called from a global `pointerup` listener gated on `wgGestureLetters > 1` — and every discrete tap is its own separate pointerdown/up gesture, so `wgGestureLetters` never exceeds 1 for tap-built input, regardless of device (touch or mouse). **Reproduced live**: 5 correct discrete taps spelling the exact target word "TOKEN" left `wgState.found` empty and XP at 0. A real drag gesture (verified separately) worked correctly (XP 0→8). **Fix:** `wgAddLetter` (`word-game-app.js`) now checks after every letter add whether the accumulated selection spells a target word, submitting immediately if so — works identically whether the selection was built by a drag or by separate taps. **Re-verified live**: 4 discrete taps spelling "LOCK" now correctly submit (XP 8→14, coins 335→363). Confirmed no regression to existing behavior: a real drag still works, an invalid 2-letter drag ("AT") still toasts "Not in this puzzle" and clears without crashing, resubmitting an already-found word still shows "Already found" with no double reward.
+
+**Bug 2 (real, high severity) — the live puzzle bank could permanently omit vocabulary words for a save's entire lifetime.** `wgEnsureBank()` only tops up the bank when `bank.length < size`; it never re-checks coverage once the target size is reached. **Reproduced live**: after cycling through enough playthroughs to reach 17/20 words solved, the remaining 3 (MINT, LEDGER, MINER) were confirmed completely absent from the persisted 10-slot bank — not bad luck in that one session, but permanent, since the bank never regenerates. Verified this wasn't a structural exclusion (unlike the earlier Credit CRF-001/002 finding) by rebuilding with 30 slots instead of 10 across 20 trials: all three words appeared in 18-20 of 20 trials, confirming they combine fine within the wheel budget and were simply missed by the random draw. **Fix:** `buildBank` (`src/puzzle-bank-engine.js`) now guarantees full vocabulary coverage after its normal random-fill pass — for any word not yet covered, it retries `buildOneCandidate` with that word forced first in the candidate pool (a new optional `forcedWord` parameter) so it pairs naturally with other words in one attempt instead of needing many blind retries or landing as an isolated single-word entry. Bank size is now a floor, not an exact count — it grows only for words actually missing. **Re-verified live**: a fresh save's bank grew from 10→12 entries with zero words missing (was 3 missing before the fix).
+
+**Other checklist items, confirmed correct with no changes needed:**
+- Welcome → World Selection → Crypto opens correctly, fresh player state (300 coins/0 XP/Level 1) as expected.
+- Valid/invalid word handling, mission word display, definitions panel (masked pattern for unsolved, revealed + checkmark for solved) — all correct.
+- Hint cost exactly 100 coins, full reveal exactly 300 coins, both block correctly on insufficient balance with a toast and no state change.
+- Coins/XP update correctly on solve; puzzle-complete panel correctly sums rewards across all words in that puzzle.
+- Level-up unlock: pushed XP across the 250 threshold live, header correctly updated to "LEVEL 2" immediately.
+- Back navigation (top-left arrow) and Exit (renamed Pause) both correctly return to World Selection.
+- Refresh/relaunch persistence: XP, coins, solved-word count, and level all survived a real page reload exactly.
+- No "Crypto World complete" end state exists — confirmed this is graceful by design, not a bug: finishing one 5-puzzle playthrough silently starts a new random one, which is the intended perpetual-practice structure for a vocabulary-bank word game, not a"levels" game with a defined ending.
+- Zero console errors and zero placeholder/TODO content found anywhere in Crypto's terms/definitions.
+
+**Adjacent, not fixed here (flagged as cleanup, not a blocker):** `worlds/crypto.js`'s `levels`/`bonusWords` arrays are dead code — confirmed zero live references. Flagged for removal during Blocker 8 (bug sweep), alongside the already-flagged dead legacy XP path from Blocker 2.
+
+**Tests added:** `tests/puzzle-bank-engine.test.js` — new coverage-guarantee test asserting every vocabulary word appears in the built bank; updated three existing tests whose assertions assumed `buildBank` returns exactly the requested size (it's now a floor, since coverage can require growing past it) to assert `>=` instead, plus one test's own internal 8/2 split pinned to a fixed `.slice(0,10)` so it stays deterministic regardless of coverage-driven overage. Full suite: **168/168 passing**, confirmed stable across 5 repeated runs (randomized, to rule out flakiness).
+
+**Files modified:** `word-game-app.js`, `src/puzzle-bank-engine.js`, `index.html`, `tests/puzzle-bank-engine.test.js`.
+
+**Remaining blockers:** Credit e2e (7), bug sweep/performance (8 — now also carries the dead `worlds/crypto.js` levels/bonusWords cleanup), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up from Blocker 12.
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 

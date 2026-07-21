@@ -172,6 +172,12 @@ function wgAddLetter(btn) {
   wgGestureLetters++;
   btn.classList.add("selected");
   wgUpdateSelection();
+  // Submit as soon as the selection spells a target word, regardless of
+  // whether it was built by a drag or by separate discrete taps — a tap
+  // gesture never spans more than one letter, so the pointerup-driven
+  // auto-submit below never fires for it on its own.
+  const letters = $$("#wgWheel .letter"), word = wgState.selected.map(i => letters[i].textContent).join("");
+  if (wgState.words.includes(word)) wgSubmitWord();
 }
 function wgUpdateSelection() {
   const letters = $$("#wgWheel .letter");
