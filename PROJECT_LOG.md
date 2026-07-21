@@ -10,6 +10,21 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (later) — Confirmed this Mac can never submit to the App Store; added FQ-APP-002 release standard doc
+
+Researched step 1 of the user's own "what's next" plan (verify Xcode compatibility) before spending effort on steps 2-3 (free storage, install Xcode). Good thing — it changes the plan.
+
+**Finding:** this machine is a `MacBookAir7,2` (2015/2017 MacBook Air). Apple's maximum supported macOS for that model is Monterey (12) — already what it's running; it cannot be upgraded to Ventura, Sonoma, or anything newer, period. macOS 12 caps at Xcode 14.2. Apple has required Xcode 26+ with the iOS 26 SDK for **all** new App Store submissions since 2026-04-28. That's four major Xcode versions beyond what this hardware can ever run. No amount of freed disk space or Xcode reinstallation changes this — it's a hardware ceiling. Real options: use a different/newer Mac for the build-archive-sign-submit step, or a cloud Mac CI service (Codemagic, Bitrise, GitHub Actions macOS runners, Xcode Cloud) — not yet decided which.
+
+**New doc:** `docs/FQ-APP-002-native-build-release-standard.md`, per request — the durable, repeatable native-build/release process (separate from `V1_RELEASE_CHECKLIST.md`, which is the current-launch status tracker). Documents the constraint above, current toolchain versions (Node v24.18.0 via direct nodejs.org binary — not Homebrew, which fails on this OS — Capacitor 8.4.2, no CocoaPods needed), bundle identity, the `build-www.sh`/`cap sync` pipeline and why `ios/App/App/public/` is committed, signing/TestFlight/submission process (marked not-yet-established where true rather than guessed), a proposed version-numbering scheme, and a release checklist for 1.1/2.0 and beyond.
+
+### Files modified
+
+- New: `docs/FQ-APP-002-native-build-release-standard.md`
+- Modified: `docs/V1_RELEASE_CHECKLIST.md` (Blocker 9b's Xcode-compatibility line updated from "needs checking" to the confirmed finding)
+
+---
+
 ## 2026-07-21 — Native iOS app wrapper (Capacitor) scaffolded and branded
 
 App Store submission was flagged as impossible before this: Apple requires a compiled binary, not a website/PWA, and this repo had zero native project. Wrapped the existing static site with Capacitor (no rewrite — thin native shell around what already exists).

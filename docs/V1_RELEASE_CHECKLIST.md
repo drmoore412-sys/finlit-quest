@@ -150,11 +150,11 @@ Direct follow-on from the App Store readiness conversation: **this app could not
 - `.gitignore`: `www/` excluded (regenerable via the build script) but `ios/App/App/public/` (the copy Capacitor actually builds from) is committed, so the Xcode project builds immediately after a fresh clone without anyone needing to remember a build step.
 
 **What's still blocked, and why — cannot be done from this environment:**
-- **No Xcode installed**, and this Mac may not even be able to run one — macOS 12.7.6 (Monterey) is old enough that Apple's *current* minimum-Xcode/SDK requirement for new App Store submissions needs checking before assuming any locally-installable Xcode version will even qualify.
-- **~9.8GB free disk space** — likely not enough room for a full Xcode install (commonly 15-20GB+).
-- Installing Xcode itself requires interactive Apple ID sign-in through the App Store or developer.apple.com — cannot be automated from here.
+- **Confirmed 2026-07-21, definitively (not a maybe): this specific Mac can never build a submittable App Store binary.** It's a `MacBookAir7,2` (2015/2017 model) — Apple's maximum supported macOS for this hardware is Monterey (12), already what it's running; Ventura/Sonoma/Sequoia/Tahoe are not available for it, ever. macOS 12 caps at Xcode 14.2. Apple has required Xcode 26+/iOS 26 SDK for all new App Store submissions since **2026-04-28**. Xcode 14.2 is four major versions short — no amount of free disk space or reinstalling Xcode fixes this. Full detail and resolution options in `docs/FQ-APP-002-native-build-release-standard.md` §1 — needs a different/newer Mac or a cloud Mac CI service (Codemagic/Bitrise/GitHub Actions/Xcode Cloud) for the actual build-sign-submit step; not yet decided which.
+- **~9.8GB free disk space** on this machine regardless — moot given the above, but relevant again if this same machine is ever used for anything Xcode-adjacent.
+- Installing Xcode itself requires interactive Apple ID sign-in through the App Store or developer.apple.com — cannot be automated from here, on any machine.
 - Apple Developer Program enrollment ($99/year, tied to the user's own Apple ID/business) — status unknown, needed before any real signing/TestFlight/submission.
-- Once Xcode exists: real device/simulator testing, code signing, TestFlight upload, and the actual App Store Connect submission are all still ahead.
+- Once a capable machine (or CI service) is in place: real device/simulator testing, code signing, TestFlight upload, and the actual App Store Connect submission are all still ahead.
 
 **Full suite still 156/156 passing** (this work touched zero existing JS logic — new files and native-project scaffolding only).
 
