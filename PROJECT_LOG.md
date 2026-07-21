@@ -10,6 +10,32 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (latest) — Phase 3: Apple App Review Guideline audit complete
+
+Fetched the current App Review Guidelines live from developer.apple.com (not from training knowledge) and audited FinLit Quest's actual verified behavior against every section relevant to a Capacitor-wrapped, offline, no-backend, no-accounts, no-IAP educational word-game app. Full guideline-by-guideline PASS/FAIL/NOT APPLICABLE table is in `docs/V1_RELEASE_CHECKLIST.md` Phase 3.
+
+**No guideline violations found.** Every FAIL is a missing artifact, not a design problem:
+- **4.2 Minimum Functionality** (the standing concern since the Capacitor decision) — PASS with a mitigation: the app has real interactive gameplay well beyond a repackaged website, but still needs specific "Notes for Review" text in App Store Connect describing that gameplay up front, since web-wrapped apps are a known auto-rejection risk if reviewers assume "just a website." Tracked for Blocker 10/11.
+- **5.1.1 Privacy** — FAIL today (no privacy policy exists yet), but straightforward given the real architecture (100% local storage, zero backend/accounts/analytics/ads) — the policy just needs to state that accurately. Already tracked as Phase 4.
+- **1.5 Support URL** — FAIL today (doesn't exist yet), tracked as Blocker 10.
+- **2.1 App Completeness** ("tested on-device") — can't be fully verified from this sandboxed environment; only browser-based Capacitor testing has been possible here. Already documented in FQ-APP-002 §1 as work for whoever does the final native build.
+
+**Explicitly confirmed NOT APPLICABLE, closing real open questions:**
+- **3.1.1 In-App Purchase** — doesn't apply. No real-money purchase path exists anywhere; coins are earn-only and gate nothing (both worlds are freely selectable), so there's no paywalled content to require IAP for.
+- **3.1.5 Cryptocurrencies** (wallets/mining/exchanges/ICOs) — doesn't apply. "Crypto World" is purely educational vocabulary content with zero connection to any real wallet, exchange, or mining operation — confirmed against Apple's own guideline text, which specifically governs apps facilitating real crypto functionality.
+- **4.8 Sign in with Apple** — doesn't apply, since the app has no login/account system at all.
+- Zero device permissions requested, so no Info.plist purpose strings needed.
+
+### Files modified
+
+- `docs/V1_RELEASE_CHECKLIST.md` (Phase 3 marked Verified, full guideline table added)
+
+### Remaining blockers
+
+Branding/domain (9, mostly done), store assets (10 — now also carrying the App Review notes and support URL), submission (11), Phases 4/5/8.
+
+---
+
 ## 2026-07-21 (latest) — Blocker 8: Bug sweep complete — dead code removed, full QA sweep clean
 
 Two parts: cleared the cleanup backlog flagged across Blockers 2, 6, 7, and 12, then a full live QA sweep (every screen/button, all viewports, deliberate break-attempts, console/performance checks).

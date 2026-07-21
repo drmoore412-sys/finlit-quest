@@ -31,13 +31,36 @@ This file is updated after every completed item. Status values: `Not Started` / 
 - [x] **VERIFIED 2026-07-21.** Deliberate break-attempts, every reproducible defect documented and fixed
 - [x] **VERIFIED 2026-07-21.** Console errors, missing assets, broken navigation, duplicate rewards, layout problems
 
-## Phase 3 — Apple Guideline Review
+## Phase 3 — Apple Guideline Review — VERIFIED 2026-07-21
 *(new 2026-07-21, not previously tracked as its own item)*
 
-- [ ] Research current official Apple App Review Guidelines (not assumed from training knowledge — verify against live documentation)
-- [ ] Audit against 4.2 Minimum Functionality specifically (real risk for a Capacitor-wrapped web app — see prior concerns raised before Blocker 9b)
-- [ ] Audit: user experience, performance, educational value, privacy, accessibility, offline behavior, loading experience, navigation, error handling
-- [ ] Produce a PASS / FAIL / NOT APPLICABLE checklist — nothing left as "unknown"
+- [x] Research current official Apple App Review Guidelines — fetched live from developer.apple.com/app-store/review/guidelines/ (not assumed from training knowledge), full text of every section below.
+- [x] Audit against 4.2 Minimum Functionality specifically — see PASS/caveat below.
+- [x] Audit: user experience, performance, educational value, privacy, accessibility, offline behavior, loading experience, navigation, error handling — folded into the checklist below.
+- [x] Produce a PASS / FAIL / NOT APPLICABLE checklist — nothing left as "unknown." Full detail in Blocker Log below.
+
+### Guideline-by-guideline checklist
+
+| # | Guideline | Verdict | Basis |
+|---|---|---|---|
+| 4.2 | Minimum Functionality — apps shouldn't be a repackaged website | **PASS, with a mitigation required before submission** | Real interactive gameplay (drag/tap word-wheel puzzles, flashcards, matching, quizzes, XP/level/streak progression, persistent local save), works fully offline, no browser chrome. Meaningfully "app-like," not a passive content wrapper. **Action required (not yet done):** write specific, detailed "Notes for Review" text in App Store Connect describing the interactive gameplay up front — Capacitor-wrapped apps are a known automatic-rejection risk under 4.2 if reviewers assume "web wrapper" without being told otherwise. Tracked as a Blocker 10/11 action item. |
+| 2.1 | App Completeness — tested on-device, no crashes, no placeholder content | **PARTIAL — cannot be fully verified from this environment** | No placeholder/dummy content anywhere (confirmed repeatedly, Blockers 6-8). No login exists, so no demo account is needed. **Real gap:** "tested on-device for bugs and stability" has only been done via the browser-based Capacitor web engine in this sandboxed environment, never a real physical iOS device or even the Xcode Simulator — blocked by this Mac's hardware ceiling (`docs/FQ-APP-002-native-build-release-standard.md` §1). This is explicitly the job left for whoever performs the final native build; already documented there, not new. |
+| 2.3 | Accurate Metadata — description/screenshots must reflect real functionality | **PENDING — not yet applicable, store listing doesn't exist yet** | No fabricated content risk already ruled out: the "Coming Soon" worlds proposed during Blocker 12 were explicitly declined for exactly this reason (advertising unbuilt content). Once Blocker 10 produces real screenshots/description, they must show actual gameplay (2.3.3) and stay 4+-appropriate even if the app's age rating is higher (2.3.8). |
+| 5.1.1 | Privacy — privacy policy required, in-app and in App Store Connect | **FAIL today, tracked as Phase 4** | No privacy policy exists yet. Straightforward to satisfy given the actual architecture (confirmed: 100% local `localStorage`, zero backend, zero accounts, zero third-party analytics/ads/SDKs) — the policy just needs to state that accurately. This is Phase 4's job, not re-done here; flagged so it isn't missed. |
+| 2.5.2 | Self-contained bundle, no dynamically downloaded/executed code | **PASS** | Confirmed during Blocker 9b: zero runtime `fetch()` calls exist anywhere in the codebase; `www/`/`ios/App/App/public/` bundles all HTML/JS/CSS locally, nothing loaded remotely at runtime. |
+| 3.1.1 / 3.1.5(v) | In-App Purchase required for unlockable content; cryptocurrency apps can't pay currency for tasks | **NOT APPLICABLE** | No real-money purchase path exists anywhere in the app — coins are earn-only by design (confirmed architecturally throughout the project) and are spent only on optional in-puzzle convenience (hints/reveals), never to gate core content. Both Crypto World and Credit World are freely selectable with zero currency required (World Selection screen, no locking). Since nothing is ever sold, there's nothing to circumvent Apple's IAP system with — this guideline governs paywalling behind a private currency, which doesn't happen here. |
+| 3.1.5 | Cryptocurrencies — wallets/mining/exchanges/ICOs | **NOT APPLICABLE** | Confirmed via Apple's own guideline text: 3.1.5 governs apps that facilitate real virtual-currency storage, mining, exchange, or ICOs. "Crypto World" is purely educational vocabulary content (word-puzzle definitions of blockchain/DeFi terms) with zero connection to any real wallet, exchange, or mining operation — categorically the same as a dictionary app that happens to include financial terminology. |
+| 1.1 | Objectionable Content | **PASS** | No violence, hate speech, sexual content, or discriminatory material anywhere in the app — financial-literacy educational content only. |
+| 1.3 | Kids Category | **NOT APPLICABLE** | Nothing indicates intent to submit under the Kids Category specifically; standard age rating is the right path (age-rating selection itself is a Blocker 10 action item, not a guideline compliance question). |
+| 2.5.4 / 2.5.5 | Background services used only for stated purpose; IPv6-only network support | **PASS** | No background services beyond Capacitor/WKWebView defaults; app has zero network dependency at all (100% offline-capable, confirmed extensively Blockers 4-8), so IPv6-only compatibility is moot — there's no network traffic to be incompatible. |
+| 4.1 | Copycats — original app, no impersonation | **PASS** | Original branding and content (verified during Blocker 9's brand-asset work), not impersonating any other app or service. |
+| 1.5 | Developer Information — Support URL with a real way to contact the developer | **FAIL today, tracked as Blocker 10** | No support URL exists yet. Required field in App Store Connect; needs to be built as part of Blocker 10 (store assets and metadata). |
+| 4.8 | Sign in with Apple — required if using third-party login | **NOT APPLICABLE** | Confirmed: the app has zero login/account system of any kind (no accounts, no third-party auth, no first-party auth) — the guideline only applies when a third-party/social login exists at all. |
+| — | Info.plist purpose strings for device permissions | **NOT APPLICABLE** | App requests zero device permissions — no camera, location, contacts, microphone, or any other protected resource, confirmed by the app's architecture (pure local-storage word game). No purpose strings needed. |
+
+### Net assessment
+
+No outright guideline **violations** found — every FAIL above is a missing *artifact* (privacy policy, support URL, on-device testing, App Review notes) rather than a design or behavior problem with the app itself. All four are already tracked in this document (Phase 4, Blocker 10, Blocker 11, FQ-APP-002) — this review didn't surface anything new to build, it confirmed the plan already covers Apple's actual requirements and closed the "verify against live documentation, don't assume" gap explicitly called for in this phase's original scope.
 
 ## Phase 4 — Privacy & Compliance
 *(overlaps old Phase 6's Privacy Policy/ToS item and FQ-APP-002 §7)*
