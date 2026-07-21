@@ -107,6 +107,8 @@
 .welcome-features li{display:flex;align-items:center;gap:10px;background:var(--wg-panel);border:1px solid var(--wg-border);border-radius:12px;padding:11px 14px;font-size:14px}
 .welcome-features li:before{content:"✓";color:var(--wg-teal);font-weight:900;font-size:15px}
 .welcome-cta{width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:800;font-size:16px;background:linear-gradient(145deg,#ffce6b,#e08b1f);color:#2b1600;margin-top:8px;cursor:pointer;box-shadow:0 14px 30px #e08b1f40}
+.welcome-legal-links{margin:14px 0 0;font-size:12px;color:var(--wg-muted);text-align:center}
+.welcome-legal-links a{color:var(--wg-muted);text-decoration:underline}
 
 /* World Selection screen (first launch, and the permanent "choose a world" hub) */
 .world-select-intro{position:relative;z-index:1;margin:20px 0 18px}

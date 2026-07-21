@@ -10,6 +10,31 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (latest) — Phase 4: Privacy Policy, Terms of Service, and Support page published
+
+Built and published the three legal/compliance pages required before submission, closing two of the FAILs flagged in Phase 3's guideline audit (5.1.1 Privacy, 1.5 Support URL). Confirmed two public-facing decisions with the user first, since they become permanently visible once published: contact email (`drmoore412@gmail.com`) and publisher name ("FinLit Quest," no separate legal entity).
+
+**`privacy.html`, `terms.html`, `support.html`** (all live at finlitquest.com) — every claim in them is cross-checked against the app's actual verified behavior from this session rather than written as generic boilerplate: no backend (zero `fetch()` calls anywhere, confirmed during Blocker 9b), no accounts (no login step exists anywhere, confirmed during Blocker 12), no analytics/ads/third-party SDKs, and the coin/XP economy is earn-only and never gates content (confirmed during Phase 3's 3.1.1 analysis).
+
+**In-app reachability:** Apple requires the privacy policy be linked from inside the app itself, not just listed in App Store Connect metadata. Added a small "Privacy Policy · Terms of Service" link row to the Welcome screen footer, styled to match the existing brand. Also added the three new pages to `scripts/build-www.sh`'s explicit copy list (this script only bundles files it's told about — documented as a known gotcha in FQ-APP-002 §4) so the native iOS build gets working links too, not just the web deployment.
+
+**Verification:** all three pages render correctly, in-app link confirmed working, zero console errors, 168/168 tests still passing (no existing logic touched — these are new static pages).
+
+### Files added
+
+- `privacy.html`, `terms.html`, `support.html`
+
+### Files modified
+
+- `index.html`, `word-game.css`, `scripts/build-www.sh`
+- `docs/V1_RELEASE_CHECKLIST.md` (Phase 4 marked Verified, Phase 3's guideline table updated, full log entry added)
+
+### Remaining blockers
+
+Branding/domain (9, mostly done), store assets (10 — now includes entering the Privacy Policy/Support URLs into App Store Connect and writing the 4.2 App Review notes), submission (11), Phases 5/8.
+
+---
+
 ## 2026-07-21 (latest) — Phase 3: Apple App Review Guideline audit complete
 
 Fetched the current App Review Guidelines live from developer.apple.com (not from training knowledge) and audited FinLit Quest's actual verified behavior against every section relevant to a Capacitor-wrapped, offline, no-backend, no-accounts, no-IAP educational word-game app. Full guideline-by-guideline PASS/FAIL/NOT APPLICABLE table is in `docs/V1_RELEASE_CHECKLIST.md` Phase 3.

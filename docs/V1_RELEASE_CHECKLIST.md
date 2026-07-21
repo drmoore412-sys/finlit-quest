@@ -46,7 +46,7 @@ This file is updated after every completed item. Status values: `Not Started` / 
 | 4.2 | Minimum Functionality — apps shouldn't be a repackaged website | **PASS, with a mitigation required before submission** | Real interactive gameplay (drag/tap word-wheel puzzles, flashcards, matching, quizzes, XP/level/streak progression, persistent local save), works fully offline, no browser chrome. Meaningfully "app-like," not a passive content wrapper. **Action required (not yet done):** write specific, detailed "Notes for Review" text in App Store Connect describing the interactive gameplay up front — Capacitor-wrapped apps are a known automatic-rejection risk under 4.2 if reviewers assume "web wrapper" without being told otherwise. Tracked as a Blocker 10/11 action item. |
 | 2.1 | App Completeness — tested on-device, no crashes, no placeholder content | **PARTIAL — cannot be fully verified from this environment** | No placeholder/dummy content anywhere (confirmed repeatedly, Blockers 6-8). No login exists, so no demo account is needed. **Real gap:** "tested on-device for bugs and stability" has only been done via the browser-based Capacitor web engine in this sandboxed environment, never a real physical iOS device or even the Xcode Simulator — blocked by this Mac's hardware ceiling (`docs/FQ-APP-002-native-build-release-standard.md` §1). This is explicitly the job left for whoever performs the final native build; already documented there, not new. |
 | 2.3 | Accurate Metadata — description/screenshots must reflect real functionality | **PENDING — not yet applicable, store listing doesn't exist yet** | No fabricated content risk already ruled out: the "Coming Soon" worlds proposed during Blocker 12 were explicitly declined for exactly this reason (advertising unbuilt content). Once Blocker 10 produces real screenshots/description, they must show actual gameplay (2.3.3) and stay 4+-appropriate even if the app's age rating is higher (2.3.8). |
-| 5.1.1 | Privacy — privacy policy required, in-app and in App Store Connect | **FAIL today, tracked as Phase 4** | No privacy policy exists yet. Straightforward to satisfy given the actual architecture (confirmed: 100% local `localStorage`, zero backend, zero accounts, zero third-party analytics/ads/SDKs) — the policy just needs to state that accurately. This is Phase 4's job, not re-done here; flagged so it isn't missed. |
+| 5.1.1 | Privacy — privacy policy required, in-app and in App Store Connect | **PASS, resolved in Phase 4** | `privacy.html` published at finlitquest.com/privacy.html, states the actual architecture accurately (100% local storage, zero backend, zero accounts, zero third-party analytics/ads/SDKs), linked from the Welcome screen footer so it's reachable in-app as 5.1.1(i) requires, not just in App Store Connect metadata. |
 | 2.5.2 | Self-contained bundle, no dynamically downloaded/executed code | **PASS** | Confirmed during Blocker 9b: zero runtime `fetch()` calls exist anywhere in the codebase; `www/`/`ios/App/App/public/` bundles all HTML/JS/CSS locally, nothing loaded remotely at runtime. |
 | 3.1.1 / 3.1.5(v) | In-App Purchase required for unlockable content; cryptocurrency apps can't pay currency for tasks | **NOT APPLICABLE** | No real-money purchase path exists anywhere in the app — coins are earn-only by design (confirmed architecturally throughout the project) and are spent only on optional in-puzzle convenience (hints/reveals), never to gate core content. Both Crypto World and Credit World are freely selectable with zero currency required (World Selection screen, no locking). Since nothing is ever sold, there's nothing to circumvent Apple's IAP system with — this guideline governs paywalling behind a private currency, which doesn't happen here. |
 | 3.1.5 | Cryptocurrencies — wallets/mining/exchanges/ICOs | **NOT APPLICABLE** | Confirmed via Apple's own guideline text: 3.1.5 governs apps that facilitate real virtual-currency storage, mining, exchange, or ICOs. "Crypto World" is purely educational vocabulary content (word-puzzle definitions of blockchain/DeFi terms) with zero connection to any real wallet, exchange, or mining operation — categorically the same as a dictionary app that happens to include financial terminology. |
@@ -54,21 +54,21 @@ This file is updated after every completed item. Status values: `Not Started` / 
 | 1.3 | Kids Category | **NOT APPLICABLE** | Nothing indicates intent to submit under the Kids Category specifically; standard age rating is the right path (age-rating selection itself is a Blocker 10 action item, not a guideline compliance question). |
 | 2.5.4 / 2.5.5 | Background services used only for stated purpose; IPv6-only network support | **PASS** | No background services beyond Capacitor/WKWebView defaults; app has zero network dependency at all (100% offline-capable, confirmed extensively Blockers 4-8), so IPv6-only compatibility is moot — there's no network traffic to be incompatible. |
 | 4.1 | Copycats — original app, no impersonation | **PASS** | Original branding and content (verified during Blocker 9's brand-asset work), not impersonating any other app or service. |
-| 1.5 | Developer Information — Support URL with a real way to contact the developer | **FAIL today, tracked as Blocker 10** | No support URL exists yet. Required field in App Store Connect; needs to be built as part of Blocker 10 (store assets and metadata). |
+| 1.5 | Developer Information — Support URL with a real way to contact the developer | **PASS, resolved in Phase 4** | `support.html` published at finlitquest.com/support.html with a direct contact email and FAQ. Ready to enter as the Support URL in App Store Connect during Blocker 10. |
 | 4.8 | Sign in with Apple — required if using third-party login | **NOT APPLICABLE** | Confirmed: the app has zero login/account system of any kind (no accounts, no third-party auth, no first-party auth) — the guideline only applies when a third-party/social login exists at all. |
 | — | Info.plist purpose strings for device permissions | **NOT APPLICABLE** | App requests zero device permissions — no camera, location, contacts, microphone, or any other protected resource, confirmed by the app's architecture (pure local-storage word game). No purpose strings needed. |
 
 ### Net assessment
 
-No outright guideline **violations** found — every FAIL above is a missing *artifact* (privacy policy, support URL, on-device testing, App Review notes) rather than a design or behavior problem with the app itself. All four are already tracked in this document (Phase 4, Blocker 10, Blocker 11, FQ-APP-002) — this review didn't surface anything new to build, it confirmed the plan already covers Apple's actual requirements and closed the "verify against live documentation, don't assume" gap explicitly called for in this phase's original scope.
+No outright guideline **violations** found — every FAIL above was a missing *artifact* (privacy policy, support URL, on-device testing, App Review notes) rather than a design or behavior problem with the app itself. Privacy policy and support URL were resolved in Phase 4 (below). Remaining: on-device testing (native-build specialist's job, already documented) and App Review notes (Blocker 11).
 
-## Phase 4 — Privacy & Compliance
+## Phase 4 — Privacy & Compliance — VERIFIED 2026-07-21
 *(overlaps old Phase 6's Privacy Policy/ToS item and FQ-APP-002 §7)*
 
-- [ ] Privacy Policy — document exactly what's stored (all local `localStorage`, no backend, confirmed architecturally), whether analytics/tracking exist (none currently), whether accounts exist (none), whether purchases exist (none currently — coin economy is earn-only)
-- [ ] Terms of Service
-- [ ] Support page + contact information
-- [ ] Every statement verified accurate against the actual app, not boilerplate
+- [x] Privacy Policy — `privacy.html`, live at finlitquest.com/privacy.html. Documents exactly what's stored (all local `localStorage`, no backend, confirmed architecturally), that no analytics/tracking/ads/third-party SDKs exist, no accounts exist, and no purchases exist (coin economy is earn-only, stated explicitly).
+- [x] Terms of Service — `terms.html`, live at finlitquest.com/terms.html.
+- [x] Support page + contact information — `support.html`, live at finlitquest.com/support.html, with a direct contact email and FAQ.
+- [x] Every statement verified accurate against the actual app, not boilerplate — see Blocker Log for the specific claims cross-checked.
 
 ## Phase 5 — Accessibility
 *(new 2026-07-21, not previously tracked)*
@@ -285,6 +285,30 @@ Two parts: (1) cleared the cleanup backlog flagged across Blockers 2, 6, 7, and 
 **Files modified:** `app.js`, `index.html`, `curriculum/credit/approved/reports/CORRECTION_2026-07-21.md` (new).
 
 **Remaining blockers:** branding/domain (9, mostly done — native build still blocked on hardware), store assets (10), submission (11), Phases 3/4/5/8.
+
+### Phase 4 — Privacy & Compliance — VERIFIED 2026-07-21
+
+Built and published the three required legal/compliance pages, closing two of the FAILs identified in Phase 3's guideline audit (5.1.1 Privacy, 1.5 Support URL).
+
+**Decisions confirmed with the user before drafting** (both become permanently public): contact email is `drmoore412@gmail.com`; developer/publisher name is just "FinLit Quest," no separate legal entity.
+
+**`privacy.html`:** states plainly that the app collects nothing — no account/login exists, no personal information is requested, and the only data that exists (coins, XP, level, streak, puzzle/lesson progress, theme) lives entirely in local device storage and is never transmitted anywhere, because there is no backend server to transmit it to. Explicitly states no analytics, no advertising, no third-party SDKs, no data sharing/selling (nothing to share, since nothing is collected), and no children's-data collection. Explains that clearing local storage or uninstalling permanently deletes progress, since no other copy exists.
+
+**`terms.html`:** standard acceptance/license/IP/warranty/liability terms, plus two claims specific to this app's actual design: the coin/XP virtual currency is earn-only, has no cash value, can't be purchased or redeemed, and doesn't gate any content; and the educational content is explicitly framed as general education, not financial/legal/professional advice.
+
+**`support.html`:** direct contact email plus an FAQ answering the two questions a real user would actually have given this app's architecture — "do I need internet" (no) and "does my progress transfer to a new device" (no, since there's no account/cloud backup) — rather than generic boilerplate FAQ content.
+
+**Every claim cross-checked against actual verified app behavior from this session**, not written as boilerplate: "no backend" (confirmed architecturally across every blocker this session — zero `fetch()` calls anywhere in the codebase, confirmed during Blocker 9b), "no accounts" (confirmed — the entire onboarding flow has no login step, Blocker 12), "no analytics/ads/third-party SDKs" (confirmed — the app's only external dependency is the Google Fonts-free system font stack; no SDK of any kind is loaded), "coins are earn-only, never purchasable, never gate content" (confirmed directly during Phase 3's 3.1.1 analysis — both worlds are freely selectable with zero currency requirement).
+
+**In-app reachability (Apple 5.1.1(i) requires the privacy policy be linked from inside the app, not just in App Store Connect metadata):** added a small "Privacy Policy · Terms of Service" link row to the Welcome screen footer (`index.html`, `word-game.css`), styled to match the existing brand palette, `target="_blank"` so it opens outside the app shell rather than navigating away from the game. Verified live: link renders correctly, unobtrusive, correct href.
+
+**Native app bundle:** `scripts/build-www.sh` only copies files explicitly listed (documented in FQ-APP-002 §4 as a known gotcha for exactly this situation) — added `privacy.html`/`terms.html`/`support.html` to that list so the iOS build gets working links too, not just the web deployment. Re-synced into the Capacitor bundle.
+
+**Live verification:** all three pages render correctly (checked visually), zero console errors, full regression suite still 168/168 passing (these are new standalone pages with zero JS logic, so nothing existing was at risk, but re-ran anyway per standard practice).
+
+**Files added:** `privacy.html`, `terms.html`, `support.html`. **Files modified:** `index.html`, `word-game.css`, `scripts/build-www.sh`.
+
+**Remaining blockers:** branding/domain (9, mostly done — native build still blocked on hardware), store assets (10 — now includes entering the Privacy Policy URL and Support URL into App Store Connect, plus writing the 4.2 App Review notes flagged in Phase 3), submission (11), Phases 5/8.
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 

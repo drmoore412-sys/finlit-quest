@@ -22,6 +22,11 @@ copy() {
 copy index.html
 copy manifest.webmanifest
 
+# Standalone legal/support pages, linked from the Welcome screen footer
+copy privacy.html
+copy terms.html
+copy support.html
+
 # Stylesheets
 for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css; do
   copy "$f"
