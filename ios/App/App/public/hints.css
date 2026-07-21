@@ -1,0 +1,51 @@
+.game-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.hint-button {
+  flex: 1;
+  border: 1px solid #a8c6b3;
+  background: #eef7ef;
+  color: #146c4b;
+  border-radius: 14px;
+  padding: 12px;
+  font-weight: 850;
+}
+
+.game-actions .check-button {
+  flex: 1;
+}
+
+.cell.hinted {
+  background: #fff8cf;
+  border-color: #d6bd4b;
+  color: #725f06;
+  animation: reveal .25s;
+}
+
+.clue-card {
+  margin-top: 14px;
+  padding: 17px 4px 8px;
+  border-top: 1px solid #dbe2da;
+}
+
+.clue-heading {
+  margin: 0 14px 2px;
+  color: #146c4b;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.clue-card .clue-list {
+  padding-top: 10px;
+}
+
+@media (max-width: 390px) {
+  .game-actions {
+    align-items: stretch;
+  }
+
+}
