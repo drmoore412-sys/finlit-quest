@@ -10,6 +10,30 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (later) — Root-caused a user report of the onboarding flow being skipped: browser caching, not a code bug
+
+User reported that the app "used to go to a Welcome page" but now goes straight into Crypto or Credit World. Reproduced the *correct* behavior immediately from a fresh browser context against the live production deploy — the new code was working. That ruled out a logic bug and pointed at caching.
+
+**Root cause confirmed:** GitHub Pages serves every file with a flat `Cache-Control: max-age=600` (10 minutes) and has no other cache-busting mechanism (no content hashing, no custom-headers support — checked, GitHub Pages doesn't support a `_headers` file the way Netlify does). Two deploys had shipped in quick succession (Blocker 3, then Blocker 12); a browser that fetched `word-game-app.js` shortly before the second deploy would keep serving the cached pre-Blocker-12 version (with its unconditional `wgOpenWorld("crypto")` bootstrap call) for up to 10 minutes after `index.html` itself had already updated — a stale-JS/fresh-HTML mismatch, exactly matching the reported symptom.
+
+**Fix:** new `scripts/stamp-cache-bust.mjs` — rewrites every same-origin `<script src>`/`<link href>` in `index.html` to `...?v=<timestamp>`, idempotently. A changed query string is a different URL to a browser's cache, forcing a fresh fetch on every deploy regardless of the 10-minute header. This is now a required step before every commit that touches HTML/CSS/JS, documented in `docs/FQ-APP-002-native-build-release-standard.md` (new §3a + updated release checklist) so it isn't rediscovered on the next deploy.
+
+### Live verification
+
+Ran the stamp script (31 references stamped), confirmed `index.html` still loads correctly with the query strings locally (fresh Welcome-screen flow works, zero console errors), full suite still 161/161, resynced into the Capacitor iOS bundle.
+
+### Files modified
+
+- `scripts/stamp-cache-bust.mjs` (new)
+- `index.html` (stamped)
+- `docs/FQ-APP-002-native-build-release-standard.md` (§3a added, release checklist updated)
+
+### Remaining blockers
+
+Unchanged. This was a deploy-infrastructure fix, not new blocker work.
+
+---
+
 ## 2026-07-21 (later) — Blocker 12: Welcome + World Selection onboarding flow
 
 Explicit, confirmed exception to the "no redesign" rule — proposed by the user as the last UI change before submission. Confirmed with two direct questions before writing any code: (1) that this was intentionally meant to override the no-redesign instruction from one message earlier, not an oversight, and (2) that the proposed "Coming Soon: Investing/Real Estate/Taxes/Insurance/Retirement World" tiles should be dropped — none of those exist anywhere in the project's actual plans (checked `FUTURE_FEATURE_BACKLOG.md` and the whole repo), and advertising them in a submitted App Store app would be a false claim. Landed on showing only the two worlds that actually exist.

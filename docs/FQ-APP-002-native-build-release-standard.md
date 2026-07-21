@@ -46,6 +46,16 @@ Whichever is chosen, **update this section** with the actual answer and remove t
 - **Marketing version:** `1.0` (Xcode build setting `MARKETING_VERSION`, `ios/App/App.xcodeproj/project.pbxproj`).
 - **Build number:** `1` (Xcode build setting `CURRENT_PROJECT_VERSION`, same file).
 
+## 3a. Web deploy caching — must stamp before every push (added 2026-07-21)
+
+GitHub Pages serves every file with a flat `Cache-Control: max-age=600` (10 minutes) and has no other cache-busting mechanism — no content hashing, no custom-headers support. Without action, a browser can end up with a stale mix of old JS + new HTML (or vice versa) for up to 10 minutes after any deploy. **This caused a real user-facing bug**: the Blocker 12 onboarding flow shipped, but a user with cached pre-deploy JS still landed straight in a world, skipping the new Welcome/World Selection screens entirely — confirmed as a caching artifact, not a code bug, by reproducing the *correct* behavior from a fresh browser context against the same live deploy.
+
+**Fix — run before every commit that touches any HTML/CSS/JS file:**
+```
+node scripts/stamp-cache-bust.mjs
+```
+This rewrites every same-origin `<script src>`/`<link href>` in `index.html` to `...?v=<timestamp>`, replacing any existing stamp (idempotent). A different query string is a different URL as far as browser caching is concerned, so this forces a fresh fetch on every deploy regardless of the 10-minute header. Commit the stamped `index.html` along with whatever else changed. This only affects the **web** deploy (finlitquest.com/GitHub Pages) — the native iOS app bundles its own `www/` copy via `cap sync`, so this isn't relevant there.
+
 ## 4. The `www/` build script and deployment pipeline
 
 `index.html` is the entry point for two different deployments that must **not** be confused:
@@ -111,12 +121,13 @@ Recommended scheme (not yet formally adopted — propose adopting it explicitly 
 
 1. Confirm all applicable items in `docs/V1_RELEASE_CHECKLIST.md` (or its successor for that release) are Verified.
 2. Run the full automated suite (`./scripts/test.sh`) — must be 100% passing.
-3. Run `./scripts/build-www.sh` and review the file count/size printed — investigate if it changes unexpectedly (usually means a new asset needs adding to the script, per §4).
-4. `npx cap sync ios`.
-5. Bump `MARKETING_VERSION` and/or `CURRENT_PROJECT_VERSION` per §8.
-6. Build and run on the iOS Simulator — smoke-test both Crypto and Credit end to end.
-7. Build and run on a real iPhone — confirm no simulator-only assumptions broke anything (network behavior, storage, performance).
-8. Archive, distribute to TestFlight (§6), test the actual TestFlight build (not just a debug build) — this is where App Store rejection reasons most often surface.
-9. Submit for App Store review (§7).
-10. On approval: tag the released commit in git (e.g. `git tag v1.0` at the exact commit that was submitted), update `PROJECT_LOG.md` with the release date and App Store Connect build number.
-11. Update this document with anything discovered during the release that would help the *next* one — this doc is only useful if it stays current.
+3. Run `node scripts/stamp-cache-bust.mjs` (web deploy only — see §3a) whenever any HTML/CSS/JS file changed.
+4. Run `./scripts/build-www.sh` and review the file count/size printed — investigate if it changes unexpectedly (usually means a new asset needs adding to the script, per §4).
+5. `npx cap sync ios`.
+6. Bump `MARKETING_VERSION` and/or `CURRENT_PROJECT_VERSION` per §8.
+7. Build and run on the iOS Simulator — smoke-test both Crypto and Credit end to end.
+8. Build and run on a real iPhone — confirm no simulator-only assumptions broke anything (network behavior, storage, performance).
+9. Archive, distribute to TestFlight (§6), test the actual TestFlight build (not just a debug build) — this is where App Store rejection reasons most often surface.
+10. Submit for App Store review (§7).
+11. On approval: tag the released commit in git (e.g. `git tag v1.0` at the exact commit that was submitted), update `PROJECT_LOG.md` with the release date and App Store Connect build number.
+12. Update this document with anything discovered during the release that would help the *next* one — this doc is only useful if it stays current.
