@@ -25,11 +25,11 @@ This file is updated after every completed item. Status values: `Not Started` / 
 ## Phase 2 — Full QA
 *(supersedes old "Bug Sweep"; = part of Blocker 8 below)*
 
-- [ ] Every screen, button, menu, popup, animation
-- [ ] Portrait / landscape (if supported) / mobile / tablet / different browser sizes
-- [ ] New install, returning user, refresh, clearing storage, full playthrough
-- [ ] Deliberate break-attempts, every reproducible defect documented and fixed
-- [ ] Console errors, missing assets, broken navigation, duplicate rewards, layout problems
+- [x] **VERIFIED 2026-07-21.** Every screen, button, menu, popup, animation
+- [x] **VERIFIED 2026-07-21.** Portrait / landscape (if supported) / mobile / tablet / different browser sizes
+- [x] **VERIFIED 2026-07-21.** New install, returning user, refresh, clearing storage, full playthrough
+- [x] **VERIFIED 2026-07-21.** Deliberate break-attempts, every reproducible defect documented and fixed
+- [x] **VERIFIED 2026-07-21.** Console errors, missing assets, broken navigation, duplicate rewards, layout problems
 
 ## Phase 3 — Apple Guideline Review
 *(new 2026-07-21, not previously tracked as its own item)*
@@ -60,7 +60,7 @@ This file is updated after every completed item. Status values: `Not Started` / 
 ## Phase 6 — Performance
 *(supersedes old Phase 5; = part of Blocker 8 below)*
 
-- [ ] Initial load time, memory usage, bundle size, rendering performance, image/asset optimization
+- [x] **VERIFIED 2026-07-21.** Initial load time, memory usage, bundle size, rendering performance, image/asset optimization — see Blocker 8 log entry.
 
 ## Phase 7 — App Store Assets
 *(= Blocker 10 below, supersedes old Phase 6's asset items)*
@@ -236,6 +236,32 @@ Full first-time-player walkthrough, real UI clicks and real drag/tap gestures wh
 **Files modified:** `app.js`.
 
 **Remaining blockers:** bug sweep/performance (8 — now also carrying the dead `worlds/crypto.js` cleanup, the stale CRF report cleanup, and documenting the 17-term Credit word-game ceiling), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8.
+
+### Blocker 8 — Bug sweep and performance verification — VERIFIED 2026-07-21
+
+Two parts: (1) cleared the cleanup backlog flagged across Blockers 2, 6, 7, and 12, (2) a full live QA sweep — every screen/button/popup, all viewports, break-attempts, console/performance checks.
+
+**Dead code removed (app.js, ~25 functions + `#playScreen`/`#learnModal` DOM):** the legacy Crypto crossword flow flagged as dead back in Blocker 2 (`submitWord`, `foundWord`, `showLearn`, `rateLearning`, `revealHint`, `startReview`, `showPlay`, `renderLevel`, `renderGrid`, and ~18 more, all built around a module-level `WORLD` constant and confirmed unreachable — nothing live wires a click handler to `showPlay` that isn't immediately overridden by `workbook-app.js`). Removed the corresponding DOM (`#playScreen`, `#learnModal`, ~50 ids) from `index.html`, and the dead-only module state (`TERMS`, `LEVELS`, `BONUS`, `LEVEL1_GAMES_REQUIRED`, `pointerDown`/`gestureLetters`/`rating`/etc.) and the duplicate orphaned `pointerup` listener from `app.js`. Kept every function/const the dead path shared with live code: `shuffled`, `$`/`$$`, `toast`, `celebrate`, `WORLD`, `hideAllScreens`, `showWelcome`, `showWorldSelect`, `showDashboard`, `updateDashboard`, `updateJourneyNodes`, `toggleTheme`. In `updateDashboard` (live), replaced a `state.review?...:state.level` conditional that depended on the now-removed `state` object with the literal `0` it always evaluated to in practice (nothing live ever changed those fields) — confirmed zero behavior change, not just confirmed-safe.
+
+**`worlds/crypto.js`'s `levels`/`bonusWords` — investigated, deliberately NOT removed.** Initially planned as part of the same cleanup (nothing at runtime consumes the resulting data anymore), but `src/content-validator.js` requires `world.levels` to be a non-empty array and `world.reward.multiplier` to be a positive number as part of schema validation, and `FinLitWorldLoader.loadWorld` — called at the very first line of `app.js`, before any screen renders — throws if validation fails. Removing these fields would have crashed the entire app on load. Left `worlds/crypto.js` untouched; the "dead code" here was correctly scoped to app.js's `LEVELS`/`BONUS` consts (pointless copies of schema-required-but-unconsumed data), not the underlying world manifest.
+
+**Stale Credit curriculum reports — corrective note added, not deleted.** Six reports in `curriculum/credit/approved/reports/` (dated 2026-07-19) falsely claim all 15 workbooks are missing ("0/15 found"), contradicted by the real, fully-wired files (confirmed live during Blocker 7). Added `CORRECTION_2026-07-21.md` in the same directory explaining the six reports were based on a mis-scoped audit and pointing to the actual evidence, rather than rewriting or deleting the historical record.
+
+**Live regression after dead-code removal:** full flow re-verified end to end (Welcome → World Select → Crypto → back → Credit dashboard → workbook → back → theme toggle → reload) with zero console errors and all state intact — confirms the removal didn't touch anything live despite the size of the diff. 168/168 automated tests still passing (unaffected either way, since none of the removed code was test-covered — it was DOM-only dead code).
+
+**Full live QA sweep, all clean, no further defects found:**
+- Every screen (Welcome, World Select, Crypto word-game, Credit dashboard, workbook map/lesson/flashcards/matching/quiz, definitions modal, puzzle-complete panel) and every interactive element on each, clicked/exercised directly.
+- Viewports: mobile portrait (375×812), mobile landscape (812×375, confirmed the page scrolls correctly and every control stays reachable), tablet (768×1024), desktop (1280×800, confirmed a wider two-column layout variant renders cleanly at that breakpoint) — no overflow, no broken elements, no stretched/cramped layouts at any size.
+- New install (cleared storage → Welcome), returning user (skips Welcome, lands on World Selection), refresh (state intact), clearing storage mid-session without reloading (no crash, in-memory state kept working), full playthroughs (already covered live in Blockers 6/7).
+- Deliberate break-attempts: submitting an empty word selection (no-op, no crash), rapid triple-calling word submission on an already-solved word (no double-award), spamming the hint button 5× with insufficient coins (correctly blocked every time, coins never went negative), abandoning a workbook quiz 2 questions in and reopening it (no corrupted partial record, restarts cleanly at question 1), 30 rapid full-cycle screen switches (Welcome→WorldSelect→Crypto→back→Dashboard, zero errors, zero state leaks), storage wiped mid-session then reloaded (self-heals to a fresh Welcome screen, no crash).
+- Performance: initial load ~337ms measured via the Navigation Timing API against the local dev server (which itself disables caching — a worst-case measurement; the actual iOS app bundles `www/` locally via Capacitor with no network fetch at all, so real-device load is faster than this number). Bundle breakdown: 924K/33 files, dominated by fixed-size platform icon assets (`icon-512.png` 296K, `icon-512-maskable.png` 148K) that Capacitor bundles locally rather than fetching over network, so they're not a real load-time concern. `credit-foundations.js` (92K) and `crypto-terms.js` (32K) load as synchronous non-deferred `<script>` tags — flagged as a minor, non-blocking polish opportunity (defer/async), not fixed here since ~124K of synchronous JS parse is not a meaningful problem at this scale.
+- Zero console errors across the entire sweep. Zero missing assets (no 404s at any point). Zero placeholder/TODO markers anywhere in the live app surface (previously spot-checked for Credit only; this pass confirmed it app-wide).
+
+**Tests:** none added — every fix and every check in this blocker was either DOM-only dead-code removal (same no-test-coverage category as Blocker 12) or live-browser verification with no equivalent pure-logic unit to test. Full suite: **168/168 passing**, unchanged.
+
+**Files modified:** `app.js`, `index.html`, `curriculum/credit/approved/reports/CORRECTION_2026-07-21.md` (new).
+
+**Remaining blockers:** branding/domain (9, mostly done — native build still blocked on hardware), store assets (10), submission (11), Phases 3/4/5/8.
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 

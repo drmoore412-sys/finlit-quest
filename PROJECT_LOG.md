@@ -10,6 +10,33 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (latest) — Blocker 8: Bug sweep complete — dead code removed, full QA sweep clean
+
+Two parts: cleared the cleanup backlog flagged across Blockers 2, 6, 7, and 12, then a full live QA sweep (every screen/button, all viewports, deliberate break-attempts, console/performance checks).
+
+**Dead code removed:** the legacy Crypto crossword flow flagged back in Blocker 2 — ~25 functions in `app.js` (`submitWord`, `foundWord`, `showLearn`, `rateLearning`, etc., all built around a module-level `WORLD` constant) plus `#playScreen`/`#learnModal` (~50 DOM ids) in `index.html`, confirmed unreachable through any live navigation path. Kept everything the dead path shared with live code (`shuffled`, `toast`, `celebrate`, `WORLD`, all the screen-switching functions). In live `updateDashboard`, replaced a conditional that depended on the removed `state` object with the literal value it always evaluated to — confirmed zero behavior change.
+
+**Investigated but deliberately NOT removed:** `worlds/crypto.js`'s `levels`/`bonusWords` fields looked like more dead weight, but `src/content-validator.js` requires them for schema validation at load time (`FinLitWorldLoader.loadWorld` throws otherwise) — removing them would have crashed the entire app before any screen renders. Caught this before editing, left the file untouched.
+
+**Stale docs:** six Credit curriculum reports falsely claiming all 15 workbooks are missing got a corrective note (`curriculum/credit/approved/reports/CORRECTION_2026-07-21.md`) rather than being rewritten or deleted.
+
+**Live regression after the dead-code removal:** full flow re-verified end to end, zero console errors, all state intact. 168/168 tests still passing (unaffected either way — none of the removed code was test-covered).
+
+### Full QA sweep — all clean, no new defects
+
+Every screen and interactive element exercised directly. Viewports: mobile portrait/landscape, tablet, desktop (confirmed a two-column layout variant appears cleanly at wide desktop width). New install, returning user, refresh, storage cleared mid-session without reloading (self-heals, no crash), storage wiped then reloaded (lands back on a fresh Welcome screen). Break-attempts: empty word submission, rapid triple-submit of an already-solved word (no double-award), hint-spam with insufficient coins (blocked every time, coins never negative), abandoning a quiz mid-way and reopening (no corrupted state), 30 rapid screen-switch cycles (zero errors). Performance: ~337ms full load against the local dev server (a worst-case measurement — the actual iOS app bundles files locally via Capacitor, no network fetch at all). Zero console errors, zero missing assets, zero placeholder content anywhere in the live app surface, checked this time app-wide rather than just for Credit.
+
+### Files modified
+
+- `app.js`, `index.html`, `curriculum/credit/approved/reports/CORRECTION_2026-07-21.md` (new)
+- `docs/V1_RELEASE_CHECKLIST.md` (Blocker 8 and Phase 6 marked Verified, full log entry added)
+
+### Remaining blockers
+
+Branding/domain (9, mostly done — native build still blocked on hardware), store assets (10), submission (11), Phases 3/4/5/8.
+
+---
+
 ## 2026-07-21 (latest) — Blocker 7: Credit end-to-end verified; found and fixed two real bugs, documented a known content limitation
 
 Full first-time-player walkthrough of Credit World — real UI clicks/drags, scripted reward/progression checks — same standard as Blocker 6. First established that Credit isn't purely workbook-based: it has 15 workbook lessons (only Credit Foundations unlocked for v1.0, correct) plus its own live word-wheel game sharing the same engine as Crypto.
