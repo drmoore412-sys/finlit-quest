@@ -77,10 +77,7 @@ function wgEnsureBank() {
 function wgOpenWorld(worldId) {
   wgState.worldId = worldId;
   const world = wgWorld();
-  $("#dashboardScreen").classList.add("hidden");
-  $("#playScreen").classList.add("hidden");
-  $("#workbookScreen").classList.add("hidden");
-  const creditScreen = $("#creditGameScreen"); if (creditScreen) creditScreen.classList.add("hidden");
+  hideAllScreens();
   $("#worldGameScreen").classList.remove("hidden");
   $("#wgWorldIcon").textContent = world.icon;
   $("#wgWorldName").textContent = world.name;
@@ -319,8 +316,8 @@ function wgRevealFull() {
 function wgShowDefinitions() { wgRenderDefinitionsList(); $("#wgDefinitionsPanel").classList.remove("hidden"); }
 function wgHideDefinitions() { $("#wgDefinitionsPanel").classList.add("hidden"); }
 
-$("#wgBack").onclick = showDashboard;
-$("#wgBrandLogo").onclick = showDashboard;
+$("#wgBack").onclick = showWorldSelect;
+$("#wgBrandLogo").onclick = showWorldSelect;
 $("#wgSettingsButton").onclick = toggleTheme;
 $("#wgNavShuffle").onclick = wgShuffle;
 $("#wgHintButton").onclick = wgHint;
@@ -329,9 +326,17 @@ $("#wgDefinitionsButton").onclick = wgShowDefinitions;
 $("#wgNavKnowledge").onclick = wgShowDefinitions;
 $("#wgDefinitionsClose").onclick = wgHideDefinitions;
 $("#wgCompleteContinue").onclick = wgContinueAfterComplete;
-$("#wgNavJourney").onclick = showDashboard;
-$("#wgNavPause").onclick = showDashboard;
+$("#wgNavJourney").onclick = showWorldSelect;
+$("#wgNavPause").onclick = showWorldSelect;
 
 $("#wgHintCost").textContent = WG_LETTER_HINT_COST;
 $("#wgRevealCost").textContent = WG_FULL_REVEAL_COST;
-wgOpenWorld("crypto");
+
+// Initial screen: a brand-new player (never tapped past Welcome before)
+// sees it once; everyone else lands on World Selection, which is now the
+// permanent "choose/switch a world" hub, not a one-time-only screen.
+if (!localStorage.getItem("finlitQuest.onboarded")) {
+  showWelcome();
+} else {
+  showWorldSelect();
+}

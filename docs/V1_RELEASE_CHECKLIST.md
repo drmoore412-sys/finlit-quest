@@ -197,3 +197,35 @@ Direct follow-on from the App Store readiness conversation: **this app could not
 **Full suite still 156/156 passing** (this work touched zero existing JS logic — new files and native-project scaffolding only).
 
 **Remaining blockers, this item:** a native iOS/Android app project needs to exist before §5/§6 can proceed; a store listing needs to exist before §7 can proceed (both handed to Blocker 10); real-device/real-browser verification beyond this dev environment. (Transparent-logo gap closed 2026-07-20 — no longer outstanding.)
+
+### Blocker 12 — Onboarding & World Navigation Redesign — VERIFIED 2026-07-21
+
+**Explicit exception to the standing "no redesign" rule.** This one was proposed and confirmed by the user as a deliberate final UI change before submission, not a scope violation — confirmed via direct question before any implementation started, since it visibly conflicts with the same session's own "do not redesign the application" instruction.
+
+**Problem (confirmed accurate before implementing):** the app opened directly into Crypto gameplay (`wgOpenWorld("crypto")` called unconditionally on every load) with no world-selection screen anywhere. Credit World was reachable only via a "Journey" button, which made Credit feel like the actual starting content despite Crypto being the real first world. There was no way to discover Crypto as "a world" once inside Credit, and the reverse was equally true — the Crypto screen's "Journey"/back/logo buttons unconditionally landed on Credit's own continent screen regardless of which world you'd been in, an asymmetry that directly caused the confusion described.
+
+**Explicitly declined part of the proposal:** the mockup included five "Coming Soon" worlds (Investing, Real Estate, Taxes, Insurance, Retirement) — checked `FUTURE_FEATURE_BACKLOG.md` and the whole repo; none exist anywhere as planned content. Advertising them in a submitted App Store app would be a claim about content that isn't actually planned. Confirmed with the user before building anything: show only Crypto + Credit, the two worlds that actually exist.
+
+**Changes made:**
+- Two new screens: `#welcomeScreen` (shown once, true first-ever launch only, gated on a dedicated `finlitQuest.onboarded` localStorage flag independent of the save schema) and `#worldSelectScreen` (shown right after Welcome on first launch, and made into the **permanent** landing/hub screen for every subsequent launch — not a one-time-only step, which is what actually fixes the "no way to discover Crypto as a world" problem for returning users, not just new ones).
+- World Selection shows exactly two cards — Crypto World and Credit World — each with the identity sentence the user wrote, reusing each world's *existing* entry point unchanged (`wgOpenWorld("crypto")` for Crypto; `showDashboard()`, Credit's existing continent/journey screen, for Credit). No new "World Overview" or "Level Selection" screens were built — Credit's continent screen already serves that role today (it already has real per-world identity copy, `#worldEvolutionCopy`), and rebuilding an equivalent map for Crypto would have been a much larger addition than what was actually reported broken.
+- Rewired every "back to home" trigger app-wide to go to World Selection instead of hardcoding a jump into Credit specifically: `#wgBack`, `#wgBrandLogo`, `#wgNavJourney` (the exact "Journey" button named in the report), `#wgNavPause`, and the legacy dead `#backHome`. Added a new clickable brand-logo button on Credit's own continent screen (`#journeyBrandLogo`, previously a non-interactive `<div>`) so there's a way back to World Selection from inside Credit too — there wasn't one before this. Left Credit's *internal* back-navigation (workbook list → continent map) untouched — that hierarchy was already correct.
+- Applied the standing "consolidate duplicated logic" principle proactively while touching this code: the four screen-switching functions (`showPlay`, `showDashboard`, `wgOpenWorld`, `openWorkbookWorld`) each maintained their own slightly-inconsistent hide-list for the app's screens — one included a dead `#creditGameScreen` reference that no longer exists in the HTML, none of them knew about the two new screens. Replaced all four with one shared `hideAllScreens()`.
+
+**Adjacent bug found, deliberately not fixed here (flagged as a separate follow-up task):** Credit's continent screen has three widgets (`#continueLearning`, `#viewLevels`, `#dashboardReview`) that unconditionally jump to Crypto regardless of being displayed on the Credit screen, and its "Daily Review" stat is actually reading Crypto's SM-2 review data (`learning.worldStats(WORLD.id)` where `WORLD` is app.js's Crypto object) — strong evidence this screen was originally Crypto's own dashboard before being relabeled for Credit and never fully rewired. Real, pre-existing, unrelated to this change — spawned as its own follow-up task rather than expanding this one further.
+
+**Live verification** (`http://localhost:8756`, real clicks, both desktop and mobile 375×812 viewports):
+- True first launch (cleared storage): Welcome screen renders correctly, "Start Your Adventure" → World Selection renders both world cards with correct descriptions
+- Tapped Crypto World → opened directly into Crypto gameplay, fresh player (300 coins/0 XP/Level 1) as expected
+- Tapped the "Journey" bottom-nav button from inside Crypto → correctly returned to World Selection (**this was the exact reported bug** — previously landed directly in Credit)
+- Tapped Credit World from World Selection → Credit's continent screen, unchanged visually from before
+- Tapped the new clickable brand logo on the Credit continent screen → correctly returned to World Selection
+- Entered the Credit Foundations workbook, tapped its own back button → correctly returned to the Credit continent map (internal hierarchy preserved, not redirected to World Selection)
+- Reloaded without clearing storage (returning-user case) → Welcome correctly skipped, landed directly on World Selection
+- Zero console errors throughout, on both viewport sizes
+- 161/161 automated tests still passing (this is pure navigation/UI, no unit-testable logic changed)
+- Synced into the Capacitor iOS bundle (`build-www.sh` + `cap sync ios`) so the native app gets this fix too, not just the web deployment
+
+**Files modified:** `index.html`, `app.js`, `word-game-app.js`, `workbook-app.js`, `word-game.css`, `journey.css`.
+
+**Remaining blockers:** unchanged — puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the newly-flagged Credit-dashboard-Crypto-wiring follow-up (not blocking, tracked separately).

@@ -40,6 +40,49 @@
 </head>
 <body>
   <main class="app" id="app">
+    <section class="wg-screen welcome-screen hidden" id="welcomeScreen">
+      <div class="welcome-card">
+        <div class="wg-logo welcome-logo"><img src="assets/brand/web/wg-logo-96.png" alt="FinLit Quest"></div>
+        <h1>Welcome to FinLit Quest</h1>
+        <p class="welcome-tagline">Master real-world money skills one world at a time.</p>
+        <ul class="welcome-features">
+          <li>Solve word puzzles</li>
+          <li>Learn financial concepts</li>
+          <li>Earn Coins &amp; XP</li>
+          <li>Unlock new worlds</li>
+        </ul>
+        <button class="welcome-cta" id="welcomeStartButton">Start Your Adventure</button>
+      </div>
+    </section>
+
+    <section class="wg-screen world-select-screen hidden" id="worldSelectScreen">
+      <header class="wg-topbar">
+        <div class="wg-brand"><span class="wg-logo"><img src="assets/brand/web/wg-logo-96.png" alt="FinLit Quest"></span><div><b>FINLIT</b><b>QUEST</b></div></div>
+      </header>
+      <div class="world-select-intro">
+        <h1>Choose Your World</h1>
+        <p>Each world teaches a different part of financial literacy through interactive word puzzles.</p>
+      </div>
+      <div class="world-select-list">
+        <button class="world-card" id="selectCryptoWorld">
+          <span class="world-card-icon">🪙</span>
+          <span class="world-card-body">
+            <strong>Crypto World</strong>
+            <small>Learn blockchain, wallets, Bitcoin, Ethereum, DeFi, and digital assets through interactive puzzles.</small>
+          </span>
+          <span class="world-card-arrow">→</span>
+        </button>
+        <button class="world-card" id="selectCreditWorld">
+          <span class="world-card-icon">🏦</span>
+          <span class="world-card-body">
+            <strong>Credit World</strong>
+            <small>Build practical knowledge about credit, borrowing, and financial responsibility.</small>
+          </span>
+          <span class="world-card-arrow">→</span>
+        </button>
+      </div>
+    </section>
+
     <section class="wg-screen" id="worldGameScreen">
       <header class="wg-topbar">
         <div class="wg-brand"><button class="wg-logo" id="wgBrandLogo" aria-label="FinLit Quest home"><img src="assets/brand/web/wg-logo-96.png" alt="FinLit Quest"></button><div><b>FINLIT</b><b>QUEST</b></div></div>
@@ -148,7 +191,7 @@
       </svg>
 
       <header class="journey-topbar">
-        <div class="journey-brand" aria-label="FinLit Quest"><span class="journey-logo"><svg><use href="#icon-compass"/></svg></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
+        <button class="journey-brand" id="journeyBrandLogo" aria-label="FinLit Quest — choose a world"><span class="journey-logo"><svg><use href="#icon-compass"/></svg></span><span><strong>FINLIT</strong><b>QUEST</b></span></button>
         <div class="journey-currencies" aria-label="Player resources">
           <div><span class="currency-icon coin">$</span><strong id="journeyCoins">0</strong><small>COINS</small></div>
           <div><span class="currency-icon xp">★</span><strong id="dashboardXp">0</strong><small>XP</small></div>

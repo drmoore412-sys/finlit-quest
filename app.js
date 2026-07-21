@@ -113,8 +113,18 @@ function newGame(){
 }
 function shuffle(){const letters=shuffled($$(".letter").map(b=>b.textContent));renderWheel(letters);clearSelection()}
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t.timer);t.timer=setTimeout(()=>t.classList.remove("show"),1500)}
-function showPlay(){updateDashboard();$("#app").classList.remove("journey-mode");$("#dashboardScreen").classList.add("hidden");$("#worldGameScreen").classList.add("hidden");$("#workbookScreen").classList.add("hidden");$("#playScreen").classList.remove("hidden");window.scrollTo(0,0)}
-function showDashboard(){$("#playScreen").classList.add("hidden");$("#worldGameScreen").classList.add("hidden");$("#workbookScreen").classList.add("hidden");$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
+// Single source of truth for which of the app's top-level screens is
+// visible — every screen-switch function hides all six, then reveals
+// exactly one, instead of each maintaining its own (previously
+// inconsistent — one even referenced a #creditGameScreen that no longer
+// exists) hide-list.
+const FQ_SCREEN_IDS=["welcomeScreen","worldSelectScreen","dashboardScreen","playScreen","workbookScreen","worldGameScreen"];
+function hideAllScreens(){FQ_SCREEN_IDS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add("hidden")})}
+
+function showWelcome(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#welcomeScreen").classList.remove("hidden");window.scrollTo(0,0)}
+function showWorldSelect(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#worldSelectScreen").classList.remove("hidden");window.scrollTo(0,0)}
+function showPlay(){updateDashboard();hideAllScreens();$("#app").classList.remove("journey-mode");$("#playScreen").classList.remove("hidden");window.scrollTo(0,0)}
+function showDashboard(){hideAllScreens();$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
 function updateJourneyNodes(activeIndex){
   $$(".journey-node").forEach((node,index)=>{
     const status=index<activeIndex?"completed":index===activeIndex?"active":"locked";
@@ -143,7 +153,11 @@ function celebrate(){const colors=["#34d399","#f6c453","#7ca7ff","#f472b6"];for(
 function renderLevelList(){const list=$("#levelList");list.innerHTML="";LEVELS.slice(0,5).forEach((l,i)=>{const b=document.createElement("button");b.className=`level-choice ${i===state.level&&!state.review?"active":""}`;b.innerHTML=`<div><strong>Level ${i+1}</strong><span>${l.title}</span></div><b>${l.words.length} terms</b>`;b.onclick=()=>{state.level=i;state.review=false;state.custom=false;renderLevel()};list.append(b)})}
 $("#worldEyebrow").textContent=WORLD.eyebrow;$("#rewardName").textContent=WORLD.reward.name;$("#rewardLabel").textContent=WORLD.reward.label;$("#yieldValue").textContent=state.yield.toFixed(1);$("#checkButton").onclick=submitWord;$("#hintButton").onclick=revealHint;$("#shuffleButton").onclick=shuffle;$("#skipLessons").onclick=()=>{activeTermId=null;state.skip=true;updateDashboard();closeLearn()};$("#levelsButton").onclick=()=>$("#levelPanel").classList.remove("hidden");$("#closeLevels").onclick=()=>$("#levelPanel").classList.add("hidden");$("#dailyReview").onclick=startReview;
 $$('#reviewActions button').forEach(button=>button.onclick=()=>rateLearning(button.dataset.rating));
-$("#continueLearning").onclick=()=>wgOpenWorld("crypto");$("#backHome").onclick=showDashboard;$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("crypto");$("#dashboardReview").onclick=()=>wgOpenWorld("crypto");
+$("#continueLearning").onclick=()=>wgOpenWorld("crypto");$("#backHome").onclick=showWorldSelect;$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("crypto");$("#dashboardReview").onclick=()=>wgOpenWorld("crypto");
+$("#journeyBrandLogo").onclick=showWorldSelect;
+$("#welcomeStartButton").onclick=()=>{localStorage.setItem("finlitQuest.onboarded","true");showWorldSelect()};
+$("#selectCryptoWorld").onclick=()=>wgOpenWorld("crypto");
+$("#selectCreditWorld").onclick=showDashboard;
 $("#skipLessonsToggle").onclick=toggleSkipLessons;
 $$(".journey-node").forEach((node,index)=>node.onclick=()=>{if(node.disabled)return;state.level=Math.min(index,LEVELS.length-1);state.review=false;state.custom=false;renderLevel();showPlay()});
 $("#newGameButton").onclick=newGame;

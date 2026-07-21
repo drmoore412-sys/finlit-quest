@@ -13,9 +13,7 @@ function wbShowView(id) {
 }
 
 function openWorkbookWorld() {
-  $("#dashboardScreen").classList.add("hidden");
-  $("#playScreen").classList.add("hidden");
-  $("#worldGameScreen").classList.add("hidden");
+  hideAllScreens();
   $("#workbookScreen").classList.remove("hidden");
   window.scrollTo(0, 0);
   wbRenderMap();

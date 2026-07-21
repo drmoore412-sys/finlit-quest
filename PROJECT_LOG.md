@@ -10,6 +10,33 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (later) — Blocker 12: Welcome + World Selection onboarding flow
+
+Explicit, confirmed exception to the "no redesign" rule — proposed by the user as the last UI change before submission. Confirmed with two direct questions before writing any code: (1) that this was intentionally meant to override the no-redesign instruction from one message earlier, not an oversight, and (2) that the proposed "Coming Soon: Investing/Real Estate/Taxes/Insurance/Retirement World" tiles should be dropped — none of those exist anywhere in the project's actual plans (checked `FUTURE_FEATURE_BACKLOG.md` and the whole repo), and advertising them in a submitted App Store app would be a false claim. Landed on showing only the two worlds that actually exist.
+
+**Root problem (verified accurate first):** the app opened unconditionally into Crypto gameplay with no world-picker anywhere; Credit was reachable only via a "Journey" button; and every "back"/logo/Journey button on the Crypto screen unconditionally landed on Credit's continent screen regardless of which world you'd actually been in — confirmed by reading the code, not just trusting the report.
+
+**What was built:** two new screens (`#welcomeScreen`, one-time via a dedicated `finlitQuest.onboarded` flag; `#worldSelectScreen`, now the permanent landing hub for every launch after the first). Both worlds' *existing* screens are reused completely unchanged — no new "World Overview" or "Level Selection" screens, since Credit's continent map already has real per-world identity copy and building an equivalent for Crypto would have been a much larger addition than the actual reported problem needed. Rewired every home/back trigger app-wide (`#wgBack`, `#wgBrandLogo`, `#wgNavJourney` — the exact button named in the report — `#wgNavPause`, legacy `#backHome`) to go to World Selection instead of hardcoding Credit, and added a working "back to World Selection" logo button on Credit's own continent screen (there wasn't one before).
+
+**Applied the standing "consolidate duplicated logic" principle proactively**, not just reactively: found the four screen-switching functions each maintaining their own slightly-inconsistent hide-list (one referenced a `#creditGameScreen` that no longer exists in the HTML). Replaced all four with one shared `hideAllScreens()`.
+
+**Found but explicitly not fixed here:** Credit's continent screen has three widgets that unconditionally jump to Crypto and a "Daily Review" stat that's actually reading Crypto's SM-2 data — strong evidence this screen was originally Crypto's own dashboard before being relabeled for Credit and never fully rewired. Real, pre-existing, and unrelated enough to this change that fixing it here would have expanded scope — spawned as a separate follow-up task instead.
+
+### Live verification
+
+Real clicks, desktop and mobile (375×812) viewports, `http://localhost:8756`: full first-launch flow (Welcome → World Selection → Crypto, fresh player correct); the exact reported bug fixed (Journey button from Crypto now returns to World Selection, not Credit); Credit World entry and its new back-to-World-Selection logo both work; Credit's *internal* back-navigation (workbook → continent map) correctly left untouched; returning-user reload correctly skips Welcome and lands on World Selection. Zero console errors on both viewport sizes. 161/161 tests still passing. Synced into the Capacitor iOS bundle so the native app gets this too.
+
+### Files modified
+
+- `index.html`, `app.js`, `word-game-app.js`, `workbook-app.js`, `word-game.css`, `journey.css`
+- `docs/V1_RELEASE_CHECKLIST.md` (new Blocker 12 entry)
+
+### Remaining blockers
+
+Unchanged: puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the newly-flagged Credit-dashboard-Crypto-wiring follow-up (separate task, not blocking).
+
+---
+
 ## 2026-07-21 (later) — Blocker 3 (level progression) verified; restructured V1.0 plan into 8 submission-readiness phases
 
 **Plan restructure:** adopted the user's 8-phase "Version 1.0 Submission Readiness" plan into `docs/V1_RELEASE_CHECKLIST.md`, mapping the existing 11 blockers onto it (Phase 1 = Blockers 3-7, Phase 2 = part of 8, Phase 6 = rest of 8, Phase 7 = Blocker 10) and adding four genuinely new tracked items: Phase 3 (formal Apple Guideline Review), Phase 4 (Privacy & Compliance), Phase 5 (Accessibility), Phase 8 (Submission Readiness Review gate). Context: the plan is to hand off only the final build/sign/TestFlight/submit step to an outside specialist, so everything here is aimed at that person needing to touch nothing but Apple-specific tooling.
