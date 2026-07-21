@@ -14,7 +14,7 @@ This file is updated after every completed item. Status values: `Not Started` / 
 *(supersedes old "Puzzle Engine" / "Save System" sections; = Blockers 3, 4, 5, 6, 7 below)*
 
 - [x] **Blocker 3 — Level progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
-- [ ] **Blocker 4 — Puzzle progression.** Word wheel, crossword boards, random selection, 5-puzzles-per-lesson, no duplicates in a playthrough, persistence after restart.
+- [x] **Blocker 4 — Puzzle progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [ ] **Blocker 5 — Save/load persistence.** Coins, XP, score, current world/lesson/puzzle, completed puzzles, streak, settings — all survive restart.
 - [ ] **Blocker 6 — Crypto end-to-end.** Every puzzle loads/solvable, definitions match, rewards work, lesson completes, next unlocks. No placeholder content, no dead ends.
 - [ ] **Blocker 7 — Credit end-to-end.** Same checklist as Blocker 6.
@@ -137,6 +137,24 @@ Entries added after each completed blocker, in execution order. Each entry: root
 **Files modified:** `learning-engine.js`, `word-game-app.js`, `app.js`, `tests/learning-engine.test.js`.
 
 **Remaining blockers:** puzzle progression (4), save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done — see below), store assets (10), submission (11). Plus the new Phase 3 (Apple Guideline Review), Phase 4 (Privacy & Compliance), Phase 5 (Accessibility), Phase 8 (Submission Readiness Review) from the 2026-07-21 plan restructure.
+
+### Blocker 4 — Puzzle progression — VERIFIED 2026-07-21
+
+**Scope note (not a bug):** live gameplay has no "lesson" concept at all — `word-game-app.js` has zero lesson references. The checklist's "5-puzzles-per-lesson" wording carries over loosely from the curriculum/workbook side; in live gameplay it's actually 5 puzzles per **world** playthrough, correctly configured per-world (`WG_WORLDS[x].requiredPuzzles`, `word-game-app.js:18,26`, default 5 at `:32`). The lesson-scoped generator built earlier in this project (`generateLessonPuzzles`, `src/puzzle-pipeline-service.js`) is CLI-only, not wired into live gameplay — confirmed via `docs/PUZZLE_GENERATOR_PIPELINE.md:236`.
+
+**Root cause (real bug found and fixed):** `wgFoundWord` (`word-game-app.js:197`) awarded coins/XP unconditionally on every word-found event, keyed only to an in-memory per-puzzle guard (`wgState.found`, resets on every new puzzle/reload). It never checked the permanent `progress.solvedWords` list before paying out, even though that list already existed and is correctly maintained for this exact purpose. Vocabulary words are shared across multiple puzzle clusters (e.g. "MINT" appears in both `CHAIN|GAS|MINT` and `MINER|MINT|PEER`), so the same word legitimately reappears across playthroughs — every reappearance re-paid the full reward, indefinitely, not just on reload.
+
+**Live reproduction before the fix** (`http://localhost:8756`, real clicks + direct calls to the same functions the UI calls, fresh player, cleared storage): solved "MINT" → XP 0→6, correctly recorded to `solvedWords`. Reloaded (correctly landed on World Selection, not mid-puzzle — that part of Blocker 12 works as designed). New playthrough drawn; "MINT" reappeared in a different puzzle cluster. Solved it again → XP 6→**12**. Confirmed independently with "CHAIN" appearing twice in the same single playthrough (no reload needed) — same double-payment.
+
+**Changes made:** added `wordReward(word, alreadySolvedWords)` to `src/puzzle-bank-engine.js` — single canonical source for "what does solving this word pay," returns `{coins:0,xp:0,isNewSolve:false}` for a word already in `solvedWords`, the real formula otherwise. `word-game-app.js`'s `wgFoundWord` (reward payout) and `wgUpdateMission` (the "+X coins/+X XP" preview shown before solving) both now call this instead of each keeping their own copy of the reward formula — the local `wgRewardFor` was deleted entirely (was duplicated in two places, per the standing "consolidate before release" principle). The word still marks as found for puzzle-completion purposes on a repeat encounter (`wgState.found.add(word)` runs unconditionally, gameplay isn't broken) — only the currency payout is gated.
+
+**Tests added:** `tests/puzzle-bank-engine.test.js` — `wordReward` pays the correct coins/xp for a never-solved word; pays exactly zero for a word already in `solvedWords`; treats a missing/undefined `solvedWords` list as empty rather than throwing. Full suite: **164/164 passing**.
+
+**Live re-verification after the fix** (same repro steps): solved "CHAIN" fresh → XP 0→8, recorded to `solvedWords`. Reloaded, re-entered Crypto World, "CHAIN" reappeared in the new playthrough. Solved it again → **XP stayed at 8**, `solvedWords` stayed a deduplicated `["CHAIN"]`, and the word still correctly marked "found" for that puzzle. Zero console errors. Also re-verified the four already-correct areas live: word wheel/crossword rendering (real grid + wheel for a fresh puzzle), genuine Fisher-Yates randomization (already had 9+ tests, unchanged), no duplicate puzzle IDs within one playthrough, and — separately from the reward bug — confirmed mid-playthrough puzzle *position* (which of the 5 you're on, in-progress found-words) intentionally does not survive a reload, by design (a fresh playthrough is drawn instead); this is a reasonable "session resets" behavior for a casual game, not treated as a defect, and is now safe by construction since re-encountering an old word pays nothing.
+
+**Files modified:** `src/puzzle-bank-engine.js`, `word-game-app.js`, `tests/puzzle-bank-engine.test.js`.
+
+**Remaining blockers:** save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up flagged during Blocker 12 (not blocking, tracked separately).
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 

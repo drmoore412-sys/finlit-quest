@@ -68,6 +68,16 @@
     return shuffleFn(selected);
   }
 
+  // Single source of truth for what solving a word pays out. A word already
+  // present in the player's permanent solvedWords list pays nothing on a
+  // repeat encounter (vocabulary is shared across puzzles/playthroughs, so
+  // the same word can legitimately reappear) — only the first-ever solve of
+  // a given word earns coins/XP.
+  function wordReward(word,alreadySolvedWords){
+    if((alreadySolvedWords||[]).includes(word))return{coins:0,xp:0,isNewSolve:false};
+    return{coins:word.length*7,xp:Math.round(word.length*1.5),isNewSolve:true};
+  }
+
   function recordPlaythrough(history,playedIds,now=Date.now()){
     const next={...history};
     playedIds.forEach(id=>{
@@ -77,5 +87,5 @@
     return next;
   }
 
-  return {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough};
+  return {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward};
 });

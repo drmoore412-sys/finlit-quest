@@ -192,18 +192,18 @@ function wgSubmitWord() {
   toast("Not in this puzzle");
 }
 
-function wgRewardFor(word) { return { coins: word.length * 7, xp: Math.round(word.length * 1.5) }; }
-
 function wgFoundWord(word) {
   wgState.found.add(word);
-  const reward = wgRewardFor(word);
-  wgState.puzzleCoins += reward.coins;
-  wgState.puzzleXp += reward.xp;
-  learning.save.player.coins = (learning.save.player.coins || 0) + reward.coins;
-  learning.save.player.xp += reward.xp;
-  learning.save.player.level = FinLitLearning.levelForXp(learning.save.player.xp);
   const progress = wgProgress();
-  if (!progress.solvedWords.includes(word)) progress.solvedWords.push(word);
+  const reward = FinLitPuzzleBank.wordReward(word, progress.solvedWords);
+  if (reward.isNewSolve) {
+    wgState.puzzleCoins += reward.coins;
+    wgState.puzzleXp += reward.xp;
+    learning.save.player.coins = (learning.save.player.coins || 0) + reward.coins;
+    learning.save.player.xp += reward.xp;
+    learning.save.player.level = FinLitLearning.levelForXp(learning.save.player.xp);
+    progress.solvedWords.push(word);
+  }
   learning.touchActivity();
   learning.persist();
   const term = wgState.byWord[word];
@@ -252,7 +252,7 @@ function wgUpdateMission() {
   const nextWord = wgState.words.find(w => !wgState.found.has(w));
   if (!nextWord) return;
   const term = wgState.byWord[nextWord];
-  const reward = wgRewardFor(nextWord);
+  const reward = FinLitPuzzleBank.wordReward(nextWord, wgProgress().solvedWords);
   const revealed = wgState.revealed.has(nextWord);
   $("#wgMissionWord").textContent = revealed ? (nextWord.charAt(0) + nextWord.slice(1).toLowerCase()) : wgHintPattern(nextWord);
   $("#wgMissionDefinition").textContent = revealed ? term.definition : "Solve it on the wheel, or tap Hint below to reveal the word and definition.";

@@ -10,6 +10,37 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (latest) — Blocker 4: Puzzle progression verified; found and fixed a real duplicate-XP economy bug
+
+Investigated the five criteria in Blocker 4 (word wheel/crossword generation, random selection, 5-puzzles-per-lesson, no duplicates in a playthrough, persistence after restart). Four were already correct. The fifth uncovered a genuine bug, reproduced live before touching any code.
+
+**Root cause:** `wgFoundWord` (`word-game-app.js`) paid out coins/XP on every word-found event, guarded only by an in-memory per-puzzle Set that resets on every new puzzle or page reload. It never checked the permanent `solvedWords` history before paying out. Because vocabulary words are shared across multiple puzzle clusters, the same word legitimately reappears across playthroughs (and sometimes within one playthrough) — every reappearance re-paid the full reward. Reproduced live: solved "MINT" (XP 0→6), reloaded, got a new playthrough where "MINT" reappeared, solved it again (XP 6→12). Also reproduced within a single playthrough with "CHAIN" appearing twice, no reload needed.
+
+**Fix:** added `wordReward(word, alreadySolvedWords)` to `src/puzzle-bank-engine.js` as the single canonical source for word-solve payouts — zero reward for a word already in `solvedWords`, the real formula otherwise. Both the actual payout (`wgFoundWord`) and the pre-solve reward preview (`wgUpdateMission`) now call it; the old duplicated `wgRewardFor` was deleted. The word still marks "found" for puzzle-completion purposes on a repeat — only the currency is gated.
+
+**Scope clarification (not a bug):** live gameplay has no "lesson" concept — the "5-puzzles-per-lesson" checklist wording is per-*world* playthrough in practice, correctly configured at 5 for both worlds. The lesson-scoped generator from earlier pipeline work is CLI-only and not wired into live gameplay.
+
+### Live re-verification
+
+Re-ran the exact repro after the fix: XP stayed at 8 after re-solving an already-recorded word, `solvedWords` stayed deduplicated, word still marked found, zero console errors. Also confirmed live: crossword/wheel rendering, genuine Fisher-Yates randomization with anti-repeat weighting, no duplicate puzzle IDs within a playthrough. Confirmed mid-playthrough *position* intentionally resets on reload (a fresh playthrough is drawn) — reasonable casual-game behavior, not a defect, and now safe by construction since repeats pay nothing.
+
+### Tests added
+
+`tests/puzzle-bank-engine.test.js` — `wordReward` correctness for a new word, zero payout for an already-solved word, safe handling of an undefined `solvedWords` list. Full suite: **164/164 passing**.
+
+### Files modified
+
+- `src/puzzle-bank-engine.js` (new `wordReward` export)
+- `word-game-app.js` (`wgFoundWord`, `wgUpdateMission` consolidated onto it; `wgRewardFor` deleted)
+- `tests/puzzle-bank-engine.test.js`
+- `docs/V1_RELEASE_CHECKLIST.md` (Blocker 4 marked Verified, full log entry added)
+
+### Remaining blockers
+
+Save/load persistence (5), Crypto e2e (6), Credit e2e (7), bug sweep/performance (8), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up from Blocker 12.
+
+---
+
 ## 2026-07-21 (later) — Root-caused a user report of the onboarding flow being skipped: browser caching, not a code bug
 
 User reported that the app "used to go to a Welcome page" but now goes straight into Crypto or Credit World. Reproduced the *correct* behavior immediately from a fresh browser context against the live production deploy — the new code was working. That ruled out a logic bug and pointed at caching.

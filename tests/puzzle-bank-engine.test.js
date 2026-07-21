@@ -1,5 +1,5 @@
 const test=require("node:test"),assert=require("node:assert/strict");
-const {puzzleId,buildBank,selectPlaythrough,recordPlaythrough}=require("../src/puzzle-bank-engine.js");
+const {puzzleId,buildBank,selectPlaythrough,recordPlaythrough,wordReward}=require("../src/puzzle-bank-engine.js");
 const {wheelFor}=require("../src/game-engine.js");
 
 const VOCAB=["TOKEN","NODE","COIN","MINT","POOL","LOCK","BLOCK","FORK","HASH","GAS","CHAIN","YIELD","LEDGER","PEER","STAKE","SWAP","VAULT","WALLET","MINER","BURN"];
@@ -102,6 +102,24 @@ test("recordPlaythrough increments timesPlayed and updates lastPlayedAt for play
   assert.equal(again.a.timesPlayed,2);
   assert.equal(again.a.lastPlayedAt,2000);
   assert.equal(again.b.timesPlayed,1,"untouched puzzle must be preserved unchanged");
+});
+
+// wordReward: a word's vocabulary is shared across multiple puzzles/playthroughs
+// (e.g. "CHAIN" can appear in two different clusters), so this must pay out only
+// on the first-ever solve of a given word, never on a repeat encounter — this is
+// the exact bug reproduced live during Blocker 4 (XP doubled on a repeat solve).
+test("wordReward pays coins/xp for a word not in solvedWords",()=>{
+  const reward=wordReward("MINT",[]);
+  assert.equal(reward.isNewSolve,true);
+  assert.equal(reward.coins,"MINT".length*7);
+  assert.equal(reward.xp,Math.round("MINT".length*1.5));
+});
+test("wordReward pays nothing for a word already in solvedWords",()=>{
+  const reward=wordReward("MINT",["MINT","CHAIN"]);
+  assert.deepEqual(reward,{coins:0,xp:0,isNewSolve:false});
+});
+test("wordReward treats a missing/undefined solvedWords list as empty rather than throwing",()=>{
+  assert.equal(wordReward("GAS",undefined).isNewSolve,true);
 });
 
 // Configurable playthrough size: requiredPuzzles is a per-world config value fed
