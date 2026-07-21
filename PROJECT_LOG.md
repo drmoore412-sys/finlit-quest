@@ -10,6 +10,35 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-21 (latest) — Blocker 7: Credit end-to-end verified; found and fixed two real bugs, documented a known content limitation
+
+Full first-time-player walkthrough of Credit World — real UI clicks/drags, scripted reward/progression checks — same standard as Blocker 6. First established that Credit isn't purely workbook-based: it has 15 workbook lessons (only Credit Foundations unlocked for v1.0, correct) plus its own live word-wheel game sharing the same engine as Crypto.
+
+**Bug 1 (high severity): Credit's continent screen showed Crypto's data and routed to Crypto's word game.** Flagged during Blocker 12 as a known issue and never actually fixed — confirmed still present. `updateDashboard()` (serving `#dashboardScreen`, Credit's continent map) still hardcoded the module-level `WORLD` constant (Crypto) for its stats source and three button targets. Confirmed safe to retarget since every other caller of `updateDashboard()` belongs to the already-confirmed-dead legacy `#playScreen` flow. Fixed: stats source now `learning.worldStats("credit")` (honestly shows "No reviews due" rather than Crypto's misleading data — Credit doesn't have its own spaced-repetition tracking yet, a separate gap not built here), and all three buttons now open Credit's word game. Re-verified live.
+
+**Bug 2 (medium severity): the continent screen's coin count was hardcoded to a literal 0.** Found while re-verifying Bug 1's fix — real balance was 300, displayed was always "0". Fixed to read the real balance. Re-verified live.
+
+**Finding, not a bug from this session, newly quantified: 17 of Credit's 38 word-game vocabulary terms can never appear in a live puzzle.** 15 were already known (documented in `credit-unplayable-terms.json` from earlier work — individually exceed the 9-letter wheel budget). 2 more (BORROWER, APPLICANT) are new: each fits the budget alone but has no compatible partner word in the vocabulary (confirmed via 500 attempts with the Blocker 6 coverage fix, zero pairings). This gives a permanent ~21/38 ceiling, unlike Crypto's fully-fixable gap. Per the standing instruction not to raise the wheel budget, and since this is a content-curation call (these terms are already taught via flashcards/quizzes regardless), confirmed with the user: document as a known, accepted limitation rather than fix.
+
+### Confirmed correct, no changes needed
+
+Welcome → World Selection → Credit continent map (correct lock states), full CRF-001 lesson flow (8 content steps → 5 flashcards → 4-pair matching with correct accept/reject behavior → 8-question quiz), quiz scoring (7/8, 88%, 100 XP, matches Blocker 1's logic exactly), CRF-002 correctly unlocking after CRF-001 completion, Credit's own word-wheel game (confirmed the Blocker 6 tap-submit and reward fixes apply identically via the shared engine), back navigation (word-game → World Selection, workbook lesson → workbook map with internal hierarchy preserved), and full refresh/relaunch persistence across workbook and word-game state.
+
+### Noted, not acted on
+
+Two Credit curriculum reports (`CRF_WORLD_READINESS_CHECKLIST.md`, `CRF_WORKBOOK_COVERAGE_MATRIX.md`, dated 2026-07-19) falsely claim all 15 workbooks are "NOT FOUND" — stale/wrong, contradicted by the actual files on disk. Flagged for a documentation cleanup pass during Blocker 8.
+
+### Files modified
+
+- `app.js`
+- `docs/V1_RELEASE_CHECKLIST.md` (Blocker 7 marked Verified, full log entry added)
+
+### Remaining blockers
+
+Bug sweep/performance (8, now also carrying the dead-code, stale-docs, and Credit-vocab-ceiling documentation cleanup), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8.
+
+---
+
 ## 2026-07-21 (latest) — Blocker 6: Crypto end-to-end verified; found and fixed two real gameplay-blocking bugs
 
 Full first-time-player walkthrough of Crypto World — real UI clicks, real drag/tap gestures, not just function calls — plus scripted checks for reward/progression integrity across repeated completions, refreshes, and navigation.

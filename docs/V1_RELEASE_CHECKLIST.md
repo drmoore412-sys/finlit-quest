@@ -17,7 +17,7 @@ This file is updated after every completed item. Status values: `Not Started` / 
 - [x] **Blocker 4 — Puzzle progression — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [x] **Blocker 5 — Save/load persistence — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [x] **Blocker 6 — Crypto end-to-end — VERIFIED 2026-07-21.** See Blocker Log for full detail.
-- [ ] **Blocker 7 — Credit end-to-end.** Same checklist as Blocker 6.
+- [x] **Blocker 7 — Credit end-to-end — VERIFIED 2026-07-21.** See Blocker Log for full detail.
 - [x] Coins — verified 2026-07-20 (see Blocker Log)
 - [x] XP — verified 2026-07-20 (see Blocker Log)
 - [x] Score (quiz scoring) — verified 2026-07-20 (see Blocker Log)
@@ -206,6 +206,36 @@ Full first-time-player walkthrough, real UI clicks and real drag/tap gestures (n
 **Files modified:** `word-game-app.js`, `src/puzzle-bank-engine.js`, `index.html`, `tests/puzzle-bank-engine.test.js`.
 
 **Remaining blockers:** Credit e2e (7), bug sweep/performance (8 — now also carries the dead `worlds/crypto.js` levels/bonusWords cleanup), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8. Plus the still-open Credit-dashboard-Crypto-wiring follow-up from Blocker 12.
+
+### Blocker 7 — Credit end-to-end — VERIFIED 2026-07-21
+
+Full first-time-player walkthrough, real UI clicks and real drag/tap gestures where feasible, plus scripted checks for reward/progression integrity — same standard as Blocker 6.
+
+**Structure confirmed before testing:** Credit World is NOT purely workbook-quiz-based as initially assumed — it has both (a) 15 workbook lessons (CRF-001..015, all built and wired; only "Credit Foundations" continent node is unlocked for v1.0, the other 7 chapters correctly stay locked) and (b) its own live word-wheel puzzle game sharing `word-game-app.js`/`src/puzzle-bank-engine.js` with Crypto, vocabulary from `content/credit-game-terms.json` (38 words), reachable via a "Play the credit word game" button on the workbook map. Confirmed the lesson-scoped CLI eligibility fix from much earlier this session is offline-authoring-only and has no effect on live gameplay (matches Blocker 6's finding for Crypto).
+
+**Bug 1 (real, high severity) — Credit's continent screen showed Crypto's data and routed to Crypto's word game.** Flagged during Blocker 12 as a known adjacent bug and never actually fixed (confirmed still present via fresh code read, not assumption). Root cause: `#dashboardScreen` (Credit's continent map, reached via `showDashboard()`) reused `app.js`'s module-level `updateDashboard()`, which was written when this file was Crypto-only and still hardcoded `WORLD.id` (="crypto") for its stats source, plus three buttons (`#continueLearning`, `#viewLevels`, `#dashboardReview`) hardcoded to `wgOpenWorld("crypto")`. Confirmed this dashboard screen's OTHER callers (`showPlay`, `foundWord`, `revealHint`, etc.) all belong to the confirmed-dead legacy `#playScreen` flow from Blocker 2, so retargeting was safe. **Fix:** `updateDashboard()`'s stats source changed to `learning.worldStats("credit")` (honestly shows "No reviews due" rather than Crypto's misleading due-count, since Credit doesn't have its own spaced-repetition term tracking wired up — a separate, larger feature gap noted but not built here), and all three buttons now open `wgOpenWorld("credit")`. Re-verified live: all three buttons correctly land in Credit's own word game.
+
+**Bug 2 (real, medium severity) — the continent screen's coin count was hardcoded to a literal 0.** Found while re-verifying the Bug 1 fix: `$("#journeyCoins").textContent=0;` was a literal, not a `player.coins` reference — the Credit continent header always showed "0 COINS" regardless of actual balance (confirmed live: real balance 300, displayed 0). `#journeyGems` is correctly left at 0 — gems aren't a real tracked currency anywhere in the app (same everywhere, including the word-game header), so that one wasn't a bug. **Fix:** `$("#journeyCoins").textContent=player.coins;`. Re-verified live: displays the real balance and updates correctly after reload.
+
+**Finding (real, not a bug from this session's work, newly quantified) — 17 of Credit's 38 word-game vocabulary terms can never appear in a live puzzle.** 15 (OBLIGATION, AFFORDABILITY, CREDITWORTHINESS, etc.) individually exceed the 9-letter wheel budget — already known and documented in `content/puzzle-banks/credit-unplayable-terms.json` from earlier work this session. 2 more (BORROWER, APPLICANT) are a new finding: each fits the budget alone but has no compatible partner word anywhere in the 38-word vocabulary (confirmed via 500 attempts with the Blocker 6 coverage-guarantee fix, zero successful pairings) — not caught by the historical report, which only checked single-word size. This gives Credit's word-game a permanent "Words Solved" ceiling around 21/38, unlike Crypto's gap which was fully fixable. Per explicit standing instruction not to raise the 9-letter wheel budget, and since this is a content-curation question (the affected terms are already taught via flashcards/quizzes in all 15 lessons regardless), **confirmed with the user: leave as-is, document as a known/accepted limitation, not a blocker.**
+
+**Other checklist items, confirmed correct with no changes needed:**
+- Welcome → World Selection → Credit World → continent map (only Credit Foundations unlocked, others correctly locked) all render correctly.
+- Full lesson flow for CRF-001: 8 lesson content steps → 5 flashcards (flip mechanic confirmed) → 4-pair matching practice (correct match accepted, incorrect match correctly rejected with visual feedback and no state change, practice-complete correctly recorded) → 8-question quiz (5 MC + 3 TF).
+- Quiz scoring: answered 7/8 correct (one deliberately wrong) → "You scored 7/8 (88%). Passing score is 80%," exactly 100 XP awarded, `status: "completed"` — matches Blocker 1's already-verified scoring logic, confirmed still wired identically.
+- Completing CRF-001 correctly unlocked CRF-002 (`workbookStatus` transitions "locked" → "available"), world completion percent updated (7% = 1/15), continent map re-rendered correctly.
+- Credit's own word-wheel game: solved a real word via drag (RISK, XP 100→106) — confirms the Blocker 6 tap-submit fix and reward-consolidation fix apply identically to Credit, since it's the same shared engine.
+- Back navigation: word-game screen → World Selection (consistent with Crypto); workbook lesson → workbook map via `wbBackHome()` (internal hierarchy correctly preserved, doesn't jump out to World Selection) — matches Blocker 12's already-confirmed-correct design.
+- Full refresh/relaunch persistence: XP, coins, CRF-001 completion record, and Credit word-game solved-words all survived a real reload exactly.
+- Zero console errors, zero placeholder/TODO content found anywhere in Credit's curriculum or word-game content.
+
+**Noted, not acted on:** `curriculum/credit/approved/reports/CRF_WORLD_READINESS_CHECKLIST.md` and `CRF_WORKBOOK_COVERAGE_MATRIX.md` (dated 2026-07-19) claim all 15 workbooks are "NOT FOUND" — this directly contradicts the actual files on disk (verified all 15 exist and are fully wired), so these two reports are stale/unreliable. Flagged for a documentation cleanup pass during Blocker 8, not fixed here.
+
+**Tests:** no new automated tests needed — these were live-UI/navigation bugs (dashboard stats source, button wiring, hardcoded display value) in DOM-coupled `app.js` code, the same category Blocker 12 established has no Node test coverage. Verified entirely through real browser interaction. Full suite: **168/168 passing** (unchanged, confirms no regression to anything test-covered).
+
+**Files modified:** `app.js`.
+
+**Remaining blockers:** bug sweep/performance (8 — now also carrying the dead `worlds/crypto.js` cleanup, the stale CRF report cleanup, and documenting the 17-term Credit word-game ceiling), branding/domain (9, mostly done), store assets (10), submission (11), Phases 3/4/5/8.
 
 ### Blocker 9 — Branding and Domain Integration — In Progress (web-facing work done; native app work blocked)
 

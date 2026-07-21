@@ -135,9 +135,14 @@ function updateJourneyNodes(activeIndex){
   });
 }
 function updateDashboard(){
-  const stats=learning.worldStats(WORLD.id),player=learning.save.player,now=Date.now(),recentDays=player.activityDates.filter(date=>now-new Date(`${date}T00:00:00`).getTime()<7*86400000).length,remaining=Math.max(0,player.weeklyGoal-recentDays),latest=player.achievements.at(-1),achievementCopy={first_application:["Applied Thinker","Answered your first applied challenge.","+25 XP"],three_day_streak:["On a Roll","Learned on three consecutive days.","+50 XP"]};
+  // #dashboardScreen is Credit World's continent map (wired via
+  // showDashboard from #selectCreditWorld) — stats must reflect Credit, not
+  // the module-level WORLD constant, which is Crypto (this file's terms/
+  // levels were originally Crypto-only; #dashboardScreen was repurposed for
+  // Credit in the onboarding redesign without this call site being updated).
+  const stats=learning.worldStats("credit"),player=learning.save.player,now=Date.now(),recentDays=player.activityDates.filter(date=>now-new Date(`${date}T00:00:00`).getTime()<7*86400000).length,remaining=Math.max(0,player.weeklyGoal-recentDays),latest=player.achievements.at(-1),achievementCopy={first_application:["Applied Thinker","Answered your first applied challenge.","+25 XP"],three_day_streak:["On a Roll","Learned on three consecutive days.","+50 XP"]};
   const playerLevel=FinLitLearning.levelForXp(player.xp),xpIntoLevel=FinLitLearning.xpIntoLevel(player.xp),activeIndex=Math.min(state.review?Math.max(0,state.level-1):state.level,JOURNEY_SECTIONS.length-1),journey=JOURNEY_SECTIONS[activeIndex];
-  $("#dashboardXp").textContent=player.xp;$("#journeyCoins").textContent=0;$("#journeyGems").textContent=0;$("#journeyLevel").textContent=playerLevel;$("#journeyLevelProgress").style.width=`${(xpIntoLevel/FinLitLearning.XP_PER_LEVEL)*100}%`;
+  $("#dashboardXp").textContent=player.xp;$("#journeyCoins").textContent=player.coins;$("#journeyGems").textContent=0;$("#journeyLevel").textContent=playerLevel;$("#journeyLevelProgress").style.width=`${(xpIntoLevel/FinLitLearning.XP_PER_LEVEL)*100}%`;
   $("#wordsLearned").textContent=stats.wordsLearned;$("#streakValue").textContent=player.streak;$("#streakLabel").textContent=player.streak?`${player.streak} day streak`:"No streak yet";$("#footerStreak").textContent=`${player.streak} day${player.streak===1?"":"s"}`;
   $("#dashboardProgress").style.width=`${stats.completionPercent}%`;$("#dashboardProgressText").textContent=`${stats.completionPercent}%`;$("#masteryValue").textContent=`${stats.masteryPercent}%`;$("#masteryRing").style.setProperty("--mastery",`${stats.masteryPercent}%`);
   $("#currentJourneyWorld").textContent=journey.name;$("#worldEvolutionCopy").textContent=journey.evolution;$("#regionState").textContent=activeIndex?"Region growing":"Region awakening";$("#continueKicker").textContent=`QUEST ${activeIndex+1} OF ${JOURNEY_SECTIONS.length}`;updateJourneyNodes(activeIndex);
@@ -153,7 +158,7 @@ function celebrate(){const colors=["#34d399","#f6c453","#7ca7ff","#f472b6"];for(
 function renderLevelList(){const list=$("#levelList");list.innerHTML="";LEVELS.slice(0,5).forEach((l,i)=>{const b=document.createElement("button");b.className=`level-choice ${i===state.level&&!state.review?"active":""}`;b.innerHTML=`<div><strong>Level ${i+1}</strong><span>${l.title}</span></div><b>${l.words.length} terms</b>`;b.onclick=()=>{state.level=i;state.review=false;state.custom=false;renderLevel()};list.append(b)})}
 $("#worldEyebrow").textContent=WORLD.eyebrow;$("#rewardName").textContent=WORLD.reward.name;$("#rewardLabel").textContent=WORLD.reward.label;$("#yieldValue").textContent=state.yield.toFixed(1);$("#checkButton").onclick=submitWord;$("#hintButton").onclick=revealHint;$("#shuffleButton").onclick=shuffle;$("#skipLessons").onclick=()=>{activeTermId=null;state.skip=true;updateDashboard();closeLearn()};$("#levelsButton").onclick=()=>$("#levelPanel").classList.remove("hidden");$("#closeLevels").onclick=()=>$("#levelPanel").classList.add("hidden");$("#dailyReview").onclick=startReview;
 $$('#reviewActions button').forEach(button=>button.onclick=()=>rateLearning(button.dataset.rating));
-$("#continueLearning").onclick=()=>wgOpenWorld("crypto");$("#backHome").onclick=showWorldSelect;$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("crypto");$("#dashboardReview").onclick=()=>wgOpenWorld("crypto");
+$("#continueLearning").onclick=()=>wgOpenWorld("credit");$("#backHome").onclick=showWorldSelect;$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("credit");$("#dashboardReview").onclick=()=>wgOpenWorld("credit");
 $("#journeyBrandLogo").onclick=showWorldSelect;
 $("#welcomeStartButton").onclick=()=>{localStorage.setItem("finlitQuest.onboarded","true");showWorldSelect()};
 $("#selectCryptoWorld").onclick=()=>wgOpenWorld("crypto");
