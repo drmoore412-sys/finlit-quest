@@ -26,6 +26,24 @@ const WG_WORLDS = {
     requiredPuzzles: 5,
     vocabulary: () => window.CREDIT_GAME_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: null })),
   },
+  moneybasics: {
+    key: "wg-moneybasics",
+    icon: "💵",
+    name: "MONEY BASICS",
+    bankSize: 20,
+    requiredPuzzles: 5,
+    staticBank: () => window.MONEY_BASICS_PUZZLES,
+    vocabulary: () => window.MONEY_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
+  },
+  banking: {
+    key: "wg-banking",
+    icon: "🏛️",
+    name: "BANKING BASICS",
+    bankSize: 13,
+    requiredPuzzles: 5,
+    staticBank: () => window.BANKING_BASICS_PUZZLES,
+    vocabulary: () => window.BANKING_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
+  },
 };
 // Fallback only — every world above defines its own requiredPuzzles. The engine
 // never assumes 5; this is just what's used if a world config omits the field.
@@ -65,6 +83,17 @@ function wgBankState() {
 }
 function wgEnsureBank() {
   const bankState = wgBankState();
+  const governedBank = wgWorld().staticBank && wgWorld().staticBank();
+  if (governedBank && governedBank.length) {
+    const governedIds = new Set(governedBank.map(p => p.id));
+    if (bankState.puzzleBank.length !== governedBank.length || bankState.puzzleBank.some(p => !governedIds.has(p.id))) {
+      bankState.puzzleBank = governedBank.map(p => ({...p, words:[...p.words], letters:[...p.letters]}));
+      bankState.puzzleHistory = {};
+      bankState.lastPlaythrough = [];
+      learning.persist();
+    }
+    return bankState.puzzleBank;
+  }
   const size = wgWorld().bankSize || WG_DEFAULT_BANK_SIZE;
   if (bankState.puzzleBank.length < size) {
     const words = wgWorld().vocabulary().map(t => t.word);
