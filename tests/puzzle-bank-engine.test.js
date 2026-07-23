@@ -1,5 +1,5 @@
 const test=require("node:test"),assert=require("node:assert/strict");
-const {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isFirstLevelPractice,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict}=require("../src/puzzle-bank-engine.js");
+const {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isTutorialLevel,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict}=require("../src/puzzle-bank-engine.js");
 const {wheelFor}=require("../src/game-engine.js");
 
 const VOCAB=["TOKEN","NODE","COIN","MINT","POOL","LOCK","BLOCK","FORK","HASH","GAS","CHAIN","YIELD","LEDGER","PEER","STAKE","SWAP","VAULT","WALLET","MINER","BURN"];
@@ -165,16 +165,34 @@ test("wordReward treats a missing/undefined solvedWords list as empty rather tha
   assert.equal(wordReward("GAS",undefined).isNewSolve,true);
 });
 
-test("the first unpassed puzzle is the free-hint practice level",()=>{
-  assert.equal(isFirstLevelPractice(false,"puzzle-1","puzzle-1"),true);
-  assert.equal(isFirstLevelPractice(false,"puzzle-2","puzzle-1"),false);
-  assert.equal(isFirstLevelPractice(true,"puzzle-1","puzzle-1"),false);
+test("every game in the five-puzzle Level 1 playthrough is tutorial-priced",()=>{
+  for(let completed=0;completed<5;completed++){
+    assert.equal(isTutorialLevel(completed,5),true,`game ${completed+1} should have free hints`);
+  }
+  assert.equal(isTutorialLevel(5,5),false,"normal pricing starts after all five Level 1 games");
+  assert.equal(isTutorialLevel(6,5),false);
 });
 
-// Tutorial (first-level) hints: free, unlimited, never blocked by balance.
-// Using them does not affect whether the puzzle can be completed — that's
-// governed entirely by isFirstLevelPractice/firstPuzzlePassed above, not by
-// whether a hint was used during the attempt.
+test("Level 1 status survives reload because it derives from persisted puzzle history",()=>{
+  const bank=[{id:"p1"},{id:"p2"},{id:"p3"},{id:"p4"},{id:"p5"},{id:"p6"}];
+  const reloadedHistory={p1:{timesPlayed:1},p2:{timesPlayed:1}};
+  const progress=puzzleProgress(bank,reloadedHistory);
+  assert.equal(progress.completed,2);
+  assert.equal(isTutorialLevel(progress.completed,5),true,"reloaded game 3 remains free");
+  const completedHistory=Object.fromEntries(bank.slice(0,5).map(p=>[p.id,{timesPlayed:1}]));
+  assert.equal(isTutorialLevel(puzzleProgress(bank,completedHistory).completed,5),false);
+});
+
+test("each world evaluates Level 1 independently from its own puzzle history",()=>{
+  const bank=[{id:"p1"},{id:"p2"},{id:"p3"},{id:"p4"},{id:"p5"}];
+  const moneyHistory=Object.fromEntries(bank.map(p=>[p.id,{timesPlayed:1}]));
+  const bankingHistory={p1:{timesPlayed:1}};
+  assert.equal(isTutorialLevel(puzzleProgress(bank,moneyHistory).completed,5),false);
+  assert.equal(isTutorialLevel(puzzleProgress(bank,bankingHistory).completed,5),true);
+});
+
+// Tutorial hints are free, unlimited, and never blocked by balance for the
+// complete five-game Level 1 playthrough.
 test("hintCost is zero on the tutorial level regardless of the governed price",()=>{
   assert.equal(hintCost(true,100),0);
   assert.equal(hintCost(true,300),0);

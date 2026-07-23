@@ -131,7 +131,8 @@ function wgStartPlaythrough() {
   const bankState = wgBankState();
   const requiredPuzzles = wgWorld().requiredPuzzles || WG_DEFAULT_REQUIRED_PUZZLES;
   wgState.playthrough = FinLitPuzzleBank.selectPlaythrough(bank, bankState.puzzleHistory, bankState.lastPlaythrough, requiredPuzzles, shuffled);
-  if (!bankState.firstPuzzlePassed && bank[0]) {
+  const completedPuzzles = FinLitPuzzleBank.puzzleProgress(bank, bankState.puzzleHistory).completed;
+  if (completedPuzzles === 0 && bank[0]) {
     const introIndex = wgState.playthrough.findIndex(p => p.id === bank[0].id);
     if (introIndex >= 0) wgState.playthrough.unshift(...wgState.playthrough.splice(introIndex, 1));
     else wgState.playthrough = [bank[0], ...wgState.playthrough].slice(0, requiredPuzzles);
@@ -140,15 +141,13 @@ function wgStartPlaythrough() {
   wgRenderPuzzle();
 }
 
-function wgIsFirstLevelPractice() {
+function wgIsTutorialLevel() {
   const bank = wgEnsureBank();
-  const current = wgState.playthrough[wgState.playthroughIndex];
-  const firstPuzzlePassed = wgBankState().firstPuzzlePassed;
-  const currentPuzzleId = current && current.id;
-  const firstPuzzleId = bank[0] && bank[0].id;
-  return typeof FinLitPuzzleBank.isFirstLevelPractice === "function"
-    ? FinLitPuzzleBank.isFirstLevelPractice(firstPuzzlePassed, currentPuzzleId, firstPuzzleId)
-    : !firstPuzzlePassed && Boolean(currentPuzzleId) && currentPuzzleId === firstPuzzleId;
+  const progress = FinLitPuzzleBank.puzzleProgress(bank, wgBankState().puzzleHistory);
+  const requiredPuzzles = wgWorld().requiredPuzzles || WG_DEFAULT_REQUIRED_PUZZLES;
+  return typeof FinLitPuzzleBank.isTutorialLevel === "function"
+    ? FinLitPuzzleBank.isTutorialLevel(progress.completed, requiredPuzzles)
+    : progress.completed < requiredPuzzles;
 }
 
 function wgRenderPuzzle() {
@@ -276,15 +275,9 @@ function wgFoundWord(word) {
   wgUpdateMission();
   celebrate();
   if (wgState.found.size === wgState.words.length) {
-    // Tutorial-level puzzles complete the same way as any other — hints are
-    // free there (see wgHint/wgRevealFull), but using them never blocks
-    // completion. firstPuzzlePassed just switches later visits back to
-    // governed pricing; see isFirstLevelPractice in puzzle-bank-engine.js.
-    const wasFirstLevelPractice = wgIsFirstLevelPractice();
     const bankState = wgBankState();
     const currentPuzzleId = wgState.playthrough[wgState.playthroughIndex].id;
     bankState.puzzleHistory = FinLitPuzzleBank.recordPlaythrough(bankState.puzzleHistory, [currentPuzzleId], Date.now());
-    if (wasFirstLevelPractice) bankState.firstPuzzlePassed = true;
     learning.persist();
     wgUpdateProgress();
     wgUpdateAssistUi();
@@ -363,7 +356,7 @@ function wgShuffle() {
 }
 
 function wgUpdateAssistUi() {
-  const freePractice = wgIsFirstLevelPractice();
+  const freePractice = wgIsTutorialLevel();
   const hintCost = wgGovernedHintCost(freePractice, WG_LETTER_HINT_COST);
   const revealCost = wgGovernedHintCost(freePractice, WG_FULL_REVEAL_COST);
   $("#wgHintCost").textContent = freePractice ? "∞ HINTS" : hintCost;
@@ -375,7 +368,7 @@ function wgUpdateAssistUi() {
 }
 
 function wgHint() {
-  const freePractice = wgIsFirstLevelPractice();
+  const freePractice = wgIsTutorialLevel();
   const cost = wgGovernedHintCost(freePractice, WG_LETTER_HINT_COST);
   const unfinished = wgState.words.filter(word => !wgState.found.has(word) && wgHintPattern(word).replace(/\s/g, "").includes("_"));
   if (!unfinished.length) return toast("Every available letter is already revealed");
@@ -391,7 +384,7 @@ function wgHint() {
 }
 
 function wgRevealFull() {
-  const freePractice = wgIsFirstLevelPractice();
+  const freePractice = wgIsTutorialLevel();
   const cost = wgGovernedHintCost(freePractice, WG_FULL_REVEAL_COST);
   const nextWord = wgState.words.find(w => !wgState.found.has(w));
   if (!nextWord) return;

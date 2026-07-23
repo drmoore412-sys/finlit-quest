@@ -10,6 +10,64 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Free hints extended through every game in Level 1
+
+Corrected the tutorial boundary after live feedback confirmed that Game 2 of
+Level 1 had reverted to paid hints. The prior implementation treated only the
+first puzzle in each world as the tutorial and wrote `firstPuzzlePassed`
+immediately after Game 1.
+
+### Completed work
+
+- Defined Level 1 as each world's complete first five-puzzle playthrough.
+- Made Games 1–5 use unlimited free letter hints and free full reveals.
+- Restored governed 100/300 pricing only after five distinct active puzzles have
+  been completed in that world.
+- Derived tutorial status from persisted per-world puzzle history rather than
+  the visible progress counter or the obsolete `firstPuzzlePassed` flag.
+- Preserved independent tutorial progress for Money Basics, Credit, Crypto, and
+  Banking Basics.
+- Updated the tutorial notice to state that free hints cover all five games.
+- Added regression coverage for Game 2, refresh/reload behavior, per-world
+  independence, runtime wiring, and the five-game configuration of all worlds.
+- Re-stamped browser assets and synchronized the updated web bundle into the
+  native iOS project.
+
+### Files modified
+
+- `word-game-app.js`
+- `src/puzzle-bank-engine.js`
+- `index.html`
+- `tests/puzzle-bank-engine.test.js`
+- `tests/tutorial-hints-runtime.test.js`
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Puzzle history is the stable source of truth for level progression. A world
+  remains in Level 1 while its active completed-puzzle count is below its
+  configured `requiredPuzzles` value.
+- The old `firstPuzzlePassed` save field is ignored rather than migrated or
+  deleted, preserving backward compatibility with existing versioned saves.
+- The rule remains data-driven: if a future world configures a different
+  `requiredPuzzles` value, its tutorial boundary follows that configuration.
+
+### Validation
+
+- Automated tests: **202 passed, 0 failed**
+- Web bundle: **40 files, built successfully**
+- Native iOS bundle: Capacitor sync completed successfully
+- Browser visual verification was attempted, but the browser security policy
+  blocked reloading the local `127.0.0.1` page. No visual result is claimed.
+
+### Recommended next steps
+
+1. Verify locally that Game 2 displays `∞ HINTS` at zero coins.
+2. Verify Game 5 remains free and Game 6 restores 100/300 pricing.
+3. Publish through review without merging or deploying until approved.
+
+---
+
 ## 2026-07-23 (latest) — Fix Money Basics puzzle clustering and tutorial hints
 
 Branch: `codex/fix-money-puzzles-tutorial-hints`. This branch already had substantial uncommitted work in progress (from an earlier session) attempting the same ticket. Reviewed it fully before building on it — most of it was correct and independently verified; two parts were not and were corrected here. Nothing in this entry was deployed; per explicit instruction, this stays a draft PR pending review.
