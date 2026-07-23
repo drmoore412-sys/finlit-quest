@@ -75,6 +75,14 @@ test("Banking governed bank has 13 multi-term clusters covering all active terms
   });
 });
 
+test("no active Banking cluster contains a word that is a prefix of another word in the same cluster",()=>{
+  puzzles.forEach(p=>{
+    p.words.forEach(a=>p.words.forEach(b=>{
+      if(a!==b)assert.ok(!b.startsWith(a),`${p.id}: "${a}" is a prefix of "${b}" — selecting ${a}'s letters would auto-submit it before ${b} could be completed`);
+    }));
+  });
+});
+
 test("every Banking cluster obeys exact letter counts and the nine-tile limit",()=>{
   puzzles.forEach(puzzle=>{
     assert.ok(puzzle.letters.length<=9,`${puzzle.id} exceeds nine tiles`);

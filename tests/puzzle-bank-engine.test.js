@@ -1,5 +1,5 @@
 const test=require("node:test"),assert=require("node:assert/strict");
-const {puzzleId,buildBank,selectPlaythrough,recordPlaythrough,wordReward}=require("../src/puzzle-bank-engine.js");
+const {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isFirstLevelPractice,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict}=require("../src/puzzle-bank-engine.js");
 const {wheelFor}=require("../src/game-engine.js");
 
 const VOCAB=["TOKEN","NODE","COIN","MINT","POOL","LOCK","BLOCK","FORK","HASH","GAS","CHAIN","YIELD","LEDGER","PEER","STAKE","SWAP","VAULT","WALLET","MINER","BURN"];
@@ -21,6 +21,32 @@ function makeVocab(n){
 
 test("puzzleId is stable regardless of word order",()=>{
   assert.equal(puzzleId(["TOKEN","COIN"]),puzzleId(["COIN","TOKEN"]));
+});
+
+// Confirmed live 2026-07-23: the shared word-game engine submits a word the
+// moment a player's letter selection spells any known answer in the puzzle
+// (word-game-app.js's wgAddLetter). If a puzzle contains both a word and a
+// strict prefix of that word (e.g. PAY and PAYCHECK), selecting the prefix's
+// letters always auto-submits it first, making the longer word structurally
+// unsolvable — on drag input or discrete taps alike. buildOneCandidate must
+// never produce such a pairing, the same way it already refuses to exceed
+// the wheel budget.
+test("hasPrefixConflict detects a word that is a strict prefix of another word in the list",()=>{
+  assert.equal(hasPrefixConflict(["PAY","PAYCHECK"]),true);
+  assert.equal(hasPrefixConflict(["PAYCHECK","PAY"]),true,"direction of the list must not matter");
+  assert.equal(hasPrefixConflict(["CASH","PAY","NET"]),false);
+  assert.equal(hasPrefixConflict(["NET","NETWORK","ROUTING"]),true);
+});
+test("hasPrefixConflict does not flag equal-length or unrelated words",()=>{
+  assert.equal(hasPrefixConflict(["CAT","BAT"]),false);
+  assert.equal(hasPrefixConflict(["SAME","SAME"]),false,"identical words at different positions aren't a prefix relationship");
+});
+test("buildOneCandidate never returns a candidate containing a word that prefixes another",()=>{
+  const vocab=["CASH","PAY","PAYCHECK","NET"];
+  for(let i=0;i<200;i++){
+    const candidate=buildOneCandidate(vocab,shuffled,wheelFor);
+    if(candidate)assert.equal(hasPrefixConflict(candidate.words),false,`got a conflicting candidate: ${candidate.words.join(",")}`);
+  }
 });
 
 test("buildBank produces at least the requested number of distinct puzzles",()=>{
@@ -137,6 +163,47 @@ test("wordReward pays nothing for a word already in solvedWords",()=>{
 });
 test("wordReward treats a missing/undefined solvedWords list as empty rather than throwing",()=>{
   assert.equal(wordReward("GAS",undefined).isNewSolve,true);
+});
+
+test("the first unpassed puzzle is the free-hint practice level",()=>{
+  assert.equal(isFirstLevelPractice(false,"puzzle-1","puzzle-1"),true);
+  assert.equal(isFirstLevelPractice(false,"puzzle-2","puzzle-1"),false);
+  assert.equal(isFirstLevelPractice(true,"puzzle-1","puzzle-1"),false);
+});
+
+// Tutorial (first-level) hints: free, unlimited, never blocked by balance.
+// Using them does not affect whether the puzzle can be completed — that's
+// governed entirely by isFirstLevelPractice/firstPuzzlePassed above, not by
+// whether a hint was used during the attempt.
+test("hintCost is zero on the tutorial level regardless of the governed price",()=>{
+  assert.equal(hintCost(true,100),0);
+  assert.equal(hintCost(true,300),0);
+});
+test("hintCost returns the governed price once the tutorial level is passed",()=>{
+  assert.equal(hintCost(false,100),100);
+  assert.equal(hintCost(false,300),300);
+});
+test("canAffordHint always allows a zero-cost (tutorial) hint regardless of balance",()=>{
+  assert.equal(canAffordHint(0,0),true);
+  assert.equal(canAffordHint(-5,0),true);
+  assert.equal(canAffordHint(undefined,0),true);
+});
+test("canAffordHint enforces the governed price once it is non-zero",()=>{
+  assert.equal(canAffordHint(50,100),false);
+  assert.equal(canAffordHint(100,100),true);
+  assert.equal(canAffordHint(150,100),true);
+});
+
+// Progress must reflect completed puzzles, not vocabulary terms — a world
+// with N puzzle-bank entries and 0 completions shows 0/N, not (vocab size).
+test("puzzleProgress counts completed puzzles against the active bank size, not vocabulary terms",()=>{
+  const bank=[{id:"p1"},{id:"p2"},{id:"p3"}];
+  assert.deepEqual(puzzleProgress(bank,{}),{completed:0,total:3});
+  assert.deepEqual(puzzleProgress(bank,{p1:{timesPlayed:1}}),{completed:1,total:3});
+  assert.deepEqual(puzzleProgress(bank,{p1:{timesPlayed:2},p2:{timesPlayed:1},p3:{timesPlayed:0}}),{completed:2,total:3});
+});
+test("puzzleProgress handles a missing/undefined history without throwing",()=>{
+  assert.deepEqual(puzzleProgress([{id:"p1"}],undefined),{completed:0,total:1});
 });
 
 // Configurable playthrough size: requiredPuzzles is a per-world config value fed

@@ -11,14 +11,27 @@
   // random, so a candidate containing it can be found in one attempt instead
   // of waiting for random luck — used by buildBank's coverage guarantee below
   // to pair a hard-to-reach word with others rather than isolating it alone.
+  // True if any word in the list is a strict prefix of another — the shared
+  // word-game engine submits a word the instant a player's letter selection
+  // spells any known answer (word-game-app.js's wgAddLetter), so a shorter
+  // word that's a prefix of a longer one in the same puzzle auto-submits the
+  // short word before the long one can ever be completed, on any input
+  // method. Confirmed live 2026-07-23 with a real production example
+  // (PAY/PAYCHECK, Money Basics) — see
+  // docs/MONEY_BASICS_CLUSTER_GOVERNANCE_GAP_2026-07-23.md.
+  function hasPrefixConflict(words){
+    return words.some((a,i)=>words.some((b,j)=>i!==j&&b.length>a.length&&b.startsWith(a)));
+  }
+
   function buildOneCandidate(vocabularyWords,shuffleFn,wheelForFn,maxWords=5,wheelBudget=9,forcedWord=null){
     const rest=forcedWord?vocabularyWords.filter(w=>w!==forcedWord):vocabularyWords;
     const pool=forcedWord?[forcedWord,...shuffleFn(rest)]:shuffleFn(rest);
     const words=[];let letters=[];
     for(const word of pool){
       if(words.length>=maxWords)break;
-      const candidateLetters=wheelForFn([...words,word]);
-      if(candidateLetters.length<=wheelBudget){words.push(word);letters=candidateLetters}
+      const candidateWords=[...words,word];
+      const candidateLetters=wheelForFn(candidateWords);
+      if(candidateLetters.length<=wheelBudget&&!hasPrefixConflict(candidateWords)){words.push(word);letters=candidateLetters}
     }
     return words.length>=2?{words,letters}:null;
   }
@@ -116,5 +129,28 @@
     return next;
   }
 
-  return {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward};
+  // A puzzle is the first-level tutorial exactly once: while it's the bank's
+  // first entry and hasn't been passed yet. Passing it (with or without
+  // hints — see hintCost below) permanently switches later visits to
+  // governed pricing, tracked via the per-world firstPuzzlePassed flag.
+  function isFirstLevelPractice(firstPuzzlePassed,currentPuzzleId,firstPuzzleId){
+    return !firstPuzzlePassed&&Boolean(currentPuzzleId)&&currentPuzzleId===firstPuzzleId;
+  }
+
+  function hintCost(isTutorialLevel,governedCost){
+    return isTutorialLevel?0:governedCost;
+  }
+
+  function canAffordHint(balance,cost){
+    return cost===0||(Number.isFinite(balance)&&balance>=cost);
+  }
+
+  function puzzleProgress(bank,history){
+    const activeBank=Array.isArray(bank)?bank:[];
+    const puzzleHistory=history||{};
+    const completed=activeBank.filter(puzzle=>puzzleHistory[puzzle.id]&&puzzleHistory[puzzle.id].timesPlayed>0).length;
+    return{completed,total:activeBank.length};
+  }
+
+  return {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isFirstLevelPractice,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict};
 });

@@ -10,6 +10,70 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Fix Money Basics puzzle clustering and tutorial hints
+
+Branch: `codex/fix-money-puzzles-tutorial-hints`. This branch already had substantial uncommitted work in progress (from an earlier session) attempting the same ticket. Reviewed it fully before building on it — most of it was correct and independently verified; two parts were not and were corrected here. Nothing in this entry was deployed; per explicit instruction, this stays a draft PR pending review.
+
+### Root cause, Fix 1 (puzzle clustering)
+
+The ticket's own hypothesis — "runtime is ignoring `money-basics-puzzle-bank.js` and flattening `money-basics-terms.json`" — was not what was happening. `wgEnsureBank()` (`word-game-app.js`) correctly reads the governed static bank; the defect was upstream, in the bank content itself: `content/money-basics-puzzle-bank.js` on `main` hand-authored 6 of 20 entries as `puzzleMode:"single-term"` (INCOME, BUDGET, BILL, NET, EXPENSE, INFLATION) instead of clustering them. A pre-existing test, `tests/money-basics-content.test.js`'s *"Money Basics governed bank contains 14 clusters and 6 single-term puzzles"*, was actively asserting the buggy shape as correct.
+
+### Root cause, Fix 2 (tutorial hints) — and a bug in the prior attempt
+
+The prior WIP's hint-cost/affordability logic was correct (zero cost, always enabled, on the first unpassed bank puzzle). But it also added an unrequested mechanic: using any hint on the tutorial level replaced the completion screen with a "Practice Complete — retry without hints to pass" gate (`completionOutcome`, tested explicitly, stated in UI copy). This contradicted the ticket's own spec ("the player may use it repeatedly until the level is completed") and didn't achieve its stated anti-farming goal, since per-word reward dedup already existed from earlier work. Removed entirely, per explicit direction: tutorial puzzles now complete normally regardless of hint use; `firstPuzzlePassed` just switches later visits back to governed pricing.
+
+### A second, more severe bug found during live verification
+
+Visually testing the reclustered content (not just running tests) surfaced a real, previously-**live-in-production** bug: the original `MB-C14` cluster (`main`, pre-existing) paired `PAY` with `PAYCHECK` — since `PAY` is a literal prefix of `PAYCHECK`, and the shared word-game engine submits a word the instant a player's selection spells any known answer in the puzzle (`wgAddLetter`, added during V1.0 Blocker 6), selecting P-A-Y always auto-submits "PAY" before C-H-E-C-K can be added. `PAYCHECK` could never be solved in that grouping, on any input method. This existed in production already; the tutorial-pinning fix would have made it far worse by guaranteeing every new player hit it as literally their first puzzle, unavoidably.
+
+Fixed at two levels:
+- **Content**: swapped `PAY` for `NET` in the affected cluster (verified: 9 tiles, no conflicts); `SPEND+NEEDS+EXPENSE` still valid without `NET`. Searched all 35 other approved terms for a valid `PAYCHECK` partner — none exists (it alone uses 8 of 9 wheel tiles). `PAYCHECK` joins `INFLATION` as a second documented, non-active governance gap (`docs/MONEY_BASICS_CLUSTER_GOVERNANCE_GAP_2026-07-23.md`).
+- **Engine**: added `hasPrefixConflict()` to `src/puzzle-bank-engine.js`, checked alongside the existing wheel-budget check in `buildOneCandidate`. This closes the bug class for good, including for Credit/Crypto's *randomly generated* banks, which had the same latent exposure with no test ever covering it.
+
+### Completed work
+
+- Removed the retry/"Practice Complete" mechanic (`word-game-app.js`, `src/puzzle-bank-engine.js`, `index.html`, `tests/puzzle-bank-engine.test.js`).
+- Re-clustered `content/money-basics-puzzle-bank.js`: 10 standard (3-4 word) clusters + 1 documented 2-word exception (INCOME/CHANGE) + 2 documented non-active gaps (INFLATION, PAYCHECK). Zero one-answer puzzles.
+- Added `hasPrefixConflict()` as a permanent guard in the shared puzzle-bank engine.
+- Progress counter (`wgUpdateProgress`) now reflects completed puzzles against the active bank size, not vocabulary term count — confirmed live: "PUZZLES COMPLETE 0/11", not term count.
+- Fixed the stale test that had been asserting the original bug as correct; added regression tests for prefix-conflict-freedom (Money Basics, Banking Basics, and the shared engine generally) and for the free/governed hint-cost functions.
+
+### Live verification (not just automated tests)
+
+- Fresh account → Money Basics level 1 = CASH/PAY/NET (3 real answers), "∞ HINTS" / "Reveal (FREE)" shown, both fully functional (not just visually enabled) at a real zero coin balance.
+- Solved level 1 with a hint used — completed normally, no retry gate, correct rewards (+70 coins, +16 XP).
+- Level 2 (BUDGET/BILL/DEBIT, a real 3-word cluster, no longer a single-answer "BILL" level) immediately shows governed pricing (100/300); hint deducts exactly 100 coins; correctly disables below that balance.
+- Reload after passing level 1 → `firstPuzzlePassed` persists, governed pricing stays in effect. Reload *before* passing level 1 (mid-tutorial, one hint already used) → hints are still free and unlimited, level 1 puzzle unchanged.
+- Banking Basics, Credit, and Crypto tutorial levels each spot-checked: free hints, correct completion, no prefix conflicts, no regressions.
+- Zero console errors throughout.
+
+### Validation
+
+- Automated tests: **195 passed, 0 failed** (verified directly — the prior WIP's "182 passed, 0 failed" claim was checked and found wrong; the stale test above was actually failing at the time it was made).
+- Web bundle: `scripts/build-www.sh` — 40 files, built successfully.
+- Native: `npx cap sync ios` — succeeded. A full Xcode compile/archive still cannot be performed from this machine (hardware ceiling, documented in `docs/FQ-APP-002-native-build-release-standard.md` §1) — unchanged, not new to this fix.
+
+### Known issues and blockers
+
+- Banking Basics' 13 clusters are all 2-word "long-word exceptions" (verified real, not fabricated) — not re-optimized for potential 3-word groupings, since Banking wasn't reported broken and doing so would be a larger, separate content-design pass.
+- `INFLATION` and `PAYCHECK` remain approved Money Basics vocabulary but inactive in live puzzles — flagged for a governance decision, not silently worked around.
+
+### Files modified
+
+- `word-game-app.js`, `src/puzzle-bank-engine.js`, `index.html`, `word-game.css`
+- `content/money-basics-puzzle-bank.js`
+- `tests/puzzle-bank-engine.test.js`, `tests/money-basics-content.test.js`, `tests/banking-basics-content.test.js`
+- `docs/MONEY_BASICS_CLUSTER_GOVERNANCE_GAP_2026-07-23.md`
+- `PROJECT_LOG.md`
+
+### Recommended next steps
+
+1. Review the draft PR and the four required screenshots.
+2. Decide the governance question for `INFLATION`/`PAYCHECK` (expand vocabulary, expand the wheel budget, or accept them as flashcard/quiz-only content).
+3. Decide whether Banking Basics' clusters should be re-optimized for 3-word groupings in a separate pass.
+
+---
+
 ## 2026-07-23 (latest) — Money Basics and Banking Basics production release verified
 
 PR #1 was marked ready and merged into `main` after the final release review passed.

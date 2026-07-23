@@ -43,11 +43,44 @@ test("Money Basics JavaScript and JSON runtime records remain identical",()=>{
   );
 });
 
-test("Money Basics governed bank contains 14 clusters and 6 single-term puzzles covering every term",()=>{
-  assert.equal(puzzles.length,20);
-  assert.equal(puzzles.filter(p=>p.words.length>1).length,14);
-  assert.equal(puzzles.filter(p=>p.words.length===1).length,6);
-  assert.deepEqual(new Set(puzzles.flatMap(p=>p.words)),new Set(terms.map(t=>t.word)));
+// V1.0 Money Basics puzzle-structure fix: one puzzle per vocabulary term
+// produced a wave of one-answer levels in production. The governed bank must
+// cluster terms into puzzles of at least three answers, with two-answer
+// puzzles allowed only as an explicitly documented exception, and one-answer
+// puzzles prohibited outright. A term that genuinely cannot be clustered
+// (INFLATION — needs all nine wheel tiles, no compatible partner exists in
+// the approved vocabulary) stays governed vocabulary but is not forced into
+// an invalid puzzle; see docs/MONEY_BASICS_CLUSTER_GOVERNANCE_GAP_2026-07-23.md.
+test("no active Money Basics puzzle has fewer than two required answers",()=>{
+  puzzles.forEach(p=>assert.ok(p.words.length>=2,`${p.id} has only ${p.words.length} answer(s)`));
+});
+test("standard Money Basics puzzles (not a documented long-word exception) target at least three answers",()=>{
+  puzzles.filter(p=>!p.longWordException).forEach(p=>assert.ok(p.words.length>=3,`${p.id} is not a documented exception but has only ${p.words.length} answers`));
+});
+test("every two-answer Money Basics puzzle is an explicitly documented long-word exception",()=>{
+  puzzles.filter(p=>p.words.length===2).forEach(p=>{
+    assert.equal(p.longWordException,true,`${p.id} has two answers but isn't flagged as an exception`);
+    assert.ok(p.longWordExceptionReason&&p.longWordExceptionReason.length>0,`${p.id} exception has no documented reason`);
+  });
+});
+// PAYCHECK joined INFLATION as a documented gap after a live-reproduced bug:
+// its only viable cluster (CASH+PAY+PAYCHECK) put PAY, a literal prefix of
+// PAYCHECK, in the same puzzle — the shared engine auto-submits "PAY" the
+// moment its letters are selected, so PAYCHECK could never be completed.
+// See docs/MONEY_BASICS_CLUSTER_GOVERNANCE_GAP_2026-07-23.md.
+test("every active Money Basics puzzle word is a real governed term, with INFLATION and PAYCHECK the documented non-active gaps",()=>{
+  const activeWords=new Set(puzzles.flatMap(p=>p.words));
+  const termWords=new Set(terms.map(t=>t.word));
+  activeWords.forEach(word=>assert.ok(termWords.has(word),`${word} is not an approved Money Basics term`));
+  const inactive=[...termWords].filter(word=>!activeWords.has(word)).sort();
+  assert.deepEqual(inactive,["INFLATION","PAYCHECK"],"exactly two terms should be inactive, and they should be the documented gaps");
+});
+test("no active Money Basics puzzle contains a word that is a prefix of another word in the same puzzle",()=>{
+  puzzles.forEach(p=>{
+    p.words.forEach(a=>p.words.forEach(b=>{
+      if(a!==b)assert.ok(!b.startsWith(a),`${p.id}: "${a}" is a prefix of "${b}" — selecting ${a}'s letters would auto-submit it before ${b} could be completed`);
+    }));
+  });
 });
 
 test("every Money Basics puzzle obeys the nine-letter wheel and repeated-letter rules",()=>{
