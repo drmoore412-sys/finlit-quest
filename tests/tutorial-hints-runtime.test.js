@@ -13,9 +13,9 @@ test("the browser runtime derives tutorial pricing from completed puzzle history
   assert.doesNotMatch(appSource,/firstPuzzlePassed/);
 });
 
-test("all four active worlds define five games in Level 1",()=>{
+test("all five active worlds define five games in Level 1",()=>{
   const configured=[...appSource.matchAll(/requiredPuzzles:\s*(\d+)/g)].map(match=>Number(match[1]));
-  assert.deepEqual(configured,[5,5,5,5]);
+  assert.deepEqual(configured,[5,5,5,5,5]);
 });
 
 test("letter hints, full reveals, and their enabled state share the Level 1 calculation",()=>{

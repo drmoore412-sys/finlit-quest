@@ -44,6 +44,15 @@ const WG_WORLDS = {
     staticBank: () => window.BANKING_BASICS_PUZZLES,
     vocabulary: () => window.BANKING_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
   },
+  investing: {
+    key: "wg-investing",
+    icon: "📈",
+    name: "INVESTING BASICS",
+    bankSize: 9,
+    requiredPuzzles: 5,
+    staticBank: () => window.INVESTING_BASICS_PUZZLES,
+    vocabulary: () => window.INVESTING_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
+  },
 };
 // Fallback only — every world above defines its own requiredPuzzles. The engine
 // never assumes 5; this is just what's used if a world config omits the field.

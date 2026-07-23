@@ -1,0 +1,39 @@
+{
+  "world": "Investing Basics",
+  "vocabularyVersion": "v1.1",
+  "governanceStatus": "FINAL APPROVED",
+  "activeInMainGame": false,
+  "terms": [
+    {
+      "id": "investing.portfolio",
+      "term": "PORTFOLIO",
+      "definition": "The complete group of investments owned or managed together by a person or organization.",
+      "sourceOrganization": "Investor.gov",
+      "sourceUrl": "https://www.investor.gov/introduction-investing/getting-started/asset-allocation",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "id": "investing.diversify",
+      "term": "DIVERSIFY",
+      "definition": "To spread money among different investments so that one investment does not determine the entire result.",
+      "sourceOrganization": "Investor.gov",
+      "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/diversification",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    }
+  ],
+  "removedTerms": [
+    "ALLOT"
+  ],
+  "crossWorldExclusions": [
+    {"term":"PRICE","controllingWorld":"Money Basics"},
+    {"term":"FUND","controllingWorld":"Money Basics"},
+    {"term":"PROFIT","controllingWorld":"Money Basics"},
+    {"term":"LOSS","controllingWorld":"Money Basics"},
+    {"term":"VALUE","controllingWorld":"Money Basics"},
+    {"term":"INCOME","controllingWorld":"Money Basics"},
+    {"term":"RISK","controllingWorld":"Credit"},
+    {"term":"YIELD","controllingWorld":"Crypto"}
+  ]
+}

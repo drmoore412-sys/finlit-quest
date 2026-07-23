@@ -66,6 +66,7 @@ $("#selectCryptoWorld").onclick=()=>wgOpenWorld("crypto");
 $("#selectCreditWorld").onclick=showDashboard;
 $("#selectMoneyBasicsWorld").onclick=()=>wgOpenWorld("moneybasics");
 $("#selectBankingBasicsWorld").onclick=()=>wgOpenWorld("banking");
+$("#selectInvestingBasicsWorld").onclick=()=>wgOpenWorld("investing");
 $("#continentPreview").onclick=()=>toast("More financial regions unlock after their curriculum is approved");
 
 document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$("#themeToggle").textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾";
