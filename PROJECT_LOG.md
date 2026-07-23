@@ -10,6 +10,47 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Money Basics and Banking Basics production release verified
+
+PR #1 was marked ready and merged into `main` after the final release review passed.
+
+### Release identifiers
+
+- Pull request: https://github.com/drmoore412-sys/finlit-quest/pull/1
+- Release branch: `agent/add-money-and-banking-worlds`
+- Release-order correction: `89b4a2d`
+- Merge commit: `d368698523c78a2876cf8d51c58a62adc5d358b3`
+- GitHub Pages build: `1111151207`
+- Deployment result: **built**
+- Production URL: https://finlitquest.com/
+
+### Live mobile verification
+
+Verified the production site at a 390 × 844 mobile viewport.
+
+- “Choose Your World” displayed exactly four selectable cards in the required order:
+  1. Money Basics World
+  2. Credit World
+  3. Crypto World
+  4. Banking Basics World
+- Money Basics opened from the live selection screen and loaded a governed word puzzle with a working crossword, letter wheel, mission, definitions control, and `0 / 36` world total.
+- Credit World opened its continent view and “Continue Adventure” loaded a working Credit Foundations puzzle with `0 / 38` world total.
+- Crypto World opened directly and loaded a working Crypto Foundations puzzle with `0 / 20` world total.
+- Banking Basics opened from the live selection screen and loaded a governed puzzle with a working crossword, nine-tile letter wheel, mission, definitions panel, and `0 / 26` world total.
+- Banking’s live definitions panel displayed the approved definitions associated with the active governed cluster.
+- Browser console warnings and errors: **0**
+
+### Final validation
+
+- Automated tests: **180 passed, 0 failed**
+- Native/web bundle: **40 files, built successfully**
+- PR mergeability before merge: **MERGEABLE / CLEAN**
+- GitHub Pages deployment: **successful**
+
+Money Basics and Banking Basics are now live. Investing Basics remains pending governance approval and was not implemented.
+
+---
+
 ## 2026-07-23 (latest) — Final PR release review passed
 
 Completed the final release review for draft PR #1. The review found and corrected one release-blocking presentation mismatch: the world-selection cards were ordered Crypto, Credit, Money Basics, Banking Basics instead of the approved production order.
