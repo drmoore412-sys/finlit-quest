@@ -10,6 +10,197 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Final PR release review passed
+
+Completed the final release review for draft PR #1. The review found and corrected one release-blocking presentation mismatch: the world-selection cards were ordered Crypto, Credit, Money Basics, Banking Basics instead of the approved production order.
+
+### Final approved order
+
+1. Money Basics
+2. Credit World
+3. Crypto World
+4. Banking Basics
+
+Added `tests/world-selection.test.js` to lock this order and verify that both new worlds’ runtime term and puzzle-bank files load before the shared word-game engine.
+
+### Release gate
+
+- PR mergeability: **MERGEABLE / CLEAN**
+- Required GitHub status checks configured: **none**
+- Outstanding PR reviews or requested changes: **none**
+- Automated tests: **180 passed, 0 failed**
+- Native/web bundle: **40 files, built successfully**
+- `git diff --check`: **passed**
+
+The feature branch is approved to leave draft status and merge into `main`. Production deployment and live mobile verification remain required before the release may be reported as live.
+
+---
+
+## 2026-07-23 (latest) — Money Basics and Banking Basics branch published for review
+
+GitHub CLI authentication was restored for `drmoore412-sys`. The combined Money Basics and Banking Basics implementation was committed as `4a5bb85` (`Add Money Basics and Banking Basics worlds`) and pushed to `agent/add-money-and-banking-worlds`.
+
+Draft pull request: https://github.com/drmoore412-sys/finlit-quest/pull/1
+
+The GitHub connector returned `403 Resource not accessible by integration` when creating the pull request, so the authenticated GitHub CLI was used as the approved fallback. Branch push and draft PR creation both succeeded.
+
+### Published scope
+
+- Money Basics: 36 active terms, 14 multi-term clusters, 6 single-term puzzles.
+- Banking Basics v1.1: 26 active terms, 13 multi-term clusters, 15 inactive reserve terms.
+- World selection, shared-engine registration, build-copy configuration, governance records, and automated validation.
+
+### Release validation
+
+- Automated tests: **178 passed, 0 failed**
+- Native/web bundle: **40 files, built successfully**
+- Cross-world duplicates: **0**
+- `git diff --check`: **passed**
+
+### Known limitation
+
+- This publication is a draft pull request, not a production deployment. The public website must not be reported as updated until the PR is merged and deployment is verified.
+
+### Recommended next steps
+
+1. Review and merge draft PR #1 when ready.
+2. Verify the GitHub Pages deployment after merge before announcing the worlds as live.
+3. Keep Investing Basics pending until its governance approval is complete.
+
+---
+
+## 2026-07-23 (latest) — Banking Basics v1.1 implemented from complete controlling governance record
+
+Implemented Banking Basics from `BANKING_BASICS_v1.1_COMPLETE_CONTROLLING_RECORD_2026-07-23.md`, superseding and ignoring the earlier concise Banking summary. The controlling source was verified before implementation at exactly **18,198 bytes**, with **26** Section A rows beginning with `banking.` and **13** Section B cluster rows. Its approved definitions, stable IDs, source organizations, exact source URLs, cluster assignments, verification notes, support flags, version, and approval status were imported without rewriting.
+
+### Completed work
+
+- Registered `banking` as a selectable main-game world using the existing shared word-game engine.
+- Added 26 approved active terms with stable `banking.*` IDs.
+- Added the 13 governed two-term clusters; no single-term Banking puzzle was introduced.
+- Preserved the complete approved metadata in the JSON governance/runtime record while providing the browser runtime with the exact approved ID, term, and definition fields.
+- Added a clearly separated inactive reserve record containing all 15 Future Expanded-Wheel Reserve terms, including the preserved SAVINGS and RECURRING definitions.
+- Preserved GLOBAL as completely removed and ACCOUNT, AUTOPAY, PRINCIPAL, and YIELD as cross-world exclusions.
+- Stored the complete controlling Markdown in the repository byte-for-byte.
+- Added Banking runtime files to the native/web bundle and re-stamped cache-busting resource URLs.
+
+### Files added
+
+- `content/banking-basics-terms.js`
+- `content/banking-basics-terms.json`
+- `content/banking-basics-puzzle-bank.js`
+- `content/banking-basics-reserve.json`
+- `docs/BANKING_BASICS_v1.1_COMPLETE_CONTROLLING_RECORD_2026-07-23.md`
+- `tests/banking-basics-content.test.js`
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `word-game-app.js`
+- `scripts/build-www.sh`
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Banking uses its governed static puzzle bank as runtime authority, matching the Money Basics integration pattern.
+- Full source and governance metadata remain in `banking-basics-terms.json`; the browser-facing JavaScript record contains only the fields consumed by gameplay.
+- Reserve terms are stored as governed future content but are not loaded by `index.html`, copied into the native runtime bundle, or exposed as playable answers.
+- ALERT and ROUTING retain their approved scope-note metadata.
+
+### Validation
+
+- Controlling record: **18,198 bytes**, SHA-256 `9551d3377533ab6ad569b618520b3a264d6733df067c83a6615feed5e1acb3ed`
+- Active terms: **26**
+- Verified multi-term clusters: **13**
+- Single-term puzzles: **0**
+- Future Expanded-Wheel Reserve: **15 inactive terms**
+- Wheels over nine tiles: **0**
+- Cross-world playable duplicates against Credit, Crypto, and Money Basics: **0**
+- Automated tests: **178 passed, 0 failed**
+- Native/web bundle: **built successfully, 40 files**
+- `git diff --check`: **passed**
+
+### Known issues and blockers
+
+- GitHub publishing remains blocked until `gh auth status` succeeds.
+- Automated browser control cannot access the local `127.0.0.1` page under the browser security policy; source, runtime, test, and built-bundle verification passed.
+- No commit, push, pull request, or production deployment has been performed.
+
+### Recommended next steps
+
+1. Reauthenticate GitHub and confirm `gh auth status` succeeds.
+2. Review the combined Money Basics and Banking Basics staged diff.
+3. Commit as `Add Money Basics and Banking Basics worlds`, push the feature branch, and open a draft pull request.
+4. Keep Investing Basics unimplemented until its vocabulary completes source review, duplicate review, clustering, and final governance approval.
+
+---
+
+## 2026-07-23 (latest) — Money Basics main-game vocabulary implemented and staged locally
+
+Integrated the immutable `FinLit_Quest_Money_Basics_upload.zip` package without overwriting newer or unrelated repository work. The packaged `index.html` and `app.js` contained accessibility changes outside this milestone, so only the Money Basics-specific registration and metadata changes were merged. The approved educational wording and stable IDs were preserved exactly.
+
+### Completed work
+
+- Registered `moneybasics` as a selectable main-game world.
+- Added all 36 approved playable terms with stable `moneybasics.*` IDs and matching JavaScript/JSON runtime records.
+- Added the governed bank of 14 multi-term clusters and 6 approved single-term puzzles.
+- Configured Money Basics to load its governed puzzle bank directly instead of replacing it with random runtime clustering.
+- Added Money Basics files to the native/web bundle build.
+- Added automated controls for exact term totals, stable IDs, JavaScript/JSON parity, full puzzle coverage, nine-tile wheel limits, exact repeated-letter buildability, explicit exclusions, and active Credit/Crypto duplicate detection.
+- Re-stamped local resource URLs through the required cache-busting process.
+
+### Files added
+
+- `content/money-basics-terms.js`
+- `content/money-basics-terms.json`
+- `content/money-basics-puzzle-bank.js`
+- `tests/money-basics-content.test.js`
+- `docs/MONEY_BASICS_MAIN_GAME_APPROVAL.md`
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `word-game-app.js`
+- `scripts/build-www.sh`
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- The governed static puzzle bank is the runtime authority for Money Basics.
+- Single-term puzzles remain explicitly labeled with `puzzleMode: "single-term"`.
+- Money Basics uses the existing shared word-game engine and save architecture; no separate gameplay implementation was introduced.
+- Source-package deltas unrelated to Money Basics were excluded.
+
+### Validation
+
+- Money Basics terms: **36**
+- Multi-term clusters: **14**
+- Single-term puzzles: **6**
+- Wheels over nine tiles: **0**
+- Cross-world playable duplicates against active Credit and Crypto records: **0**
+- Automated tests: **172 passed, 0 failed**
+- Native/web bundle: **built successfully, 38 files**
+- `git diff --check`: **passed**
+- Automated live-browser QA was unavailable because the browser-control security policy blocked the local `127.0.0.1` URL; this was a tooling restriction, not an application failure.
+
+### Known issues and blockers
+
+- Banking Basics v1.1 cannot be implemented until the complete final governance record supplies the approved definitions and stable IDs for all 26 active terms.
+- GitHub publishing remains blocked because `gh auth status` reports an invalid saved token.
+- No commit, push, pull request, or production deployment has been performed.
+
+### Recommended next steps
+
+1. Attach the final Banking Basics governance record.
+2. Reauthenticate GitHub and confirm `gh auth status` succeeds.
+3. Implement and validate Banking Basics on the existing `agent/add-money-and-banking-worlds` branch.
+4. Run the full suite and bundle build again, review the combined diff, commit, push, and open the draft pull request.
+5. Keep Investing Basics pending until its vocabulary receives final governance approval.
+
+---
+
 ## 2026-07-21 (latest) — Phase 4: Privacy Policy, Terms of Service, and Support page published
 
 Built and published the three legal/compliance pages required before submission, closing two of the FAILs flagged in Phase 3's guideline audit (5.1.1 Privacy, 1.5 Support URL). Confirmed two public-facing decisions with the user first, since they become permanently visible once published: contact email (`drmoore412@gmail.com`) and publisher name ("FinLit Quest," no separate legal entity).

@@ -1,0 +1,106 @@
+{
+  "world": "Banking Basics",
+  "vocabularyVersion": "v1.1",
+  "governanceStatus": "FINAL APPROVED WITH RETROACTIVE GOVERNANCE NORMALIZATION",
+  "activeInMainGame": false,
+  "terms": [
+    {
+      "term": "CHECKING",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "SAVINGS",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false,
+      "definition": "An account designed to hold money for future needs and potentially earn interest."
+    },
+    {
+      "term": "WITHDRAW",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "TRANSFER",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "OVERDRAFT",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "STATEMENT",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "RECURRING",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false,
+      "definition": "Describes a payment or transfer scheduled to happen repeatedly."
+    },
+    {
+      "term": "MINIMUM",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "COMPOUND",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "EXCHANGE",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "CURRENCY",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "CLEARING",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "SETTLE",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "SIGNER",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    },
+    {
+      "term": "EARNINGS",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false
+    }
+  ],
+  "removedTerms": [
+    "GLOBAL"
+  ],
+  "crossWorldExclusions": [
+    {
+      "term": "ACCOUNT",
+      "controllingWorld": "Credit"
+    },
+    {
+      "term": "AUTOPAY",
+      "controllingWorld": "Credit"
+    },
+    {
+      "term": "PRINCIPAL",
+      "controllingWorld": "Credit"
+    },
+    {
+      "term": "YIELD",
+      "controllingWorld": "Crypto"
+    }
+  ]
+}

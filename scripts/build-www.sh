@@ -43,7 +43,7 @@ for f in src/content-validator.js src/game-engine.js src/puzzle-bank-engine.js s
 done
 
 # Content + world + curriculum runtime data
-for f in content/crypto-terms.js content/credit-game-terms.js worlds/crypto.js worlds/credit-foundations.js curriculum/credit/approved/runtime/credit-foundations.js; do
+for f in content/crypto-terms.js content/credit-game-terms.js content/money-basics-terms.js content/money-basics-puzzle-bank.js content/banking-basics-terms.js content/banking-basics-puzzle-bank.js worlds/crypto.js worlds/credit-foundations.js curriculum/credit/approved/runtime/credit-foundations.js; do
   copy "$f"
 done
 
