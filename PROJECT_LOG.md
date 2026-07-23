@@ -10,6 +10,32 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Final PR release review passed
+
+Completed the final release review for draft PR #1. The review found and corrected one release-blocking presentation mismatch: the world-selection cards were ordered Crypto, Credit, Money Basics, Banking Basics instead of the approved production order.
+
+### Final approved order
+
+1. Money Basics
+2. Credit World
+3. Crypto World
+4. Banking Basics
+
+Added `tests/world-selection.test.js` to lock this order and verify that both new worlds’ runtime term and puzzle-bank files load before the shared word-game engine.
+
+### Release gate
+
+- PR mergeability: **MERGEABLE / CLEAN**
+- Required GitHub status checks configured: **none**
+- Outstanding PR reviews or requested changes: **none**
+- Automated tests: **180 passed, 0 failed**
+- Native/web bundle: **40 files, built successfully**
+- `git diff --check`: **passed**
+
+The feature branch is approved to leave draft status and merge into `main`. Production deployment and live mobile verification remain required before the release may be reported as live.
+
+---
+
 ## 2026-07-23 (latest) — Money Basics and Banking Basics branch published for review
 
 GitHub CLI authentication was restored for `drmoore412-sys`. The combined Money Basics and Banking Basics implementation was committed as `4a5bb85` (`Add Money Basics and Banking Basics worlds`) and pushed to `agent/add-money-and-banking-worlds`.
