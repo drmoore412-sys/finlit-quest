@@ -1,7 +1,7 @@
 # Money Basics Cluster Governance Gap
 
-Date: 2026-07-23 (updated same day — see "PAYCHECK" below)
-Status: Open
+Date: 2026-07-23 (updated same day — see "PAYCHECK" below; governance decision approved same day, see bottom)
+Status: **Resolved — governance decision approved.** `INFLATION` and `PAYCHECK` are classified **Future Expanded-Wheel Reserve** (`content/money-basics-reserve.json`). Both remain full, active educational vocabulary in `content/money-basics-terms.json` — unchanged definitions and stable IDs — and are simply not eligible for a live puzzle assignment until one of the options below is separately approved.
 Runtime bank: Money Basics v2
 
 ## Quality gate result
@@ -40,10 +40,42 @@ being corrected, not merely inferred. `PAY` was moved to `NET` in `MB-V2-C01`
 (no conflict, same nine-tile budget); `PAYCHECK` has no other valid home and
 was removed from the active bank rather than left in an unsolvable puzzle.
 
-## Required governance decision
+## Governance decision — approved 2026-07-23
 
-One of the following must be approved before `INFLATION` or `PAYCHECK` can
-become active:
+> Governance decision approved: retain INFLATION and PAYCHECK as educational
+> vocabulary but classify both as inactive Future Expanded-Wheel Reserve
+> terms. Do not use either as a one-word level or force either into an
+> invalid cluster.
+
+Recorded exactly as approved, no reinterpretation. Effect:
+
+- Both terms stay in `content/money-basics-terms.json` with their original
+  stable IDs (`moneybasics.inflation`, `moneybasics.paycheck`) and
+  definitions — untouched by this decision.
+- Both are recorded in the new `content/money-basics-reserve.json` with
+  `"status": "Future Expanded-Wheel Reserve"`, `"active": false` — the same
+  classification and label already established for Banking Basics'
+  fifteen reserve terms (`content/banking-basics-reserve.json`), applied
+  here for cross-world consistency.
+- Neither appears in `content/money-basics-puzzle-bank.js` as a one-word
+  puzzle, a forced invalid cluster, or in any capacity — confirmed by
+  automated test (`tests/money-basics-content.test.js`).
+- No filler answer, reserve term, or cross-world term has been activated to
+  work around this gap.
+
+**Known, honestly-recorded limitation of this decision**: because the live
+word-game's Definitions panel only ever renders the current puzzle's words
+(`wgRenderDefinitionsList`, `word-game-app.js`), a term that never appears in
+a puzzle is not currently surfaced to a player through any in-app UI —
+"remains educational vocabulary" is accurate at the data layer (available to
+any future feature, export, or tooling that reads the full term list) but
+not yet reachable by a player today. Not treated as a defect of this
+decision — flagged so it isn't assumed away.
+
+## Future governance decision (unblocks reactivation, not part of this approval)
+
+One of the following would need separate approval before `INFLATION` or
+`PAYCHECK` could move from reserve to active:
 
 1. Approve additional compatible Money Basics vocabulary.
 2. Approve an expanded wheel for these puzzles.
@@ -52,6 +84,4 @@ become active:
    engine so a prefix match no longer auto-submits when a longer valid word
    in the same puzzle could still be completed. This is a cross-world engine
    change (affects Credit, Crypto, and Banking Basics too), not a
-   Money-Basics-only fix, and was out of scope for this pass.
-
-No filler answer, reserve term, or cross-world term has been activated.
+   Money-Basics-only fix, and remains out of scope here.

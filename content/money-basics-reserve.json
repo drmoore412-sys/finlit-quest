@@ -1,0 +1,30 @@
+{
+  "world": "Money Basics",
+  "vocabularyVersion": "v2",
+  "governanceStatus": "APPROVED — Future Expanded-Wheel Reserve",
+  "governanceDecisionDate": "2026-07-23",
+  "activeInPuzzleBank": false,
+  "note": "Unlike Banking Basics' reserve list, these terms are NOT excluded from content/money-basics-terms.json — they remain full, active educational vocabulary (definitions unchanged, stable IDs unchanged). This file only records their puzzle-eligibility classification: neither may be assigned to a live word-wheel puzzle, as a one-word puzzle or otherwise, until a governance decision under 'Required governance decision' below is made and a valid cluster becomes possible.",
+  "terms": [
+    {
+      "term": "INFLATION",
+      "id": "moneybasics.inflation",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false,
+      "reason": "Requires all nine wheel tiles alone (repeated I and N). No other approved Money Basics term can be added without exceeding the wheel budget — zero compatible partners exist."
+    },
+    {
+      "term": "PAYCHECK",
+      "id": "moneybasics.paycheck",
+      "status": "Future Expanded-Wheel Reserve",
+      "active": false,
+      "reason": "Uses eight of nine wheel tiles alone, leaving no room for any approved partner term — checked against all 35 other approved Money Basics terms, zero fit within the remaining one-tile budget. Its only prior grouping (with CASH and PAY) was additionally invalid on separate grounds: PAY is a literal prefix of PAYCHECK, which the shared word-game engine auto-submits before PAYCHECK's remaining letters can be selected, making that grouping structurally unsolvable regardless of wheel budget."
+    }
+  ],
+  "requiredGovernanceDecision": [
+    "Approve additional compatible Money Basics vocabulary that could partner with either term.",
+    "Approve an expanded wheel budget for these two puzzles specifically.",
+    "Approve a specifically governed one-answer tutorial or long-word puzzle mode.",
+    "(PAYCHECK only) Approve a shared word-game engine change so a prefix match no longer auto-submits when a longer valid word in the same puzzle could still be completed — a cross-world engine change affecting Credit, Crypto, and Banking Basics too, not scoped to this decision."
+  ]
+}

@@ -6,6 +6,7 @@ const vm=require("node:vm");
 const {ROOT}=require("./helpers.js");
 
 const terms=JSON.parse(fs.readFileSync(path.join(ROOT,"content/money-basics-terms.json"),"utf8"));
+const reserve=JSON.parse(fs.readFileSync(path.join(ROOT,"content/money-basics-reserve.json"),"utf8"));
 const context={window:{}};
 vm.runInNewContext(fs.readFileSync(path.join(ROOT,"content/money-basics-puzzle-bank.js"),"utf8"),context);
 const puzzles=context.window.MONEY_BASICS_PUZZLES;
@@ -74,6 +75,31 @@ test("every active Money Basics puzzle word is a real governed term, with INFLAT
   activeWords.forEach(word=>assert.ok(termWords.has(word),`${word} is not an approved Money Basics term`));
   const inactive=[...termWords].filter(word=>!activeWords.has(word)).sort();
   assert.deepEqual(inactive,["INFLATION","PAYCHECK"],"exactly two terms should be inactive, and they should be the documented gaps");
+});
+// Governance decision approved 2026-07-23: INFLATION and PAYCHECK are
+// classified Future Expanded-Wheel Reserve — the same status/label already
+// established for Banking Basics' reserve terms (content/banking-basics-
+// reserve.json) — rather than removed from vocabulary or forced into an
+// invalid puzzle. Unlike Banking's reserve terms, these two stay fully
+// present in content/money-basics-terms.json with unchanged stable IDs and
+// definitions; the reserve file only records their puzzle-eligibility
+// classification. See docs/MONEY_BASICS_CLUSTER_GOVERNANCE_GAP_2026-07-23.md.
+test("INFLATION and PAYCHECK are recorded as Future Expanded-Wheel Reserve, not removed from vocabulary",()=>{
+  assert.equal(reserve.activeInPuzzleBank,false);
+  assert.equal(reserve.terms.length,2);
+  const reserveWords=reserve.terms.map(t=>t.term).sort();
+  assert.deepEqual(reserveWords,["INFLATION","PAYCHECK"]);
+  reserve.terms.forEach(rt=>{
+    assert.equal(rt.status,"Future Expanded-Wheel Reserve");
+    assert.equal(rt.active,false);
+    const term=terms.find(t=>t.word===rt.term);
+    assert.ok(term,`${rt.term} must still exist in the main Money Basics term list`);
+    assert.equal(term.id,rt.id,`${rt.term}'s stable ID must be unchanged`);
+  });
+});
+test("every reserve term is absent from the active puzzle bank",()=>{
+  const activeWords=new Set(puzzles.flatMap(p=>p.words));
+  reserve.terms.forEach(rt=>assert.ok(!activeWords.has(rt.term),`${rt.term} is reserve but appears in an active puzzle`));
 });
 test("no active Money Basics puzzle contains a word that is a prefix of another word in the same puzzle",()=>{
   puzzles.forEach(p=>{
