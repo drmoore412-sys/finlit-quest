@@ -26,6 +26,24 @@ const WG_WORLDS = {
     requiredPuzzles: 5,
     vocabulary: () => window.CREDIT_GAME_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: null })),
   },
+  moneybasics: {
+    key: "wg-moneybasics",
+    icon: "💵",
+    name: "MONEY BASICS",
+    bankSize: 11,
+    requiredPuzzles: 5,
+    staticBank: () => window.MONEY_BASICS_PUZZLES,
+    vocabulary: () => window.MONEY_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
+  },
+  banking: {
+    key: "wg-banking",
+    icon: "🏛️",
+    name: "BANKING BASICS",
+    bankSize: 13,
+    requiredPuzzles: 5,
+    staticBank: () => window.BANKING_BASICS_PUZZLES,
+    vocabulary: () => window.BANKING_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
+  },
 };
 // Fallback only — every world above defines its own requiredPuzzles. The engine
 // never assumes 5; this is just what's used if a world config omits the field.
@@ -40,6 +58,17 @@ const WG_LETTER_HINT_COST = 100;
 // two values can never drift apart.
 const WG_FULL_REVEAL_COST = FinLitLearning.DEFAULT_ECONOMY_CONFIG.fullRevealCost;
 let wgPointerDown = false, wgGestureLetters = 0;
+
+function wgGovernedHintCost(isTutorialLevel, governedCost) {
+  return typeof FinLitPuzzleBank.hintCost === "function"
+    ? FinLitPuzzleBank.hintCost(isTutorialLevel, governedCost)
+    : isTutorialLevel ? 0 : governedCost;
+}
+function wgCanAffordHint(balance, cost) {
+  return typeof FinLitPuzzleBank.canAffordHint === "function"
+    ? FinLitPuzzleBank.canAffordHint(balance, cost)
+    : cost === 0 || (Number.isFinite(balance) && balance >= cost);
+}
 
 function wgWorld() { return WG_WORLDS[wgState.worldId]; }
 function wgProgress() {
@@ -65,6 +94,17 @@ function wgBankState() {
 }
 function wgEnsureBank() {
   const bankState = wgBankState();
+  const governedBank = wgWorld().staticBank && wgWorld().staticBank();
+  if (governedBank && governedBank.length) {
+    const governedIds = new Set(governedBank.map(p => p.id));
+    if (bankState.puzzleBank.length !== governedBank.length || bankState.puzzleBank.some(p => !governedIds.has(p.id))) {
+      bankState.puzzleBank = governedBank.map(p => ({...p, words:[...p.words], letters:[...p.letters]}));
+      bankState.puzzleHistory = {};
+      bankState.lastPlaythrough = [];
+      learning.persist();
+    }
+    return bankState.puzzleBank;
+  }
   const size = wgWorld().bankSize || WG_DEFAULT_BANK_SIZE;
   if (bankState.puzzleBank.length < size) {
     const words = wgWorld().vocabulary().map(t => t.word);
@@ -81,7 +121,6 @@ function wgOpenWorld(worldId) {
   $("#worldGameScreen").classList.remove("hidden");
   $("#wgWorldIcon").textContent = world.icon;
   $("#wgWorldName").textContent = world.name;
-  $("#wgWordsTotal").textContent = world.vocabulary().length;
   window.scrollTo(0, 0);
   wgStartPlaythrough();
   wgUpdateHeader();
@@ -92,8 +131,24 @@ function wgStartPlaythrough() {
   const bankState = wgBankState();
   const requiredPuzzles = wgWorld().requiredPuzzles || WG_DEFAULT_REQUIRED_PUZZLES;
   wgState.playthrough = FinLitPuzzleBank.selectPlaythrough(bank, bankState.puzzleHistory, bankState.lastPlaythrough, requiredPuzzles, shuffled);
+  if (!bankState.firstPuzzlePassed && bank[0]) {
+    const introIndex = wgState.playthrough.findIndex(p => p.id === bank[0].id);
+    if (introIndex >= 0) wgState.playthrough.unshift(...wgState.playthrough.splice(introIndex, 1));
+    else wgState.playthrough = [bank[0], ...wgState.playthrough].slice(0, requiredPuzzles);
+  }
   wgState.playthroughIndex = 0;
   wgRenderPuzzle();
+}
+
+function wgIsFirstLevelPractice() {
+  const bank = wgEnsureBank();
+  const current = wgState.playthrough[wgState.playthroughIndex];
+  const firstPuzzlePassed = wgBankState().firstPuzzlePassed;
+  const currentPuzzleId = current && current.id;
+  const firstPuzzleId = bank[0] && bank[0].id;
+  return typeof FinLitPuzzleBank.isFirstLevelPractice === "function"
+    ? FinLitPuzzleBank.isFirstLevelPractice(firstPuzzlePassed, currentPuzzleId, firstPuzzleId)
+    : !firstPuzzlePassed && Boolean(currentPuzzleId) && currentPuzzleId === firstPuzzleId;
 }
 
 function wgRenderPuzzle() {
@@ -112,6 +167,7 @@ function wgRenderPuzzle() {
   wgRenderWheel(shuffled(puzzle.letters));
   wgUpdateProgress();
   wgUpdateMission();
+  wgUpdateAssistUi();
   wgClearSelection();
 }
 
@@ -220,10 +276,18 @@ function wgFoundWord(word) {
   wgUpdateMission();
   celebrate();
   if (wgState.found.size === wgState.words.length) {
+    // Tutorial-level puzzles complete the same way as any other — hints are
+    // free there (see wgHint/wgRevealFull), but using them never blocks
+    // completion. firstPuzzlePassed just switches later visits back to
+    // governed pricing; see isFirstLevelPractice in puzzle-bank-engine.js.
+    const wasFirstLevelPractice = wgIsFirstLevelPractice();
     const bankState = wgBankState();
     const currentPuzzleId = wgState.playthrough[wgState.playthroughIndex].id;
     bankState.puzzleHistory = FinLitPuzzleBank.recordPlaythrough(bankState.puzzleHistory, [currentPuzzleId], Date.now());
+    if (wasFirstLevelPractice) bankState.firstPuzzlePassed = true;
     learning.persist();
+    wgUpdateProgress();
+    wgUpdateAssistUi();
     wgShowPuzzleComplete();
   }
 }
@@ -247,8 +311,13 @@ function wgContinueAfterComplete() {
 }
 
 function wgUpdateProgress() {
-  const total = wgWorld().vocabulary().length;
-  const solved = wgProgress().solvedWords.length;
+  const bank = wgEnsureBank();
+  const history = wgBankState().puzzleHistory;
+  const progress = typeof FinLitPuzzleBank.puzzleProgress === "function"
+    ? FinLitPuzzleBank.puzzleProgress(bank, history)
+    : { completed: bank.filter(puzzle => history[puzzle.id] && history[puzzle.id].timesPlayed > 0).length, total: bank.length };
+  const total = progress.total;
+  const solved = progress.completed;
   $("#wgWordsSolved").textContent = solved;
   $("#wgWordsTotal").textContent = total;
   $("#wgWordsBar").style.width = `${Math.min(100, (solved / total) * 100)}%`;
@@ -284,6 +353,7 @@ function wgUpdateHeader() {
   const dots = $("#wgDailyDots");
   dots.innerHTML = "";
   for (let i = 0; i < dailyGoal; i++) { const dot = document.createElement("span"); dot.className = i < todayCount ? "done" : ""; dots.append(dot); }
+  wgUpdateAssistUi();
 }
 
 function wgShuffle() {
@@ -292,14 +362,27 @@ function wgShuffle() {
   wgClearSelection();
 }
 
+function wgUpdateAssistUi() {
+  const freePractice = wgIsFirstLevelPractice();
+  const hintCost = wgGovernedHintCost(freePractice, WG_LETTER_HINT_COST);
+  const revealCost = wgGovernedHintCost(freePractice, WG_FULL_REVEAL_COST);
+  $("#wgHintCost").textContent = freePractice ? "∞ HINTS" : hintCost;
+  $("#wgRevealCost").textContent = freePractice ? "FREE" : revealCost;
+  $("#wgHintButton").disabled = !wgCanAffordHint(learning.save.player.coins, hintCost);
+  $("#wgNavHint").disabled = !wgCanAffordHint(learning.save.player.coins, revealCost);
+  const notice = $("#wgPracticeNotice");
+  if (notice) notice.classList.toggle("hidden", !freePractice);
+}
+
 function wgHint() {
-  const cost = WG_LETTER_HINT_COST;
+  const freePractice = wgIsFirstLevelPractice();
+  const cost = wgGovernedHintCost(freePractice, WG_LETTER_HINT_COST);
   const unfinished = wgState.words.filter(word => !wgState.found.has(word) && wgHintPattern(word).replace(/\s/g, "").includes("_"));
   if (!unfinished.length) return toast("Every available letter is already revealed");
   const word = unfinished[0];
   const index = [...word].findIndex((_, i) => !wgIsLetterVisible(word, i));
   if (index < 0) return toast("Every available letter is already revealed");
-  if (!learning.spendCoins(cost)) return toast("Not enough coins for a hint");
+  if (cost && !learning.spendCoins(cost)) return toast("Not enough coins for a hint");
   wgState.hints.add(`${word}:${index}`);
   wgRenderGrid();
   wgUpdateHeader();
@@ -308,11 +391,12 @@ function wgHint() {
 }
 
 function wgRevealFull() {
-  const cost = WG_FULL_REVEAL_COST;
+  const freePractice = wgIsFirstLevelPractice();
+  const cost = wgGovernedHintCost(freePractice, WG_FULL_REVEAL_COST);
   const nextWord = wgState.words.find(w => !wgState.found.has(w));
   if (!nextWord) return;
   if (wgState.revealed.has(nextWord)) return toast("Already revealed");
-  if (!learning.spendCoins(cost)) return toast(`Not enough coins — full reveal costs ${cost}`);
+  if (cost && !learning.spendCoins(cost)) return toast(`Not enough coins — full reveal costs ${cost}`);
   wgState.revealed.add(nextWord);
   wgUpdateHeader();
   wgUpdateMission();

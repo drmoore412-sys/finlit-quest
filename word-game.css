@@ -46,10 +46,12 @@
 .wg-wheel-row{display:flex;align-items:center;justify-content:center;gap:16px;margin:22px 0 6px;position:relative;z-index:1}
 .wg-side-btn{display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--wg-border);background:var(--wg-panel);color:var(--wg-muted);border-radius:16px;padding:12px 10px;font-size:9px;font-weight:800;letter-spacing:.05em;width:78px}
 .wg-side-btn span{font-size:20px}
+.wg-side-btn:disabled,.wg-bottom-nav button:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.35)}
 .wg-wheel-wrap .wheel{background:radial-gradient(circle,#132340,#0a1424);border:1px solid var(--wg-border);box-shadow:inset 0 0 0 10px #ffffff08}
 .wg-wheel-wrap .letter{background:#101c34;color:var(--wg-text);border:1px solid var(--wg-border);box-shadow:0 4px 14px #00000055}
 .wg-wheel-wrap .letter.selected{background:var(--wg-teal);color:#06251f;border-color:var(--wg-teal)}
 .wg-hint-text{text-align:center;color:var(--wg-muted);font-size:12px;margin:4px 0 18px;position:relative;z-index:1}
+.wg-practice-notice{max-width:560px;margin:-8px auto 18px;padding:10px 14px;border:1px solid #f2b84b66;border-radius:12px;background:#f2b84b12;color:var(--wg-gold);font-size:12px;font-weight:700;line-height:1.45;text-align:center;position:relative;z-index:1}
 
 .wg-mission-card{background:var(--wg-panel);border:1px solid var(--wg-border);border-radius:20px;padding:18px;position:relative;z-index:1}
 .wg-mission-heading{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--wg-teal)}
