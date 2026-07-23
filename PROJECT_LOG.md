@@ -10,6 +10,39 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Money Basics and Banking Basics branch published for review
+
+GitHub CLI authentication was restored for `drmoore412-sys`. The combined Money Basics and Banking Basics implementation was committed as `4a5bb85` (`Add Money Basics and Banking Basics worlds`) and pushed to `agent/add-money-and-banking-worlds`.
+
+Draft pull request: https://github.com/drmoore412-sys/finlit-quest/pull/1
+
+The GitHub connector returned `403 Resource not accessible by integration` when creating the pull request, so the authenticated GitHub CLI was used as the approved fallback. Branch push and draft PR creation both succeeded.
+
+### Published scope
+
+- Money Basics: 36 active terms, 14 multi-term clusters, 6 single-term puzzles.
+- Banking Basics v1.1: 26 active terms, 13 multi-term clusters, 15 inactive reserve terms.
+- World selection, shared-engine registration, build-copy configuration, governance records, and automated validation.
+
+### Release validation
+
+- Automated tests: **178 passed, 0 failed**
+- Native/web bundle: **40 files, built successfully**
+- Cross-world duplicates: **0**
+- `git diff --check`: **passed**
+
+### Known limitation
+
+- This publication is a draft pull request, not a production deployment. The public website must not be reported as updated until the PR is merged and deployment is verified.
+
+### Recommended next steps
+
+1. Review and merge draft PR #1 when ready.
+2. Verify the GitHub Pages deployment after merge before announcing the worlds as live.
+3. Keep Investing Basics pending until its governance approval is complete.
+
+---
+
 ## 2026-07-23 (latest) — Banking Basics v1.1 implemented from complete controlling governance record
 
 Implemented Banking Basics from `BANKING_BASICS_v1.1_COMPLETE_CONTROLLING_RECORD_2026-07-23.md`, superseding and ignoring the earlier concise Banking summary. The controlling source was verified before implementation at exactly **18,198 bytes**, with **26** Section A rows beginning with `banking.` and **13** Section B cluster rows. Its approved definitions, stable IDs, source organizations, exact source URLs, cluster assignments, verification notes, support flags, version, and approval status were imported without rewriting.
