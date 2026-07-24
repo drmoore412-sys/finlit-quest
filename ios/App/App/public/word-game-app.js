@@ -44,6 +44,15 @@ const WG_WORLDS = {
     staticBank: () => window.BANKING_BASICS_PUZZLES,
     vocabulary: () => window.BANKING_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
   },
+  investing: {
+    key: "wg-investing",
+    icon: "📈",
+    name: "INVESTING BASICS",
+    bankSize: 9,
+    requiredPuzzles: 5,
+    staticBank: () => window.INVESTING_BASICS_PUZZLES,
+    vocabulary: () => window.INVESTING_BASICS_TERMS.map(t => ({ word: t.word, definition: t.definition, termId: t.id })),
+  },
 };
 // Fallback only — every world above defines its own requiredPuzzles. The engine
 // never assumes 5; this is just what's used if a world config omits the field.
@@ -114,7 +123,31 @@ function wgEnsureBank() {
   return bankState.puzzleBank;
 }
 
+// Read-only per-world progress summary for the world-map screen. Unlike
+// wgBankState/wgEnsureBank, this never mutates save state or depends on
+// wgState.worldId — it needs to report on all five worlds at once, including
+// ones the player has never opened. Governed-content worlds (static banks)
+// always report a real, exact total. Dynamic-bank worlds (crypto/credit)
+// only get a real total once they've actually been opened and their bank
+// persisted — buildBank's word-coverage guarantee can legitimately grow the
+// real bank well past its configured bankSize (confirmed live: Credit's
+// bankSize is 10, its real built bank came out to 31), so reporting
+// bankSize as a puzzle count before that bank exists would be a number this
+// function can't stand behind — confirmed:false tells the caller not to
+// display it as a real total.
+function wgWorldProgress(worldId) {
+  const world = WG_WORLDS[worldId];
+  const saved = learning.save.worlds[world.key];
+  const governedBank = world.staticBank && world.staticBank();
+  const bank = governedBank && governedBank.length ? governedBank : (saved && saved.puzzleBank) || [];
+  const confirmed = bank.length > 0;
+  const total = bank.length || world.bankSize || WG_DEFAULT_BANK_SIZE;
+  const completed = bank.length ? FinLitPuzzleBank.puzzleProgress(bank, saved && saved.puzzleHistory).completed : 0;
+  return { completed, total, confirmed };
+}
+
 function wgOpenWorld(worldId) {
+  $("#app").classList.remove("journey-mode");
   wgState.worldId = worldId;
   const world = wgWorld();
   hideAllScreens();
@@ -131,7 +164,8 @@ function wgStartPlaythrough() {
   const bankState = wgBankState();
   const requiredPuzzles = wgWorld().requiredPuzzles || WG_DEFAULT_REQUIRED_PUZZLES;
   wgState.playthrough = FinLitPuzzleBank.selectPlaythrough(bank, bankState.puzzleHistory, bankState.lastPlaythrough, requiredPuzzles, shuffled);
-  if (!bankState.firstPuzzlePassed && bank[0]) {
+  const completedPuzzles = FinLitPuzzleBank.puzzleProgress(bank, bankState.puzzleHistory).completed;
+  if (completedPuzzles === 0 && bank[0]) {
     const introIndex = wgState.playthrough.findIndex(p => p.id === bank[0].id);
     if (introIndex >= 0) wgState.playthrough.unshift(...wgState.playthrough.splice(introIndex, 1));
     else wgState.playthrough = [bank[0], ...wgState.playthrough].slice(0, requiredPuzzles);
@@ -140,15 +174,13 @@ function wgStartPlaythrough() {
   wgRenderPuzzle();
 }
 
-function wgIsFirstLevelPractice() {
+function wgIsTutorialLevel() {
   const bank = wgEnsureBank();
-  const current = wgState.playthrough[wgState.playthroughIndex];
-  const firstPuzzlePassed = wgBankState().firstPuzzlePassed;
-  const currentPuzzleId = current && current.id;
-  const firstPuzzleId = bank[0] && bank[0].id;
-  return typeof FinLitPuzzleBank.isFirstLevelPractice === "function"
-    ? FinLitPuzzleBank.isFirstLevelPractice(firstPuzzlePassed, currentPuzzleId, firstPuzzleId)
-    : !firstPuzzlePassed && Boolean(currentPuzzleId) && currentPuzzleId === firstPuzzleId;
+  const progress = FinLitPuzzleBank.puzzleProgress(bank, wgBankState().puzzleHistory);
+  const requiredPuzzles = wgWorld().requiredPuzzles || WG_DEFAULT_REQUIRED_PUZZLES;
+  return typeof FinLitPuzzleBank.isTutorialLevel === "function"
+    ? FinLitPuzzleBank.isTutorialLevel(progress.completed, requiredPuzzles)
+    : progress.completed < requiredPuzzles;
 }
 
 function wgRenderPuzzle() {
@@ -276,15 +308,9 @@ function wgFoundWord(word) {
   wgUpdateMission();
   celebrate();
   if (wgState.found.size === wgState.words.length) {
-    // Tutorial-level puzzles complete the same way as any other — hints are
-    // free there (see wgHint/wgRevealFull), but using them never blocks
-    // completion. firstPuzzlePassed just switches later visits back to
-    // governed pricing; see isFirstLevelPractice in puzzle-bank-engine.js.
-    const wasFirstLevelPractice = wgIsFirstLevelPractice();
     const bankState = wgBankState();
     const currentPuzzleId = wgState.playthrough[wgState.playthroughIndex].id;
     bankState.puzzleHistory = FinLitPuzzleBank.recordPlaythrough(bankState.puzzleHistory, [currentPuzzleId], Date.now());
-    if (wasFirstLevelPractice) bankState.firstPuzzlePassed = true;
     learning.persist();
     wgUpdateProgress();
     wgUpdateAssistUi();
@@ -363,7 +389,7 @@ function wgShuffle() {
 }
 
 function wgUpdateAssistUi() {
-  const freePractice = wgIsFirstLevelPractice();
+  const freePractice = wgIsTutorialLevel();
   const hintCost = wgGovernedHintCost(freePractice, WG_LETTER_HINT_COST);
   const revealCost = wgGovernedHintCost(freePractice, WG_FULL_REVEAL_COST);
   $("#wgHintCost").textContent = freePractice ? "∞ HINTS" : hintCost;
@@ -375,7 +401,7 @@ function wgUpdateAssistUi() {
 }
 
 function wgHint() {
-  const freePractice = wgIsFirstLevelPractice();
+  const freePractice = wgIsTutorialLevel();
   const cost = wgGovernedHintCost(freePractice, WG_LETTER_HINT_COST);
   const unfinished = wgState.words.filter(word => !wgState.found.has(word) && wgHintPattern(word).replace(/\s/g, "").includes("_"));
   if (!unfinished.length) return toast("Every available letter is already revealed");
@@ -391,7 +417,7 @@ function wgHint() {
 }
 
 function wgRevealFull() {
-  const freePractice = wgIsFirstLevelPractice();
+  const freePractice = wgIsTutorialLevel();
   const cost = wgGovernedHintCost(freePractice, WG_FULL_REVEAL_COST);
   const nextWord = wgState.words.find(w => !wgState.found.has(w));
   if (!nextWord) return;

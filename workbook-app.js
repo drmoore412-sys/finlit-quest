@@ -263,6 +263,6 @@ $("#workbookQuizNext").onclick = wbQuizNext;
 $("#workbookResultsRetry").onclick = wbOpenQuiz;
 $("#workbookResultsContinue").onclick = wbRenderMap;
 
-const wbJourneyNode = $$(".journey-node")[0];
+const wbJourneyNode = $$("#dashboardScreen .journey-node")[0];
 if (wbJourneyNode) wbJourneyNode.onclick = () => openWorkbookWorld();
 $("#workbookPlayGameButton").onclick = () => wgOpenWorld("credit");

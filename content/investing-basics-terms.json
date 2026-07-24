@@ -1,0 +1,202 @@
+[
+  {
+    "id": "investing.stock",
+    "word": "STOCK",
+    "definition": "An investment that represents an ownership interest in a company.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks",
+    "clusterId": "IB-C01"
+  },
+  {
+    "id": "investing.sell",
+    "word": "SELL",
+    "definition": "To transfer an investment to a buyer in exchange for money.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/stock-purchases-and-sales-long-and",
+    "clusterId": "IB-C01"
+  },
+  {
+    "id": "investing.ask",
+    "word": "ASK",
+    "definition": "The lowest price at which a seller is currently willing to sell an investment.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C01"
+  },
+  {
+    "id": "investing.share",
+    "word": "SHARE",
+    "definition": "One unit of ownership in a company, fund, or other investment.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks",
+    "clusterId": "IB-C02"
+  },
+  {
+    "id": "investing.asset",
+    "word": "ASSET",
+    "definition": "Something with financial value that can be owned or held as an investment.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/getting-started/asset-allocation",
+    "clusterId": "IB-C02"
+  },
+  {
+    "id": "investing.issuer",
+    "word": "ISSUER",
+    "definition": "A company, government, or other organization that creates and offers a security.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C02"
+  },
+  {
+    "id": "investing.bond",
+    "word": "BOND",
+    "definition": "A debt investment in which an investor lends money to a government, company, or other issuer.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/bonds-or-fixed-income-products",
+    "clusterId": "IB-C03"
+  },
+  {
+    "id": "investing.gain",
+    "word": "GAIN",
+    "definition": "An increase in an investment’s price or the amount received above its purchase cost.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C03"
+  },
+  {
+    "id": "investing.long",
+    "word": "LONG",
+    "definition": "Describes owning an investment with the expectation that its price may increase.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/stock-purchases-and-sales-long-and",
+    "clusterId": "IB-C03"
+  },
+  {
+    "id": "investing.broker",
+    "word": "BROKER",
+    "definition": "A person or firm that carries out securities transactions for customers.",
+    "sourceOrganization": "FINRA",
+    "sourceUrl": "https://www.finra.org/investors/investing/working-with-investment-professional",
+    "clusterId": "IB-C04"
+  },
+  {
+    "id": "investing.market",
+    "word": "MARKET",
+    "definition": "A system or place where buyers and sellers trade investments.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work",
+    "clusterId": "IB-C04"
+  },
+  {
+    "id": "investing.bear",
+    "word": "BEAR",
+    "definition": "Describes an investor or market outlook that expects prices to decline.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C04"
+  },
+  {
+    "id": "investing.return",
+    "word": "RETURN",
+    "definition": "The money gained or lost from an investment, including price changes and payments such as interest or dividends.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing",
+    "clusterId": "IB-C05"
+  },
+  {
+    "id": "investing.trade",
+    "word": "TRADE",
+    "definition": "A completed purchase or sale of an investment.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work",
+    "clusterId": "IB-C05"
+  },
+  {
+    "id": "investing.order",
+    "word": "ORDER",
+    "definition": "An instruction to buy or sell an investment under stated conditions.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/types-orders",
+    "clusterId": "IB-C05"
+  },
+  {
+    "id": "investing.equity",
+    "word": "EQUITY",
+    "definition": "Ownership in a company or other asset after accounting for claims against it.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C06"
+  },
+  {
+    "id": "investing.buy",
+    "word": "BUY",
+    "definition": "To acquire an investment by paying its purchase price.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/stock-purchases-and-sales-long-and",
+    "clusterId": "IB-C06"
+  },
+  {
+    "id": "investing.bull",
+    "word": "BULL",
+    "definition": "Describes an investor or market outlook that expects prices to rise.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C06"
+  },
+  {
+    "id": "investing.growth",
+    "word": "GROWTH",
+    "definition": "An increase over time in a company, investment, or investment portfolio.",
+    "sourceOrganization": "FINRA",
+    "sourceUrl": "https://www.finra.org/investors/investing/investment-products/stocks",
+    "clusterId": "IB-C07"
+  },
+  {
+    "id": "investing.owner",
+    "word": "OWNER",
+    "definition": "A person or organization that legally holds an investment or ownership interest.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks",
+    "clusterId": "IB-C07"
+  },
+  {
+    "id": "investing.vote",
+    "word": "VOTE",
+    "definition": "To formally express a shareholder’s choice on a company matter.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks",
+    "clusterId": "IB-C07"
+  },
+  {
+    "id": "investing.dividend",
+    "word": "DIVIDEND",
+    "definition": "A payment a company may make to shareholders from its earnings or other available resources.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/dividend",
+    "clusterId": "IB-C08"
+  },
+  {
+    "id": "investing.index",
+    "word": "INDEX",
+    "definition": "A measure that tracks the performance of a selected group of investments.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C08"
+  },
+  {
+    "id": "investing.capital",
+    "word": "CAPITAL",
+    "definition": "Money or other financial resources committed to an investment or business.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C09"
+  },
+  {
+    "id": "investing.bid",
+    "word": "BID",
+    "definition": "The highest price a buyer is currently willing to pay for an investment.",
+    "sourceOrganization": "Investor.gov",
+    "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/all",
+    "clusterId": "IB-C09"
+  }
+]

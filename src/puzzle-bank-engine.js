@@ -129,12 +129,13 @@
     return next;
   }
 
-  // A puzzle is the first-level tutorial exactly once: while it's the bank's
-  // first entry and hasn't been passed yet. Passing it (with or without
-  // hints — see hintCost below) permanently switches later visits to
-  // governed pricing, tracked via the per-world firstPuzzlePassed flag.
-  function isFirstLevelPractice(firstPuzzlePassed,currentPuzzleId,firstPuzzleId){
-    return !firstPuzzlePassed&&Boolean(currentPuzzleId)&&currentPuzzleId===firstPuzzleId;
+  // Level 1 is the world's complete first playthrough, not just bank[0].
+  // Completion is derived from stable per-world puzzle history so games 1-5
+  // remain tutorial-priced across reloads and world changes.
+  function isTutorialLevel(completedPuzzleCount,requiredPuzzles){
+    const completed=Number.isFinite(completedPuzzleCount)?Math.max(0,completedPuzzleCount):0;
+    const required=Number.isFinite(requiredPuzzles)?Math.max(1,requiredPuzzles):1;
+    return completed<required;
   }
 
   function hintCost(isTutorialLevel,governedCost){
@@ -152,5 +153,5 @@
     return{completed,total:activeBank.length};
   }
 
-  return {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isFirstLevelPractice,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict};
+  return {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isTutorialLevel,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict};
 });

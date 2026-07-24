@@ -10,6 +10,150 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-07-23 (latest) — Free hints extended through every game in Level 1
+
+Corrected the tutorial boundary after live feedback confirmed that Game 2 of
+Level 1 had reverted to paid hints. The prior implementation treated only the
+first puzzle in each world as the tutorial and wrote `firstPuzzlePassed`
+immediately after Game 1.
+
+### Completed work
+
+- Defined Level 1 as each world's complete first five-puzzle playthrough.
+- Made Games 1–5 use unlimited free letter hints and free full reveals.
+- Restored governed 100/300 pricing only after five distinct active puzzles have
+  been completed in that world.
+- Derived tutorial status from persisted per-world puzzle history rather than
+  the visible progress counter or the obsolete `firstPuzzlePassed` flag.
+- Preserved independent tutorial progress for Money Basics, Credit, Crypto, and
+  Banking Basics.
+- Updated the tutorial notice to state that free hints cover all five games.
+- Added regression coverage for Game 2, refresh/reload behavior, per-world
+  independence, runtime wiring, and the five-game configuration of all worlds.
+- Re-stamped browser assets and synchronized the updated web bundle into the
+  native iOS project.
+
+### Files modified
+
+- `word-game-app.js`
+- `src/puzzle-bank-engine.js`
+- `index.html`
+- `tests/puzzle-bank-engine.test.js`
+- `tests/tutorial-hints-runtime.test.js`
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Puzzle history is the stable source of truth for level progression. A world
+  remains in Level 1 while its active completed-puzzle count is below its
+  configured `requiredPuzzles` value.
+- The old `firstPuzzlePassed` save field is ignored rather than migrated or
+  deleted, preserving backward compatibility with existing versioned saves.
+- The rule remains data-driven: if a future world configures a different
+  `requiredPuzzles` value, its tutorial boundary follows that configuration.
+
+### Validation
+
+- Automated tests: **202 passed, 0 failed**
+- Web bundle: **40 files, built successfully**
+- Native iOS bundle: Capacitor sync completed successfully
+- Browser visual verification was attempted, but the browser security policy
+  blocked reloading the local `127.0.0.1` page. No visual result is claimed.
+
+### Recommended next steps
+
+1. Verify locally that Game 2 displays `∞ HINTS` at zero coins.
+2. Verify Game 5 remains free and Game 6 restores 100/300 pricing.
+3. Publish through review without merging or deploying until approved.
+
+---
+
+## 2026-07-23 (latest) — Investing Basics v1.1 added as the fifth game world
+
+Implemented Investing Basics from the final approved governance record
+`INVESTING_BASICS_MAIN_GAME_VOCABULARY_v1.1_FINAL_APPROVED.md`. The supplied
+record was preserved byte-for-byte at 16,972 bytes with SHA-256
+`26f780ad8bd255146bbea178391568be33cba3bd0cdb88b75acf427116a559c5`.
+No educational wording or governed puzzle relationship was rewritten.
+
+### Completed work
+
+- Added Investing Basics as the fifth selectable card after Banking Basics.
+- Registered Investing with the shared word-game engine under the stable save
+  key `wg-investing`.
+- Imported all 25 approved active terms with stable IDs, exact definitions,
+  source organizations, source URLs, and cluster IDs.
+- Added the nine exact governed puzzle clusters: seven three-word clusters and
+  the two approved two-word exceptions `IB-C08` and `IB-C09`.
+- Kept `investing.portfolio` and `investing.diversify` in a separate inactive
+  Future Expanded-Wheel Reserve record.
+- Preserved ALLOT as removed and all eight documented cross-world exclusions.
+- Added Investing runtime files to the web/native bundle and synchronized the
+  bundle into the iOS project.
+- Added regression tests for immutable source fidelity, term metadata,
+  active/reserve separation, exact wheels, cluster coverage, prefix safety,
+  cross-world duplicates, world registration, and world-card ordering.
+
+### Files added
+
+- `content/investing-basics-terms.js`
+- `content/investing-basics-terms.json`
+- `content/investing-basics-puzzle-bank.js`
+- `content/investing-basics-reserve.json`
+- `docs/INVESTING_BASICS_MAIN_GAME_VOCABULARY_v1.1_FINAL_APPROVED.md`
+- `tests/investing-basics-content.test.js`
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `word-game-app.js`
+- `package.json`
+- `scripts/build-www.sh`
+- `tests/world-selection.test.js`
+- `PROJECT_LOG.md`
+- generated native files under `ios/App/App/public/`
+
+### Architectural decisions
+
+- Investing uses the same data-driven static-bank path as Money Basics and
+  Banking Basics; no Investing-specific puzzle logic was introduced.
+- The canonical Markdown remains the immutable governance source, the complete
+  JSON record preserves implementation metadata, and the compact JavaScript
+  files provide browser runtime data.
+- The Investing branch is stacked on the pending Level 1 hint correction so the
+  new world also receives free unlimited hints for all five Level 1 games.
+  Once that prerequisite fix is merged, the Investing review will reduce to
+  only the new-world changes.
+
+### Validation
+
+- Automated tests: **211 passed, 0 failed**, including the stacked Level 1
+  hint regression coverage across all five worlds.
+- Web/native bundle: **42 files, built successfully**
+- Capacitor iOS sync: **successful**
+- Local browser: five world cards displayed in the expected order; Investing
+  opened with `0 / 9` puzzle progress and the governed `STOCK / SELL / ASK`
+  definitions and nine-letter `ACEKLLOST` wheel.
+- Local browser: after completing Investing Game 1, Game 2 still displayed
+  `∞ HINTS` and `Reveal (FREE)`, confirming the Level 1 hint fix carries into
+  the new world.
+- Browser console errors: **0**
+
+### Known issues
+
+- GitHub publishing remains blocked until the saved `gh` authentication is
+  refreshed. This implementation has not been merged or deployed.
+
+### Recommended next steps
+
+1. Merge or publish the Level 1 hint correction first.
+2. Review the Investing branch and confirm the fifth world card on mobile.
+3. Open a draft Investing PR after GitHub authentication succeeds.
+4. Do not report Investing as live until merge, deployment, and production
+   verification are complete.
+---
+
 ## 2026-07-23 (latest) — Fix Money Basics puzzle clustering and tutorial hints
 
 Branch: `codex/fix-money-puzzles-tutorial-hints`. This branch already had substantial uncommitted work in progress (from an earlier session) attempting the same ticket. Reviewed it fully before building on it — most of it was correct and independently verified; two parts were not and were corrected here. Nothing in this entry was deployed; per explicit instruction, this stays a draft PR pending review.

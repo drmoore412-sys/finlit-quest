@@ -2,7 +2,7 @@
   "name": "finlit-quest",
   "version": "1.0.0",
   "private": true,
-  "description": "FinLit Quest — a word-puzzle game that teaches financial literacy through Crypto and Credit worlds.",
+  "description": "FinLit Quest — a word-puzzle game that teaches financial literacy across Money, Credit, Crypto, Banking, and Investing worlds.",
   "scripts": {
     "test": "./scripts/test.sh"
   },

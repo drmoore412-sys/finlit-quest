@@ -1,0 +1,28 @@
+// Investing Basics Main Game Vocabulary v1.1 — FINAL APPROVED.
+window.INVESTING_BASICS_TERMS = [
+  {id:"investing.stock",word:"STOCK",definition:"An investment that represents an ownership interest in a company."},
+  {id:"investing.sell",word:"SELL",definition:"To transfer an investment to a buyer in exchange for money."},
+  {id:"investing.ask",word:"ASK",definition:"The lowest price at which a seller is currently willing to sell an investment."},
+  {id:"investing.share",word:"SHARE",definition:"One unit of ownership in a company, fund, or other investment."},
+  {id:"investing.asset",word:"ASSET",definition:"Something with financial value that can be owned or held as an investment."},
+  {id:"investing.issuer",word:"ISSUER",definition:"A company, government, or other organization that creates and offers a security."},
+  {id:"investing.bond",word:"BOND",definition:"A debt investment in which an investor lends money to a government, company, or other issuer."},
+  {id:"investing.gain",word:"GAIN",definition:"An increase in an investment’s price or the amount received above its purchase cost."},
+  {id:"investing.long",word:"LONG",definition:"Describes owning an investment with the expectation that its price may increase."},
+  {id:"investing.broker",word:"BROKER",definition:"A person or firm that carries out securities transactions for customers."},
+  {id:"investing.market",word:"MARKET",definition:"A system or place where buyers and sellers trade investments."},
+  {id:"investing.bear",word:"BEAR",definition:"Describes an investor or market outlook that expects prices to decline."},
+  {id:"investing.return",word:"RETURN",definition:"The money gained or lost from an investment, including price changes and payments such as interest or dividends."},
+  {id:"investing.trade",word:"TRADE",definition:"A completed purchase or sale of an investment."},
+  {id:"investing.order",word:"ORDER",definition:"An instruction to buy or sell an investment under stated conditions."},
+  {id:"investing.equity",word:"EQUITY",definition:"Ownership in a company or other asset after accounting for claims against it."},
+  {id:"investing.buy",word:"BUY",definition:"To acquire an investment by paying its purchase price."},
+  {id:"investing.bull",word:"BULL",definition:"Describes an investor or market outlook that expects prices to rise."},
+  {id:"investing.growth",word:"GROWTH",definition:"An increase over time in a company, investment, or investment portfolio."},
+  {id:"investing.owner",word:"OWNER",definition:"A person or organization that legally holds an investment or ownership interest."},
+  {id:"investing.vote",word:"VOTE",definition:"To formally express a shareholder’s choice on a company matter."},
+  {id:"investing.dividend",word:"DIVIDEND",definition:"A payment a company may make to shareholders from its earnings or other available resources."},
+  {id:"investing.index",word:"INDEX",definition:"A measure that tracks the performance of a selected group of investments."},
+  {id:"investing.capital",word:"CAPITAL",definition:"Money or other financial resources committed to an investment or business."},
+  {id:"investing.bid",word:"BID",definition:"The highest price a buyer is currently willing to pay for an investment."}
+];
