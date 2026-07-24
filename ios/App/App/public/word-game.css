@@ -111,6 +111,14 @@
 .welcome-cta{width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:800;font-size:16px;background:linear-gradient(145deg,#ffce6b,#e08b1f);color:#2b1600;margin-top:8px;cursor:pointer;box-shadow:0 14px 30px #e08b1f40}
 .welcome-legal-links{margin:14px 0 0;font-size:12px;color:var(--wg-muted);text-align:center}
 .welcome-legal-links a{color:var(--wg-muted);text-decoration:underline}
+.welcome-path{width:100%;display:flex;flex-direction:column;margin:6px 0;text-align:left}
+.welcome-step{position:relative;display:flex;align-items:center;gap:14px;padding:9px 0}
+.welcome-step-icon{position:relative;z-index:1;flex:0 0 auto;width:56px;height:56px;display:grid;place-items:center;border-radius:50%;font-size:24px;background:radial-gradient(circle at 32% 28%,#0f2b46,#081a2c);border:3px solid #f2b84b;box-shadow:0 10px 24px #f2b84b30}
+.welcome-step:not(:last-child):after{content:"";position:absolute;left:27px;top:56px;width:3px;height:calc(100% - 26px);background:repeating-linear-gradient(180deg,#f2b84b 0 6px,transparent 6px 12px);border-radius:2px}
+.welcome-step-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;padding:12px 14px;border:1px solid var(--wg-border);border-radius:14px;background:var(--wg-panel)}
+.welcome-step-copy b{color:var(--wg-teal);font-size:12px;letter-spacing:.08em}
+.welcome-step-copy em{font-style:normal;color:var(--wg-muted);font-size:13px;line-height:1.35}
+.welcome-subtext{margin:10px 0 0;color:var(--wg-muted);font-size:12px;text-align:center}
 
 /* World Selection screen (first launch, and the permanent "choose a world" hub) */
 .world-select-intro{position:relative;z-index:1;margin:20px 0 18px}
