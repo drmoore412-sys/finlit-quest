@@ -123,7 +123,31 @@ function wgEnsureBank() {
   return bankState.puzzleBank;
 }
 
+// Read-only per-world progress summary for the world-map screen. Unlike
+// wgBankState/wgEnsureBank, this never mutates save state or depends on
+// wgState.worldId — it needs to report on all five worlds at once, including
+// ones the player has never opened. Governed-content worlds (static banks)
+// always report a real, exact total. Dynamic-bank worlds (crypto/credit)
+// only get a real total once they've actually been opened and their bank
+// persisted — buildBank's word-coverage guarantee can legitimately grow the
+// real bank well past its configured bankSize (confirmed live: Credit's
+// bankSize is 10, its real built bank came out to 31), so reporting
+// bankSize as a puzzle count before that bank exists would be a number this
+// function can't stand behind — confirmed:false tells the caller not to
+// display it as a real total.
+function wgWorldProgress(worldId) {
+  const world = WG_WORLDS[worldId];
+  const saved = learning.save.worlds[world.key];
+  const governedBank = world.staticBank && world.staticBank();
+  const bank = governedBank && governedBank.length ? governedBank : (saved && saved.puzzleBank) || [];
+  const confirmed = bank.length > 0;
+  const total = bank.length || world.bankSize || WG_DEFAULT_BANK_SIZE;
+  const completed = bank.length ? FinLitPuzzleBank.puzzleProgress(bank, saved && saved.puzzleHistory).completed : 0;
+  return { completed, total, confirmed };
+}
+
 function wgOpenWorld(worldId) {
+  $("#app").classList.remove("journey-mode");
   wgState.worldId = worldId;
   const world = wgWorld();
   hideAllScreens();

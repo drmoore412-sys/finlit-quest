@@ -27,10 +27,53 @@ const FQ_SCREEN_IDS=["welcomeScreen","worldSelectScreen","dashboardScreen","work
 function hideAllScreens(){FQ_SCREEN_IDS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add("hidden")})}
 
 function showWelcome(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#welcomeScreen").classList.remove("hidden");window.scrollTo(0,0)}
-function showWorldSelect(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#worldSelectScreen").classList.remove("hidden");window.scrollTo(0,0)}
+function showWorldSelect(){hideAllScreens();$("#app").classList.add("journey-mode");$("#worldSelectScreen").classList.remove("hidden");renderWorldJourneyMap("quest");window.scrollTo(0,0)}
+// Word Quests nodes route straight into that world's letter-wheel game.
+// Learning Quests nodes route to a world's lesson/workbook content — today
+// only Credit has any (curriculum/credit/approved/...); the other four
+// honestly show "Coming soon" rather than a fake or broken link.
+const WORLD_JOURNEY_ORDER=["moneybasics","credit","crypto","banking","investing"];
+function renderWorldJourneyMap(mode){
+  $("#journeyTabQuest").classList.toggle("active",mode==="quest");$("#journeyTabQuest").setAttribute("aria-selected",mode==="quest");
+  $("#journeyTabLearning").classList.toggle("active",mode==="learning");$("#journeyTabLearning").setAttribute("aria-selected",mode==="learning");
+  $("#worldMapKicker").textContent=mode==="quest"?"WORD QUESTS":"LEARNING QUESTS";
+  $("#worldMapTitle").textContent=mode==="quest"?"Your Word Quest Journey":"Your Learning Quest Journey";
+  $("#journeyLearningBanner").classList.toggle("hidden",mode==="learning");
+  const player=learning.save.player;
+  $("#worldMapCoins").textContent=player.coins;$("#worldMapXp").textContent=player.xp;$("#worldMapGems").textContent=0;
+  WORLD_JOURNEY_ORDER.forEach(worldId=>{
+    const node=$(`.journey-node[data-world="${worldId}"]`);
+    node.classList.remove("active","completed","learning-soon");
+    const stateEl=node.querySelector(".node-state"),kickerEl=node.querySelector(".node-kicker"),progressEl=node.querySelector(".node-progress");
+    kickerEl.textContent=worldId==="moneybasics"?"START HERE":"";
+    if(mode==="quest"){
+      const {completed,total,confirmed}=wgWorldProgress(worldId);
+      if(!confirmed){progressEl.textContent="NOT STARTED YET";stateEl.textContent="Start"}
+      else{
+        progressEl.textContent=`${completed} / ${total} PUZZLES`;
+        if(completed>0&&completed<total){node.classList.add("active");stateEl.textContent="Current"}
+        else if(completed&&completed===total){node.classList.add("completed");stateEl.textContent="Complete"}
+        else{stateEl.textContent="Start"}
+      }
+      node.onclick=()=>wgOpenWorld(worldId);
+    } else {
+      progressEl.textContent="";
+      if(worldId==="credit"){
+        const stats=learning.worldStats("credit");
+        stateEl.textContent=stats.wordsLearned>0?"In progress":"Start here";
+        if(stats.wordsLearned>0)node.classList.add("active");
+        node.onclick=showDashboard;
+      } else {
+        stateEl.textContent="Coming soon";
+        node.classList.add("learning-soon");
+        node.onclick=()=>toast(`${node.querySelector("strong").textContent} lessons are coming soon — the word-puzzle game is available now.`);
+      }
+    }
+  });
+}
 function showDashboard(){hideAllScreens();$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
 function updateJourneyNodes(activeIndex){
-  $$(".journey-node").forEach((node,index)=>{
+  $$("#dashboardScreen .journey-node").forEach((node,index)=>{
     const status=index<activeIndex?"completed":index===activeIndex?"active":"locked";
     node.classList.remove("completed","active","locked");node.classList.add(status);
     node.disabled=index>activeIndex;
@@ -57,16 +100,15 @@ function updateDashboard(){
   $("#badgeCount").textContent=`${player.achievements.length} / 2`;$("#xpToNext").textContent=`${xpIntoLevel} / ${FinLitLearning.XP_PER_LEVEL}`;$("#footerProgressFill").style.width=`${(xpIntoLevel/FinLitLearning.XP_PER_LEVEL)*100}%`;
   const copy=achievementCopy[latest];$("#achievementTitle").textContent=copy?copy[0]:"No achievements unlocked";$("#achievementDescription").textContent=copy?copy[1]:"Complete your first applied challenge.";$("#achievementReward").textContent=copy?copy[2]:"";
 }
-function toggleTheme(){const next=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=next;learning.save.settings.theme=next;learning.persist();localStorage.removeItem("fq_theme");$("#themeToggle").textContent=next==="dark"?"☀":"☾"}
+function toggleTheme(){const next=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=next;learning.save.settings.theme=next;learning.persist();localStorage.removeItem("fq_theme");$$(".theme-toggle").forEach(btn=>btn.textContent=next==="dark"?"☀":"☾")}
 
 $("#continueLearning").onclick=()=>wgOpenWorld("credit");$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("credit");$("#dashboardReview").onclick=()=>wgOpenWorld("credit");
 $("#journeyBrandLogo").onclick=showWorldSelect;
 $("#welcomeStartButton").onclick=()=>{localStorage.setItem("finlitQuest.onboarded","true");showWorldSelect()};
-$("#selectCryptoWorld").onclick=()=>wgOpenWorld("crypto");
-$("#selectCreditWorld").onclick=showDashboard;
-$("#selectMoneyBasicsWorld").onclick=()=>wgOpenWorld("moneybasics");
-$("#selectBankingBasicsWorld").onclick=()=>wgOpenWorld("banking");
-$("#selectInvestingBasicsWorld").onclick=()=>wgOpenWorld("investing");
 $("#continentPreview").onclick=()=>toast("More financial regions unlock after their curriculum is approved");
+$("#journeyTabQuest").onclick=()=>renderWorldJourneyMap("quest");
+$("#journeyTabLearning").onclick=()=>renderWorldJourneyMap("learning");
+$("#journeyLearningBanner").onclick=()=>renderWorldJourneyMap("learning");
+$("#worldMapThemeToggle").onclick=toggleTheme;
 
-document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$("#themeToggle").textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾";
+document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$$(".theme-toggle").forEach(btn=>btn.textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾");

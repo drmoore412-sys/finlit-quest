@@ -56,56 +56,59 @@
       </div>
     </section>
 
-    <section class="wg-screen world-select-screen hidden" id="worldSelectScreen">
-      <header class="wg-topbar">
-        <div class="wg-brand"><span class="wg-logo"><img src="assets/brand/web/wg-logo-96.png?v=1784850224046" alt="FinLit Quest"></span><div><b>FINLIT</b><b>QUEST</b></div></div>
+    <section class="dashboard journey-dashboard world-map-screen hidden" id="worldSelectScreen">
+      <header class="journey-topbar">
+        <div class="journey-brand"><span class="journey-logo journey-logo-img"><img src="assets/brand/web/wg-logo-96.png?v=1784850224046" alt="FinLit Quest"></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
+        <div class="journey-currencies" aria-label="Player resources">
+          <div><span class="currency-icon coin">$</span><strong id="worldMapCoins">0</strong><small>COINS</small></div>
+          <div><span class="currency-icon xp">★</span><strong id="worldMapXp">0</strong><small>XP</small></div>
+          <div><span class="currency-icon gem">◆</span><strong id="worldMapGems">0</strong><small>GEMS</small></div>
+        </div>
+        <button class="theme-toggle" id="worldMapThemeToggle" aria-label="Toggle dark mode">☾</button>
       </header>
-      <div class="world-select-intro">
-        <h1>Choose Your World</h1>
-        <p>Each world teaches a different part of financial literacy through interactive word puzzles.</p>
+
+      <div class="journey-tabs" role="tablist" aria-label="Quest type">
+        <button class="journey-tab active" id="journeyTabQuest" role="tab" aria-selected="true"><span class="journey-tab-icon" aria-hidden="true">🧭</span>Word Quests</button>
+        <button class="journey-tab" id="journeyTabLearning" role="tab" aria-selected="false"><span class="journey-tab-icon" aria-hidden="true">📖</span>Learning Quests</button>
       </div>
-      <div class="world-select-list">
-        <button class="world-card" id="selectMoneyBasicsWorld">
-          <span class="world-card-icon">💵</span>
-          <span class="world-card-body">
-            <strong>Money Basics World</strong>
-            <small>Practice everyday money, income, spending, saving, prices, and financial choices.</small>
-          </span>
-          <span class="world-card-arrow">→</span>
-        </button>
-        <button class="world-card" id="selectCreditWorld">
-          <span class="world-card-icon">🏦</span>
-          <span class="world-card-body">
-            <strong>Credit World</strong>
-            <small>Build practical knowledge about credit, borrowing, and financial responsibility.</small>
-          </span>
-          <span class="world-card-arrow">→</span>
-        </button>
-        <button class="world-card" id="selectCryptoWorld">
-          <span class="world-card-icon">🪙</span>
-          <span class="world-card-body">
-            <strong>Crypto World</strong>
-            <small>Learn blockchain, wallets, Bitcoin, Ethereum, DeFi, and digital assets through interactive puzzles.</small>
-          </span>
-          <span class="world-card-arrow">→</span>
-        </button>
-        <button class="world-card" id="selectBankingBasicsWorld">
-          <span class="world-card-icon">🏛️</span>
-          <span class="world-card-body">
-            <strong>Banking Basics World</strong>
-            <small>Practice secure account access, digital banking, payments, deposits, and transaction status.</small>
-          </span>
-          <span class="world-card-arrow">→</span>
-        </button>
-        <button class="world-card" id="selectInvestingBasicsWorld">
-          <span class="world-card-icon">📈</span>
-          <span class="world-card-body">
-            <strong>Investing Basics World</strong>
-            <small>Learn ownership, markets, investment products, trading actions, and ways investments can grow.</small>
-          </span>
-          <span class="world-card-arrow">→</span>
-        </button>
+
+      <div class="journey-layout journey-layout-solo">
+        <section class="journey-map" aria-labelledby="worldMapTitle">
+          <div class="map-heading"><span id="worldMapKicker">WORD QUESTS</span><h1 id="worldMapTitle">Your Word Quest Journey</h1><p>Travel through the worlds and master money one puzzle at a time.</p></div>
+          <div class="journey-cloud cloud-one" aria-hidden="true"></div><div class="journey-cloud cloud-two" aria-hidden="true"></div>
+          <div class="river-shimmer" aria-hidden="true"></div>
+          <svg class="journey-path" viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true"><path class="path-shadow" d="M118 128 C410 160 470 270 257 332 S82 480 325 527 S510 620 270 650"/><path class="path-main" d="M118 128 C410 160 470 270 257 332 S82 480 325 527 S510 620 270 650"/></svg>
+          <span class="path-spark spark-one" aria-hidden="true"></span>
+
+          <button class="journey-node node-1" id="selectMoneyBasicsWorld" data-world="moneybasics" aria-label="Money Basics">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">💵</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Money Basics</strong><em>Cash · Budget · Saving</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-2" id="selectCreditWorld" data-world="credit" aria-label="Credit">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🏦</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Credit</strong><em>Borrow · Repay · Build</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-3" id="selectCryptoWorld" data-world="crypto" aria-label="Crypto">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🪙</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Crypto</strong><em>Wallet · Token · Chain</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-4" id="selectBankingBasicsWorld" data-world="banking" aria-label="Banking Basics">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🏛️</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Banking Basics</strong><em>Accounts · Payments · Security</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-5" id="selectInvestingBasicsWorld" data-world="investing" aria-label="Investing Basics">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">📈</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Investing Basics</strong><em>Stocks · Bonds · Markets</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+        </section>
       </div>
+
+      <button class="continue-adventure" id="journeyLearningBanner"><span class="cta-compass" aria-hidden="true">📖</span><span><small>WANT LESSONS, ACTIVITIES, AND QUIZZES?</small>Open Learning Quests</span><b>→</b></button>
     </section>
 
     <section class="wg-screen" id="worldGameScreen">
