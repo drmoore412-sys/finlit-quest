@@ -59,7 +59,7 @@ const WG_WORLDS = {
 const WG_DEFAULT_REQUIRED_PUZZLES = 5;
 const WG_DEFAULT_BANK_SIZE = 10;
 
-const wgState = { worldId: "crypto", playthrough: [], playthroughIndex: 0, words: [], byWord: {}, found: new Set(), hints: new Set(), revealed: new Set(), selected: [], tries: {} };
+const wgState = { worldId: "crypto", playthrough: [], playthroughIndex: 0, words: [], byWord: {}, found: new Set(), hints: new Set(), revealed: new Set(), selected: [], tries: {}, wasCompleted: false };
 const WG_LETTER_HINT_COST = 100;
 // Sourced from learning-engine.js's economy config, not a separate literal —
 // this is also what a new player's starting coin balance is derived from
@@ -67,6 +67,25 @@ const WG_LETTER_HINT_COST = 100;
 // two values can never drift apart.
 const WG_FULL_REVEAL_COST = FinLitLearning.DEFAULT_ECONOMY_CONFIG.fullRevealCost;
 let wgPointerDown = false, wgGestureLetters = 0;
+
+const wgAudio = FinLitAudio.create({
+  window,
+  isEnabled: () => FinLitVictory.loadSoundEnabled(localStorage),
+  getVolume: () => FinLitVictory.loadSoundVolume(localStorage) / 100,
+});
+const wgVictory = FinLitVictory.createController({
+  document,
+  window,
+  storage: localStorage,
+  audio: {
+    play: ({ pings } = {}) => wgAudio.grandJackpot({ coins: pings }),
+    stop: () => wgAudio.stopJackpots(),
+    reset: () => wgAudio.stopJackpots(),
+  },
+});
+["pointerdown", "keydown", "touchend"].forEach(eventName => {
+  window.addEventListener(eventName, () => wgAudio.unlock(), { once: true, passive: true });
+});
 
 function wgGovernedHintCost(isTutorialLevel, governedCost) {
   return typeof FinLitPuzzleBank.hintCost === "function"
@@ -157,6 +176,7 @@ function wgOpenWorld(worldId) {
   window.scrollTo(0, 0);
   wgStartPlaythrough();
   wgUpdateHeader();
+  wgSyncSoundUi();
 }
 
 function wgStartPlaythrough() {
@@ -186,6 +206,8 @@ function wgIsTutorialLevel() {
 function wgRenderPuzzle() {
   const puzzle = wgState.playthrough[wgState.playthroughIndex];
   if (!puzzle) { toast("Couldn't build a puzzle — try again"); return; }
+  const prior = wgBankState().puzzleHistory[puzzle.id];
+  wgState.wasCompleted = Boolean(prior && prior.timesPlayed > 0);
   wgState.words = puzzle.words;
   wgState.byWord = Object.fromEntries(wgWorld().vocabulary().map(t => [t.word, t]));
   wgState.found = new Set();
@@ -258,6 +280,7 @@ function wgAddLetter(btn) {
   if (wgState.selected.includes(idx)) return;
   wgState.selected.push(idx);
   wgGestureLetters++;
+  wgAudio.letter(wgState.selected.length);
   btn.classList.add("selected");
   wgUpdateSelection();
   // Submit as soon as the selection spells a target word, regardless of
@@ -281,8 +304,9 @@ function wgSubmitWord() {
   wgClearSelection();
   if (!word) return;
   wgState.tries[word] = (wgState.tries[word] || 0) + 1;
-  if (wgState.found.has(word)) return toast("Already found");
+  if (wgState.found.has(word)) { wgAudio.duplicate(); return toast("Already found"); }
   if (wgState.words.includes(word)) return wgFoundWord(word);
+  wgAudio.wrong();
   toast("Not in this puzzle");
 }
 
@@ -306,24 +330,49 @@ function wgFoundWord(word) {
   wgUpdateProgress();
   wgUpdateHeader();
   wgUpdateMission();
-  celebrate();
-  if (wgState.found.size === wgState.words.length) {
+  const puzzleComplete = wgState.found.size === wgState.words.length;
+  if (!puzzleComplete) {
+    if (word === wgState.words[0] && reward.isNewSolve) wgAudio.miniJackpot();
+    else wgAudio.correct(reward.isNewSolve ? "financial" : "ordinary");
+    celebrate();
+  }
+  if (puzzleComplete) {
     const bankState = wgBankState();
     const currentPuzzleId = wgState.playthrough[wgState.playthroughIndex].id;
+    const newlyCompleted = !wgState.wasCompleted;
     bankState.puzzleHistory = FinLitPuzzleBank.recordPlaythrough(bankState.puzzleHistory, [currentPuzzleId], Date.now());
     learning.persist();
     wgUpdateProgress();
     wgUpdateAssistUi();
-    wgShowPuzzleComplete();
+    wgShowPuzzleComplete(newlyCompleted);
   }
 }
 
-function wgShowPuzzleComplete() {
+function wgShowPuzzleComplete(newlyCompleted) {
   $("#wgCompleteCoins").textContent = `+${wgState.puzzleCoins}`;
   $("#wgCompleteXp").textContent = `+${wgState.puzzleXp}`;
   $("#wgCompletePanel").classList.remove("hidden");
+  wgSyncSoundUi();
+  const skip = $("#wgSkipCelebration");
+  const coinTarget = document.querySelector(".wg-currency");
+  const result = wgVictory.start({
+    coins: wgState.puzzleCoins,
+    xp: wgState.puzzleXp,
+    newlyCompleted,
+    from: $("#wgCompleteCoins"),
+    to: coinTarget,
+    onDone: () => { skip.hidden = true; },
+  });
+  $("#wgCompleteAnnouncement").textContent = result.announcement;
+  skip.hidden = !result.running;
+  if (result.plan.celebrate && coinTarget) {
+    coinTarget.classList.remove("vc-pulse");
+    requestAnimationFrame(() => coinTarget.classList.add("vc-pulse"));
+    window.setTimeout(() => coinTarget.classList.remove("vc-pulse"), 700);
+  }
 }
 function wgContinueAfterComplete() {
+  wgVictory.skip();
   $("#wgCompletePanel").classList.add("hidden");
   wgState.playthroughIndex++;
   if (wgState.playthroughIndex < wgState.playthrough.length) {
@@ -432,9 +481,40 @@ function wgRevealFull() {
 function wgShowDefinitions() { wgRenderDefinitionsList(); $("#wgDefinitionsPanel").classList.remove("hidden"); }
 function wgHideDefinitions() { $("#wgDefinitionsPanel").classList.add("hidden"); }
 
+function wgSyncSoundUi() {
+  const enabled = FinLitVictory.loadSoundEnabled(localStorage);
+  const volume = FinLitVictory.loadSoundVolume(localStorage);
+  [["#wgSoundButton", enabled ? "🔊" : "🔇"], ["#wgSoundToggle", enabled ? "🔊 Sound on" : "🔇 Sound off"]].forEach(([selector, label]) => {
+    const button = $(selector);
+    button.textContent = label;
+    button.setAttribute("aria-pressed", String(enabled));
+    button.setAttribute("aria-label", enabled ? "Sound on" : "Sound off");
+    button.title = enabled ? "Turn sound off" : "Turn sound on";
+  });
+  ["#wgVolumeSlider", "#wgCompleteVolumeSlider"].forEach(selector => { $(selector).value = volume; });
+  ["#wgVolumeValue", "#wgCompleteVolumeValue"].forEach(selector => { $(selector).textContent = `${volume}%`; });
+}
+function wgToggleSound() {
+  const enabled = !FinLitVictory.loadSoundEnabled(localStorage);
+  FinLitVictory.saveSoundEnabled(localStorage, enabled);
+  if (enabled) wgAudio.unlock(); else wgAudio.stop();
+  wgSyncSoundUi();
+}
+function wgSetSoundVolume(event) {
+  const volume = FinLitVictory.clampVolume(event.target.value);
+  FinLitVictory.saveSoundVolume(localStorage, volume);
+  wgAudio.setVolume(volume / 100);
+  wgSyncSoundUi();
+}
+
 $("#wgBack").onclick = showWorldSelect;
 $("#wgBrandLogo").onclick = showWorldSelect;
 $("#wgSettingsButton").onclick = toggleTheme;
+$("#wgSoundButton").onclick = wgToggleSound;
+$("#wgSoundToggle").onclick = wgToggleSound;
+$("#wgVolumeSlider").oninput = wgSetSoundVolume;
+$("#wgCompleteVolumeSlider").oninput = wgSetSoundVolume;
+$("#wgSkipCelebration").onclick = () => { wgVictory.skip(); $("#wgSkipCelebration").hidden = true; };
 $("#wgNavShuffle").onclick = wgShuffle;
 $("#wgHintButton").onclick = wgHint;
 $("#wgNavHint").onclick = wgRevealFull;
@@ -444,9 +524,16 @@ $("#wgDefinitionsClose").onclick = wgHideDefinitions;
 $("#wgCompleteContinue").onclick = wgContinueAfterComplete;
 $("#wgNavJourney").onclick = showWorldSelect;
 $("#wgNavPause").onclick = showWorldSelect;
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !$("#wgCompletePanel").classList.contains("hidden")) {
+    wgVictory.skip();
+    $("#wgSkipCelebration").hidden = true;
+  }
+});
 
 $("#wgHintCost").textContent = WG_LETTER_HINT_COST;
 $("#wgRevealCost").textContent = WG_FULL_REVEAL_COST;
+wgSyncSoundUi();
 
 // Initial screen: a brand-new player (never tapped past Welcome before)
 // sees it once; everyone else lands on World Selection, which is now the

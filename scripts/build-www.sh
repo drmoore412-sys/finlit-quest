@@ -38,7 +38,7 @@ for f in app.js learning-engine.js word-game-app.js workbook-app.js; do
 done
 
 # Scripts (src/ pure modules actually referenced by index.html)
-for f in src/content-validator.js src/game-engine.js src/puzzle-bank-engine.js src/workbook-engine.js src/world-loader.js; do
+for f in src/content-validator.js src/game-audio.js src/game-engine.js src/puzzle-bank-engine.js src/victory-celebration.js src/workbook-engine.js src/world-loader.js; do
   copy "$f"
 done
 
