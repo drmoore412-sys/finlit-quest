@@ -10,6 +10,1416 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-19 — All 15 puzzles exposed through three visible levels
+
+Fixed the interface-level five-game limit that hid Games 6–15 despite all 15 canonical references being loaded. Opening any of the 13 worlds now shows three visible levels with five directly selectable games each.
+
+### Root cause and completed work
+
+- Root cause: `wgStartPlaythrough()` randomly selected only `requiredPuzzles: 5`; no Level 2/3 or puzzle-selection UI existed, and the fifth completion started another random session.
+- Added a responsive level-selection screen with Level 1 Games 1–5, Level 2 Games 6–10, and Level 3 Games 11–15.
+- Kept all 15 games immediately available with no unlock requirement.
+- Preserved unlimited free hints for Level 1 only; Levels 2 and 3 use the existing 100/300 governed pricing.
+- Added direct game selection, completed-game markers, per-level completion totals, a Levels return control, and deterministic progression within each level.
+- Preserved canonical puzzle references, save schema v4, rewards, XP, coins, existing world histories, and shared first-reward protection.
+
+### Files added
+
+- `tests/three-level-navigation.test.js`
+- `docs/FINLIT_QUEST_15_PUZZLE_LEVEL_ACCESS_REPORT.md`
+
+### Files modified
+
+- `index.html`
+- `word-game.css`
+- `word-game-app.js`
+- `src/puzzle-bank-engine.js`
+- `tests/tutorial-hints-runtime.test.js`
+- `tests/anchor-playable-runtime.test.js`
+- `PROJECT_LOG.md`
+- Generated web/native bundle copies under `www/` and `ios/App/App/public/`
+
+### Verification and next step
+
+- Every one of the 13 worlds partitions into exactly three ordered five-game levels and exposes all 15 permanent puzzle references.
+- Browser verification opened Games 1, 6, and 11 in all 13 worlds. Every world exposed 15 game buttons, all sampled puzzles loaded their canonical wheels, and the full interaction sweep produced no console errors.
+- Money Basics was additionally checked for hint behavior: Level 1 displayed unlimited free hints; Levels 2 and 3 displayed normal governed prices.
+- Complete automated suite after synchronization: **527 of 527 passed**. Web build, iOS sync, bundle parity, save migration, and shared reward tests passed.
+- Next: owner visually reviews the three-level screen on the local game and decides whether future versions should add sequential level locks. No locks are currently imposed.
+
+---
+
+## 2026-10-19 — Shared 58-puzzle library implemented across all 13 worlds
+
+Implemented the owner's cross-world puzzle authorization. The 58 existing validated crosswords now serve as one canonical library with 195 ordered world placements: 15 in each of the 13 playable worlds. No new puzzle, term, definition, reward formula, or approved curriculum record was created or rewritten.
+
+### Completed work
+
+- Reviewed all 58 puzzles and assigned only educationally relevant cross-world placements, each with a recorded rationale.
+- Preserved the original five worlds' puzzle order and every permanent puzzle/term identity.
+- Added a deterministic reference-manifest generator and generated JSON/browser assets.
+- Added save schema v4 `canonicalPuzzleProgress` so canonical first rewards, world-specific curriculum progress, and repeat play are distinct.
+- Migrated existing completion evidence additively; previously earned rewards and per-world histories remain intact.
+- Prevented duplicate coins/XP, duplicate first-completion celebrations, and duplicate daily-completion credit when one canonical puzzle appears in several worlds.
+- Standardized all worlds at 15 placements and five puzzles per Level 1 playthrough, preserving unlimited free Level 1 hints.
+- Added a full implementation report and regression coverage.
+
+### Files added
+
+- `scripts/build-shared-puzzle-library.mjs`
+- `content/shared-puzzle-library-2027.json` and `.js`
+- `tests/shared-puzzle-library.test.js`
+- `docs/FINLIT_QUEST_2027_SHARED_PUZZLE_LIBRARY.md`
+
+### Files modified
+
+- `word-game-app.js`
+- `learning-engine.js`
+- `src/puzzle-bank-engine.js`
+- `content/world-definitions-2027.json` and `.js`
+- `index.html`
+- `scripts/build-www.sh`
+- Existing regression tests whose prior assertions described the superseded single-world/save-v3 behavior
+- Generated web/native bundle copies under `www/` and `ios/App/App/public/`
+
+### Architectural decisions, verification, known issues, and next step
+
+- Puzzle definitions stay in their approved canonical sources; world lists contain permanent-ID references only.
+- Unique puzzles: **58**. Total world placements: **195**. Shared placements added: **137**. New unique puzzles generated: **0**.
+- All worlds reach 15; each remains five placements short of the optional 20-puzzle target.
+- Complete automated suite: **522 of 522 passed**. Web bundle and iOS Capacitor sync passed; bundle parity passed. The real selection UI shows 15 puzzles on all 13 cards, and Money Basics, Credit, and AI opened valid puzzle screens during visual verification.
+- Known limitation: preferred 20-placement depth is not reached. Do not add weakly related content to close that optional gap.
+- Next: owner reviews the placement report. If 20 per world is desired, review additional existing-library placements first, then generate new puzzles only for documented educational gaps.
+
+---
+
+## 2026-10-18 — Eight new worlds activated with 31 validated puzzles
+
+Reviewed the 34 existing new-world proposals under the owner's explicit implementation authorization and activated every qualifying record. All 13 worlds now open the shared crossword game; the original five worlds and their 27 V3 puzzle compositions remain unchanged.
+
+### Completed work
+
+- Revalidated all 34 proposals for educational anchor eligibility, permanent identities, exact nine-letter wheels, repeated-letter counts, 4–9-letter answers, strict crossword boundaries/connectivity, duplicate compositions, and V3 runtime compatibility.
+- Approved and implemented **31** puzzles: Coins 4, AI & Technology 1, Real Estate 2, Taxes 3, Insurance & Protection 4, Business & Entrepreneurship 10, Social Media & Digital Income 2, and Retirement & Wealth Planning 5.
+- Rejected three proposals without modifying their immutable research records: RENTAL CAR and ROOT CANAL in Insurance, and COMMUNITY in Retirement. Each fails the legitimate financial/business/technology anchor requirement as written.
+- Assigned 52 unique permanent term identities for newly authorized educational terms. Existing cross-world IDs, definitions, ownership, mastery identity, and rewards remain unchanged.
+- Kept FRACTION as an ordinary support word with no financial identity or reward because CAL-0008 deferred the distinct *fractional share* concept.
+- Added generated JSON runtime assets plus browser adapters and a deterministic activation script.
+- Added eight additive `wg-*` save namespaces and routed the approved banks through the existing gameplay, progress, reward, definition-review, hint, and save systems.
+- Replaced Coming Soon states with playable progress on all eight cards.
+- Recorded the owner authorization as CAL-0011 and updated the governance matrix and activation report.
+- Updated user-facing metadata to describe 13 playable worlds.
+
+### Files added
+
+- `scripts/activate-2027-new-worlds.mjs`
+- `content/2027-new-world-terms.json` and `.js`
+- `content/2027-new-world-puzzle-banks.json` and `.js`
+- `tests/new-world-activation.test.js`
+- `docs/FINLIT_QUEST_2027_NEW_WORLD_ACTIVATION_REPORT.md`
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `word-game-app.js`
+- `src/puzzle-validator.js`
+- `scripts/build-www.sh`
+- `package.json`
+- `tests/world-selection.test.js`
+- `tests/thirteen-world-expansion.test.js`
+- `tests/tutorial-hints-runtime.test.js`
+- `tests/daily-login-rewards.test.js`
+- `docs/CURRICULUM_APPROVAL_LOG.md`
+- `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md`
+- `PROJECT_LOG.md`
+- Generated web/native bundle copies under `www/` and `ios/App/App/public/`
+
+### Architectural decisions, verification, known issues, and next step
+
+- New-world content is separate from `src/v3-puzzle-slate.js`; its original 27 specifications remain intact. The shared runtime prefers a world's approved generated bank when present.
+- Save compatibility is additive. Each new world has a unique namespace; global term IDs still prevent duplicate mastery and first-discovery rewards across worlds.
+- Official source URLs are stored on every new term record. Draft proposal wording was reviewed before becoming exact runtime definition text; FCRA, ECOA, TILA, REIT, SIMPLE IRA, SEP IRA, MARGIN, and AUTO TRADE received accuracy clarifications before approval.
+- Focused content/runtime tests passed. Complete automated suite: **517 of 517 passed**. Web and iOS assets were rebuilt and synchronized; bundle parity passed. A real browser sweep opened all 13 worlds, confirmed the expected puzzle total in each, confirmed every new-world wheel has nine tiles, and found zero console errors.
+- AI & Technology intentionally starts with one puzzle, per owner authorization. Several new worlds remain below the long-term 15–20 target; expand them later through the same review gate.
+
+---
+
+## 2026-10-18 — Eight approved worlds connected to the actual game interface
+
+Implemented the owner's eight approved world identities on the live world-selection screen without promoting research proposals into gameplay. The original five worlds and their 27-puzzle slate remain the only playable worlds; each new world is visible and clearly marked **Coming Soon**.
+
+### Completed work
+
+- Expanded the selection journey from five to all **13 owner-approved worlds**, in the governed order.
+- Added visible cards for Coins & Currency, AI & Technology, Real Estate, Taxes, Insurance & Protection, Business & Entrepreneurship, Social Media & Digital Income, and Retirement & Wealth Planning.
+- Added a browser-safe runtime adapter for `content/world-definitions-2027.json` and made `app.js` derive its selection order and playability gate from that registry.
+- Guarded every new-world card from `wgOpenWorld`, progress creation, rewards, and saves. Selecting one displays an accurate message that the world is approved but its playable puzzle bank still needs owner approval.
+- Preserved the existing routes and progress rendering for Money Basics, Credit Foundations, Crypto Foundations, Banking Basics, and Investing Basics.
+- Extended the existing journey-map path and responsive node positioning for 13 cards without redesigning the screen.
+- Updated the governance matrix to distinguish **visible Coming Soon** from **playable**.
+- Synced the web source into the Capacitor `www/` output and native iOS public bundle.
+
+### Playability decision
+
+- **Playable:** Money Basics, Credit Foundations, Crypto Foundations, Banking Basics, Investing Basics.
+- **Visible — Coming Soon:** Coins & Currency, AI & Technology, Real Estate, Taxes, Insurance & Protection, Business & Entrepreneurship, Social Media & Digital Income, Retirement & Wealth Planning.
+- None of the eight new worlds has an owner-approved runtime term registry and puzzle bank. Their research proposals were not treated as approvals.
+
+### Files added
+
+- `content/world-definitions-2027.js`
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `journey.css`
+- `content/world-definitions-2027.json`
+- `scripts/build-www.sh`
+- `tests/world-selection.test.js`
+- `tests/thirteen-world-expansion.test.js`
+- `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md`
+- `PROJECT_LOG.md`
+- Generated web/native bundle copies under `www/` and `ios/App/App/public/`
+
+### Verification
+
+- World-selection tests confirm all **13 cards** in order and all eight new cards contain **Coming Soon** and **Puzzle Bank in Review** labels.
+- Routing tests confirm new worlds take the message path rather than `wgOpenWorld`.
+- Runtime registry tests confirm exactly **5 playable + 8 Coming Soon** worlds.
+- Complete automated suite: **511 of 511 passed**.
+- Web/iOS bundle parity: `index.html`, `app.js`, `journey.css`, and the world-definition adapter are byte-identical.
+- Web and native bundle builds: **passed**.
+- `git diff --check`: **passed**.
+
+### Architectural decisions, known issues, and next step
+
+- Visibility, world approval, and puzzle-bank approval are separate states. A new world can now appear in the product without creating fake gameplay or polluting saves.
+- The eight cards intentionally remain Coming Soon until the owner approves a complete playable bank and required term identities/definitions for each world.
+- Next: review and approve a complete puzzle bank world by world. After approval, change only that world's registry status to `playable`, add its governed runtime assets, and reuse the existing game route.
+
+---
+
+## 2026-10-18 — Flexible nine-letter puzzle construction completed
+
+Recorded and applied the owner's updated 2027 construction rules to the research proposal pipeline. No playable puzzle, runtime file, save, reward, approved definition, permanent ID, or study-vocabulary record was changed.
+
+### Completed work
+
+- Added approval-log entry **CAL-0010** for the new proposal rule: every future puzzle uses a legitimate nine-letter financial, business, or technology key term, while real 4–9-letter ordinary dictionary words may support the crossword.
+- Recorded that the old universal three-financial-term minimum is superseded. The new level progression is enforced as an educational aim rather than a silent rejection rule.
+- Preserved all **27 active puzzles** and all **57 previously generated proposals** unchanged.
+- Built a separate schema-v2 research generator that exhaustively considers every previously unused nine-letter anchor across all 13 worlds.
+- Generated **90 additional unique proposals**. Every one passes exact repeated-letter counts, 4–9-letter answer limits, crossing-letter agreement, separation, boundaries, contained-word checks, single-grid connectivity, and duplicate-composition checks.
+- Verified **115 selected ordinary supporting words** against exact lowercase entries in `/usr/share/dict/web2`. These are isolated from permanent IDs and mastery and remain pending owner/clue-copy review.
+- Preserved exact owner-approved definitions whenever a permanent ID exists. Working terms use draft research clues; no permanent ID or approval status was invented.
+- Recorded every unused wheel-compatible financial term on its candidate rather than hiding it.
+- Produced proposal previews and exact per-world shortfalls. Seven worlds now reach the 15–20 target in projected content: Money Basics 15, Credit 19, Crypto 15, Banking 20, Investing 19, Business 18, and Retirement 20.
+- Reported the remaining distinct-anchor shortfalls without repeating anchors or inventing terms: Coins 13 (short 2), AI & Technology 3 (short 12), Real Estate 6 (short 9), Taxes 9 (short 6), Insurance 11 (short 4), and Social Media & Digital Income 6 (short 9).
+
+### Files added
+
+- `docs/FINLIT_QUEST_2027_UPDATED_PUZZLE_CONSTRUCTION.md`
+- `scripts/generate-2027-flexible-puzzle-proposals.mjs`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-flexible-puzzle-proposals.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-ordinary-support-review.json`
+- `tests/updated-puzzle-construction.test.js`
+
+### Files modified
+
+- `docs/CURRICULUM_APPROVAL_LOG.md`
+- `PROJECT_LOG.md`
+
+### Verification
+
+- New flexible proposals: **90 PASS / 0 FAIL** under the strict crossword engine.
+- New composition duplicates against active, prior, and same-pass records: **0**.
+- Generator reproducibility: proposal JSON, ordinary-word review JSON, and Markdown report produced identical SHA-1 values across consecutive runs.
+- Focused updated-rule tests: **8 of 8 passed**.
+- Active puzzles: **27 unchanged**; prior proposals: **57 unchanged**.
+
+### Architectural decisions, known issues, and next step
+
+- This is an owner-review package, not implementation authorization. The playable game still has its existing five worlds and puzzle banks.
+- Dictionary membership proves that an ordinary support answer exists; it does not approve its clue, reward treatment, or suitability. All 115 support words need owner/clue-copy review before any candidate can be implemented.
+- Platform/brand anchors retain context-only status. Structural eligibility does not convert a brand into a financial identity.
+- The six worlds below 15 need additional legitimate nine-letter anchor vocabulary. Repeating an anchor with a rearranged grid was deliberately rejected as a substitute for new educational value.
+- Next: owner reviews the 90 compositions and the ordinary-word list, then approves/rejects term identities and clue copy. Targeted research should address only the six documented shortfalls.
+
+---
+
+## 2026-10-18 — Thirteen-world product expansion defined and researched
+
+Recorded the owner's explicit approval of eight additional FinLit Quest worlds and completed the first four research/data phases without changing the current runtime, navigation, saves, rewards, or 27 active puzzles.
+
+### Completed work
+
+- Added the owner-approved world identities: Coins & Currency, AI & Technology, Real Estate, Taxes, Insurance & Protection, Business & Entrepreneurship, Social Media & Digital Income, and Retirement & Wealth Planning.
+- Preserved the original five worlds and recorded all 13 worlds in a versioned machine-readable product registry.
+- Recorded the owner decision as approval-log entry **CAL-0009**, scoped to world identity, separation, and intended playable status. Individual terms, definitions, permanent IDs, puzzles, and runtime integration were not silently approved.
+- Updated the World Governance Status Matrix with the eight separate worlds and superseded the earlier provisional suggestion that Real Estate might remain inside Investing or Social Media / Digital Income inside Business.
+- Organized the existing integrated vocabulary across all 13 worlds without modifying the original vocabulary master.
+- Split Social Media & Digital Income mechanically from the source document's Digital business and Platforms sections. Platform names remain study context and are not treated as financial reward terms.
+- Preserved every associated term of 10+ letters and every 1–3-letter educational term in a dedicated study package. No term was shortened to fit a crossword.
+- Generated **34 validated nine-letter crossword proposals** for the eight new worlds. Every candidate contains 3–5 financial answers of 4–9 letters, respects exact repeated-letter counts, passes the strict crossword engine, and records all unused compatible financial terms.
+- Reclassified four prior research candidates to newly approved primary worlds instead of duplicating their compositions: Break Even to Business, Cash Value to Insurance, Apartment to Real Estate, and Community to Retirement.
+- Consolidated the earlier five-world queue and the new-world work into **57 unique proposals**. If every proposal were later approved and implemented, the project would contain **84 puzzles**; proposed puzzles are not counted as implemented.
+- Reported all remaining shortfalls rather than creating filler. Current new-world proposal counts are: Coins 4, AI 1, Real Estate 2, Taxes 3, Insurance 6, Business 10, Social Media 2, and Retirement 6.
+
+### Files added
+
+- `content/world-definitions-2027.json`
+- `docs/FINLIT_QUEST_2027_THIRTEEN_WORLD_EXPANSION.md`
+- `scripts/build-2027-thirteen-world-expansion.mjs`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-thirteen-world-vocabulary.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-thirteen-world-puzzle-proposals.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-thirteen-world-study-vocabulary.json`
+- `tests/thirteen-world-expansion.test.js`
+
+### Files modified
+
+- `docs/CURRICULUM_APPROVAL_LOG.md`
+- `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md`
+- `PROJECT_LOG.md`
+
+### Verification
+
+- New-world candidate layouts: **34 PASS / 0 FAIL**.
+- Consolidated proposal compositions: **57 unique / 0 duplicates**.
+- Active puzzles: **27 unchanged**.
+- Exhaustive compatible-term accounting: passed for all 34 new-world wheels.
+- Thirteen-world focused tests: **8 of 8 passed**.
+- Full automated suite: **500 of 500 passed**.
+- `git diff --check`: **passed**.
+
+### Architectural decisions, known issues, and next step
+
+- World approval and runtime playability are separate states. The eight new worlds are approved product destinations but remain vocabulary-only until each receives an approved permanent term registry and approved puzzle bank.
+- The existing five worlds remain the only currently playable worlds. Runtime cards and save namespaces were not added prematurely.
+- Current high-quality proposal totals are below the 15-puzzle minimum in every world. The largest blockers are AI & Technology (1 proposal), Real Estate (2), Taxes (3), and Social Media & Digital Income (2).
+- Platform and tool names are not financial concepts by themselves. AI and Social Media need more income, cost, ownership, tax, risk, and business-model vocabulary with compatible nine-letter anchors.
+- Next: term-level owner review and targeted vocabulary research for the exact per-world shortfalls in the consolidated report. After a world has approved IDs, exact definitions, and at least one approved playable bank, integrate its runtime card, save namespace, web bundle, and iOS bundle together.
+
+---
+
+## 2026-10-18 — Nine-letter crossword proposal construction completed
+
+Generated and validated the next research-only crossword proposal set from the integrated 862-term financial-literacy master. No active puzzle, runtime file, save, reward, gameplay mechanic, approved definition, or permanent term identity was changed.
+
+### Completed work
+
+- Preserved all **27 active puzzles** and carried forward the **3 previously validated proposals** without changing their answer sets or layouts.
+- Evaluated nine-letter financial anchors against the complete 4–9-letter vocabulary pool using exact repeated-letter multisets.
+- Generated **45 unique strict crossword layouts** across Money Basics, Credit Foundations, Crypto Foundations, Banking Basics, and Investing Basics.
+- Validated all 45 layouts for nine wheel letters, 3–5 required answers, 4–9 letters per answer, exact letter counts, valid crossings, word separation, contained-word slots, engine acceptance, and duplicate compositions.
+- Recorded every additional wheel-compatible financial term as unused when it was not selected for the validated layout.
+- Reused exact owner-approved definitions only for permanent IDs. Working 2027 terms retain research keys and clearly marked draft clues; no permanent IDs or approvals were invented.
+- Applied an educational world-fit quality gate after structural validation. A candidate advances only when its anchor is associated with the target world or at least half of its answers have a documented target-world association.
+- Advanced **24 new candidates** to the owner-review queue and deferred **21 structurally valid layouts** whose documented world fit was too weak.
+- With the 3 preserved proposals, the owner-review queue contains **27 proposals** and would produce **54 total puzzles** if every proposal were approved.
+- Reported the exact remaining shortfall to the 15-per-world minimum rather than lowering the quality standard: Money Basics 5, Credit Foundations 4, Crypto Foundations 5, Banking Basics 4, and Investing Basics 3.
+
+### Files added
+
+- `docs/FINLIT_QUEST_2027_NINE_LETTER_PUZZLE_PROPOSALS.md`
+- `scripts/generate-2027-nine-letter-proposals.mjs`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-nine-letter-puzzle-proposals.json`
+- `tests/nine-letter-puzzle-proposals.test.js`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Verification
+
+- Generated layouts: **45 PASS / 0 FAIL** under the strict crossword engine.
+- Owner-review eligibility: **24 PASS / 21 DEFER** under the documented world-fit gate.
+- Exhaustive compatible-term accounting: passed for all 45 generated wheels.
+- Duplicate compositions across active, preserved, and generated records: **0**.
+- Focused proposal tests: **6 of 6 passed**.
+- Full automated suite: **492 of 492 passed**.
+- `git diff --check`: **passed**.
+
+### Architectural decisions, known issues, and next step
+
+- Structural validity and educational placement are separate gates. A legal crossword is not automatically a good puzzle for a particular world.
+- Cross-world answers remain allowed, but their permanent IDs, definitions, owning worlds, and mastery identities cannot change.
+- Research terms can support construction review but remain implementation-ineligible until the owner approves their exact meaning, definition, and ownership.
+- The current vocabulary does not support 15 high-quality nine-letter puzzles per world under the documented fit gate. The preferred 20-per-world target is further away.
+- Next: owner review of the 27-proposal queue and the 21 deferred layouts. To close the remaining shortfalls, prioritize additional nine-letter anchors whose letter inventory supports at least two other meaningful 4–9-letter financial terms in the same world. Do not implement any proposal until explicitly authorized.
+
+---
+
+## 2026-10-18 — Four missing 2027 vocabulary sources integrated
+
+Integrated the four supplied working-vocabulary documents into the existing 2027 research master without changing any playable puzzle, game mechanic, reward, save, approved definition, permanent identity, or runtime file.
+
+### Completed work
+
+- Preserved all four Markdown sources unchanged under the research staging directory and recorded SHA-256 checksums in the vocabulary master.
+- Parsed **1,464 source term mentions** and reconciled them with the existing 159 permanent identities.
+- Produced **950 canonical educational records** after exact normalized deduplication while retaining display variants, provenance, and every world/category association.
+- Classified **862 financial-literacy terms**: 550 potential 4–9-letter crossword answers, 271 long-form study terms, and 41 short or non-alphabetic study concepts.
+- Preserved general AI/technology education records and platform names without incorrectly counting them as financial concepts.
+- Kept LEGAL CASH and ROBO FUND as provisional/rejected labels and REPO as an ambiguous term requiring meaning review.
+- Preserved all 159 permanent identities, exact approved definitions, and original world ownership. No new permanent IDs or definitions were created.
+- Preserved the three validated candidates and all 27 playable puzzles.
+- Rechecked the REPAYMENT, DEPOSITOR, and CONFIRMED wheels with exact repeated-letter multisets. Seven additional legitimate matches were found: NET PAY, PEER, RENT, REIT, DEFI, DIME, and FIRE.
+- Confirmed none of the seven has a distinct slot in the existing layouts; all are recorded as unused eligible terms and no crossword was altered.
+- Expanded the study package from 15 governed long-term records to include 278 source-derived long-term research records. New records remain definitionless and unapproved pending educational review.
+
+### Financial vocabulary totals by current playable world
+
+- Money Basics: **122** unique financial terms; 90 crossword-potential; 26 flashcard/study; 6 short/non-alphabetic.
+- Credit Foundations: **136**; 83 crossword-potential; 50 flashcard/study; 3 short/non-alphabetic.
+- Crypto Foundations: **85**; 60 crossword-potential; 22 flashcard/study; 3 short/non-alphabetic.
+- Banking Basics: **120**; 79 crossword-potential; 36 flashcard/study; 5 short/non-alphabetic.
+- Investing Basics, including the currently proposed Real Estate host association: **96**; 60 crossword-potential; 32 flashcard/study; 4 short/non-alphabetic.
+
+### Files added
+
+- `docs/FINLIT_QUEST_2027_VOCABULARY_INTEGRATION_REPORT.md`
+- `scripts/integrate-2027-vocabulary.mjs`
+- `staging/research/expansion/2026-10-18/source-documents/FinLit_Quest_2027_Remaining_Worlds_Backlog.md`
+- `staging/research/expansion/2026-10-18/source-documents/FinLit_Quest_2027_Vocabulary_Master_Backlog.md`
+- `staging/research/expansion/2026-10-18/source-documents/FinLit_Quest_AI_and_Coins_World_Vocabulary.md`
+- `staging/research/expansion/2026-10-18/source-documents/FinLit_Quest_Money_Basics_2027_and_Coins_Vocabulary.md`
+
+### Files modified
+
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-vocabulary-master.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-puzzle-candidates.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-flashcard-vocabulary.json`
+- `docs/FINLIT_QUEST_2027_WORLD_AND_PUZZLE_EXPANSION_RESEARCH.md`
+- `PROJECT_LOG.md`
+
+### Verification
+
+- Source archive parity: **4 of 4 files byte-identical**.
+- Normalized canonical-key duplicates: **0**.
+- Permanent identity collisions: **0**.
+- Missing source documents: **0**.
+- Preserved candidates: **3 PASS / 0 changed**.
+- Candidate layouts receiving forced new answers: **0**.
+- Full automated suite: **486 of 486 passed**.
+- `git diff --check`: **passed**.
+
+### Architectural decisions and next step
+
+- Exact term deduplication is global, but world/category associations remain many-to-many so overlap is not lost.
+- Research categories do not create playable worlds. Real Estate is recorded both as its own proposed category and under Investing, its currently proposed host.
+- Working vocabulary cannot become a crossword answer or receive a permanent identity until the owner approves its wording, meaning, definition, and ownership.
+- Next: owner review of the expanded vocabulary by world. Do not generate or implement new puzzles until that review is complete.
+
+---
+
+## 2026-10-18 — 2027 world and nine-letter puzzle expansion baseline completed
+
+Completed the research-only baseline for the owner’s 2027 expansion brief. No playable world, active puzzle, approved definition, reward, save, or runtime file was changed.
+
+### Completed work
+
+- Inventoried the five playable worlds and confirmed the active distribution remains **27 puzzles**: Money Basics 5, Credit 6, Crypto 5, Banking 5, and Investing 6.
+- Calculated the expansion gap: **48** additional implemented puzzles are needed to reach 15 per world and **73** to reach 20 per world.
+- Preserved **159 owner-approved permanent identities** in a machine-readable master list: 155 implemented/supplemental terms plus the four CAL-0008 Crypto terms that are approved but not implemented.
+- Separated the registry into 133 crossword-length terms, 15 long study terms, and 11 short educational terms.
+- Preserved 170 world/term mentions from the supplied 2027 brief as a non-approved reconciliation queue and kept 28 platform names as context only.
+- Audited the active slate and the pending 27-puzzle proposal against the new rules: exactly nine wheel letters, 4–9 letters per answer, and at least three financial terms. **0 of 27 active puzzles** and **4 of 27 pending proposals** pass all three numeric gates. Active puzzles remain protected, grandfathered content.
+- Removed near-duplicate review paths and retained two existing strict candidates: DEPOSITOR and CONFIRMED.
+- Generated one new unique strict candidate: REPAYMENT / PAYMENT / EARN / RATE / TERM. The wheel’s additional eligible PEER term is explicitly recorded as unused because five answers is the maximum.
+- Re-ran strict solver, crossing, separation, contained-word, exact-multiset, identity, financial-majority, reward-protection, and engine-acceptance checks for all three recommended candidates; all passed and each has three valid layouts.
+- Preserved the exact governed definitions for all 15 current 10+ letter terms and added clearly marked proposed study examples, related terms, flashcard prompts, answers, and difficulty labels for owner review.
+- Recorded that four specifically named 2027 source documents are unavailable; their contents were not reconstructed or invented.
+
+### Files added
+
+- `docs/FINLIT_QUEST_2027_WORLD_AND_PUZZLE_EXPANSION_RESEARCH.md`
+- `scripts/build-2027-expansion-research.mjs`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-vocabulary-master.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-puzzle-candidates.json`
+- `staging/research/expansion/2026-10-18/finlit-quest-2027-flashcard-vocabulary.json`
+
+### Architectural and governance decisions
+
+- The 2027 rule set is a gate for new research candidates; it does not silently invalidate, migrate, or rewrite the 27 protected active puzzles.
+- A governed puzzle candidate must use permanent identities and exact definitions, search the entire approved registry for wheel-compatible terms, and pass strict validation before ranking or owner review.
+- Missing source documents and task-brief mentions do not create approvals, definitions, IDs, worlds, or playable content.
+- Puzzle targets cannot be reached responsibly from the current approved registry under the new rule set. Vocabulary quality and approval must precede puzzle-count expansion.
+
+### Verification
+
+- Research generator syntax and deterministic regeneration: **passed**.
+- Recommended candidates: **3 PASS / 0 FAIL**.
+- Full automated suite: **486 of 486 passed**.
+- Gameplay/runtime files changed by this milestone: **none**.
+
+### Known issues and next step
+
+- Missing: `FinLit_Quest_2027_Remaining_Worlds_Backlog.md`, `FinLit_Quest_2027_Vocabulary_Master_Backlog.md`, `FinLit_Quest_AI_and_Coins_World_Vocabulary.md`, and `FinLit_Quest_Money_Basics_2027_and_Coins_Vocabulary.md`.
+- Credit and Investing currently have no unique composition that passes the full 2027 rule set.
+- Crypto expansion still carries the CAL-0006 controlling-record qualification.
+- Next: recover the four missing source documents, reconcile them into the master list, approve educational vocabulary before generating more puzzles, and review the three current candidates. Implementation remains unauthorized.
+
+---
+
+## 2026-10-17 — Project phase corrected and game-completion roadmap completed
+
+Recorded the owner’s correction that FinLit Quest remains in active development and curriculum completion. Release preparation is paused; the earlier release-readiness audit remains a technical snapshot rather than the current work plan.
+
+### Completed work
+
+- Inventoried the five playable Word Quest worlds, 27 active puzzles, governed vocabulary, Learning Quest coverage, review systems, scenario/challenge extension points, mini-game proposals, and release-only work.
+- Distinguished implemented, disconnected, stored-but-unrendered, proposed, research-only, and owner-decision-dependent features.
+- Documented that Credit is the only world with a substantial Learning Quest: 15 workbooks, 128 rendered lesson steps, 75 flashcards, 60 matching pairs, and 120 rendered quiz questions.
+- Documented that the other four Learning Quest cards are not complete, Crypto’s rich term lessons are disconnected from the shared Word Quest, Credit scenarios are stored but not rendered, and the current Daily Review button is not a due-term review flow.
+- Created a seven-phase roadmap that begins with owner scope decisions, curriculum authority, and a reusable learning loop before world expansion, optional mini-games, or release work.
+- Corrected the persistent project instructions and marked the earlier release audit as superseded for phase and priority decisions.
+
+### Files added
+
+- `docs/FINLIT_QUEST_GAME_COMPLETION_ROADMAP.md`
+
+### Files modified
+
+- `CLAUDE.md`
+- `APP_DESCRIPTION_AND_CLAUDE_SYSTEM_PROMPT.md`
+- `docs/FINLIT_QUEST_V1_RELEASE_READINESS_AUDIT.md`
+- `PROJECT_LOG.md`
+
+### Architectural decisions and next step
+
+- Current Phase: **Active Game Development and Curriculum Completion**.
+- Release Status: **Not ready**; Apple signing, TestFlight, App Store submission, and related release work are paused.
+- Earlier “V1” and “post-V1” labels do not decide current feature scope; unresolved scope choices return to the owner.
+- Next: use the roadmap’s owner-decision section to define what “game complete” means before implementing additional systems.
+
+---
+
+## 2026-10-17 — V1 iOS release-readiness audit completed
+
+Audited the frozen five-world, 27-quiz V1 for its first iOS release. No gameplay, curriculum, puzzle, reward, save, PR, deployment, or submission change was authorized or made.
+
+### Completed work
+
+- Verified the new machine has Xcode 27.1 (build 27A9275), iOS 27.1 SDKs, Swift 6.4, and Apple clang 21.
+- Resolved the former hardware/toolchain blocker: the current project produced a successful unsigned Release build for the iOS Simulator with Capacitor 8.4.2.
+- Ran the complete automated suite: **486 of 486 tests passed**.
+- Confirmed the current five-world selection and all **27 active quizzes**: Money Basics 5, Credit 6, Crypto 5, Banking Basics 5, and Investing Basics 6.
+- Visually opened all five worlds in the local browser build and confirmed that each routed to its correct multi-word puzzle screen.
+- Verified automated coverage for governed definitions, cross-world identities, coin/XP idempotency, save migration and persistence, tutorial hints, strict crossword rules, and bundle parity.
+- Confirmed `www/` and the iOS public bundle differ only by Capacitor's expected generated Cordova bridge files.
+- Confirmed the live Privacy Policy, Support, and Terms URLs return HTTP 200.
+- Reviewed current Apple guidance for toolchains, TestFlight, privacy, required-reason APIs, accessibility labels, metadata, and age rating.
+
+### Files added
+
+- `docs/FINLIT_QUEST_V1_RELEASE_READINESS_AUDIT.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Release decision and known issues
+
+- Audit result: **PARTIAL**. The gameplay baseline is ready for signed real-device testing, but TestFlight and App Store submission are not ready.
+- Automatic signing is selected, but no Apple Developer Team, valid signing identity, or provisioning profile is configured on this Mac.
+- Command-line simulator installation stalled without a launch result. Native compilation passed, but simulator interaction is not claimed as verified.
+- Real-iPhone, internal TestFlight, and manual accessibility testing remain mandatory.
+- App Store Connect metadata, screenshots, age rating, privacy answers, accessibility declarations, export compliance, and Notes for Review remain incomplete or unverified.
+- The target currently declares iPhone and iPad support; iPad testing/assets are incomplete and require an owner decision.
+- Capacitor and Cordova ship privacy manifests. App-owned required-reason API use must still be checked during archive validation.
+- `UIRequiredDeviceCapabilities` contains legacy `armv7` and should be reviewed before submission.
+- Existing native-release documentation still contains stale old-computer and no-native-project statements; this audit supersedes those statements but did not rewrite the historical documents.
+
+### Architectural decisions
+
+- Keep the existing 27-quiz V1 frozen while release work proceeds.
+- Treat automated/browser success as the entry gate for device testing, not as a substitute for real-iPhone or TestFlight evidence.
+- Require evidence from every declared device family before making App Store accessibility claims.
+
+### Recommended next step
+
+- Sign in to Xcode with the owner Apple Account, select the Apple Developer Team for `com.finlitquest.app`, connect a real iPhone, and run the complete device test matrix before creating the first TestFlight archive.
+
+---
+
+## 2026-10-17 — Build Your Wealth feasibility audit verified and completed
+
+Verified the existing Build Your Wealth research against the current five-world registry, active 27-puzzle slate, save engine, daily-reward safeguards, governance matrix, backlog, release checklist, and local iOS tool availability. The feature remains post-V1 research only; no playable file, reward, save, PR, or deployment was changed.
+
+### Completed work
+
+- Confirmed the earlier feasibility audit was structurally complete but required a current-data correction and relocation into `docs/`.
+- Recomputed the governed vocabulary at **155 terms** and the finite first-discovery supply at **6,622 coins**. The active 27-puzzle first-pass supply remains **1,883 coins**.
+- Reconfirmed that the original five-asset model reaches 192 passive coins/day, about **7.3 times** the repeatable 26.4-coin/day login floor, and is unsuitable.
+- Corrected the recommended three-asset structure to integer-only payouts of **1 / 3 / 6 coins**, with a hard portfolio cap of **10 coins/day** (about **38%** of the repeatable floor).
+- Reconfirmed daily collection over continuous passive accumulation, with idempotent grants, clock evidence, a 48-hour accrual cap, and stale-tab merge-before-write protection.
+- Updated the governance discussion to use the confirmed World Governance Status Matrix and Curriculum Approval Log.
+- Verified that Xcode 27.1 is now installed. Real-device, TestFlight, accessibility, store-metadata, and final readiness work remain outstanding, so the post-V1 timing recommendation is unchanged.
+- Confirmed the post-V1 backlog entry and updated its report path and economy figures.
+
+### Files modified
+
+- `docs/FINLIT_QUEST_BUILD_YOUR_WEALTH_FEASIBILITY.md` (moved from repository root and corrected)
+- `FUTURE_FEATURE_BACKLOG.md`
+- `PROJECT_LOG.md`
+
+### Architectural decisions and known risks
+
+- Recommended MVP: three virtual assets, one mobile portfolio screen, once-daily collection, one deterministic slow-quarter lesson, no upgrades, no second currency, no real prices, and no backend.
+- Save support is additive under `save.engagement.portfolio`; static educational content must not be copied into player saves.
+- Multi-tab collection and purchasing require re-read/merge/write handling. Client-only clock and local-storage manipulation remain low-impact offline risks but become unacceptable without a server-authoritative ledger if sync or leaderboards are introduced.
+- All asset explanations, simulated returns, events, questions, and disclaimer language remain draft curriculum requiring owner approval.
+
+### Recommended next step
+
+- Keep the feature deferred until after V1. The owner can later choose the asset-portfolio direction, economy variant, gate terms, curriculum language, beta thresholds, and UX proposal before separately authorizing implementation.
+
+---
+
+## 2026-10-17 — New-quiz financial vocabulary and quality standard confirmed
+
+Recorded the owner's permanent quality rules for all quiz expansion work. This is a governance milestone only; it does not approve the pending 27 proposals or authorize implementation.
+
+### Completed work
+
+- Established 3 required words and 3 approved financial terms as hard minimums for every new quiz.
+- Recorded 4–5 required words as the preferred difficulty target.
+- Made educational value and previously unencountered approved financial vocabulary the selection priority; letter compatibility remains a feasibility constraint, not a content-selection method.
+- Required strict crossword validation, duplicate-composition rejection, and a concept-focused comprehension question for every proposal.
+- Protected permanent IDs, exact approved definitions, world ownership, mastery identities, and the complete active 27-quiz baseline.
+- Explicitly separated quality-standard confirmation, individual proposal approval, and implementation authorization.
+- Linked the standard to the candidate pipeline and the pending 27-quiz proposal.
+
+### Files added
+
+- `docs/FINLIT_QUEST_NEW_QUIZ_QUALITY_STANDARD.md`
+
+### Files modified
+
+- `docs/CROSSWORD_CANDIDATE_PIPELINE.md`
+- `docs/FINLIT_QUEST_27_QUIZ_EXPANSION_PROPOSAL_2026-10-17.md`
+- `staging/research/expansion/2026-10-17/finlit-quest-27-quiz-expansion-proposal.json`
+- `tests/expansion-proposal.test.js`
+- `PROJECT_LOG.md`
+
+### Verification and current status
+
+- The existing proposal remains pending owner review and implementation remains unauthorized.
+- Its 27 candidates meet the hard numeric gates: 27 have at least 3 words, 27 have at least 3 approved financial terms, 27 pass strict validation, and 0 duplicate the active slate or each other.
+- The active 27 quizzes and all runtime content remain unchanged.
+- Focused quality-standard and candidate-pipeline tests: **14 of 14 passed**.
+- Full automated suite: **486 of 486 passed**.
+- `git diff --check`: **passed**.
+
+### Recommended next step
+
+- Review the 27 proposed compositions and comprehension questions individually. Record approve, revise, or reject decisions without implementing them.
+
+---
+
+## 2026-10-17 — 27-quiz challenging expansion proposal completed (research only)
+
+Prepared a governed owner-review proposal that would expand the active 27-quiz slate to 54 without modifying or replacing any active puzzle, ID, reward, save, mastery record, or player progress.
+
+### Completed work
+
+- Audited the existing candidate generator, strict crossword solver, active V3 slate, governed five-world vocabulary, CAL-0008 additions, approved supporting-word set, and current governance qualifications before proposing content.
+- Generated and curated 27 new compositions in the existing 5 / 6 / 5 / 5 / 6 world distribution.
+- Preserved every financial answer's permanent ID, exact governed definition, mastery identity, and owning world, including cross-world terms and anchors.
+- Added one proposed three-option comprehension question, correct answer, explanation, and research-source references for every candidate.
+- Classified every proposal as Intermediate or Advanced.
+- Included 27 crossword previews, exact layouts, alternate-layout counts, governed term records, validation results, source references, and owner decisions required.
+- Kept the proposal in documentation and research staging only; no runtime or active content file was changed.
+
+### Quality-gate results
+
+- Proposed quizzes: **27**.
+- Strict validation: **27 PASS / 0 FAIL**.
+- Duplicate active compositions: **0**.
+- Duplicate compositions within the proposal: **0**.
+- Five-word puzzles: **14**.
+- Four-word puzzles: **11**.
+- Three-word exceptions: **2**, both all-financial with no filler.
+- Puzzles containing at least three governed financial terms: **27 of 27**.
+- Candidates with multiple valid layouts: **27 of 27**.
+- Previously unencountered financial terms introduced: **11** — ATM, BID, CONFIRMED, DEBIT, DEPOSIT, EARN, MANDATE, MINER, NODE, ORDER, and PEER.
+- Cross-world anchors retaining their original identities: **10**.
+- Focused proposal/pipeline/composition tests: **27 of 27 passed**.
+- Full automated suite: **486 of 486 passed**.
+- `git diff --check`: passed after the milestone files were written.
+
+### Files added
+
+- `docs/FINLIT_QUEST_27_QUIZ_EXPANSION_PROPOSAL_2026-10-17.md`
+- `staging/research/expansion/2026-10-17/finlit-quest-27-quiz-expansion-proposal.json`
+- `tests/expansion-proposal.test.js`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural and governance decisions
+
+- Proposal IDs are temporary research identifiers and must not be treated as active puzzle IDs.
+- Owner approval of the report does not authorize implementation; export and runtime integration require a separate explicit implementation decision.
+- Two three-word proposals are documented exceptions to the 4–5-word preference because both contain three meaningful financial terms and adding filler would reduce quality.
+- Ten cross-world anchors use the existing approved cross-world-anchor mechanism and preserve original identities, but their expanded use is explicitly presented for owner confirmation.
+- Crypto expansion remains subject to CAL-0006: a dedicated controlling governance record is required before substantial implementation.
+- Approved terms that could not form a valid governed composition were not forced into the slate. The proposal identifies ADDRESS, CUSTODY, SCAM, REPORT, BUREAU, FREEZE, HISTORY, WIRE, PHISHING, and LIQUIDITY as current exact-letter/financial-majority compatibility gaps.
+
+### Known issues / owner review items
+
+- The 27 proposals and their comprehension questions are pending owner review.
+- The two three-word exceptions require explicit confirmation.
+- Expanded use of cross-world anchors requires explicit confirmation.
+- The Crypto controlling governance record remains incomplete.
+
+### Recommended next step
+
+- Review the proposal candidates and record approve/revise/reject decisions. Do not export or activate any candidate until the owner separately authorizes implementation after governance review.
+
+---
+
+## 2026-10-17 — Financial-term coin celebration added
+
+Added an immediate, lightweight coin celebration when the player discovers a governed financial term, while preserving the larger reward celebration for full-puzzle completion.
+
+### Completed work
+
+- Added a compact coin flight from the crossword toward the coin balance after a newly rewarded financial term is solved.
+- Limited the effect to governed financial answers with a positive first-discovery coin reward. Ordinary supporting words, bonus words, replays, and zero-reward answers do not trigger it.
+- Prevented the final answer from showing two simultaneous effects; full puzzle completion continues to use the existing jackpot celebration.
+- Kept the term effect visual-only so it cannot interrupt the established word-found audio or change any reward calculation.
+- Honored the existing reduced-motion preference and automatically removed the temporary animation layer.
+- Rebuilt the web bundle and synchronized the Capacitor iOS bundle.
+
+### Verification
+
+- Full automated suite: **481 of 481 passed**.
+- Focused celebration, audio, and definition tests: **48 of 48 passed**.
+- Live browser verification: solving the governed Crypto term `TOKEN` increased the displayed balance from **503 to 538**, displayed **“Key term found: TOKEN · +35 coins”**, and animated **3 coins** toward the balance.
+- The compact animation layer removed itself after completion.
+- `git diff --check`: **passed**.
+
+### Files modified
+
+- `src/victory-celebration.js`
+- `word-game-app.js`
+- `word-game.css`
+- `tests/victory-celebration.test.js`
+- Mirrored native files under `ios/App/App/public/`
+- Generated web bundle under `www/`
+- `index.html` cache-bust references
+- `PROJECT_LOG.md`
+
+### Architectural decision
+
+- Reward calculations remain owned by the game engine. Celebration code receives only the already-calculated reward result and has no access to save or economy mutation paths.
+- Financial-term discovery uses a small coin-only effect; full-puzzle completion remains the single larger jackpot moment.
+
+### Known issues
+
+- None for this milestone.
+
+### Recommended next step
+
+- Include this interaction in the next approved deployment and confirm it once on a physical iPhone during release testing.
+
+---
+
+## 2026-10-17 — Multi-word puzzle banks promoted to the default runtime
+
+Fixed the reported regression where ordinary launches returned to one-word anchor puzzles.
+
+### Root cause
+
+- The approved V3 3–5-answer banks were still gated behind the undocumented `?puzzles=v3` URL flag.
+- A normal website, native app, or local-file launch therefore selected the legacy V2 anchor adapter, which intentionally converts every vocabulary term into a one-answer puzzle.
+- The definition restoration did not change puzzle composition; its standard-mode verification exposed this pre-existing routing error.
+
+### Completed work
+
+- Made the approved V3 banks the default for every ordinary launch and all five worlds.
+- Removed the V3 preview/not-live ribbon and renamed the runtime marker from preview to live.
+- Preserved the legacy anchor adapter only as an explicit migration/debug route at `?puzzles=legacy`; it is no longer reachable through normal game navigation.
+- Updated regression tests to require V3 by default and to reject a return to opt-in V3 routing.
+- Rebuilt the web bundle and synchronized the Capacitor iOS bundle.
+
+### Verification
+
+- Full automated suite: **478 of 478 passed**.
+- Default URL tested without any query flag.
+- Live browser inspection confirmed the first displayed puzzle in every world had **3 required answers**: Money Basics, Credit, Crypto, Banking Basics, and Investing Basics.
+- All 27 active V3 puzzles remain constrained to 3–5 required answers and pass composition, spelling, crossing, identity, reward, and mastery tests.
+- Browser console errors during the five-world sweep: **0**.
+
+### Files modified
+
+- `word-game-app.js`
+- `word-game.css`
+- `tests/anchor-playable-runtime.test.js`
+- `tests/completion-definitions.test.js`
+- `tests/schema-v3.test.js`
+- `tests/v3-composition-and-acceptance.test.js`
+- Mirrored native files under `ios/App/App/public/`
+- Generated native bundle under `www/`
+- `index.html` cache-bust references
+- `PROJECT_LOG.md`
+
+### Architectural decision
+
+- V3 is now the production/default puzzle schema. The anchor-only adapter is retained only for backward-compatibility diagnostics and must never become the implicit fallback again.
+
+### Known issues
+
+- None for this milestone.
+
+### Recommended next step
+
+- Deploy the updated default runtime when the current development batch is approved for release.
+
+---
+
+## 2026-10-17 — Puzzle-completion financial definition review restored
+
+Restored the educational review inside the shared Puzzle Solved modal without changing curriculum, puzzle compositions, mastery, or reward calculations.
+
+### Completed work
+
+- Traced the regression to the rewards-only completion-card implementation: governed definitions still existed in the world vocabularies and remained available through the in-game Definitions panel, but the blocking completion modal did not render them.
+- Added a single completion-summary path that accepts permanent term IDs and resolves display copy from the current authoritative world vocabularies. Embedded puzzle definitions are not used as a fallback, preventing stale or fabricated copy from being shown.
+- Added the required **Financial Terms You Learned** section. It lists every governed financial answer, preserves cross-world ownership, excludes ordinary/support and bonus answers, and visibly reports an unresolved ID, word mismatch, or missing governed definition.
+- Connected legacy Credit anchors to the existing owner-approved Credit identity registry so the standard game also resolves definitions by permanent ID.
+- Preserved the existing coins, XP, sound controls, victory behavior, and Next Puzzle action. The completion card remains scrollable and its Next Puzzle action remains sticky on narrow/short screens.
+- Synchronized the native Capacitor web bundle after updating the cache-bust stamp.
+
+### Verification
+
+- Focused completion-definition tests: **7 of 7 passed**.
+- Full automated suite: **478 of 478 passed**.
+- Web/native bundle parity passed after `build-www` and Capacitor iOS synchronization.
+- Browser verification, standard game: completed `COST`; the modal displayed the exact governed Money Basics definition, unchanged rewards, and a working Next Puzzle button.
+- Browser verification, V3 multi-term preview: completed `PAYMENT / PAY / NET`; all three exact governed definitions appeared and no ordinary or bonus entry appeared.
+- Responsive verification at **320 × 568**: rewards stayed visible, the definition list remained scrollable, and Next Puzzle stayed visible and usable.
+- Browser console errors: **0**.
+- Unresolved active curriculum references: **0** across all 27 V3 puzzles and the standard-mode puzzle checked in-browser.
+
+### Files modified
+
+- `src/puzzle-bank-engine.js`
+- `word-game-app.js`
+- `index.html`
+- `word-game.css`
+- `tests/completion-definitions.test.js`
+- `tests/mobile-header-layout.test.js`
+- `ios/App/App/public/src/puzzle-bank-engine.js`
+- `ios/App/App/public/word-game-app.js`
+- `ios/App/App/public/index.html`
+- `ios/App/App/public/word-game.css`
+- Generated native bundle under `www/`
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Completion review content is resolved at render time from an ID-indexed authoritative registry; player saves and puzzle history continue to store references and results, not curriculum copy.
+- Broken curriculum references fail visibly in the review and console rather than falling back to an embedded definition.
+- The same completion resolver serves standard anchor puzzles and V3 multi-term puzzles.
+
+### Known issues
+
+- None for this milestone.
+
+### Recommended next step
+
+- Include this completion review in the next release build and repeat one physical-device accessibility pass before production deployment.
+
+---
+
+## 2026-10-17 — Eighteen-concept vocabulary decision recorded (CAL-0008)
+
+The owner approved all 12 recommended terms and the 6 deferrals ("everything approved"). The decision, the 12 permanent IDs and the exact register definitions are recorded in `docs/CURRICULUM_APPROVAL_LOG.md` as CAL-0008.
+
+### Completed work
+
+- Appended CAL-0008 and its index row to the Curriculum Approval Log, owner words verbatim.
+- Assigned 12 permanent IDs in the existing `world.word` pattern, after confirming none collide with the 273 existing IDs.
+- Recorded the 6 deferrals with no IDs.
+
+### Files modified
+
+- `docs/CURRICULUM_APPROVAL_LOG.md`
+- `PROJECT_LOG.md`
+
+### Not changed
+
+- No content, runtime, identity-registry, puzzle, test or evidence-register file. The IDs exist only in the log until implementation is authorized.
+
+### Known issues
+
+- LIQUIDITY is related to the approved `banking.liquid`; carried forward, not resolved.
+- CAL-0006 asks for a Crypto governance record before substantial expansion; four Crypto terms were approved and the owner did not state whether that is substantial.
+- SEED has no source evidence (deferred).
+
+### Recommended next step
+
+- Owner decision on whether the Crypto governance record comes first, then authorize implementation of the 12 terms as a separate step.
+
+---
+
+## 2026-10-17 — Eighteen-concept evidence register and owner-review packet completed
+
+Completed term-specific official-source research and educational/main-game screening for all 18 concepts surviving the four-world consolidation. Produced a machine-readable evidence register and a concise owner-review packet. No term was approved, assigned a permanent ID, or added to gameplay.
+
+### Completed work
+
+- Reconciled every concept against existing permanent identities, reserves, approved support, bonus vocabulary, and Secondary Education exclusions.
+- Added term-specific evidence from CFPB, FTC, FDIC, Federal Reserve, CFTC, NIST, and SEC/Investor.gov sources.
+- Recommended 11 concepts to advance to owner review as written.
+- Recommended changing CONFIRM to the official NIST term CONFIRMED before owner review.
+- Recommended deferring BACKUP, SEED, SIGN, OFFLINE, KEY, and FRACTION to lessons or Secondary Education because their standalone words are generic, ambiguous, or less precise than the supported concepts.
+- Drafted exact unapproved definitions and recorded word-length/main-game eligibility for every concept.
+- Prepared one batch decision the owner can confirm to avoid repeated term-by-term audits.
+
+### Files added
+
+- `staging/research/consolidated/2026-10-17/term-evidence-register.json`
+- `docs/FINLIT_QUEST_18_CONCEPT_EVIDENCE_AND_OWNER_REVIEW_PACKET_2026-10-17.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Official evidence must support the precise playable word, not merely a related multi-word concept.
+- Useful concepts whose playable words are imprecise remain available for lessons without becoming permanent puzzle identities.
+- Owner approval must confirm exact wording, owning world, acronym exceptions, and cross-world qualifications before stable IDs are assigned.
+
+### Known issues
+
+- Owner approval remains pending for the recommended 12-word batch.
+- ATM requires an explicit acronym decision.
+- SCAM requires an explicit owning-world decision.
+- CONFIRMED is a recommended correction and is not yet an approved replacement for CONFIRM.
+
+### Recommended next steps
+
+1. Obtain one explicit owner confirmation of the proposed batch decision.
+2. After confirmation, assign stable IDs and update the Approval Log and governance matrix.
+3. Run governance and collision tests.
+4. Keep puzzle generation and runtime implementation blocked until separately authorized.
+
+---
+
+## 2026-10-17 — Four-world research validation cycle consolidated
+
+Completed a cross-world consolidation of the independently validated Credit Foundations, Crypto Foundations, Banking Basics, and Investing Basics research packages. The report distinguishes valid layouts, unique compositions, and new educational value and creates a prioritized, non-approving review queue.
+
+### Completed work
+
+- Reconciled all four local validation reports and their governed registries.
+- Confirmed 111 supplied governed identities with zero recorded identity or definition mismatches.
+- Confirmed the research cycle produced zero newly validated unique puzzle compositions.
+- Closed exact duplicate compositions across Credit, Banking, Investing, and the locally benchmarked Crypto results.
+- Consolidated seven alternate-revision candidates without approving them.
+- Identified 18 genuinely new or unresolved financial research concepts after removing registry collisions, reserves, approved support, bonus words, and Secondary Education exclusions.
+- Established DEPOSITOR / POSTED / DEPOSIT as the first alternate for potential owner review because it replaces ordinary POST with governed DEPOSIT in a distinct valid slot.
+- Defined the next work as research correction, term-level sourcing, educational concept review, and only then puzzle generation for approved concepts.
+
+### Files added
+
+- `docs/FINLIT_QUEST_CROSS_WORLD_RESEARCH_CONSOLIDATION_2026-10-17.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Structural validity, composition uniqueness, and educational value are separate gates.
+- Layout variants of an existing composition are not new puzzles.
+- Research correction precedes owner review; owner review precedes permanent identity assignment and puzzle generation.
+- Broad source manifests cannot substitute for term-specific provenance.
+
+### Known issues
+
+- The 18-concept queue remains unreviewed and several concepts still lack precise official evidence.
+- Seven alternate revisions remain optional and may be rejected if they do not improve educational value.
+- Owner-review duration remains unmeasured.
+
+### Recommended next steps
+
+1. Correct the four research packages in new revisions while preserving the original packages unchanged.
+2. Build term-specific evidence records for the 18 surviving concepts.
+3. Review DEPOSITOR first among the seven alternate compositions.
+4. Do not implement or export any new content without explicit owner approval.
+
+---
+
+## 2026-10-17 — Investing Basics research package staged and independently validated
+
+Accepted the external Investing Basics research package into isolated research staging, preserved its five source files unchanged, and checked its governed identities, reserve and secondary-education classifications, sources, vocabulary proposals, strict layouts, and puzzle collisions against authoritative project records. No content was approved or activated.
+
+### Completed work
+
+- Confirmed exact agreement for all 26 governed Investing identities, including supplemental WORTH.
+- Confirmed all 21 owner-approved V3 ordinary support words.
+- Reclassified PORTFOLIO and DIVERSIFY as existing inactive reserves, ETF as an existing Secondary Education term, and EXPENSE as the cross-world identity `moneybasics.expense`.
+- Identified TAKE as already approved support rather than a new ordinary-word candidate.
+- Kept VOLATILE and REBALANCE inactive because the controlling record excludes their related advanced concepts.
+- Identified LIQUIDITY and FRACTION as genuinely new unreviewed proposals requiring term-specific evidence and educational review.
+- Verified the Investment Products and FINRA sources, and identified replacement URLs for the stale Investor.gov overview and fee pages.
+- Ran MARKET / TERM / RATE through the strict validator; it passed all gates and produced three layouts.
+- Closed MARKET / TERM / RATE as an exact duplicate of the reviewed V3 Investing composition.
+- Benchmarked all 26 Investing anchors: 12 layouts generated, 12 passed, 100% validation pass rate, and 6,029.2 candidates per minute in the local run.
+
+### Files added
+
+- `staging/research/investing-basics/2026-10-17/source-package/source-manifest.json`
+- `staging/research/investing-basics/2026-10-17/source-package/financial-keyword-inventory.json`
+- `staging/research/investing-basics/2026-10-17/source-package/ordinary-word-review-list.json`
+- `staging/research/investing-basics/2026-10-17/source-package/suggested-puzzle-records.json`
+- `staging/research/investing-basics/2026-10-17/source-package/investing-basics-research-report.md`
+- `staging/research/investing-basics/2026-10-17/VALIDATION_REPORT.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Existing inactive reserves retain their stable identities and definitions; research packages cannot recreate them under temporary identities.
+- Secondary Education exclusions remain binding during puzzle research.
+- A strict-valid composition that already exists in V3 is collision evidence, not a new approval candidate.
+- Broad source manifests do not replace term-specific provenance for new vocabulary.
+
+### Known issues
+
+- Two proposed Investor.gov URLs are stale and require replacement.
+- The package incorrectly presents TAKE as unreviewed and understates the governed status of several proposed financial terms.
+- The sole puzzle proposal is an exact V3 duplicate, so the package contributes no new approval-ready composition.
+- Owner review time remains unmeasured.
+
+### Recommended next steps
+
+1. Correct the Investing package classifications and source URLs in a new research revision.
+2. Add term-level evidence for LIQUIDITY and resolve whether FRACTION is educationally precise enough.
+3. Close the MARKET proposal as a duplicate.
+4. Keep implementation blocked until explicit owner approval and a separately reviewed integration change.
+
+---
+
+## 2026-10-17 — Banking Basics research package staged and independently validated
+
+Accepted the external Banking Basics research package into isolated research staging, preserved its five source files unchanged, and checked its governed identities, reserve classifications, sources, vocabulary proposals, strict layouts, and puzzle collisions against the authoritative project records. No content was approved or activated.
+
+### Completed work
+
+- Confirmed exact agreement for all 27 Banking identities, including supplemental ACH.
+- Confirmed all 15 controlled Banking reserve words and all 21 owner-approved V3 ordinary support words.
+- Verified the CFPB bank-accounts source, confirmed the two FDIC pages are current but block the automated fetch, and identified the FTC topic page's canonical redirect.
+- Reclassified OVERDRAFT, TRANSFER, CHECKING, SAVINGS, and STATEMENT as existing controlled reserve content rather than genuinely new terms.
+- Confirmed BALANCE belongs to Credit, DIRECT is already approved as ordinary support, and ATM, WIRE, and PHISHING are the genuinely new unreviewed candidates.
+- Ran all five proposed word sets through the strict crossword validation suite; all passed and produced two or three valid layouts.
+- Closed CONVERT / VOTE / NET as an exact duplicate of the reviewed V3 composition.
+- Classified DEPOSITOR, NETWORK, PASSKEY, and PASSWORD as alternate revisions of existing anchors.
+- Verified the DEPOSIT substring in DEPOSITOR occupies its own legal crossword slot.
+
+### Files added
+
+- `staging/research/banking-basics/2026-10-17/source-package/source-manifest.json`
+- `staging/research/banking-basics/2026-10-17/source-package/financial-keyword-inventory.json`
+- `staging/research/banking-basics/2026-10-17/source-package/ordinary-word-review-list.json`
+- `staging/research/banking-basics/2026-10-17/source-package/suggested-puzzle-records.json`
+- `staging/research/banking-basics/2026-10-17/source-package/banking-basics-research-report.md`
+- `staging/research/banking-basics/2026-10-17/VALIDATION_REPORT.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Reserve terms are existing controlled content even when they do not yet have active permanent IDs; research cannot reactivate or replace them.
+- Approved ordinary support cannot silently become a financial learning identity.
+- Passing layouts with existing anchors remain replacement alternatives until the owner explicitly chooses a new revision.
+
+### Known issues
+
+- New-term records lack term-specific citations.
+- Direct automated retrieval of the two FDIC pages is blocked even though search confirms the pages are current.
+- No proposed Banking puzzle introduces a new anchor.
+- Owner review time remains unmeasured.
+
+### Recommended next steps
+
+1. Correct the Banking research classifications and add term-level evidence in a new package revision.
+2. Review DEPOSITOR / POSTED / DEPOSIT first as the most educationally coherent alternate.
+3. Decide whether any alternate should replace its existing V3 composition.
+4. Proceed to Investing Basics research after Banking corrections are recorded.
+
+---
+
+## 2026-10-17 — Crypto Foundations research package staged and independently validated
+
+Accepted the external Crypto Foundations research package into isolated research staging, preserved its five source files unchanged, and checked its registry data, sources, vocabulary classifications, feasibility conclusion, and collision exposure against the authoritative project records and local candidate pipeline. No content was approved or activated.
+
+### Completed work
+
+- Confirmed exact agreement for all 20 governed Crypto identities, words, definitions, and ownership records.
+- Confirmed exact agreement for all 21 owner-approved V3 ordinary supporting words.
+- Confirmed all ten new-term collision checks, including FEE's existing identity as `moneybasics.fee`.
+- Identified the proposed SEC Crypto Assets URL as a 404 and located the current Investor.gov Crypto Assets hub.
+- Verified the FTC source and its canonical redirect target.
+- Determined that the proposed CFPB Crypto Assets URL is not a confirmed current source and identified current official CFPB alternatives.
+- Corrected the package's puzzle-feasibility interpretation: all-financial sets are not required, and approved ordinary support plus cross-world governed terms can form valid puzzles.
+- Benchmarked all 20 Crypto-owned anchors with the 147-term registry and 21 approved ordinary words. The solver returned eight strict-valid layouts at a 100% pass rate.
+- Confirmed all eight layouts belong to four existing reviewed V3 compositions, so the package contributes no new nonduplicate puzzle candidate.
+- Recorded that the fifth Crypto V3 composition uses the cross-world INCOME anchor and that the local static Crypto bank contains 40 records.
+
+### Files added
+
+- `staging/research/crypto-foundations/2026-10-17/source-package/source-manifest.json`
+- `staging/research/crypto-foundations/2026-10-17/source-package/financial-keyword-inventory.json`
+- `staging/research/crypto-foundations/2026-10-17/source-package/ordinary-word-review-list.json`
+- `staging/research/crypto-foundations/2026-10-17/source-package/suggested-puzzle-records.json`
+- `staging/research/crypto-foundations/2026-10-17/source-package/crypto-foundations-research-report.md`
+- `staging/research/crypto-foundations/2026-10-17/VALIDATION_REPORT.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Feasibility screening must use the actual FinLit Quest financial-majority rule, cross-world governed terms, approved ordinary support, and strict solver—not an all-financial-only shortcut.
+- Benchmarked layouts that reproduce an approved composition are collision evidence, not new candidates.
+- Research sources must resolve to current canonical pages before term-level evidence is accepted.
+
+### Known issues
+
+- The package contains no proposed puzzle records.
+- Two proposed source URLs need replacement and the FTC URL should be canonicalized.
+- Five new technical terms still lack adequate term-level provenance.
+- Owner review time remains unmeasured.
+
+### Recommended next steps
+
+1. Issue a corrected Crypto research-package revision with current source URLs and term-level citations.
+2. Review the new financial terms before using them to expand candidate generation.
+3. Keep the existing five V3 Crypto compositions as the baseline and reject exact duplicates.
+4. Proceed to Banking Basics research after recording the Crypto corrections.
+
+---
+
+## 2026-10-17 — Credit Foundations research package staged and independently validated
+
+Accepted the external Credit Foundations research package into isolated research staging, preserved its five source files unchanged, and checked its registry data, source evidence, vocabulary classifications, collisions, and four proposed compositions against the authoritative project records and strict crossword pipeline. No content was approved or activated.
+
+### Completed work
+
+- Confirmed exact agreement for all 38 governed Credit identities, words, definitions, and ownership records.
+- Confirmed exact agreement for all 21 owner-approved V3 ordinary supporting words.
+- Verified the FTC source and established that both CFPB pages marked unverified in the package are active and accessible.
+- Identified a direct CFPB key-terms source for the FREEZE concept.
+- Confirmed DISPUTE and ALERT already belong to Banking and cannot receive new Credit identities.
+- Identified RATE as the governed cross-world term `moneybasics.rate`, not an ordinary word, and DUE as the global zero-reward bonus word, not an ordinary support candidate.
+- Ran all four proposed word sets through the strict solver and mandatory validation gates; all passed and produced two to four valid layouts.
+- Closed REPAYMENT / TERM / APR / APY as an exact duplicate of both static puzzle `CREDIT-P0024` and the reviewed V3 composition.
+- Classified AUTOPAY, CAPACITY, and CREDITOR as alternate revisions because each anchor already has active compositions.
+
+### Files added
+
+- `staging/research/credit-foundations/2026-10-17/source-package/source-manifest.json`
+- `staging/research/credit-foundations/2026-10-17/source-package/financial-keyword-inventory.json`
+- `staging/research/credit-foundations/2026-10-17/source-package/ordinary-word-review-list.json`
+- `staging/research/credit-foundations/2026-10-17/source-package/suggested-puzzle-records.json`
+- `staging/research/credit-foundations/2026-10-17/source-package/credit-foundations-research-report.md`
+- `staging/research/credit-foundations/2026-10-17/VALIDATION_REPORT.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Research-package corrections are recorded in a separate validation report; supplied evidence remains immutable.
+- A valid layout does not bypass same-anchor or exact-composition collision review.
+- Existing cross-world identities take precedence over temporary research keys or proposed ordinary classifications.
+
+### Known issues
+
+- The package source manifest understates verification because both CFPB pages are currently accessible.
+- No proposed Credit puzzle introduces a new anchor; three are alternatives and one is a duplicate.
+- Owner review time remains unmeasured.
+
+### Recommended next steps
+
+1. Issue a corrected Credit research-package revision with accurate CFPB source statuses.
+2. Resolve DISPUTE, ALERT, RATE, and DUE classifications before any vocabulary review.
+3. Decide whether any of the three alternate compositions is educationally stronger than its existing V3 composition.
+4. Proceed to Crypto research only after the Credit package correction is recorded.
+
+---
+
+## 2026-10-17 — Money Basics research package staged and independently validated
+
+Accepted the external Money Basics research package into isolated research staging, preserved its five source files unchanged, and checked its governed data, source manifest, puzzle collisions, and four proposed compositions against the local authoritative registry and strict crossword pipeline. No content was approved or activated.
+
+### Completed work
+
+- Confirmed exact agreement for all 36 governed Money Basics IDs, words, definitions, and ownership records.
+- Confirmed exact agreement for all 21 owner-approved V3 ordinary supporting words.
+- Confirmed the six new financial suggestions use temporary research keys and the five new ordinary suggestions remain unreviewed.
+- Verified three proposed institutional source pages as legitimate/relevant, with one automated-access limitation on FDIC Money Smart.
+- Identified the proposed CFPB budgeting URL as a current 404 that must be replaced.
+- Ran all four proposed word sets through the strict crossword engine and mandatory validation gates; every set produced at least two valid layouts and passed identity, letter, majority, boundary, reward, and engine checks.
+- Screened existing banks: DEBIT / DEBT / BID is the only proposal without an existing V3 same-anchor composition; SAVING / GAIN / GAS exactly duplicates the reviewed Investing V3 composition.
+- Recorded owner-review dispositions and previews in a separate validation report without changing the supplied research records.
+
+### Files added
+
+- `staging/research/money-basics/2026-10-17/source-package/source-manifest.json`
+- `staging/research/money-basics/2026-10-17/source-package/financial-keyword-inventory.json`
+- `staging/research/money-basics/2026-10-17/source-package/ordinary-word-review-list.json`
+- `staging/research/money-basics/2026-10-17/source-package/suggested-puzzle-records.json`
+- `staging/research/money-basics/2026-10-17/source-package/money-basics-research-report.md`
+- `staging/research/money-basics/2026-10-17/VALIDATION_REPORT.md`
+
+### Files modified
+
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- External research packages remain immutable evidence under `staging/research/`; validation and corrections are recorded beside them, never written into the source package.
+- Solver success establishes technical eligibility only. Existing-anchor collisions, duplicate compositions, educational provenance, and owner approval remain separate gates.
+- Cross-world financial terms preserve their original permanent identity, definition, ownership, and mastery record.
+
+### Known issues
+
+- The six new financial candidates have no term-specific source IDs or citations and cannot advance to governed-definition review yet.
+- The CFPB budgeting URL in the source manifest returns 404.
+- FDIC Money Smart is current but rejected the automated page fetch used during this audit.
+- Owner review time remains unmeasured.
+
+### Recommended next steps
+
+1. Replace the broken CFPB URL and attach term-specific provenance for the six new financial candidates.
+2. Review DEBIT / DEBT / BID first as the strongest nonduplicate V3 candidate.
+3. Decide whether PAYMENT and RECEIPT should remain alternatives or replace their existing V3 compositions.
+4. Close SAVING / GAIN / GAS as a duplicate unless the owner intentionally authorizes the same puzzle in two worlds.
+
+---
+
+## 2026-10-17 — Research authority upload package created
+
+Created a single upload package for the FinLit Quest research chat so it can begin the world-by-world keyword project without reconstructing IDs, definitions, ownership or approval status.
+
+### Completed work
+
+- Packaged the Confirmed World Governance Status Matrix, Curriculum Approval Log and crossword candidate pipeline instructions.
+- Generated a read-only research registry containing all 147 governed financial terms: Credit 38, Money Basics 36, Banking 27 including ACH, Investing 26 including WORTH, and Crypto 20.
+- Generated the 21 owner-approved ordinary supporting words from the approved V3 compositions, marked only for ordinary support with no financial identity or mastery.
+- Included all five world vocabulary files, current static and dynamic puzzle banks, reserve records, the V3 supplement and the reviewed V3 slate.
+- Added a package README and SHA-256 manifest for every included file.
+
+### Artifact created
+
+- `exports/FinLit_Quest_Research_Authority_Package_2026-10-17.zip`
+
+### Validation
+
+- ZIP integrity check: PASS, no compressed-data errors.
+- Registry reconciliation: 147 terms with exact world totals.
+- Ordinary-word export: 21 words, all derived mechanically from the owner-approved V3 slate.
+- No curriculum source, definition, stable ID, puzzle bank or runtime file was changed.
+
+### Recommended next step
+
+- Upload the ZIP to the FinLit research chat and instruct it to begin with Money Basics. Research results remain unreviewed candidates until processed by the local crossword candidate pipeline and approved by the owner.
+
+---
+
+## 2026-10-17 — Governed crossword candidate collection and generation pipeline added
+
+Built the first owner-reviewable crossword candidate pipeline after the governance matrix and Curriculum Approval Log were confirmed. The pipeline is isolated from approved curriculum and live puzzle banks: it writes only to an explicitly chosen staging/review path and refuses protected repository destinations.
+
+### Completed work
+
+- Added local-file and HTTPS source collection with provenance, frequency counts, HTML cleanup, timeouts and a 2 MB source limit.
+- Marked every newly collected keyword `unreviewed`; scraped words never become game vocabulary automatically.
+- Loaded all 147 governed financial identities (145 original terms plus ACH and WORTH) and preserved each reused term's original ID, definition, owning world and mastery ID.
+- Added multi-layout generation by trying deterministic word orders through the strict solver and deduplicating valid layouts.
+- Added mandatory validation for crossing letters, word separation, exact letter multisets, authoritative financial identities, approved ordinary words, financial-majority thresholds, distinct contained-word slots, reward protections and strict engine acceptance.
+- Added structured failure records with the rule, affected words, coordinates where available and an explanation.
+- Added post-validation ranking for financial strength, educational relevance, connectivity, ordinary-word familiarity, difficulty fit, cross-world repetition and alternative-layout availability. Invalid candidates receive no score.
+- Added Markdown owner-review reports with the world, anchor, financial terms, ordinary words, ASCII crossword preview, validation results, ranking explanation and approval status.
+- Added a command-line workflow for collection, generation, benchmarking and owner-approved export. Export reruns validation against the authoritative registry and never edits the live V3 slate.
+- Added a measurable benchmark format including candidate throughput, validation pass percentage, manual-review count and an explicit `null` for owner approval time until review timestamps exist.
+
+### Files added
+
+- `src/candidate-source-collector.js`
+- `src/crossword-candidate-pipeline.js`
+- `scripts/crossword-candidate-cli.mjs`
+- `tests/crossword-candidate-pipeline.test.js`
+- `docs/CROSSWORD_CANDIDATE_PIPELINE.md`
+
+### Files modified
+
+- `package.json`
+- `PROJECT_LOG.md`
+
+### Architectural decisions
+
+- Internet or document collection produces candidate evidence, never approved content.
+- Approved cross-world financial terms may be reused automatically only through their permanent identities.
+- New ordinary supporting words require explicit `approved-support` status before they can pass validation.
+- Validation is a hard gate before ranking; invalid puzzles can never receive an approval-eligible score.
+- Candidate generation, review and export remain separate from live-game integration.
+
+### Validation
+
+- New focused tests: **9 passed, 0 failed**.
+- Full suite: **475 passed, 0 failed** in America/Los_Angeles, UTC, Asia/Tokyo and Pacific/Auckland.
+- End-to-end staging exercise: one local source produced 14 unreviewed keywords; REPAYMENT produced five owner-review files with three distinct strict layouts; all five returned candidates passed validation.
+- Credit benchmark sample: 23 eligible anchors attempted, 8 candidates returned from the intentionally small one-candidate/250-combination run, 8 passed, approximately 812 candidates/minute on this computer. Owner approval time remains unmeasured until actual reviews are timestamped.
+
+### Known issues
+
+- The collector does not perform web search. HTTPS sources must be explicitly supplied in an owner-authorized source manifest.
+- Newly scraped ordinary words cannot generate approval-eligible puzzles until the owner reviews and marks them `approved-support`.
+- The pipeline is not wired into production gameplay; integration requires a separately approved content change.
+
+### Recommended next steps
+
+1. Create an owner-authorized source manifest for one world.
+2. Collect and review an initial ordinary-word candidate list.
+3. Generate a full review batch and measure real owner review time.
+4. Approve and export selected candidates, then integrate them through a separate reviewed change.
+
+---
+
+## 2026-10-17 — Owner governance decisions D1–D10 recorded; matrix Confirmed; Curriculum Approval Log created
+
+The owner confirmed the World Governance Status Matrix with decisions D1–D10. The decisions are recorded verbatim, with scope, source files, qualifications and superseded records, in the new `docs/CURRICULUM_APPROVAL_LOG.md` (entries CAL-0001 to CAL-0007). The confirmed matrix and the Approval Log are now the authoritative governance records. Future sessions must not repeat the governance audit unless a defined audit trigger occurs.
+
+### Completed work
+
+- **D1** Credit Foundations 15-workbook curriculum (CRF-001–015): **Approved with Qualification** for V1 implementation. Qualification: it has not completed the separate Approved & Locked curriculum-import pipeline, and its educational content must not be rewritten. (CAL-0001)
+- **D2** Credit 38-term identity registry: **Owner Approved**, effective 2026-10-14, scoped to permanent term IDs only. (CAL-0002)
+- **D3** Money Basics: **Owner Approved** (main game); approver is the FinLit Quest owner; the 2026-07-23 puzzle-bank v2 decision is current and supersedes the original bank structure, vocabulary unchanged. (CAL-0003)
+- **D4** Banking Basics v1.1: **Approved with Qualification**; the documented retroactive governance normalization is the current controlling record; the qualification that most definitions were reconstructed and are not verbatim historical approvals is preserved. (CAL-0004)
+- **D5** Investing Basics v1.1: **Owner Approved** (main game); approver is the FinLit Quest owner. (CAL-0005)
+- **D6** Crypto Foundations: **Approved with Qualification** for V1 gameplay (20 learning objects and the current implementation); a dedicated controlling governance record is needed before Approved & Locked or substantial expansion. (CAL-0006)
+- **D7** ACH, WORTH and the V3 crossword compositions: recorded as separate **Owner Approved** development decisions; they do not amend the frozen Banking or Investing v1.1 records; V3 stays opt-in until separately authorized for production. (CAL-0007)
+- **D8** Created `docs/CURRICULUM_APPROVAL_LOG.md`. Only the owner may make approval decisions; Codex records them verbatim and never invents or infers an approval.
+- **D9** Corrected `CLAUDE.md` and `APP_DESCRIPTION_AND_CLAUDE_SYSTEM_PROMPT.md` to describe the five-world V1 application (Money Basics, Credit, Crypto, Banking Basics, Investing Basics) and removed the stale "only playable world is Crypto" statements. No curriculum content was changed. `CLAUDE.md` also now lists the Approval Log and the matrix among the records to read first.
+- **D10** Added the single historical backfill entry below.
+- Matrix status changed from Draft to Confirmed. The draft's evidence, qualifications and original decision options were preserved.
+
+### Files modified
+
+- `docs/CURRICULUM_APPROVAL_LOG.md` (new)
+- `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md`
+- `CLAUDE.md`
+- `APP_DESCRIPTION_AND_CLAUDE_SYSTEM_PROMPT.md`
+- `PROJECT_LOG.md`
+
+### Tests performed
+
+- Governance, content and pipeline tests: 61 of 61 pass.
+- Full suite: 466 of 466 pass in America/Los_Angeles, UTC, Asia/Tokyo and Pacific/Auckland. `git diff --check` is clean.
+- No curriculum data, definition, stable ID or runtime file was modified.
+
+### Approval decisions
+
+- All of the above, recorded in `docs/CURRICULUM_APPROVAL_LOG.md`. No other approval was inferred or created.
+
+### Known issues
+
+- Credit is not Approved & Locked (qualification in CAL-0001).
+- Crypto still needs a dedicated controlling governance record (CAL-0006).
+- Native build and real-device verification remain blocked per `docs/V1_RELEASE_CHECKLIST.md`.
+
+### Recommended next step
+
+- Resume V1 release work. Revisit governance only on a defined audit trigger.
+
+---
+
+## 2026-10-17 — World Governance Status Matrix drafted (pending owner confirmation)
+
+Created `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md` from the actual repository records so future sessions can rely on one record instead of repeating the curriculum audit. The matrix is a **draft**: no row is a recorded decision until the owner confirms it.
+
+### Completed work
+
+- Recorded, per world (Credit Foundations, Money Basics, Banking Basics, Investing Basics, Crypto Foundations): scope, controlling source file, source version, approval status in the allowed vocabulary, approval date as recorded, stable term count, curriculum/workbook status, vocabulary status, puzzle-bank status, known qualifications, owner decision and last verified date.
+- Credit: separated the 15 existing workbooks (present, generated runtime, working in the app; `CORRECTION_2026-07-21.md` still supersedes the "0 of 15" reports) from the remaining approval-label inconsistency (draft-labelled source inside an `approved/` directory; no Approval Log, Controlled Values workbook or Approved & Locked workbook set; `PROJECT_LOG.md` already records the content was deliberately not upgraded to "approved & locked").
+- Credit validators: recorded that two different gates exist. The runtime JSON passes the workbook validator used by `parse-credit-foundations.mjs`; it is not an export of the Approved & Locked curriculum pipeline, which `validateCurriculum` therefore rejects. This corrects an earlier 2026-10-17 research summary that reported only the second result.
+- Money Basics: recorded the approval document (2026-07-22, main game only), the follow-on 2026-07-23 governance decision, and that runtime bank v2 is the current bank.
+- Banking Basics: recorded the "retroactive governance normalization" qualification verbatim, without changing the record; its checksum was re-verified against the pinned value.
+- Investing Basics: recorded the v1.1 FINAL APPROVED status and its main-game-only scope.
+- Crypto: no approval, review or owner-decision record exists; left unmapped and listed as a decision.
+- Listed ten open items (D1–D10) for the owner.
+
+### Files modified
+
+- `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md` (new)
+- `PROJECT_LOG.md`
+
+### Tests performed
+
+- Governance, content and pipeline tests: 57 of 57 pass.
+- Full suite: 466 of 466 pass.
+- Term counts verified against the data files; Banking controlling record SHA-256 matches the pinned value (18,198 bytes).
+
+### Approval decisions
+
+- **None.** No Curriculum Approval Log exists in the repository, and none was created or reconstructed. Owner confirmation of D1–D10 is required before anything is recorded there.
+
+### Known issues
+
+- The Curriculum Approval Log is absent.
+- `CLAUDE.md` and `APP_DESCRIPTION_AND_CLAUDE_SYSTEM_PROMPT.md` still say Crypto is the only playable world, which conflicts with the V1 checklist's five-world scope (a defined audit trigger; decision D9).
+- This log has no entries for the October 2026 V3 puzzle, audio and bonus-word work (decision D10).
+
+### Recommended next step
+
+- Owner confirms or corrects the matrix (D1–D10). Then record the confirmed decisions in the Curriculum Approval Log and in this log, and mark the matrix confirmed. Do not repeat the governance audit unless a defined trigger occurs.
+
+---
+
+## 2026-10 (historical backfill, entry written 2026-10-17) — Daily rewards, V3 puzzles, celebration, audio and related work
+
+One concise backfill of October 2026 work, written only from existing repository reports, tests and files (owner decision D10). Dates are quoted **as stated in those documents**. The reports are not in strict chronological order (the Phase 1–2 reward reports state 2026-10-17, while the V3 Phase 3–5 reports state 2026-10-16), so they are cited as written and not reconciled. No undocumented approval decision or date has been reconstructed. Approvals that are documented are referenced from `docs/CURRICULUM_APPROVAL_LOG.md`.
+
+### Work documented
+
+- **Rewards and streaks:** local-day streak and achievement-XP repair (`FINLIT_QUEST_PHASE1_REWARD_STREAK_REPAIR_REPORT.md`); owner-approved daily login schedule 10/15/20/25/30/35/50 with clock safeguards (`FINLIT_QUEST_PHASE2_DAILY_REWARDS_REPORT.md`, `FINLIT_QUEST_DAILY_REWARDS_RELEASE_READINESS.md`); engagement plan (`FINLIT_QUEST_ENGAGEMENT_EXPANSION_PLAN.md`).
+- **V3 crosswords (opt-in preview, `?puzzles=v3`):** acceptance repair and composition rules (`FINLIT_QUEST_V3_CROSSWORD_ACCEPTANCE_REPAIR_REPORT.md`); cross-world use of approved terms (`FINLIT_QUEST_V3_CROSS_WORLD_COMPOSITION_REPORT.md`); Phases 3–5 and the 27-puzzle completion (`FINLIT_QUEST_V3_COMPOSITION_PHASE3_REPORT.md`, `..._PHASE4_REPORT.md`, `..._PHASE5_REPORT.md`, `FINLIT_QUEST_V3_27_PUZZLE_COMPLETION_REPORT.md`). Result: 27 of 27 puzzles meet the composition rules; ACH and WORTH added as a V3 supplement (`content/v3-supplemental-terms.json`); two cross-world anchors; `SPECS` fingerprint `718154a858036bba` when recorded; the 147-term inventory in `FINLIT_QUEST_V3_145_TERM_INVENTORY.md`.
+- **Presentation:** victory celebration (confetti, coin flight, skip, reduced motion) and mobile header and completion-card layout fixes (`src/victory-celebration.js`, `word-game.css`, `tests/victory-celebration.test.js`, `tests/mobile-header-layout.test.js`); slot-machine-style synthesized audio with one persistent mute and volume preference (`src/game-audio.js`, `FINLIT_QUEST_PHASE6_AUDIO_REPORT.md`). The audio report states that real-device and iOS WKWebView playback were not verified.
+- **Bonus word:** DUE accepted as a global optional bonus word through the shared word validation, with zero coins and XP (`src/wheel-interaction.js`, `tests/bonus-word-due.test.js`). No dated report exists for this item.
+- **Planning:** "Build Your Wealth" feasibility report and post-V1 backlog entry (`docs/FINLIT_QUEST_BUILD_YOUR_WEALTH_FEASIBILITY.md`, `FUTURE_FEATURE_BACKLOG.md`); research only, not approved for implementation.
+
+### Approvals referenced (as documented in the repository)
+
+- Credit permanent-ID registry: "Owner approved 2026-10-14" (`content/credit-term-identities.js`); now CAL-0002.
+- ACH and WORTH: owner-approved 2026-10-16 per `content/v3-supplemental-terms.js`; now part of CAL-0007.
+
+### Tests
+
+- Full suite at the time of writing: 466 passing. Per-phase counts are in the individual reports.
+
+### Known issues (as documented)
+
+- Native iOS build and real-device verification are blocked (`docs/V1_RELEASE_CHECKLIST.md`); audio character and loudness await owner listening.
+
+---
+
 ## 2026-07-23 (latest) — Free hints extended through every game in Level 1
 
 Corrected the tutorial boundary after live feedback confirmed that Game 2 of
@@ -2256,3 +3666,20 @@ Milestone 4 should focus on interaction-controller extraction and testable UI st
 ### Recommended next steps
 
 - Preserve the verified puzzle mechanics while continuing to move educational content, progress, and presentation into independent modules.
+
+## 2026-10-17 — CAL-0008 Banking/Investing terms implemented in the V3 supplement
+
+- Added banking.atm, banking.wire, banking.phishing, investing.liquidity (definitions exactly as CAL-0008) to content/v3-supplemental-terms.json and .js; synced ios/App/App/public and www copies.
+- Count-pinned tests updated: 147 -> 151 terms; coverage partition 49/39/59 -> 49/39/63; Banking 30, Investing 27 (including ACH, WORTH). No puzzle, reward formula or legacy v1.1 file changed.
+- WIRE, PHISHING, LIQUIDITY have one registered official source each; the JSON secondary-source check is now optional-if-present. No source was invented.
+- Not done: Credit (4) and Crypto (4) terms; no commit.
+- Suite 475/475; git diff --check clean.
+
+## 2026-10-17 — CAL-0008 Credit terms implemented
+
+- Added credit.report, credit.bureau, credit.freeze, credit.history to content/credit-term-identities.js (now 42 IDs; the four are optional in validateVocabulary so the 38-term workbook record stays valid) and to the V3 supplement. content/credit-game-terms.js (generated from the workbook) was not edited.
+- Tests: 151 -> 155 terms; Credit 42; partition 49/43/63. Suite 475/475.
+- Remaining from CAL-0008: four Crypto terms. No commit.
+
+## 2026-10-17 — Coins World research package (draft)
+- staging/research/coins-world/2026-10-17/: register (20 types screened; 8 single-word candidates) and owner review packet. Research only; no IDs, runtime or tests changed.

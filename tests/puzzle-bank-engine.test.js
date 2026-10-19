@@ -1,5 +1,5 @@
 const test=require("node:test"),assert=require("node:assert/strict");
-const {puzzleId,buildOneCandidate,buildBank,selectPlaythrough,recordPlaythrough,wordReward,isTutorialLevel,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict}=require("../src/puzzle-bank-engine.js");
+const {puzzleId,buildOneCandidate,buildBank,anchorPuzzleId,toAnchorPuzzles,effectiveAnchorHistory,selectPlaythrough,recordPlaythrough,wordReward,isTutorialLevel,hintCost,canAffordHint,puzzleProgress,hasPrefixConflict}=require("../src/puzzle-bank-engine.js");
 const {wheelFor}=require("../src/game-engine.js");
 
 const VOCAB=["TOKEN","NODE","COIN","MINT","POOL","LOCK","BLOCK","FORK","HASH","GAS","CHAIN","YIELD","LEDGER","PEER","STAKE","SWAP","VAULT","WALLET","MINER","BURN"];
@@ -21,6 +21,44 @@ function makeVocab(n){
 
 test("puzzleId is stable regardless of word order",()=>{
   assert.equal(puzzleId(["TOKEN","COIN"]),puzzleId(["COIN","TOKEN"]));
+});
+
+test("legacy multi-financial records become stable anchor-only playable puzzles without mutating the bank",()=>{
+  const raw=[{id:"MB-V2-C01",words:["CASH","PAY","NET"],letters:[..."ACEHNPSTY"]}],snapshot=JSON.stringify(raw);
+  const vocabulary=["CASH","PAY","NET"].map(word=>({word,definition:`Definition for ${word}.`,termId:`money.${word.toLowerCase()}`}));
+  const playable=toAnchorPuzzles(raw,vocabulary,"moneybasics");
+  assert.equal(JSON.stringify(raw),snapshot);
+  assert.deepEqual(playable.map(p=>p.anchorWord),["CASH","PAY","NET"]);
+  assert.deepEqual(playable.map(p=>p.wheelLetters.join("")),["CASH","PAY","NET"]);
+  assert.ok(playable.every(p=>p.supportWords.length===0&&p.requiredWords===undefined));
+  assert.equal(playable[0].id,anchorPuzzleId("moneybasics","CASH"));
+  assert.deepEqual(playable[0].sourcePuzzleIds,["MB-V2-C01"]);
+  assert.equal(playable[0].contentReviewRequired,true);
+});
+
+test("anchor ids remain stable when legacy financial terms are regrouped",()=>{
+  const vocabulary=[{word:"CASH",definition:"d"},{word:"PAY",definition:"d"}];
+  const first=toAnchorPuzzles([{id:"OLD-A",words:["CASH","PAY"],letters:[..."CASHYP"]}],vocabulary,"moneybasics");
+  const regrouped=toAnchorPuzzles([{id:"OLD-B",words:["PAY"]},{id:"OLD-C",words:["CASH"]}],vocabulary,"moneybasics");
+  assert.deepEqual(first.map(p=>p.id).sort(),regrouped.map(p=>p.id).sort());
+});
+
+test("effective anchor history preserves legacy completion and solved-word evidence without rewriting either",()=>{
+  const bank=[
+    {id:"ANCHOR-V2:moneybasics:CASH",anchorWord:"CASH",sourcePuzzleIds:["MB-V2-C01"]},
+    {id:"ANCHOR-V2:moneybasics:PAY",anchorWord:"PAY",sourcePuzzleIds:["MB-V2-C01"]},
+    {id:"ANCHOR-V2:moneybasics:NET",anchorWord:"NET",sourcePuzzleIds:["MB-V2-C01"]},
+  ];
+  const history={"MB-V2-C01":{timesPlayed:2,lastPlayedAt:123}},snapshot=JSON.stringify(history);
+  const effective=effectiveAnchorHistory(bank,history,["CASH","PAY"]);
+  assert.deepEqual(effective[bank[0].id],{timesPlayed:2,lastPlayedAt:123});
+  assert.deepEqual(effective[bank[1].id],{timesPlayed:2,lastPlayedAt:123});
+  assert.deepEqual(effective[bank[2].id],{timesPlayed:2,lastPlayedAt:123});
+  assert.equal(JSON.stringify(history),snapshot);
+
+  const solvedOnly=effectiveAnchorHistory(bank,{},["CASH"]);
+  assert.deepEqual(solvedOnly[bank[0].id],{timesPlayed:1,lastPlayedAt:null});
+  assert.equal(solvedOnly[bank[1].id],undefined);
 });
 
 // Confirmed live 2026-07-23: the shared word-game engine submits a word the

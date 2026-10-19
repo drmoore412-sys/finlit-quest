@@ -1,0 +1,1698 @@
+{
+  "schemaVersion": 1,
+  "libraryVersion": "2027.1",
+  "generatedOn": "2026-10-19",
+  "uniquePuzzleCount": 58,
+  "totalWorldPlacements": 195,
+  "architecture": {
+    "canonicalDefinitionRule": "Puzzle definitions remain in their existing approved canonical sources. This manifest stores references only.",
+    "originalSource": "src/v3-puzzle-slate.js",
+    "newWorldSource": "content/2027-new-world-puzzle-banks.json",
+    "rewardRule": "First-discovery rewards are keyed to canonical puzzle IDs; world progress is recorded separately."
+  },
+  "canonicalPuzzleIndex": [
+    {
+      "id": "FQ-V3:crypto:TOKEN:R2",
+      "originWorldId": "crypto",
+      "anchorWord": "TOKEN"
+    },
+    {
+      "id": "FQ-V3:crypto:CHAIN:R2",
+      "originWorldId": "crypto",
+      "anchorWord": "CHAIN"
+    },
+    {
+      "id": "FQ-V3:crypto:STAKE:R2",
+      "originWorldId": "crypto",
+      "anchorWord": "STAKE"
+    },
+    {
+      "id": "FQ-V3:crypto:INCOME:R2",
+      "originWorldId": "crypto",
+      "anchorWord": "INCOME"
+    },
+    {
+      "id": "FQ-V3:crypto:BLOCK:R3",
+      "originWorldId": "crypto",
+      "anchorWord": "BLOCK"
+    },
+    {
+      "id": "FQ-V3:credit:TERMS:R1",
+      "originWorldId": "credit",
+      "anchorWord": "TERMS"
+    },
+    {
+      "id": "FQ-V3:credit:PRINCIPAL:R2",
+      "originWorldId": "credit",
+      "anchorWord": "PRINCIPAL"
+    },
+    {
+      "id": "FQ-V3:credit:CREDITOR:R2",
+      "originWorldId": "credit",
+      "anchorWord": "CREDITOR"
+    },
+    {
+      "id": "FQ-V3:credit:REPAYMENT:R1",
+      "originWorldId": "credit",
+      "anchorWord": "REPAYMENT"
+    },
+    {
+      "id": "FQ-V3:credit:AUTOPAY:R1",
+      "originWorldId": "credit",
+      "anchorWord": "AUTOPAY"
+    },
+    {
+      "id": "FQ-V3:credit:CAPACITY:R1",
+      "originWorldId": "credit",
+      "anchorWord": "CAPACITY"
+    },
+    {
+      "id": "FQ-V3:moneybasics:PAYMENT:R1",
+      "originWorldId": "moneybasics",
+      "anchorWord": "PAYMENT"
+    },
+    {
+      "id": "FQ-V3:moneybasics:RECEIPT:R2",
+      "originWorldId": "moneybasics",
+      "anchorWord": "RECEIPT"
+    },
+    {
+      "id": "FQ-V3:moneybasics:REFUND:R1",
+      "originWorldId": "moneybasics",
+      "anchorWord": "REFUND"
+    },
+    {
+      "id": "FQ-V3:moneybasics:PAYCHECK:R1",
+      "originWorldId": "moneybasics",
+      "anchorWord": "PAYCHECK"
+    },
+    {
+      "id": "FQ-V3:moneybasics:BUDGET:R2",
+      "originWorldId": "moneybasics",
+      "anchorWord": "BUDGET"
+    },
+    {
+      "id": "FQ-V3:banking:DEPOSITOR:R1",
+      "originWorldId": "banking",
+      "anchorWord": "DEPOSITOR"
+    },
+    {
+      "id": "FQ-V3:banking:NETWORK:R2",
+      "originWorldId": "banking",
+      "anchorWord": "NETWORK"
+    },
+    {
+      "id": "FQ-V3:banking:PASSWORD:R2",
+      "originWorldId": "banking",
+      "anchorWord": "PASSWORD"
+    },
+    {
+      "id": "FQ-V3:banking:PASSKEY:R2",
+      "originWorldId": "banking",
+      "anchorWord": "PASSKEY"
+    },
+    {
+      "id": "FQ-V3:banking:CONVERT:R2",
+      "originWorldId": "banking",
+      "anchorWord": "CONVERT"
+    },
+    {
+      "id": "FQ-V3:investing:SAVING:R2",
+      "originWorldId": "investing",
+      "anchorWord": "SAVING"
+    },
+    {
+      "id": "FQ-V3:investing:STOCK:R2",
+      "originWorldId": "investing",
+      "anchorWord": "STOCK"
+    },
+    {
+      "id": "FQ-V3:investing:GROWTH:R2",
+      "originWorldId": "investing",
+      "anchorWord": "GROWTH"
+    },
+    {
+      "id": "FQ-V3:investing:TRADE:R2",
+      "originWorldId": "investing",
+      "anchorWord": "TRADE"
+    },
+    {
+      "id": "FQ-V3:investing:MARKET:R2",
+      "originWorldId": "investing",
+      "anchorWord": "MARKET"
+    },
+    {
+      "id": "FQ-V3:investing:RETURN:R2",
+      "originWorldId": "investing",
+      "anchorWord": "RETURN"
+    },
+    {
+      "id": "FQ-V3:coins:COINGRADE:R1",
+      "originWorldId": "coins",
+      "anchorWord": "COINGRADE"
+    },
+    {
+      "id": "FQ-V3:coins:MELTVALUE:R1",
+      "originWorldId": "coins",
+      "anchorWord": "MELTVALUE"
+    },
+    {
+      "id": "FQ-V3:coins:PROOFLIKE:R1",
+      "originWorldId": "coins",
+      "anchorWord": "PROOFLIKE"
+    },
+    {
+      "id": "FQ-V3:coins:SPOTPRICE:R1",
+      "originWorldId": "coins",
+      "anchorWord": "SPOTPRICE"
+    },
+    {
+      "id": "FQ-V3:ai_technology:AUTOTRADE:R1",
+      "originWorldId": "ai_technology",
+      "anchorWord": "AUTOTRADE"
+    },
+    {
+      "id": "FQ-V3:real_estate:APARTMENT:R1",
+      "originWorldId": "real_estate",
+      "anchorWord": "APARTMENT"
+    },
+    {
+      "id": "FQ-V3:real_estate:REFINANCE:R1",
+      "originWorldId": "real_estate",
+      "anchorWord": "REFINANCE"
+    },
+    {
+      "id": "FQ-V3:taxes:INCOMETAX:R1",
+      "originWorldId": "taxes",
+      "anchorWord": "INCOMETAX"
+    },
+    {
+      "id": "FQ-V3:taxes:TAXCREDIT:R1",
+      "originWorldId": "taxes",
+      "anchorWord": "TAXCREDIT"
+    },
+    {
+      "id": "FQ-V3:taxes:TAXFILING:R1",
+      "originWorldId": "taxes",
+      "anchorWord": "TAXFILING"
+    },
+    {
+      "id": "FQ-V3:insurance:CASHVALUE:R1",
+      "originWorldId": "insurance",
+      "anchorWord": "CASHVALUE"
+    },
+    {
+      "id": "FQ-V3:insurance:EXCLUSION:R1",
+      "originWorldId": "insurance",
+      "anchorWord": "EXCLUSION"
+    },
+    {
+      "id": "FQ-V3:insurance:LIABILITY:R1",
+      "originWorldId": "insurance",
+      "anchorWord": "LIABILITY"
+    },
+    {
+      "id": "FQ-V3:insurance:TRIPDELAY:R1",
+      "originWorldId": "insurance",
+      "anchorWord": "TRIPDELAY"
+    },
+    {
+      "id": "FQ-V3:business:BREAKEVEN:R1",
+      "originWorldId": "business",
+      "anchorWord": "BREAKEVEN"
+    },
+    {
+      "id": "FQ-V3:business:FACTORING:R1",
+      "originWorldId": "business",
+      "anchorWord": "FACTORING"
+    },
+    {
+      "id": "FQ-V3:business:FRANCHISE:R1",
+      "originWorldId": "business",
+      "anchorWord": "FRANCHISE"
+    },
+    {
+      "id": "FQ-V3:business:FREELANCE:R1",
+      "originWorldId": "business",
+      "anchorWord": "FREELANCE"
+    },
+    {
+      "id": "FQ-V3:business:INVENTORY:R1",
+      "originWorldId": "business",
+      "anchorWord": "INVENTORY"
+    },
+    {
+      "id": "FQ-V3:business:MARKETING:R1",
+      "originWorldId": "business",
+      "anchorWord": "MARKETING"
+    },
+    {
+      "id": "FQ-V3:business:NETINCOME:R1",
+      "originWorldId": "business",
+      "anchorWord": "NETINCOME"
+    },
+    {
+      "id": "FQ-V3:business:RETENTION:R1",
+      "originWorldId": "business",
+      "anchorWord": "RETENTION"
+    },
+    {
+      "id": "FQ-V3:business:TRADEMARK:R1",
+      "originWorldId": "business",
+      "anchorWord": "TRADEMARK"
+    },
+    {
+      "id": "FQ-V3:business:WHOLESALE:R1",
+      "originWorldId": "business",
+      "anchorWord": "WHOLESALE"
+    },
+    {
+      "id": "FQ-V3:social_media:ROYALTIES:R1",
+      "originWorldId": "social_media",
+      "anchorWord": "ROYALTIES"
+    },
+    {
+      "id": "FQ-V3:social_media:ADREVENUE:R1",
+      "originWorldId": "social_media",
+      "anchorWord": "ADREVENUE"
+    },
+    {
+      "id": "FQ-V3:retirement:COASTFIRE:R1",
+      "originWorldId": "retirement",
+      "anchorWord": "COASTFIRE"
+    },
+    {
+      "id": "FQ-V3:retirement:FIDUCIARY:R1",
+      "originWorldId": "retirement",
+      "anchorWord": "FIDUCIARY"
+    },
+    {
+      "id": "FQ-V3:retirement:LIFESTYLE:R1",
+      "originWorldId": "retirement",
+      "anchorWord": "LIFESTYLE"
+    },
+    {
+      "id": "FQ-V3:retirement:LONGEVITY:R1",
+      "originWorldId": "retirement",
+      "anchorWord": "LONGEVITY"
+    },
+    {
+      "id": "FQ-V3:retirement:SIMPLEIRA:R1",
+      "originWorldId": "retirement",
+      "anchorWord": "SIMPLEIRA"
+    }
+  ],
+  "worldPlacements": {
+    "moneybasics": [
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "original",
+        "relevance": "Canonical Money Basics puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:RECEIPT:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "original",
+        "relevance": "Canonical Money Basics puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:REFUND:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "original",
+        "relevance": "Canonical Money Basics puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYCHECK:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "original",
+        "relevance": "Canonical Money Basics puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "original",
+        "relevance": "Canonical Money Basics puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:banking:DEPOSITOR:R1",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "DEPOSITOR: Connects the key term to deposits, payments, account services, lending, or the banking relationship.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:banking:CONVERT:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "CONVERT: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:investing:SAVING:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "SAVING: Connects the key term to household cash flow, earning, spending, saving, or everyday money decisions.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:investing:GROWTH:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "GROWTH: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:investing:RETURN:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "RETURN: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "INCOMETAX: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXCREDIT:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "TAXCREDIT: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:CASHVALUE:R1",
+        "originWorldId": "insurance",
+        "placementType": "shared",
+        "relevance": "CASHVALUE: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:business:NETINCOME:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "NETINCOME: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "BREAKEVEN: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 15
+      }
+    ],
+    "credit": [
+      {
+        "puzzleId": "FQ-V3:credit:TERMS:R1",
+        "originWorldId": "credit",
+        "placementType": "original",
+        "relevance": "Canonical Credit Foundations puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:credit:PRINCIPAL:R2",
+        "originWorldId": "credit",
+        "placementType": "original",
+        "relevance": "Canonical Credit Foundations puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:credit:CREDITOR:R2",
+        "originWorldId": "credit",
+        "placementType": "original",
+        "relevance": "Canonical Credit Foundations puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:credit:REPAYMENT:R1",
+        "originWorldId": "credit",
+        "placementType": "original",
+        "relevance": "Canonical Credit Foundations puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:credit:AUTOPAY:R1",
+        "originWorldId": "credit",
+        "placementType": "original",
+        "relevance": "Canonical Credit Foundations puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:credit:CAPACITY:R1",
+        "originWorldId": "credit",
+        "placementType": "original",
+        "relevance": "Canonical Credit Foundations puzzle retained in its original order.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYMENT: Connects the key term to borrowing capacity, repayment, credit accounts, debt, or credit-based affordability.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "BUDGET: Connects the key term to borrowing capacity, repayment, credit accounts, debt, or credit-based affordability.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYCHECK:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYCHECK: Connects the key term to borrowing capacity, repayment, credit accounts, debt, or credit-based affordability.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:banking:DEPOSITOR:R1",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "DEPOSITOR: Connects the key term to deposits, payments, account services, lending, or the banking relationship.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSWORD: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSKEY: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:APARTMENT:R1",
+        "originWorldId": "real_estate",
+        "placementType": "shared",
+        "relevance": "APARTMENT: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+        "originWorldId": "real_estate",
+        "placementType": "shared",
+        "relevance": "REFINANCE: Connects the key term to borrowing capacity, repayment, credit accounts, debt, or credit-based affordability.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:LIABILITY:R1",
+        "originWorldId": "insurance",
+        "placementType": "shared",
+        "relevance": "LIABILITY: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 15
+      }
+    ],
+    "crypto": [
+      {
+        "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+        "originWorldId": "crypto",
+        "placementType": "original",
+        "relevance": "Canonical Crypto Foundations puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:CHAIN:R2",
+        "originWorldId": "crypto",
+        "placementType": "original",
+        "relevance": "Canonical Crypto Foundations puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:STAKE:R2",
+        "originWorldId": "crypto",
+        "placementType": "original",
+        "relevance": "Canonical Crypto Foundations puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:INCOME:R2",
+        "originWorldId": "crypto",
+        "placementType": "original",
+        "relevance": "Canonical Crypto Foundations puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:BLOCK:R3",
+        "originWorldId": "crypto",
+        "placementType": "original",
+        "relevance": "Canonical Crypto Foundations puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:coins:COINGRADE:R1",
+        "originWorldId": "coins",
+        "placementType": "shared",
+        "relevance": "COINGRADE: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:coins:MELTVALUE:R1",
+        "originWorldId": "coins",
+        "placementType": "shared",
+        "relevance": "MELTVALUE: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:coins:PROOFLIKE:R1",
+        "originWorldId": "coins",
+        "placementType": "shared",
+        "relevance": "PROOFLIKE: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:coins:SPOTPRICE:R1",
+        "originWorldId": "coins",
+        "placementType": "shared",
+        "relevance": "SPOTPRICE: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:ai_technology:AUTOTRADE:R1",
+        "originWorldId": "ai_technology",
+        "placementType": "shared",
+        "relevance": "AUTOTRADE: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "INCOMETAX: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "TAXFILING: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:business:NETINCOME:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "NETINCOME: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:investing:TRADE:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "TRADE: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:investing:MARKET:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "MARKET: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 15
+      }
+    ],
+    "banking": [
+      {
+        "puzzleId": "FQ-V3:banking:DEPOSITOR:R1",
+        "originWorldId": "banking",
+        "placementType": "original",
+        "relevance": "Canonical Banking Basics puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:banking:NETWORK:R2",
+        "originWorldId": "banking",
+        "placementType": "original",
+        "relevance": "Canonical Banking Basics puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+        "originWorldId": "banking",
+        "placementType": "original",
+        "relevance": "Canonical Banking Basics puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+        "originWorldId": "banking",
+        "placementType": "original",
+        "relevance": "Canonical Banking Basics puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:banking:CONVERT:R2",
+        "originWorldId": "banking",
+        "placementType": "original",
+        "relevance": "Canonical Banking Basics puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYMENT: Connects the key term to deposits, payments, account services, lending, or the banking relationship.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:REFUND:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "REFUND: Connects the key term to deposits, payments, account services, lending, or the banking relationship.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYCHECK:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYCHECK: Connects the key term to deposits, payments, account services, lending, or the banking relationship.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "BUDGET: Connects the key term to household cash flow, earning, spending, saving, or everyday money decisions.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:credit:PRINCIPAL:R2",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "PRINCIPAL: Connects the key term to borrowing capacity, repayment, credit accounts, debt, or credit-based affordability.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:credit:REPAYMENT:R1",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "REPAYMENT: Connects the key term to borrowing capacity, repayment, credit accounts, debt, or credit-based affordability.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:credit:AUTOPAY:R1",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "AUTOPAY: Connects the key term to deposits, payments, account services, lending, or the banking relationship.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+        "originWorldId": "real_estate",
+        "placementType": "shared",
+        "relevance": "REFINANCE: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "BREAKEVEN: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "INCOMETAX: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 15
+      }
+    ],
+    "investing": [
+      {
+        "puzzleId": "FQ-V3:investing:SAVING:R2",
+        "originWorldId": "investing",
+        "placementType": "original",
+        "relevance": "Canonical Investing Basics puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:investing:STOCK:R2",
+        "originWorldId": "investing",
+        "placementType": "original",
+        "relevance": "Canonical Investing Basics puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:investing:GROWTH:R2",
+        "originWorldId": "investing",
+        "placementType": "original",
+        "relevance": "Canonical Investing Basics puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:investing:TRADE:R2",
+        "originWorldId": "investing",
+        "placementType": "original",
+        "relevance": "Canonical Investing Basics puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:investing:MARKET:R2",
+        "originWorldId": "investing",
+        "placementType": "original",
+        "relevance": "Canonical Investing Basics puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:investing:RETURN:R2",
+        "originWorldId": "investing",
+        "placementType": "original",
+        "relevance": "Canonical Investing Basics puzzle retained in its original order.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "TOKEN: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:STAKE:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "STAKE: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:coins:SPOTPRICE:R1",
+        "originWorldId": "coins",
+        "placementType": "shared",
+        "relevance": "SPOTPRICE: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:ai_technology:AUTOTRADE:R1",
+        "originWorldId": "ai_technology",
+        "placementType": "shared",
+        "relevance": "AUTOTRADE: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "BREAKEVEN: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:business:NETINCOME:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "NETINCOME: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:FIDUCIARY:R1",
+        "originWorldId": "retirement",
+        "placementType": "shared",
+        "relevance": "FIDUCIARY: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:COASTFIRE:R1",
+        "originWorldId": "retirement",
+        "placementType": "shared",
+        "relevance": "COASTFIRE: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:SIMPLEIRA:R1",
+        "originWorldId": "retirement",
+        "placementType": "shared",
+        "relevance": "SIMPLEIRA: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 15
+      }
+    ],
+    "coins": [
+      {
+        "puzzleId": "FQ-V3:coins:COINGRADE:R1",
+        "originWorldId": "coins",
+        "placementType": "original",
+        "relevance": "Canonical Coins & Currency puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:coins:MELTVALUE:R1",
+        "originWorldId": "coins",
+        "placementType": "original",
+        "relevance": "Canonical Coins & Currency puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:coins:PROOFLIKE:R1",
+        "originWorldId": "coins",
+        "placementType": "original",
+        "relevance": "Canonical Coins & Currency puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:coins:SPOTPRICE:R1",
+        "originWorldId": "coins",
+        "placementType": "original",
+        "relevance": "Canonical Coins & Currency puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "TOKEN: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:CHAIN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "CHAIN: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:INCOME:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "INCOME: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:BLOCK:R3",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "BLOCK: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYMENT: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:RECEIPT:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "RECEIPT: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:REFUND:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "REFUND: Connects the key term to money, exchange, purchasing value, physical coins, or digital forms of currency.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "BUDGET: Connects the key term to household cash flow, earning, spending, saving, or everyday money decisions.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:investing:MARKET:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "MARKET: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:investing:TRADE:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "TRADE: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:investing:RETURN:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "RETURN: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 15
+      }
+    ],
+    "ai_technology": [
+      {
+        "puzzleId": "FQ-V3:ai_technology:AUTOTRADE:R1",
+        "originWorldId": "ai_technology",
+        "placementType": "original",
+        "relevance": "Canonical AI & Technology puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:banking:NETWORK:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "NETWORK: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSWORD: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSKEY: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:BLOCK:R3",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "BLOCK: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:CHAIN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "CHAIN: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "TOKEN: Connects the key term to digital currency, blockchain networks, token markets, or crypto transactions.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:investing:STOCK:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "STOCK: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:investing:MARKET:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "MARKET: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:investing:TRADE:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "TRADE: Connects the key term to markets, assets, return, growth, valuation, or portfolio decisions.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:business:MARKETING:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "MARKETING: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:business:INVENTORY:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "INVENTORY: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:business:RETENTION:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "RETENTION: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:social_media:ADREVENUE:R1",
+        "originWorldId": "social_media",
+        "placementType": "shared",
+        "relevance": "ADREVENUE: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:business:FREELANCE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "FREELANCE: Connects the key term to automation, data-driven decisions, technology security, or AI-assisted financial activity.",
+        "position": 15
+      }
+    ],
+    "real_estate": [
+      {
+        "puzzleId": "FQ-V3:real_estate:APARTMENT:R1",
+        "originWorldId": "real_estate",
+        "placementType": "original",
+        "relevance": "Canonical Real Estate puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+        "originWorldId": "real_estate",
+        "placementType": "original",
+        "relevance": "Canonical Real Estate puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:credit:TERMS:R1",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "TERMS: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:credit:PRINCIPAL:R2",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "PRINCIPAL: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:credit:REPAYMENT:R1",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "REPAYMENT: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:credit:CAPACITY:R1",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "CAPACITY: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYMENT: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "BUDGET: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:investing:SAVING:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "SAVING: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXCREDIT:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "TAXCREDIT: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "TAXFILING: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:EXCLUSION:R1",
+        "originWorldId": "insurance",
+        "placementType": "shared",
+        "relevance": "EXCLUSION: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:LIABILITY:R1",
+        "originWorldId": "insurance",
+        "placementType": "shared",
+        "relevance": "LIABILITY: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:business:INVENTORY:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "INVENTORY: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:business:WHOLESALE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "WHOLESALE: Connects the key term to renting, home finance, refinancing, property costs, or real-estate obligations.",
+        "position": 15
+      }
+    ],
+    "taxes": [
+      {
+        "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+        "originWorldId": "taxes",
+        "placementType": "original",
+        "relevance": "Canonical Taxes puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXCREDIT:R1",
+        "originWorldId": "taxes",
+        "placementType": "original",
+        "relevance": "Canonical Taxes puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+        "originWorldId": "taxes",
+        "placementType": "original",
+        "relevance": "Canonical Taxes puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:PAYCHECK:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "PAYCHECK: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:REFUND:R1",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "REFUND: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:INCOME:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "INCOME: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:investing:SAVING:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "SAVING: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:investing:RETURN:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "RETURN: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:business:NETINCOME:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "NETINCOME: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:business:FREELANCE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "FREELANCE: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:business:FACTORING:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "FACTORING: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:business:WHOLESALE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "WHOLESALE: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:social_media:ROYALTIES:R1",
+        "originWorldId": "social_media",
+        "placementType": "shared",
+        "relevance": "ROYALTIES: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:social_media:ADREVENUE:R1",
+        "originWorldId": "social_media",
+        "placementType": "shared",
+        "relevance": "ADREVENUE: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:SIMPLEIRA:R1",
+        "originWorldId": "retirement",
+        "placementType": "shared",
+        "relevance": "SIMPLEIRA: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 15
+      }
+    ],
+    "insurance": [
+      {
+        "puzzleId": "FQ-V3:insurance:CASHVALUE:R1",
+        "originWorldId": "insurance",
+        "placementType": "original",
+        "relevance": "Canonical Insurance & Protection puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:EXCLUSION:R1",
+        "originWorldId": "insurance",
+        "placementType": "original",
+        "relevance": "Canonical Insurance & Protection puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:LIABILITY:R1",
+        "originWorldId": "insurance",
+        "placementType": "original",
+        "relevance": "Canonical Insurance & Protection puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:TRIPDELAY:R1",
+        "originWorldId": "insurance",
+        "placementType": "original",
+        "relevance": "Canonical Insurance & Protection puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "BUDGET: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:APARTMENT:R1",
+        "originWorldId": "real_estate",
+        "placementType": "shared",
+        "relevance": "APARTMENT: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+        "originWorldId": "real_estate",
+        "placementType": "shared",
+        "relevance": "REFINANCE: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSWORD: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSKEY: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:business:INVENTORY:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "INVENTORY: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:business:FREELANCE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "FREELANCE: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:business:FRANCHISE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "FRANCHISE: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:LONGEVITY:R1",
+        "originWorldId": "retirement",
+        "placementType": "shared",
+        "relevance": "LONGEVITY: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:LIFESTYLE:R1",
+        "originWorldId": "retirement",
+        "placementType": "shared",
+        "relevance": "LIFESTYLE: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:business:WHOLESALE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "WHOLESALE: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 15
+      }
+    ],
+    "business": [
+      {
+        "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:business:FACTORING:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:business:FRANCHISE:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:business:FREELANCE:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:business:INVENTORY:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:business:MARKETING:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:business:NETINCOME:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:business:RETENTION:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:business:TRADEMARK:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:business:WHOLESALE:R1",
+        "originWorldId": "business",
+        "placementType": "original",
+        "relevance": "Canonical Business & Entrepreneurship puzzle retained in its original order.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:ai_technology:AUTOTRADE:R1",
+        "originWorldId": "ai_technology",
+        "placementType": "shared",
+        "relevance": "AUTOTRADE: Connects the key term to business cash flow, operations, financing, sales, assets, or profitability.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "TAXFILING: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:LIABILITY:R1",
+        "originWorldId": "insurance",
+        "placementType": "shared",
+        "relevance": "LIABILITY: Connects the key term to financial risk, protection, liability, insured property, or long-term safeguards.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:social_media:ADREVENUE:R1",
+        "originWorldId": "social_media",
+        "placementType": "shared",
+        "relevance": "ADREVENUE: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:social_media:ROYALTIES:R1",
+        "originWorldId": "social_media",
+        "placementType": "shared",
+        "relevance": "ROYALTIES: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 15
+      }
+    ],
+    "social_media": [
+      {
+        "puzzleId": "FQ-V3:social_media:ROYALTIES:R1",
+        "originWorldId": "social_media",
+        "placementType": "original",
+        "relevance": "Canonical Social Media & Digital Income puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:social_media:ADREVENUE:R1",
+        "originWorldId": "social_media",
+        "placementType": "original",
+        "relevance": "Canonical Social Media & Digital Income puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:business:MARKETING:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "MARKETING: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:business:FREELANCE:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "FREELANCE: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:business:NETINCOME:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "NETINCOME: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:business:TRADEMARK:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "TRADEMARK: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:business:RETENTION:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "RETENTION: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "BREAKEVEN: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:business:INVENTORY:R1",
+        "originWorldId": "business",
+        "placementType": "shared",
+        "relevance": "INVENTORY: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSWORD: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+        "originWorldId": "banking",
+        "placementType": "shared",
+        "relevance": "PASSKEY: Connects the key term to protecting financial accounts, identity, credentials, or digital access.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "INCOMETAX: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+        "originWorldId": "taxes",
+        "placementType": "shared",
+        "relevance": "TAXFILING: Connects the key term to taxable income, deductions, credits, filing, or financial records used for taxes.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "TOKEN: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:crypto:CHAIN:R2",
+        "originWorldId": "crypto",
+        "placementType": "shared",
+        "relevance": "CHAIN: Connects the key term to creator earnings, digital commerce, online marketing, platforms, or account safety.",
+        "position": 15
+      }
+    ],
+    "retirement": [
+      {
+        "puzzleId": "FQ-V3:retirement:COASTFIRE:R1",
+        "originWorldId": "retirement",
+        "placementType": "original",
+        "relevance": "Canonical Retirement & Wealth Planning puzzle retained in its original order.",
+        "position": 1
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:FIDUCIARY:R1",
+        "originWorldId": "retirement",
+        "placementType": "original",
+        "relevance": "Canonical Retirement & Wealth Planning puzzle retained in its original order.",
+        "position": 2
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:LIFESTYLE:R1",
+        "originWorldId": "retirement",
+        "placementType": "original",
+        "relevance": "Canonical Retirement & Wealth Planning puzzle retained in its original order.",
+        "position": 3
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:LONGEVITY:R1",
+        "originWorldId": "retirement",
+        "placementType": "original",
+        "relevance": "Canonical Retirement & Wealth Planning puzzle retained in its original order.",
+        "position": 4
+      },
+      {
+        "puzzleId": "FQ-V3:retirement:SIMPLEIRA:R1",
+        "originWorldId": "retirement",
+        "placementType": "original",
+        "relevance": "Canonical Retirement & Wealth Planning puzzle retained in its original order.",
+        "position": 5
+      },
+      {
+        "puzzleId": "FQ-V3:investing:SAVING:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "SAVING: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 6
+      },
+      {
+        "puzzleId": "FQ-V3:investing:STOCK:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "STOCK: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 7
+      },
+      {
+        "puzzleId": "FQ-V3:investing:GROWTH:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "GROWTH: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 8
+      },
+      {
+        "puzzleId": "FQ-V3:investing:TRADE:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "TRADE: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 9
+      },
+      {
+        "puzzleId": "FQ-V3:investing:MARKET:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "MARKET: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 10
+      },
+      {
+        "puzzleId": "FQ-V3:investing:RETURN:R2",
+        "originWorldId": "investing",
+        "placementType": "shared",
+        "relevance": "RETURN: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 11
+      },
+      {
+        "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+        "originWorldId": "moneybasics",
+        "placementType": "shared",
+        "relevance": "BUDGET: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 12
+      },
+      {
+        "puzzleId": "FQ-V3:credit:REPAYMENT:R1",
+        "originWorldId": "credit",
+        "placementType": "shared",
+        "relevance": "REPAYMENT: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 13
+      },
+      {
+        "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+        "originWorldId": "real_estate",
+        "placementType": "shared",
+        "relevance": "REFINANCE: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 14
+      },
+      {
+        "puzzleId": "FQ-V3:insurance:CASHVALUE:R1",
+        "originWorldId": "insurance",
+        "placementType": "shared",
+        "relevance": "CASHVALUE: Connects the key term to long-term saving, debt readiness, investment growth, income planning, or retirement risk.",
+        "position": 15
+      }
+    ]
+  }
+}

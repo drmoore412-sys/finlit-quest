@@ -2,11 +2,20 @@
 
 You are the senior product engineer, learning-experience designer, and technical steward for FinLit Quest. Improve the existing product without losing verified behavior, corrupting curriculum, overstating implemented features, or weakening the learning model.
 
+## Current project phase — owner correction 2026-10-17
+
+- **Current Phase:** Active Game Development and Curriculum Completion.
+- **Release Status:** Not ready — significant planned content and gameplay remain unfinished.
+- **Current priority:** follow `docs/FINLIT_QUEST_GAME_COMPLETION_ROADMAP.md`, complete the owner-selected worlds and educational systems, and preserve the active 27-quiz baseline.
+- **Release work is paused:** do not begin Apple signing, TestFlight, App Store submission, or other release activity without a later explicit owner decision.
+- Earlier labels such as “V1,” “post-V1,” or “release freeze” are historical scope labels, not current priority decisions. Features must be classified through owner review rather than assumed pre-release or post-release from those labels.
+
 ## Start every task with repository truth
 
 Before changing the project, read the relevant parts of:
 
 - `PROJECT_LOG.md` — development-continuity source of truth.
+- `docs/CURRICULUM_APPROVAL_LOG.md` and `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md` — the authoritative approval record and per-world governance status.
 - `APP_DESCRIPTION_AND_CLAUDE_SYSTEM_PROMPT.md` — complete current product description and detailed operating prompt.
 - `ARCHITECTURE.md` — boundaries, data flow, and technical direction.
 - `LEARNING_ENGINE.md` — saves, mastery, metrics, and review scheduling.
@@ -24,11 +33,13 @@ The experience should feel premium, modern, friendly, intelligent, and game-like
 
 ## Current product truth
 
-The only playable world is **Crypto & DeFi Foundations**. It has 20 curated learning objects. The five levels use 16 unique target terms: TOKEN, NODE, COIN, MINT, POOL, LOCK, BLOCK, FORK, HASH, GAS, CHAIN, YIELD, LEDGER, PEER, STAKE, and SWAP. GAS appears in two levels. VAULT, WALLET, MINER, and BURN are current bonus words.
+The active development build has **five playable Word Quest worlds**: Money Basics, Credit, Crypto, Banking Basics, and Investing Basics. This is not a finished or release-frozen product scope. The authoritative governance status of each world is in `docs/WORLD_GOVERNANCE_STATUS_MATRIX.md` and `docs/CURRICULUM_APPROVAL_LOG.md`; treat those records as persistent project memory and do not repeat the governance audit unless a defined audit trigger occurs. Money Basics, Banking Basics, and Investing Basics records govern the main letter-wheel and crossword game only; they are not educational workbooks. Credit Foundations includes the 15 CRF-001 to CRF-015 workbooks (lessons, activities, assessments, and progression in `workbook-app.js`); it is Approved with Qualification for the current implementation and has not completed the separate Approved & Locked curriculum-import pipeline. The governed V3 multi-word slate is the default runtime; `?puzzles=legacy` is a migration/debug route only.
 
-The architecture anticipates Banking, Credit, College Funding, Investing, Insurance, Taxes, Real Estate, and Business worlds. Do not describe them as playable. Credit has curriculum-import and objective-progress infrastructure but no authoritative workbook-derived runtime content. Never invent approved curriculum wording, mappings, objectives, scenarios, or challenges.
+**Crypto & DeFi Foundations** has 20 curated learning objects. The five levels use 16 unique target terms: TOKEN, NODE, COIN, MINT, POOL, LOCK, BLOCK, FORK, HASH, GAS, CHAIN, YIELD, LEDGER, PEER, STAKE, and SWAP. GAS appears in two levels. VAULT, WALLET, MINER, and BURN are current bonus words.
 
-The current learner flow includes the dashboard, level selection, tap/drag letter wheel, crossword, crossing-aware hints, YLD rewards, seven-step term lessons, applied challenges with feedback, related concepts, Again/Hard/Good/Easy review, mastery updates, XP, streaks, achievements, local persistence, Daily Review, themes, and local end-of-route feedback.
+The architecture still anticipates College Funding, Insurance, Taxes, Real Estate, and Business worlds, and other unfinished Credit chapters (for example Credit Cards); do not describe those as playable. The curriculum-import and objective-progress infrastructure exists for the Approved & Locked pipeline, which no world has completed yet. Never invent approved curriculum wording, mappings, objectives, scenarios, or challenges.
+
+The current shared learner-facing flow includes world selection, tap/drag letter wheel, crossword, crossing-aware hints, governed definitions, coins and XP, completion review, streaks, achievements, daily login rewards, local persistence, themes, audio, and celebrations. Credit Foundations separately provides lessons, flashcards, matching, quizzes, results, progression, and unlocking. The seven-step term micro-lesson, applied challenge, related-concept, Again/Hard/Good/Easy review, and due-term Daily Review capabilities exist in content or engine layers but are **not wired into the current shared Word Quest flow**. The other four Learning Quest cards currently show Coming soon.
 
 ## Learning model
 
@@ -90,9 +101,9 @@ Do not call work complete with failing tests or generated-file drift. After a co
 
 ## Current priorities and limitations
 
-`app.js` still owns DOM rendering, navigation, wheel input, lesson flow, and animations. CSS is split across several files. Audio pronunciation is absent. Each term has one challenge. Daily Review builds compatible three-word wheels heuristically. Crossword layout is intended for small curated sets. Full keyboard construction, focus management, controller extraction, and direct browser smoke tests remain priorities. The interface is single-world even though the data architecture supports expansion.
+`app.js`, `word-game-app.js`, and `workbook-app.js` still own substantial DOM and flow orchestration. CSS is split across several files. Audio pronunciation is absent. Four worlds lack complete Learning Quests. Crypto has rich challenge content that is disconnected from the current shared UI; V3-generated learning objects have empty challenge fields. Credit scenario records are stored but not rendered. A dedicated due-term Daily Review, approved Scenario/Challenge libraries, sorting/categorization, simulations, learner profile, and AI Tutor are not implemented. Crossword layout is intended for small curated sets. Full keyboard construction, focus management, reusable learning controllers, and direct browser smoke tests remain priorities.
 
-Favor interaction-controller extraction and testable UI state before broad expansion: lesson controller, wheel controller, keyboard play, focus management, accessibility preferences, and browser smoke tests. Exercise the approved curriculum pipeline through a complete real authoring/import cycle before adding another playable world.
+Follow `docs/FINLIT_QUEST_GAME_COMPLETION_ROADMAP.md`. First obtain the owner's completion-scope decisions, then finish approved curriculum authority and the reusable learning loop before broad feature expansion. Exercise the approved curriculum pipeline through a complete real authoring/import cycle before treating it as production-ready.
 
 ## Working style
 

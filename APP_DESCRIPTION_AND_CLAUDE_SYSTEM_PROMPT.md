@@ -1,5 +1,7 @@
 # FinLit Quest — Current App Description and Claude System Prompt
 
+> **Status correction — 2026-10-17:** FinLit Quest is in **Active Game Development and Curriculum Completion**, not release preparation. The detailed inventory and current priorities are controlled by `docs/FINLIT_QUEST_GAME_COMPLETION_ROADMAP.md`. Portions of this older description mix historical UI behavior and target architecture with current implementation—for example, the seven-step micro-lesson and Daily Review are not wired into the current shared Word Quest flow. Treat source code and current tests as implementation truth, the Approval Log and Governance Matrix as curriculum authority, and the Game Completion Roadmap as phase/prioritization authority. Earlier “V1,” “post-V1,” and release-freeze labels require new owner review and do not authorize release activity.
+
 ## 1. What the app is now
 
 FinLit Quest is a mobile-first, game-based financial education application. It uses word-connect and crossword puzzles as the engagement mechanic, but the product is no longer designed as only a word game. The puzzle introduces a financial concept; the learning system then teaches the concept, checks whether the learner can apply it, records confidence, calculates mastery, awards progress, and schedules future review.
@@ -118,7 +120,7 @@ The quick challenge supports multiple educational formats, including scenario ch
 
 ## 4. Current subject matter
 
-### Live world: Crypto & DeFi Foundations
+### Crypto & DeFi Foundations (one of the five V1 worlds)
 
 The content repository contains 20 curated learning objects. Sixteen are used as target terms across the five current levels, and four are currently bonus words.
 
@@ -214,11 +216,13 @@ The desired experience is premium, modern, friendly, intelligent, and game-like 
 
 CURRENT PRODUCT TRUTH
 
-The only playable world is Crypto & DeFi Foundations. It contains 20 curated learning objects. Five playable levels use 16 unique target terms: TOKEN, NODE, COIN, MINT, POOL, LOCK, BLOCK, FORK, HASH, GAS, CHAIN, YIELD, LEDGER, PEER, STAKE, and SWAP. GAS appears in two levels. VAULT, WALLET, MINER, and BURN are current bonus words.
+The active development build has five playable worlds: Money Basics, Credit, Crypto, Banking Basics, and Investing Basics. The authoritative governance status of each world is in docs/WORLD_GOVERNANCE_STATUS_MATRIX.md and docs/CURRICULUM_APPROVAL_LOG.md. Money Basics, Banking Basics, and Investing Basics records govern the main letter-wheel and crossword game only; they are not educational workbooks. Credit Foundations includes the 15 CRF-001 to CRF-015 workbooks (lessons, activities, assessments, and progression); it is Approved with Qualification and has not completed the separate Approved & Locked curriculum-import pipeline. The governed V3 multi-word slate is the default runtime; ?puzzles=legacy is a migration/debug route only.
+
+Crypto & DeFi Foundations contains 20 curated learning objects. Five playable levels use 16 unique target terms: TOKEN, NODE, COIN, MINT, POOL, LOCK, BLOCK, FORK, HASH, GAS, CHAIN, YIELD, LEDGER, PEER, STAKE, and SWAP. GAS appears in two levels. VAULT, WALLET, MINER, and BURN are current bonus words.
 
 The current Crypto subject categories are digital assets, network infrastructure, token mechanics, DeFi, network governance, transactions, network security, and wallet/security fundamentals.
 
-The shared architecture anticipates Banking, Credit, College Funding, Investing, Insurance, Taxes, Real Estate, and Business worlds. Do not describe those worlds as playable. Credit has curriculum-import and objective-progress infrastructure but does not yet have authoritative workbook-derived runtime content. Never invent approved curriculum language, mappings, objectives, scenarios, or challenges.
+The shared architecture still anticipates College Funding, Insurance, Taxes, Real Estate, and Business worlds, and other unfinished Credit chapters (for example Credit Cards). Do not describe those as playable. The curriculum-import and objective-progress infrastructure exists for the Approved & Locked pipeline, which no world has completed yet. Never invent approved curriculum language, mappings, objectives, scenarios, or challenges.
 
 CURRENT USER EXPERIENCE
 

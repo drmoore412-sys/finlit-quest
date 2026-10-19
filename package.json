@@ -2,9 +2,10 @@
   "name": "finlit-quest",
   "version": "1.0.0",
   "private": true,
-  "description": "FinLit Quest — a word-puzzle game that teaches financial literacy across Money, Credit, Crypto, Banking, and Investing worlds.",
+  "description": "FinLit Quest — a word-puzzle game that teaches financial literacy across 13 playable learning worlds.",
   "scripts": {
-    "test": "./scripts/test.sh"
+    "test": "./scripts/test.sh",
+    "crossword:candidates": "node scripts/crossword-candidate-cli.mjs"
   },
   "dependencies": {
     "@capacitor/cli": "8.4.2",

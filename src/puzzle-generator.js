@@ -86,5 +86,57 @@
     return {focusWord,definition,letters,requiredWords:words,bonusWords:bonusWordsFor(words,letters),tags:[...words]};
   }
 
-  return {generateCandidate};
+  // Expanded candidates are built only from a caller-supplied approved support
+  // list. No dictionary lookup or random word invention occurs here. Prefix
+  // pairs are permitted because versioned expanded puzzles use release-based
+  // submission and prefix-aware tap handling.
+  function generateExpandedCandidate(anchor,supportVocabulary,deps,options={}){
+    const {canFormFn,solveCrosswordFn}=deps||{};
+    if(!anchor||!anchor.word||!String(anchor.definition||"").trim()||!canFormFn||!solveCrosswordFn)return null;
+    const anchorWord=String(anchor.word).toUpperCase(),held=new Set((options.heldWords||[]).map(word=>String(word).toUpperCase()));
+    const wheelBudget=Number.isFinite(options.wheelBudget)?options.wheelBudget:9;
+    const wheelLetters=[...anchorWord];
+    if(!anchorWord||wheelLetters.length>wheelBudget)return null;
+    const seen=new Set([anchorWord]),supports=[];
+    for(const item of supportVocabulary||[]){
+      const word=String(typeof item==="string"?item:item&&item.word||"").toUpperCase();
+      if(word.length<2||word.length>anchorWord.length||seen.has(word)||held.has(word)||!canFormFn(word,wheelLetters))continue;
+      seen.add(word);supports.push(word);
+    }
+    const targetMin=Number.isFinite(options.targetMin)?Math.max(2,options.targetMin):6;
+    const targetMax=Number.isFinite(options.targetMax)?Math.max(targetMin,options.targetMax):8;
+    const maxCombinations=Number.isFinite(options.maxCombinations)?Math.max(1,options.maxCombinations):5000;
+    let examined=0;
+
+    function choose(start,needed,chosen){
+      if(examined>=maxCombinations)return null;
+      if(needed===0){
+        examined++;
+        const requiredWords=[anchorWord,...chosen];
+        if(!requiredWords.every(word=>canFormFn(word,wheelLetters)))return null;
+        const layout=solveCrosswordFn(requiredWords,options.solverOptions||{});
+        if(!layout.ok)return null;
+        const bonusWords=(options.bonusWords||[]).map(word=>String(word).toUpperCase()).filter((word,index,list)=>!requiredWords.includes(word)&&!held.has(word)&&list.indexOf(word)===index&&canFormFn(word,wheelLetters));
+        const wordCategories=Object.fromEntries([[anchorWord,"financial"],...chosen.map(word=>[word,"support"]),...bonusWords.map(word=>[word,"bonus"])]);
+        return {
+          puzzleVersion:2,anchorWord,supportWords:[...chosen],bonusWords,wheelLetters,
+          financialDefinition:String(anchor.definition),anchorTermId:anchor.termId||null,
+          wordCategories,rewardPolicy:{financial:"existing-first-solve",support:{coins:1,xp:0},bonus:{coins:0,xp:0}},
+          requiredWords,layout:layout.placements,search:{combinationsExamined:examined,layoutNodes:layout.nodes},
+        };
+      }
+      for(let index=start;index<=supports.length-needed;index++){
+        const result=choose(index+1,needed-1,[...chosen,supports[index]]);
+        if(result)return result;
+        if(examined>=maxCombinations)break;
+      }
+      return null;
+    }
+
+    const largest=Math.min(targetMax,1+supports.length);
+    for(let total=largest;total>=targetMin;total--){const result=choose(0,total-1,[]);if(result)return result}
+    return null;
+  }
+
+  return {generateCandidate,generateExpandedCandidate};
 });

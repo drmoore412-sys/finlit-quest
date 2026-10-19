@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 1,
+  "approvalDate": "2026-10-18",
+  "approvalScope": "Owner-reviewed terms required by qualifying new-world proposals",
+  "terms": [
+    {
+      "id": "ai_technology.auto-trade",
+      "word": "AUTOTRADE",
+      "displayTerm": "Auto Trade",
+      "worldId": "ai_technology",
+      "definition": "A service or system that sends trading instructions directly to a brokerage account for immediate execution.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-AI_TECHNOLOGY-01"
+      ],
+      "sourceUrl": "https://syndication.finra.org/content/know-risks-auto-trading-services-offered-unregistered-entities"
+    },
+    {
+      "id": "banking.bank",
+      "word": "BANK",
+      "displayTerm": "Bank",
+      "worldId": "banking",
+      "definition": "A financial institution that accepts deposits and provides financial services.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-01"
+      ],
+      "sourceUrl": "https://www.fdic.gov/consumer-resource-center"
+    },
+    {
+      "id": "business.break-even",
+      "word": "BREAKEVEN",
+      "displayTerm": "Break Even",
+      "worldId": "business",
+      "definition": "The point where total income equals total costs, producing neither profit nor loss.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-01"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.factoring",
+      "word": "FACTORING",
+      "displayTerm": "Factoring",
+      "worldId": "business",
+      "definition": "Selling accounts receivable to another company for immediate cash at a discount.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-02"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.franchise",
+      "word": "FRANCHISE",
+      "displayTerm": "Franchise",
+      "worldId": "business",
+      "definition": "A business arrangement allowing an operator to use another company's brand and operating system for agreed fees.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-03"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.freelance",
+      "word": "FREELANCE",
+      "displayTerm": "Freelance",
+      "worldId": "business",
+      "definition": "Independent paid work performed for clients rather than as a permanent employee.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-04"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.inventory",
+      "word": "INVENTORY",
+      "displayTerm": "Inventory",
+      "worldId": "business",
+      "definition": "Goods a business holds for sale or for use in producing items for sale.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-05"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.margin",
+      "word": "MARGIN",
+      "displayTerm": "Margin",
+      "worldId": "business",
+      "definition": "The difference between a business's revenue and its costs, often expressed as a percentage of revenue.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-06"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.marketing",
+      "word": "MARKETING",
+      "displayTerm": "Marketing",
+      "worldId": "business",
+      "definition": "Activities used to promote and sell a product or service.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-06"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.net-income",
+      "word": "NETINCOME",
+      "displayTerm": "Net Income",
+      "worldId": "business",
+      "definition": "Income remaining after expenses, taxes, and other deductions are subtracted.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-07"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.retail",
+      "word": "RETAIL",
+      "displayTerm": "Retail",
+      "worldId": "business",
+      "definition": "The sale of goods or services directly to consumers.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-06",
+        "FQ-2027-SOCIAL_MEDIA-01"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.retention",
+      "word": "RETENTION",
+      "displayTerm": "Retention",
+      "worldId": "business",
+      "definition": "Keeping customers, employees, funds, or risk over a period of time.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-08"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.revenue",
+      "word": "REVENUE",
+      "displayTerm": "Revenue",
+      "worldId": "business",
+      "definition": "Money a business earns from sales or other operating activity before expenses are subtracted.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-SOCIAL_MEDIA-02"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.trademark",
+      "word": "TRADEMARK",
+      "displayTerm": "Trademark",
+      "worldId": "business",
+      "definition": "A protected word, symbol, or design that identifies the source of goods or services.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-09"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "business.wholesale",
+      "word": "WHOLESALE",
+      "displayTerm": "Wholesale",
+      "worldId": "business",
+      "definition": "The sale of goods in quantity, usually to businesses rather than final consumers.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-10"
+      ],
+      "sourceUrl": "https://www.sba.gov/business-guide"
+    },
+    {
+      "id": "coins.coin-grade",
+      "word": "COINGRADE",
+      "displayTerm": "Coin Grade",
+      "worldId": "coins",
+      "definition": "An assessment of a collectible coin's condition and quality.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-01"
+      ],
+      "sourceUrl": "https://www.usmint.gov/learn/collecting-basics/glossary"
+    },
+    {
+      "id": "coins.coinage",
+      "word": "COINAGE",
+      "displayTerm": "Coinage",
+      "worldId": "coins",
+      "definition": "Coins collectively, or the system of producing and using coins.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-01"
+      ],
+      "sourceUrl": "https://www.usmint.gov/learn/collecting-basics/glossary"
+    },
+    {
+      "id": "coins.melt-value",
+      "word": "MELTVALUE",
+      "displayTerm": "Melt Value",
+      "worldId": "coins",
+      "definition": "The value of a coin or object based on the market value of its metal content.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-02"
+      ],
+      "sourceUrl": "https://www.usmint.gov/learn/collecting-basics/glossary"
+    },
+    {
+      "id": "coins.prooflike",
+      "word": "PROOFLIKE",
+      "displayTerm": "Prooflike",
+      "worldId": "coins",
+      "definition": "A coin finish with mirrorlike fields and sharply detailed design elements.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-03"
+      ],
+      "sourceUrl": "https://www.usmint.gov/learn/collecting-basics/glossary"
+    },
+    {
+      "id": "coins.spot-price",
+      "word": "SPOTPRICE",
+      "displayTerm": "Spot Price",
+      "worldId": "coins",
+      "definition": "The current market price for immediate delivery of an asset or commodity.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-04"
+      ],
+      "sourceUrl": "https://www.usmint.gov/learn/collecting-basics/glossary"
+    },
+    {
+      "id": "credit.ecoa",
+      "word": "ECOA",
+      "displayTerm": "ECOA",
+      "worldId": "credit",
+      "definition": "The Equal Credit Opportunity Act, a federal law that prohibits discrimination in credit transactions.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-01",
+        "FQ-2027-TAXES-01"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/credit-discrimination-is-illegal/"
+    },
+    {
+      "id": "credit.fcra",
+      "word": "FCRA",
+      "displayTerm": "FCRA",
+      "worldId": "credit",
+      "definition": "The Fair Credit Reporting Act, a federal law governing consumer credit information and credit-reporting agencies.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-02",
+        "FQ-2027-BUSINESS-04",
+        "FQ-2027-REAL_ESTATE-02",
+        "FQ-2027-RETIREMENT-01",
+        "FQ-2027-RETIREMENT-03"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/compliance/compliance-resources/other-applicable-requirements/fair-credit-reporting-act/"
+    },
+    {
+      "id": "credit.fraud",
+      "word": "FRAUD",
+      "displayTerm": "Fraud",
+      "worldId": "credit",
+      "definition": "Intentional deception for financial or personal gain.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-03"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/compliance/compliance-resources/other-applicable-requirements/fair-credit-reporting-act/"
+    },
+    {
+      "id": "credit.tila",
+      "word": "TILA",
+      "displayTerm": "TILA",
+      "worldId": "credit",
+      "definition": "The Truth in Lending Act, a federal law requiring important borrowing-cost and credit-term disclosures.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-03",
+        "FQ-2027-TAXES-03"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/rules-policy/regulations/1026/"
+    },
+    {
+      "id": "insurance.cash-value",
+      "word": "CASHVALUE",
+      "displayTerm": "Cash Value",
+      "worldId": "insurance",
+      "definition": "The savings component that can accumulate inside certain permanent life insurance policies.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-01"
+      ],
+      "sourceUrl": "https://content.naic.org/consumer"
+    },
+    {
+      "id": "insurance.exclusion",
+      "word": "EXCLUSION",
+      "displayTerm": "Exclusion",
+      "worldId": "insurance",
+      "definition": "A condition, event, or loss that an insurance policy does not cover.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-02"
+      ],
+      "sourceUrl": "https://content.naic.org/consumer"
+    },
+    {
+      "id": "insurance.lapse",
+      "word": "LAPSE",
+      "displayTerm": "Lapse",
+      "worldId": "insurance",
+      "definition": "The ending of coverage or a financial right because required conditions or payments were not maintained.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-06"
+      ],
+      "sourceUrl": "https://content.naic.org/consumer"
+    },
+    {
+      "id": "insurance.liability",
+      "word": "LIABILITY",
+      "displayTerm": "Liability",
+      "worldId": "insurance",
+      "definition": "A debt or financial obligation owed to another party.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-03"
+      ],
+      "sourceUrl": "https://content.naic.org/consumer"
+    },
+    {
+      "id": "insurance.trip-delay",
+      "word": "TRIPDELAY",
+      "displayTerm": "Trip Delay",
+      "worldId": "insurance",
+      "definition": "A travel disruption that may qualify for reimbursement under eligible insurance coverage.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-06"
+      ],
+      "sourceUrl": "https://content.naic.org/consumer"
+    },
+    {
+      "id": "investing.repo",
+      "word": "REPO",
+      "displayTerm": "Repo",
+      "worldId": "investing",
+      "definition": "A repurchase agreement involving the sale and later repurchase of securities.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-03",
+        "FQ-2027-COINS-04"
+      ],
+      "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary"
+    },
+    {
+      "id": "real_estate.apartment",
+      "word": "APARTMENT",
+      "displayTerm": "Apartment",
+      "worldId": "real_estate",
+      "definition": "A rented housing unit that usually requires recurring rent payments.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-REAL_ESTATE-01"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/owning-a-home/"
+    },
+    {
+      "id": "real_estate.lease",
+      "word": "LEASE",
+      "displayTerm": "Lease",
+      "worldId": "real_estate",
+      "definition": "A contract granting use of property for recurring payments during a stated term.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-10"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/owning-a-home/"
+    },
+    {
+      "id": "real_estate.lien",
+      "word": "LIEN",
+      "displayTerm": "Lien",
+      "worldId": "real_estate",
+      "definition": "A legal claim against property that can secure repayment of a debt.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-INSURANCE-02",
+        "FQ-2027-RETIREMENT-05"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/owning-a-home/"
+    },
+    {
+      "id": "real_estate.refinance",
+      "word": "REFINANCE",
+      "displayTerm": "Refinance",
+      "worldId": "real_estate",
+      "definition": "To replace an existing loan with a new loan, usually with different terms.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-REAL_ESTATE-02"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/owning-a-home/"
+    },
+    {
+      "id": "real_estate.reit",
+      "word": "REIT",
+      "displayTerm": "REIT",
+      "worldId": "real_estate",
+      "definition": "A company that owns and typically operates income-producing real estate or related assets.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-05",
+        "FQ-2027-BUSINESS-08",
+        "FQ-2027-COINS-04"
+      ],
+      "sourceUrl": "https://www.investor.gov/introduction-investing/investing-basics/glossary/real-estate-investment-trust-reit"
+    },
+    {
+      "id": "real_estate.rent",
+      "word": "RENT",
+      "displayTerm": "Rent",
+      "worldId": "real_estate",
+      "definition": "Money paid for temporary use of property.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-05",
+        "FQ-2027-BUSINESS-08",
+        "FQ-2027-REAL_ESTATE-01"
+      ],
+      "sourceUrl": "https://www.consumerfinance.gov/owning-a-home/"
+    },
+    {
+      "id": "retirement.coast-fire",
+      "word": "COASTFIRE",
+      "displayTerm": "Coast FIRE",
+      "worldId": "retirement",
+      "definition": "A retirement strategy in which existing investments may grow toward a future goal without additional contributions.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-01"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/resources-ira-based-plans"
+    },
+    {
+      "id": "retirement.fees",
+      "word": "FEES",
+      "displayTerm": "Fees",
+      "worldId": "retirement",
+      "definition": "Amounts charged for financial products, services, or transactions.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-04"
+      ],
+      "sourceUrl": "https://www.investor.gov/introduction-investing/getting-started/understanding-fees"
+    },
+    {
+      "id": "retirement.fiduciary",
+      "word": "FIDUCIARY",
+      "displayTerm": "Fiduciary",
+      "worldId": "retirement",
+      "definition": "A person or organization required to act in another party's best financial interest.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-03"
+      ],
+      "sourceUrl": "https://www.investor.gov/introduction-investing/getting-started/working-investment-professional"
+    },
+    {
+      "id": "retirement.fire",
+      "word": "FIRE",
+      "displayTerm": "FIRE",
+      "worldId": "retirement",
+      "definition": "A financial strategy focused on reaching financial independence and the option to retire early.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-COINS-03",
+        "FQ-2027-REAL_ESTATE-02",
+        "FQ-2027-RETIREMENT-01"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/resources-ira-based-plans"
+    },
+    {
+      "id": "retirement.heir",
+      "word": "HEIR",
+      "displayTerm": "Heir",
+      "worldId": "retirement",
+      "definition": "A person legally entitled to inherit property under applicable law.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-03"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/resources-ira-based-plans"
+    },
+    {
+      "id": "retirement.lifestyle",
+      "word": "LIFESTYLE",
+      "displayTerm": "Lifestyle",
+      "worldId": "retirement",
+      "definition": "A pattern of living choices that affects spending, saving, and financial needs.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-04"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/resources-ira-based-plans"
+    },
+    {
+      "id": "retirement.longevity",
+      "word": "LONGEVITY",
+      "displayTerm": "Longevity",
+      "worldId": "retirement",
+      "definition": "Length of life, which affects how long retirement savings and income may need to last.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-05"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/resources-ira-based-plans"
+    },
+    {
+      "id": "retirement.sep-ira",
+      "word": "SEPIRA",
+      "displayTerm": "SEP IRA",
+      "worldId": "retirement",
+      "definition": "An individual retirement account funded through a Simplified Employee Pension arrangement established by an employer.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-06"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/plan-sponsor/simplified-employee-pension-plan-sep"
+    },
+    {
+      "id": "retirement.simple-ira",
+      "word": "SIMPLEIRA",
+      "displayTerm": "SIMPLE IRA",
+      "worldId": "retirement",
+      "definition": "A retirement savings plan for eligible small employers that uses employee SIMPLE individual retirement accounts.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-RETIREMENT-06"
+      ],
+      "sourceUrl": "https://www.irs.gov/retirement-plans/simple-ira-plan"
+    },
+    {
+      "id": "social_media.ad-revenue",
+      "word": "ADREVENUE",
+      "displayTerm": "Ad Revenue",
+      "worldId": "social_media",
+      "definition": "Income earned when advertising is displayed with digital content or on an online property.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-SOCIAL_MEDIA-02"
+      ],
+      "sourceUrl": "https://www.irs.gov/businesses/small-businesses-self-employed/gig-economy-tax-center"
+    },
+    {
+      "id": "social_media.royalties",
+      "word": "ROYALTIES",
+      "displayTerm": "Royalties",
+      "worldId": "social_media",
+      "definition": "Payments made for the continuing use of property, creative work, or mineral rights.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-SOCIAL_MEDIA-01"
+      ],
+      "sourceUrl": "https://apps.irs.gov/app/tax-withholding-estimator/income/"
+    },
+    {
+      "id": "taxes.gift",
+      "word": "GIFT",
+      "displayTerm": "Gift",
+      "worldId": "taxes",
+      "definition": "Money or property transferred to another person without receiving equal value in return.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-BUSINESS-02",
+        "FQ-2027-TAXES-03"
+      ],
+      "sourceUrl": "https://www.irs.gov/help/ita"
+    },
+    {
+      "id": "taxes.income-tax",
+      "word": "INCOMETAX",
+      "displayTerm": "Income Tax",
+      "worldId": "taxes",
+      "definition": "A tax imposed on income received by a person or organization.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-TAXES-01"
+      ],
+      "sourceUrl": "https://www.irs.gov/help/ita"
+    },
+    {
+      "id": "taxes.tax-credit",
+      "word": "TAXCREDIT",
+      "displayTerm": "Tax Credit",
+      "worldId": "taxes",
+      "definition": "An amount that directly reduces tax owed, subject to applicable rules.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-TAXES-02"
+      ],
+      "sourceUrl": "https://www.irs.gov/help/ita"
+    },
+    {
+      "id": "taxes.tax-filing",
+      "word": "TAXFILING",
+      "displayTerm": "Tax Filing",
+      "worldId": "taxes",
+      "definition": "The process of preparing and submitting a tax return to the appropriate tax authority.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-TAXES-03"
+      ],
+      "sourceUrl": "https://www.irs.gov/help/ita"
+    },
+    {
+      "id": "taxes.tax-id",
+      "word": "TAXID",
+      "displayTerm": "Tax ID",
+      "worldId": "taxes",
+      "definition": "An identifying number used for tax administration and reporting.",
+      "approvalStatus": "owner-approved-for-play-2026-10-18",
+      "sourceCandidateIds": [
+        "FQ-2027-TAXES-02"
+      ],
+      "sourceUrl": "https://www.irs.gov/help/ita"
+    }
+  ]
+}
