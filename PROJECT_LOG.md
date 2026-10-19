@@ -10,6 +10,42 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-19 — 13-world production deployment completed
+
+Deployed and verified the 13-world, three-level FinLit Quest release on the existing GitHub Pages production site. The live game now exposes 15 playable puzzle placements in every world, for 195 total world placements backed by 58 canonical puzzles.
+
+### Completed work
+
+- Ran the complete automated suite: **527 of 527 tests passed**.
+- Rebuilt the production web bundle and synchronized the same assets into the native iOS bundle.
+- Built the iOS Release configuration successfully with code signing disabled for local verification.
+- Published application commit `c91e438247a06bcec76c93dfeafeafc13a3e49fd` to `main` through the connected GitHub integration.
+- Verified the new cache stamp and application assets at [finlitquest.com](https://finlitquest.com).
+- Verified all 13 world cards report 15 puzzles and opened Games 1, 6, and 11 in every world on the live site.
+- Confirmed Level 1 shows unlimited free hints and Levels 2–3 restore the governed 100/300 coin prices.
+- Confirmed the production interaction sweep produced no browser console errors.
+- Preserved permanent puzzle and term IDs, save schema v4, existing progress, world-specific progression, and canonical first-reward protection.
+
+### Files modified
+
+- Production release files from the preceding 13-world and three-level milestones
+- Generated web bundle under `www/`
+- Synchronized native bundle under `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Architectural decisions and deployment notes
+
+- GitHub Pages remains the production host and `finlitquest.com` remains the production domain; no hosting or domain changes were made.
+- Research-only `staging/` and `exports/` artifacts were not required by the runtime and were excluded from the production deployment commit.
+- Local GitHub CLI authentication was unavailable, so deployment used the repository's already-connected GitHub integration rather than introducing new credentials or infrastructure.
+
+### Known issues and recommended next steps
+
+- TestFlight upload was not attempted because Apple Developer Program enrollment, signing identity, and provisioning are not currently available.
+- The verified unsigned iOS Release build is ready for the next device phase. Next: enroll/configure Apple signing, run on a real iPhone, then upload a TestFlight beta without changing game content.
+
+---
+
 ## 2026-10-19 — All 15 puzzles exposed through three visible levels
 
 Fixed the interface-level five-game limit that hid Games 6–15 despite all 15 canonical references being loaded. Opening any of the 13 worlds now shows three visible levels with five directly selectable games each.
