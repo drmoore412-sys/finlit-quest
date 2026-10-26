@@ -43,7 +43,8 @@ Corrected intermittent word-entry failures in both governed crosswords and Curre
 - Unsigned iOS Simulator Release build succeeded with Xcode and the iPhoneSimulator 27.1 SDK.
 - Architectural decision: pointer-segment recovery is the canonical solution for sparse high-speed input events; individual game screens should not implement separate wheel hit-testing rules.
 - Known issue: physical-device touch testing is still recommended because simulator and desktop automation cannot reproduce every iPhone touch-sampling pattern.
-- Deployment is authorized for this milestone; after publishing, verify the same first-attempt word entries on `finlitquest.com` and monitor the production console.
+- Production deployment completed through GitHub Pages from commit `5ff16e2`; the deployment workflow completed successfully.
+- Live verification on `https://finlitquest.com` confirmed Round 1 Guided Study, Round 2 Code Recall with hidden codes, and Round 3 Memory Challenge with no answer list. `AED` scored on its first Currency Rush entry, while Money Basics accepted `NET` and `PAYMENT` on their first entries.
 
 ---
 
