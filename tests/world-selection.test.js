@@ -75,6 +75,11 @@ test("all governed runtime files load before the shared word-game engine",()=>{
   assert.ok(newBanks<engine);
 });
 
+test("Bonus Games appears before Learning Quests in the primary Journey navigation",()=>{
+  const html=fs.readFileSync(path.join(ROOT,"index.html"),"utf8");
+  assert.ok(html.indexOf('id="journeyTabGames"')<html.indexOf('id="journeyTabLearning"'));
+});
+
 test("the World Quest Journey uses the owner-approved local Golden Castle PNG across the complete route",()=>{
   const css=fs.readFileSync(path.join(ROOT,"journey.css"),"utf8");
   const asset=path.join(ROOT,"assets/images/golden-castle-journey.png");

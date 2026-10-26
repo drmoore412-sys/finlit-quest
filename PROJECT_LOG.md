@@ -10,6 +10,27 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Bonus Games moved ahead of Learning Quests
+
+Reordered the World Quest Journey navigation to show **Word Quests → Bonus Games → Learning Quests**, as requested by the owner. Routes, content, and tab behavior are unchanged.
+
+### Files modified
+
+- `index.html`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/index.html`
+- `PROJECT_LOG.md`
+
+### Verification and status
+
+- Added a regression test that verifies Bonus Games appears before Learning Quests.
+- Complete automated suite: **560 of 560 passed**.
+- Rebuilt the web bundle and synchronized the iOS bundle.
+- No gameplay, puzzles, saves, progression, audio, rewards, XP, coins, or achievements changed.
+- This update remains local and is not deployed.
+
+---
+
 ## 2026-10-26 — Golden Castle background extended through the complete Journey page
 
 Responded to owner review that the approved artwork ended halfway down the world route. The same approved PNG now forms one continuous background from the top of the Journey map through the final world card, with no repeated-image seam.
