@@ -80,5 +80,20 @@
     });
   }
 
-  return{GLOBAL_BONUS_WORDS,canSpell,transitionSelection,wordFor,classifyWord,canSubmitTapWord,isDeferredTarget,shouldSubmitOnRetap,shuffledOrder,positionsFor};
+  // Pointer events can be several pixels apart on busy mobile browsers. Test
+  // the whole travelled segment, not only the latest event coordinate, so a
+  // quick swipe cannot jump over a letter between two samples.
+  function targetsAlongSegment(start,end,targets){
+    if(!start||!end)return[];
+    const dx=end.x-start.x,dy=end.y-start.y,lengthSquared=dx*dx+dy*dy;
+    return(targets||[]).map((target,index)=>{
+      const rawT=lengthSquared?((target.x-start.x)*dx+(target.y-start.y)*dy)/lengthSquared:0;
+      const t=Math.max(0,Math.min(1,rawT)),x=start.x+dx*t,y=start.y+dy*t;
+      return{target,index,t,distance:Math.hypot(target.x-x,target.y-y)};
+    }).filter(hit=>hit.distance<=Math.max(1,Number(hit.target.radius)||1))
+      .sort((a,b)=>a.t-b.t||a.distance-b.distance||a.index-b.index)
+      .map(hit=>hit.target);
+  }
+
+  return{GLOBAL_BONUS_WORDS,canSpell,transitionSelection,wordFor,classifyWord,canSubmitTapWord,isDeferredTarget,shouldSubmitOnRetap,shuffledOrder,positionsFor,targetsAlongSegment};
 });

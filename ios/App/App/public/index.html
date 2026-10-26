@@ -173,6 +173,7 @@
 
       <button class="continue-adventure" id="journeyLearningBanner"><span class="cta-compass" aria-hidden="true">📖</span><span><small>WANT LESSONS, ACTIVITIES, AND QUIZZES?</small>Open Learning Quests</span><b>→</b></button>
       <a class="continue-adventure hidden" id="journeyFinancialCityLink" href="financial-city.html" style="text-decoration:none"><span class="cta-compass" aria-hidden="true">🏙️</span><span><small>BONUS GAME · EDUCATIONAL DRAFT</small>Where Should My Money Go?</span><b>→</b></a>
+      <button class="continue-adventure hidden" id="journeyCurrencyRush"><span class="cta-compass" aria-hidden="true">🌍</span><span><small>LEARNING ACADEMY · PRACTICE GAME</small>Currency Rush</span><b>→</b></button>
     </section>
 
     <section class="wg-screen" id="worldGameScreen">
@@ -235,11 +236,12 @@
         </div>
       </div>
 
-      <p class="wg-hint-text" id="wgWheelInstructions">Swipe or tap letters to connect them. Drag back to undo.</p>
+      <p class="wg-hint-text" id="wgWheelInstructions">Swipe across letters, or tap letters and press Submit. Drag back to undo.</p>
       <div class="wg-wheel-actions" aria-label="Puzzle tools">
         <button id="wgDefinitionsButton"><span aria-hidden="true">▤</span><small>Definitions</small></button>
         <button class="wg-action-primary" id="wgNavShuffle"><span aria-hidden="true">⇄</span><small>Shuffle</small></button>
         <button id="wgHintButton"><span aria-hidden="true">✦</span><small>Hint <b id="wgHintCost">100</b></small></button>
+        <button class="wg-action-submit" id="wgSubmitSelection" disabled><span aria-hidden="true">✓</span><small>Submit</small></button>
         <button class="wg-clear-selection" id="wgClearSelection"><span aria-hidden="true">×</span><small>Clear</small></button>
       </div>
       <p class="wg-practice-notice hidden" id="wgPracticeNotice">Level 1 tutorial: hints are unlimited and free for every game in this level.</p>
@@ -304,7 +306,7 @@
             <label class="wg-volume-control" for="wgCompleteVolumeSlider"><span>Effects</span><input id="wgCompleteVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"><output id="wgCompleteVolumeValue" for="wgCompleteVolumeSlider">90%</output></label>
             <label class="wg-volume-control" for="wgCompleteMusicVolumeSlider"><span>Music</span><input id="wgCompleteMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"><output id="wgCompleteMusicVolumeValue" for="wgCompleteMusicVolumeSlider">28%</output></label>
           </div>
-          <div class="wg-complete-actions"><button class="wg-btn-primary" id="wgCompleteContinue">Next Puzzle →</button></div>
+          <div class="wg-complete-actions"><button class="wg-btn-ghost" id="wgCompleteCurrencyRush">🌍 Currency Rush Bonus</button><button class="wg-btn-primary" id="wgCompleteContinue">Next Puzzle →</button></div>
         </div>
       </section>
     </section>
@@ -400,7 +402,7 @@
           <div class="cr-current" id="crCurrentWord" aria-live="polite">—</div><p class="cr-message" id="crMessage" role="status" aria-live="polite">Connect three letters to discover a currency</p>
           <button class="cr-control" id="crClear" type="button">Clear selection</button>
         </section>
-        <aside class="cr-card cr-collection-panel" id="crReferencePanel"><h2>Currency Reference</h2><p class="cr-reference-note">Study the country, currency, and code while you play.</p><ol class="cr-found-list" id="crFoundList"></ol></aside>
+        <aside class="cr-card cr-collection-panel" id="crReferencePanel"><h2 id="crReferenceTitle">Currency Reference</h2><p class="cr-reference-note" id="crReferenceNote">Study the country, currency, and code while you play.</p><ol class="cr-found-list" id="crFoundList"></ol></aside>
       </div>
       <section class="cr-reveal hidden" id="crReveal" role="status" aria-live="assertive"><span class="cr-reveal-flag" id="crRevealFlag">🌐</span><h2 id="crRevealCode">USD FOUND!</h2><h3 id="crRevealName">US Dollar</h3><p id="crRevealCountry">United States</p><strong id="crRevealPoints">+100 KNOWLEDGE POINTS</strong></section>
       <div class="cr-coin-rain" id="crCoinRain" aria-hidden="true"></div>

@@ -4,6 +4,16 @@
   const countLetters=value=>[...String(value||"").toUpperCase()].reduce((counts,letter)=>(counts[letter]=(counts[letter]||0)+1,counts),{});
   function canFormCode(code,wheel){const available=countLetters(wheel);return /^[A-Z]{3}$/.test(String(code||"").toUpperCase())&&Object.entries(countLetters(code)).every(([letter,count])=>(available[letter]||0)>=count)}
   function answersForRound(data,round){return round.requiredCodes.filter(code=>data.currencies[code]&&canFormCode(code,round.wheel))}
+  const STAGE_MODES=Object.freeze([
+    Object.freeze({id:"study",label:"GUIDED STUDY",reference:"full"}),
+    Object.freeze({id:"recall",label:"CODE RECALL",reference:"code-hidden"}),
+    Object.freeze({id:"memory",label:"MEMORY CHALLENGE",reference:"hidden"}),
+  ]);
+  function stageForNumber(data,stageNumber=1){
+    const total=(data?.rounds?.length||0)*STAGE_MODES.length,number=Math.min(Math.max(1,Number(stageNumber)||1),Math.max(1,total));
+    const wheelIndex=Math.floor((number-1)/STAGE_MODES.length),modeIndex=(number-1)%STAGE_MODES.length;
+    return{number,total,wheelNumber:wheelIndex+1,round:data.rounds[wheelIndex]||data.rounds[0],mode:STAGE_MODES[modeIndex]};
+  }
   function createSession(data,roundNumber=1,options={}){
     const round=data.rounds.find(item=>item.number===roundNumber)||data.rounds[0],scoring=data.scoring;
     const required=answersForRound(data,round),duration=Math.max(1,Number(options.durationSeconds)||scoring.durationSeconds);
@@ -40,21 +50,21 @@
   function init({window:win,document:doc,data,audio}={}){
     if(!win||!doc||!data)return null;
     const screen=doc.getElementById("currencyRushScreen");if(!screen)return null;
-    const $=id=>doc.getElementById(id),requestedRound=Number(new URLSearchParams(win.location.search).get("round"));let session=null,roundNumber=Number.isInteger(requestedRound)&&requestedRound>=1&&requestedRound<=data.rounds.length?requestedRound:1,timer=null,selected=[],pointerDown=false,pointerMoved=false,revealTimer=null;
+    const $=id=>doc.getElementById(id),requestedStage=Number(new URLSearchParams(win.location.search).get("round"));let session=null,stageNumber=Number.isInteger(requestedStage)&&requestedStage>=1&&requestedStage<=data.rounds.length*STAGE_MODES.length?requestedStage:1,currentStage=stageForNumber(data,stageNumber),timer=null,selected=[],pointerDown=false,pointerMoved=false,pointerId=null,pointerPoint=null,revealTimer=null,launchSource="learning";
     const allScreens=["welcomeScreen","worldSelectScreen","worldGameScreen","dashboardScreen","workbookScreen"];
     function syncMusic(){const enabled=audio?.isMusicEnabled?.()!==false,button=$("crMusicToggle");button.textContent=enabled?"🔊":"🔇";button.setAttribute("aria-pressed",String(!enabled));button.setAttribute("aria-label",enabled?"Mute background music":"Unmute background music");button.title=button.getAttribute("aria-label")}
-    function show(){allScreens.forEach(id=>$(id)?.classList.add("hidden"));screen.classList.remove("hidden");doc.body.classList.add("currency-rush-active");audio?.unlock?.();audio?.startMusic?.();syncMusic();startRound(roundNumber)}
-    function leave(){stopTimer();screen.classList.add("hidden");doc.body.classList.remove("currency-rush-active");const url=new URL(win.location.href);url.searchParams.delete("bonus");win.history.replaceState({},"",url);if(typeof win.showWorldSelect==="function")win.showWorldSelect();else $("worldSelectScreen")?.classList.remove("hidden")}
+    function show(options={}){launchSource=options.source||launchSource||"learning";allScreens.forEach(id=>$(id)?.classList.add("hidden"));screen.classList.remove("hidden");doc.body.classList.add("currency-rush-active");audio?.unlock?.();audio?.startMusic?.();syncMusic();startRound(options.stage||stageNumber)}
+    function leave(){stopTimer();screen.classList.add("hidden");doc.body.classList.remove("currency-rush-active");const url=new URL(win.location.href);url.searchParams.delete("bonus");url.searchParams.delete("round");win.history.replaceState({},"",url);if(launchSource==="crossword-bonus")$("worldGameScreen")?.classList.remove("hidden");else if(typeof win.showWorldSelect==="function"){win.showWorldSelect();win.renderWorldJourneyMap?.("learning")}else $("worldSelectScreen")?.classList.remove("hidden")}
     function startRound(number){
-      stopTimer();roundNumber=Math.min(data.rounds.length,Math.max(1,Number(number)||1));session=createSession(data,roundNumber);selected=[];
-      const guided=roundNumber<=2;screen.classList.toggle("is-guided-round",guided);screen.classList.toggle("is-memory-round",!guided);
-      $("crRoundLabel").textContent=`ROUND ${roundNumber} OF ${data.rounds.length} · ${guided?"GUIDED LEARNING":"MEMORY CHALLENGE"}`;$("crRoundTitle").textContent=`Currency Wheel ${roundNumber}`;
-      $("crReferencePanel").classList.toggle("hidden",!guided);$("crCountLabel").textContent=guided?"CURRENCIES FOUND":"CURRENCIES REMAINING";
+      stopTimer();stageNumber=Math.min(data.rounds.length*STAGE_MODES.length,Math.max(1,Number(number)||1));currentStage=stageForNumber(data,stageNumber);session=createSession(data,currentStage.wheelNumber);selected=[];
+      const hasReference=currentStage.mode.reference!=="hidden";screen.classList.toggle("is-guided-round",hasReference);screen.classList.toggle("is-memory-round",!hasReference);screen.dataset.learningStage=currentStage.mode.id;
+      $("crRoundLabel").textContent=`ROUND ${stageNumber} OF ${currentStage.total} · ${currentStage.mode.label}`;$("crRoundTitle").textContent=`Currency Wheel ${currentStage.wheelNumber} · Stage ${(stageNumber-1)%3+1}`;
+      $("crReferencePanel").classList.toggle("hidden",!hasReference);$("crReferenceTitle").textContent=currentStage.mode.reference==="full"?"Currency Reference":"Country & Currency Clues";$("crReferenceNote").textContent=currentStage.mode.reference==="full"?"Study the country, currency, and code while you play.":"Recall each three-letter code from the country and currency name.";$("crCountLabel").textContent=hasReference?"CURRENCIES FOUND":"CURRENCIES REMAINING";
       $("crResults").classList.add("hidden");$("crReveal").classList.add("hidden");renderWheel();renderStats();renderFound();setMessage("Connect three letters to discover a currency","");
       timer=win.setInterval(()=>{session.tick(1);renderStats();if(session.state.finished){stopTimer();showResults()}},1000);
     }
     function stopTimer(){if(timer!==null)win.clearInterval(timer);timer=null}
-    function renderStats(){$("crTime").textContent=String(Math.ceil(session.state.remaining)).padStart(2,"0");$("crScore").textContent=session.state.score.toLocaleString();$("crFoundCount").textContent=roundNumber<=2?`${session.state.found.length} / ${session.state.required.length}`:String(session.state.required.length-session.state.found.length);$("crTimerRing").style.setProperty("--time-ratio",session.state.remaining/data.scoring.durationSeconds)}
+    function renderStats(){$("crTime").textContent=String(Math.ceil(session.state.remaining)).padStart(2,"0");$("crScore").textContent=session.state.score.toLocaleString();$("crFoundCount").textContent=currentStage.mode.reference!=="hidden"?`${session.state.found.length} / ${session.state.required.length}`:String(session.state.required.length-session.state.found.length);$("crTimerRing").style.setProperty("--time-ratio",session.state.remaining/data.scoring.durationSeconds)}
     function renderWheel(){
       const wheel=$("crWheel");wheel.querySelectorAll(".cr-letter").forEach(item=>item.remove());
       [...session.state.round.wheel].forEach((letter,index)=>{const angle=index/9*Math.PI*2-Math.PI/2,button=doc.createElement("button");button.type="button";button.className="cr-letter";button.dataset.index=String(index);button.dataset.letter=letter;button.textContent=letter;button.setAttribute("aria-label",`Letter ${letter}, position ${index+1}`);button.style.setProperty("--x",`${50+39*Math.cos(angle)}%`);button.style.setProperty("--y",`${50+39*Math.sin(angle)}%`);wheel.append(button)});renderSelection()
@@ -79,8 +89,8 @@
     }
     function coinRain(){const layer=$("crCoinRain");layer.innerHTML="";for(let index=0;index<24;index++){const coin=doc.createElement("i");coin.textContent=index%4?"$":"✦";coin.style.setProperty("--left",`${(index*37)%100}%`);coin.style.setProperty("--delay",`${(index%8)*.045}s`);coin.style.setProperty("--drift",`${(index%5-2)*24}px`);layer.append(coin)}win.setTimeout(()=>{layer.innerHTML=""},1600)}
     function renderFound(){
-      const list=$("crFoundList");list.innerHTML="";if(roundNumber>2)return;
-      session.state.required.forEach(code=>{const currency=data.currencies[code],found=session.state.found.includes(code),item=doc.createElement("li");item.className=found?"is-found":"";item.setAttribute("aria-label",`${countrySummary(currency)}, ${currency.name}, code ${code}${found?", discovered":""}`);item.innerHTML=`<span>${found?"✓":flagFor(code)}</span><div><small>${countrySummary(currency)}</small><b>${currency.name}</b></div><strong>${code}</strong>`;list.append(item)})
+      const list=$("crFoundList");list.innerHTML="";if(currentStage.mode.reference==="hidden")return;
+      session.state.required.forEach(code=>{const currency=data.currencies[code],found=session.state.found.includes(code),showCode=currentStage.mode.reference==="full"||found,item=doc.createElement("li");item.className=found?"is-found":"";item.setAttribute("aria-label",`${countrySummary(currency)}, ${currency.name}${showCode?`, code ${code}`:", code hidden"}${found?", discovered":""}`);const codeText=showCode?code:"???";item.innerHTML=`<span>${found?"✓":flagFor(code)}</span><div><small>${countrySummary(currency)}</small><b>${currency.name}</b></div><strong class="cr-reference-code${showCode?"":" is-hidden-code"}">${codeText}</strong>`;list.append(item)})
     }
     function showResults(){
       stopTimer();const summary=session.finish(),results=$("crResults");$("crResultHeadline").textContent=summary.completed?"Currency Board Complete!":"Time's Up!";$("crResultScore").textContent=summary.score.toLocaleString();$("crResultFound").textContent=`${summary.found.length} / ${summary.required.length}`;$("crResultAccuracy").textContent=`${summary.accuracy}%`;$("crResultStreak").textContent=`+${summary.streakBonus}`;$("crResultBonuses").textContent=summary.completed?`Completion +${summary.completionBonus} · Time +${summary.timeBonus}`:"Completion and time bonuses require every code.";
@@ -89,17 +99,19 @@
       const missed=$("crMissed");missed.innerHTML="";if(summary.missed.length)summary.missed.forEach(code=>missed.append(resultItem(code)));else{const perfect=doc.createElement("p");perfect.textContent="None — perfect board!";missed.append(perfect)}results.classList.remove("hidden");$("crReplay").focus()
     }
     const wheel=$("crWheel");
-    wheel.addEventListener("pointerdown",event=>{const tile=event.target.closest(".cr-letter");if(!tile)return;pointerDown=true;pointerMoved=false;wheel.setPointerCapture?.(event.pointerId);addIndex(Number(tile.dataset.index));event.preventDefault()});
-    wheel.addEventListener("pointermove",event=>{if(!pointerDown)return;const tile=doc.elementFromPoint?.(event.clientX,event.clientY)?.closest?.(".cr-letter");if(tile&&wheel.contains(tile)){const added=addIndex(Number(tile.dataset.index));if(added)pointerMoved=true}});
-    const endPointer=()=>{if(!pointerDown)return;pointerDown=false;if(selected.length===3)submitSelection();else if(pointerMoved){audio?.cancel?.();clear()}};wheel.addEventListener("pointerup",endPointer);wheel.addEventListener("pointercancel",()=>{pointerDown=false;pointerMoved=false;if(selected.length)audio?.cancel?.();clear()});
+    function currencyTargets(){return[...wheel.querySelectorAll(".cr-letter")].map(tile=>{const rect=tile.getBoundingClientRect();return{tile,x:rect.left+rect.width/2,y:rect.top+rect.height/2,radius:Math.max(rect.width,rect.height)*.7}})}
+    function processPointer(event){const samples=typeof event.getCoalescedEvents==="function"?event.getCoalescedEvents():[],points=[...samples,event].map(sample=>({x:sample.clientX,y:sample.clientY})).filter(point=>Number.isFinite(point.x)&&Number.isFinite(point.y));points.forEach(point=>{const targets=win.FinLitWheelInteraction?.targetsAlongSegment(pointerPoint||point,point,currencyTargets())||[];targets.forEach(target=>{if(addIndex(Number(target.tile.dataset.index)))pointerMoved=true});pointerPoint=point})}
+    wheel.addEventListener("pointerdown",event=>{const tile=event.target.closest(".cr-letter");if(!tile)return;pointerDown=true;pointerMoved=false;pointerId=event.pointerId;pointerPoint={x:event.clientX,y:event.clientY};wheel.setPointerCapture?.(event.pointerId);addIndex(Number(tile.dataset.index));event.preventDefault()});
+    wheel.addEventListener("pointermove",event=>{if(!pointerDown||event.pointerId!==pointerId)return;event.preventDefault();processPointer(event)});
+    const endPointer=event=>{if(!pointerDown||event.pointerId!==pointerId)return;processPointer(event);pointerDown=false;pointerId=null;pointerPoint=null;if(selected.length===3)submitSelection();else if(pointerMoved){audio?.cancel?.();clear()}};wheel.addEventListener("pointerup",endPointer);wheel.addEventListener("pointercancel",()=>{pointerDown=false;pointerMoved=false;pointerId=null;pointerPoint=null;if(selected.length)audio?.cancel?.();clear()});
     wheel.addEventListener("click",event=>{if(event.detail!==0)return;const tile=event.target.closest(".cr-letter");if(tile&&addIndex(Number(tile.dataset.index))&&selected.length===3)submitSelection()});
     screen.addEventListener("keydown",event=>{if(screen.classList.contains("hidden")||session?.state.finished)return;const key=event.key.toUpperCase();if(/^[A-Z]$/.test(key)){const index=[...session.state.round.wheel].findIndex((letter,index)=>letter===key&&!selected.includes(index));if(index>=0){event.preventDefault();addIndex(index);if(selected.length===3)submitSelection()}}else if(event.key==="Enter"){event.preventDefault();submitSelection()}else if(event.key==="Backspace"){event.preventDefault();selected.pop();renderSelection()}else if(event.key==="Escape"){event.preventDefault();if(selected.length)audio?.cancel?.();clear()}});
-    $("crClear").onclick=()=>{if(selected.length)audio?.cancel?.();clear()};$("crReplay").onclick=()=>startRound(roundNumber);$("crNextRound").onclick=()=>startRound(roundNumber%data.rounds.length+1);$("crExit").onclick=leave;$("crResultsExit").onclick=leave;$("crMusicToggle").onclick=()=>{audio?.toggleMusic?.();syncMusic()};
-    win.addEventListener("resize",renderSelection);win.openCurrencyRush=()=>{const url=new URL(win.location.href);url.searchParams.set("bonus","currency-rush");win.history.replaceState({},"",url);show()};
+    $("crClear").onclick=()=>{if(selected.length)audio?.cancel?.();clear()};$("crReplay").onclick=()=>startRound(stageNumber);$("crNextRound").onclick=()=>startRound(stageNumber%currentStage.total+1);$("crExit").onclick=leave;$("crResultsExit").onclick=leave;$("crMusicToggle").onclick=()=>{audio?.toggleMusic?.();syncMusic()};
+    win.addEventListener("resize",renderSelection);win.openCurrencyRush=(options={})=>{launchSource=options.source||"learning";const url=new URL(win.location.href);url.searchParams.set("bonus","currency-rush");if(options.stage)url.searchParams.set("round",String(options.stage));win.history.replaceState({},"",url);show(options)};
     const controller={show,leave,startRound,submit:code=>submit(code),getSession:()=>session};
     win.FinLitCurrencyRushController=controller;
-    if(new URLSearchParams(win.location.search).get("bonus")==="currency-rush")win.setTimeout(show,0);
+    if(new URLSearchParams(win.location.search).get("bonus")==="currency-rush")win.setTimeout(()=>show({source:"learning"}),0);
     return controller;
   }
-  return{countLetters,canFormCode,answersForRound,createSession,displayCountry,countrySummary,flagFor,init};
+  return{STAGE_MODES,countLetters,canFormCode,answersForRound,stageForNumber,createSession,displayCountry,countrySummary,flagFor,init};
 });

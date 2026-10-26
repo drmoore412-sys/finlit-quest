@@ -617,6 +617,21 @@ function wgHitTestLetter(clientX, clientY) {
   });
   return closest;
 }
+function wgButtonsAlongPointer(from, to) {
+  const targets = $$("#wgWheel .letter").map(button => {
+    const rect = button.getBoundingClientRect();
+    return { button, x: rect.left + rect.width / 2, y: rect.top + rect.height / 2, radius: Math.max(rect.width, rect.height) * .68 };
+  });
+  return FinLitWheelInteraction.targetsAlongSegment(from, to, targets).map(target => target.button);
+}
+function wgProcessPointerPosition(event) {
+  const samples = typeof event.getCoalescedEvents === "function" ? event.getCoalescedEvents() : [];
+  const points = [...samples, event].map(sample => ({ x: sample.clientX, y: sample.clientY })).filter(point => Number.isFinite(point.x) && Number.isFinite(point.y));
+  points.forEach(point => {
+    wgButtonsAlongPointer(wgPointerPoint || point, point).forEach(wgAddLetter);
+    wgPointerPoint = point;
+  });
+}
 
 function wgBeginPointer(e) {
   if (e.button !== undefined && e.button !== 0) return;
@@ -632,13 +647,15 @@ function wgBeginPointer(e) {
 function wgMovePointer(e) {
   if (!wgPointerDown || e.pointerId !== wgPointerId) return;
   e.preventDefault();
-  wgPointerPoint = {x:e.clientX, y:e.clientY};
-  const button = wgHitTestLetter(e.clientX, e.clientY);
-  if (button) wgAddLetter(button); else wgUpdateSelection();
+  wgProcessPointerPosition(e);
+  wgUpdateSelection();
 }
 function wgEndPointer(e) {
   if (!wgPointerDown || e.pointerId !== wgPointerId) return;
-  const shouldSubmit = wgGestureLetters > 1, retappedLast = wgRetapLast;
+  // Some browsers omit the last pointermove. Process pointerup itself before
+  // deciding which word was traced.
+  wgProcessPointerPosition(e);
+  const shouldSubmit = wgState.selected.length > 1 && wgGestureLetters > 1, retappedLast = wgRetapLast;
   wgResetPointer();
   if (shouldSubmit) wgSubmitWord();
   else {
@@ -682,6 +699,9 @@ function wgUpdateSelection() {
     $("#wgWordReadout").className = deferred ? "wg-word-readout building pending" : "wg-word-readout building";
   }
   $("#wgClearSelection").classList.toggle("is-visible", !!word);
+  const submit = $("#wgSubmitSelection");
+  submit.disabled = !word;
+  submit.setAttribute("aria-label", word ? `Submit ${word}` : "Submit selected word");
   const svg = $("#wgTrace"), svgRect = svg.getBoundingClientRect();
   svg.setAttribute("viewBox", `0 0 ${svgRect.width || 1} ${svgRect.height || 1}`);
   const points = wgState.selected.map(id => {
@@ -697,6 +717,8 @@ function wgClearSelection({preserveReadout = false} = {}) {
   $$("#wgWheel .letter").forEach(b => { b.classList.remove("selected"); b.setAttribute("aria-pressed", "false"); });
   $("#wgTraceLine").setAttribute("points", ""); $("#wgTraceShadow").setAttribute("points", "");
   $("#wgClearSelection").classList.remove("is-visible");
+  $("#wgSubmitSelection").disabled = true;
+  $("#wgSubmitSelection").setAttribute("aria-label", "Submit selected word");
   if (!preserveReadout) { $("#wgWordReadout").textContent = "Swipe to make a word"; $("#wgWordReadout").className = "wg-word-readout"; }
 }
 function wgShowWordFeedback(message, status) {
@@ -1085,7 +1107,8 @@ wgWheelElement.addEventListener("keydown", event => {
   const button = event.target.closest(".letter"), buttons = $$("#wgWheel .letter");
   if (event.key === "Escape") { event.preventDefault(); const hadSelection = wgState.selected.length > 0; wgClearSelection(); if (hadSelection) wgAudio.cancel(); return; }
   if (event.key === "Backspace" && wgState.selected.length) { event.preventDefault(); wgState.selected.pop(); wgUpdateSelection(); return; }
-  if (button && (event.key === "Enter" || event.key === " ") && wgState.selected.at(-1) === button.dataset.tileId && wgState.words.includes(wgSelectedWord())) { event.preventDefault(); wgSubmitWord(); return; }
+  if (event.key === "Enter" && wgState.selected.length) { event.preventDefault(); wgSubmitWord(); return; }
+  if (button && event.key === " " && wgState.selected.at(-1) === button.dataset.tileId && wgState.words.includes(wgSelectedWord())) { event.preventDefault(); wgSubmitWord(); return; }
   if (!button || !["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key)) return;
   event.preventDefault();
   const current = wgState.wheelTiles.findIndex(tile => tile.id === button.dataset.tileId);
@@ -1105,8 +1128,10 @@ $("#wgHintButton").onclick = wgHint;
 $("#wgNavHint").onclick = wgRevealFull;
 $("#wgDefinitionsButton").onclick = wgShowDefinitions;
 $("#wgClearSelection").onclick = () => { const hadSelection = wgState.selected.length > 0; wgClearSelection(); if (hadSelection) wgAudio.cancel(); };
+$("#wgSubmitSelection").onclick = () => { if (wgState.selected.length) wgSubmitWord(); };
 $("#wgDefinitionsClose").onclick = wgHideDefinitions;
 $("#wgCompleteContinue").onclick = wgContinueAfterComplete;
+$("#wgCompleteCurrencyRush").onclick = () => window.openCurrencyRush?.({ source: "crossword-bonus", stage: 1 });
 $("#wgCelebrateSkip").onclick = wgSkipVictory;
 $("#wgSoundToggle").onclick = wgToggleSound;
 $("#wgSoundButton").onclick = wgToggleSound;

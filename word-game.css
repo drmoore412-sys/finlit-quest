@@ -108,10 +108,11 @@
 .wg-wheel-wrap .trace polyline{fill:none;stroke:var(--wg-teal);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
 .wg-wheel-wrap .trace .wg-trace-shadow{stroke:#021713;stroke-width:13;opacity:.52}
 .wg-hint-text{text-align:center;color:var(--wg-muted);font-size:11px;margin:8px 0 12px;position:relative;z-index:1}
-.wg-wheel-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:340px;margin:0 auto 18px;position:relative;z-index:2}
+.wg-wheel-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:340px;margin:0 auto 18px;position:relative;z-index:2}
 .wg-wheel-actions button{min-height:48px;border:1px solid var(--wg-border);border-radius:16px;background:#0f1c33;color:var(--wg-muted);display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 10px;font-weight:800}
 .wg-wheel-actions button span{font-size:20px;line-height:1}.wg-wheel-actions button small{font-size:10px}.wg-wheel-actions button b{color:var(--wg-gold)}
 .wg-wheel-actions .wg-action-primary{color:#06251f;background:linear-gradient(145deg,#43efd4,#1fb99e);border-color:#55f5da;box-shadow:0 8px 20px #0bb49a3d}
+.wg-wheel-actions .wg-action-submit{color:#2b1600;background:linear-gradient(145deg,#ffdc76,#e8a524);border-color:#ffe69b;box-shadow:0 8px 20px #e8a52435}
 .wg-wheel-actions button:focus-visible{outline:3px solid var(--wg-gold);outline-offset:2px}
 .wg-wheel-actions button:disabled,.wg-bottom-nav button:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.35)}
 .wg-wheel-actions .wg-clear-selection{position:absolute;right:-4px;top:-62px;width:48px;min-width:48px;padding:0;border-radius:50%;opacity:0;pointer-events:none;transform:scale(.8);transition:.18s ease}
@@ -179,7 +180,7 @@
 .wg-complete-rewards span{font-size:22px}
 .wg-complete-rewards b{font-size:20px;color:var(--wg-text)}
 .wg-complete-rewards small{font-size:10px;color:var(--wg-muted);letter-spacing:.06em}
-.wg-complete-actions{position:sticky;bottom:-20px;margin:0 -4px -20px;padding:10px 4px 20px;background:linear-gradient(#0f1c3300,var(--wg-panel) 24%)}
+.wg-complete-actions{position:sticky;bottom:-20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:10px;margin:0 -4px -20px;padding:10px 4px 20px;background:linear-gradient(#0f1c3300,var(--wg-panel) 24%)}
 .wg-complete-actions .wg-btn-primary{width:100%;min-height:48px}
 .wg-btn-primary{width:100%;border:0;border-radius:14px;padding:14px 18px;font-weight:800;font-size:14px;background:var(--wg-teal);color:#06251f}
 
@@ -262,6 +263,6 @@ html[data-finlit-puzzle-mode="legacy"] body::before{content:"LEGACY DIAGNOSTIC M
   .wg-complete-volume{order:4}
   .wg-celebrate-controls .wg-btn-ghost{min-height:40px;padding:6px 10px}
   .wg-complete-learning{order:5;margin:4px 0 8px;padding:10px 12px}
-  .wg-complete-actions{order:7;bottom:-10px;margin:0 -4px -10px;padding:8px 4px 10px}
+  .wg-complete-actions{order:7;bottom:-10px;grid-template-columns:1fr;margin:0 -4px -10px;padding:8px 4px 10px}
 }
 .wg-level-tools{display:flex;align-items:center;gap:6px}

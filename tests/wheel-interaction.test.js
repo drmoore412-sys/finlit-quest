@@ -70,13 +70,27 @@ test("3-9 tile geometry stays inside and non-overlapping at narrow mobile widths
   assert.throws(()=>wheel.positionsFor(10),/1-9/);
 });
 
+test("fast pointer segments recover every crossed tile in travel order",()=>{
+  const targets=[
+    {id:"a",x:10,y:10,radius:8},
+    {id:"b",x:50,y:10,radius:8},
+    {id:"c",x:90,y:10,radius:8},
+    {id:"off-path",x:50,y:35,radius:8},
+  ];
+  assert.deepEqual(wheel.targetsAlongSegment({x:0,y:10},{x:100,y:10},targets).map(target=>target.id),["a","b","c"]);
+  assert.deepEqual(wheel.targetsAlongSegment({x:100,y:10},{x:0,y:10},targets).map(target=>target.id),["c","b","a"]);
+});
+
 test("runtime uses pointer movement hit testing, cancellation cleanup, and keyboard alternatives",()=>{
   const source=fs.readFileSync(path.join(ROOT,"word-game-app.js"),"utf8");
   assert.match(source,/addEventListener\("pointermove", wgMovePointer\)/);
   assert.match(source,/wgHitTestLetter\(e\.clientX, e\.clientY\)/);
+  assert.match(source,/targetsAlongSegment\(from, to, targets\)/);
+  assert.match(source,/getCoalescedEvents/);
+  assert.match(source,/wgProcessPointerPosition\(e\);[\s\S]{0,160}const shouldSubmit/,"pointer-up is sampled before submission");
   assert.match(source,/addEventListener\("pointercancel", wgCancelPointer\)/);
   assert.match(source,/addEventListener\("lostpointercapture"/);
-  assert.match(source,/const shouldSubmit = wgGestureLetters > 1/,"a one-tile finger wobble must not submit an incomplete gesture");
+  assert.match(source,/const shouldSubmit = wgState\.selected\.length > 1 && wgGestureLetters > 1/,"a one-tile finger wobble must not submit an incomplete gesture");
   assert.match(source,/event\.key === "Backspace"/);
   assert.match(source,/\["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"\]/);
   assert.doesNotMatch(source,/addEventListener\("pointerenter"/);
@@ -97,6 +111,8 @@ test("responsive UI includes a live word readout, layered trace, and narrow-phon
   assert.match(html,/id="wgWordReadout"[^>]*aria-live="polite"/);
   assert.match(html,/id="wgTraceShadow"/);
   assert.match(html,/id="wgClearSelection"/);
+  assert.match(html,/id="wgSubmitSelection"[^>]*disabled/);
+  assert.match(html,/tap letters and press Submit/i);
   assert.match(css,/@media\(max-width:340px\)/);
   assert.match(css,/width:min\(78vw,310px\)/);
   assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);

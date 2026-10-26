@@ -289,5 +289,5 @@ test("the completion panel exposes the announcement, skip, mute, and an accessib
 test("while dragging, the wheel never tells the player to tap the last letter; lifting off the last letter submits",()=>{
   const app=read("word-game-app.js");
   assert.match(app,/const deferred = !wgPointerDown && FinLitWheelInteraction\.isDeferredTarget\(/,"the retap hint is for tapped words only");
-  assert.match(app,/const shouldSubmit = wgGestureLetters > 1/,"a drag of two or more letters submits on pointer-up");
+  assert.match(app,/const shouldSubmit = wgState\.selected\.length > 1 && wgGestureLetters > 1/,"a drag of two or more letters submits on pointer-up");
 });

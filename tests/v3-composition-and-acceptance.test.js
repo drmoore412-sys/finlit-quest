@@ -167,7 +167,7 @@ test("the runtime wires the confirm tap, the pending hint, the mode marker, and 
   assert.match(source,/document\.documentElement\.dataset\.finlitPuzzleMode = WG_V3_ENABLED \? "v3" : "legacy";/);
   assert.match(source,/validateComposition\(puzzle, FinLitGameEngine\)/);
   assert.match(source,/finlitComposition/);
-  assert.match(source,/const shouldSubmit = wgGestureLetters > 1/,"a one-letter wobble still never submits");
+  assert.match(source,/const shouldSubmit = wgState\.selected\.length > 1 && wgGestureLetters > 1/,"a one-letter wobble still never submits");
 });
 
 test("V3 is the default game and legacy anchor-only routing requires an explicit diagnostic flag",()=>{

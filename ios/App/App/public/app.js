@@ -85,7 +85,7 @@ function renderWorldJourneyMap(mode){
   $("#journeyTabLearning").classList.toggle("active",mode==="learning");$("#journeyTabLearning").setAttribute("aria-selected",mode==="learning");
   $("#worldMapKicker").textContent=mode==="quest"?"WORD QUESTS":"LEARNING QUESTS";
   $("#worldMapTitle").textContent=mode==="quest"?"Your Word Quest Journey":"Your Learning Quest Journey";
-  $("#journeyLearningBanner").classList.toggle("hidden",mode==="learning");const fcLink=$("#journeyFinancialCityLink");if(fcLink)fcLink.classList.toggle("hidden",mode!=="learning");
+  $("#journeyLearningBanner").classList.toggle("hidden",mode==="learning");const fcLink=$("#journeyFinancialCityLink");if(fcLink)fcLink.classList.toggle("hidden",mode!=="learning");const currencyRush=$("#journeyCurrencyRush");if(currencyRush)currencyRush.classList.toggle("hidden",mode!=="learning");
   const player=learning.save.player;
   $("#worldMapCoins").textContent=player.coins;$("#worldMapXp").textContent=player.xp;$("#worldMapGems").textContent=0;
   WORLD_JOURNEY_ORDER.forEach(worldId=>{
@@ -170,6 +170,7 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!$("#worl
 $("#journeyTabQuest").onclick=()=>renderWorldJourneyMap("quest");
 $("#journeyTabLearning").onclick=()=>renderWorldJourneyMap("learning");
 $("#journeyLearningBanner").onclick=()=>renderWorldJourneyMap("learning");
+$("#journeyCurrencyRush").onclick=()=>window.openCurrencyRush?.({source:"learning",stage:1});
 $("#worldMapThemeToggle").onclick=toggleTheme;
 
 document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$$(".theme-toggle").forEach(btn=>btn.textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾");

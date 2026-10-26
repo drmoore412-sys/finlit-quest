@@ -10,6 +10,83 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Shared letter-wheel reliability restored and verified for deployment
+
+Corrected intermittent word-entry failures in both governed crosswords and Currency Rush. The issue was input sampling, not puzzle data: fast pointer movement could cross a letter between browser events, and the final pointer-up position was not processed before submission.
+
+### Completed work
+
+- Added shared segment-based hit detection so every letter tile crossed between pointer samples is recovered in travel order.
+- Processed coalesced pointer events where the browser provides them and always processed the final pointer-up position before evaluating an answer.
+- Applied the same interaction path to the main crossword wheel and Currency Rush so mouse, touch, stylus, slow drags, and rapid swipes behave consistently.
+- Added a clearly labeled **Submit** control as a reliable accessibility and tap-entry fallback; Enter also submits the active selection.
+- Updated wheel instructions to explain swipe and tap-plus-submit operation without changing answer validation, puzzle composition, progression, hints, XP, coins, or rewards.
+- Rebuilt the web bundle and synchronized the same assets into the Capacitor iOS bundle.
+
+### Files modified
+
+- `src/wheel-interaction.js`
+- `word-game-app.js`
+- `word-game.css`
+- `src/currency-rush.js`
+- `index.html`
+- Wheel, audio, Currency Rush, victory, and V3 acceptance regression tests under `tests/`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Focused wheel/audio/Currency Rush suite: **75 of 75 passed**.
+- Complete automated suite: **558 of 558 passed**.
+- Browser verification accepted `NET` and `PAYMENT` on their first entry in Money Basics and `AED` on its first Currency Rush entry; the console remained free of errors.
+- Web and iOS bundle parity passed after the production web build and Capacitor copy.
+- Unsigned iOS Simulator Release build succeeded with Xcode and the iPhoneSimulator 27.1 SDK.
+- Architectural decision: pointer-segment recovery is the canonical solution for sparse high-speed input events; individual game screens should not implement separate wheel hit-testing rules.
+- Known issue: physical-device touch testing is still recommended because simulator and desktop automation cannot reproduce every iPhone touch-sampling pattern.
+- Deployment is authorized for this milestone; after publishing, verify the same first-attempt word entries on `finlitquest.com` and monitor the production console.
+
+---
+
+## 2026-10-26 — Currency Rush three-stage learning cycle and game placement completed locally
+
+Corrected Currency Rush so every owner-supplied nine-letter wheel follows the same progressive teaching sequence. Added the activity to both the Learning Academy surface and the crossword completion experience while retaining practice-only scoring and leaving the governed crossword economy unchanged.
+
+### Completed work
+
+- Expanded the seven wheel rounds into **21 learning stages**: three consecutive plays per wheel.
+- Stage 1, Guided Study, preserves the existing complete reference list with country, currency name, and ISO code.
+- Stage 2, Code Recall, repeats the exact same wheel and target set while showing country and currency name but replacing undiscovered codes with `???`. A code appears only after the player discovers it.
+- Stage 3, Memory Challenge, repeats the same wheel and target set with the complete reference panel hidden. Correct-answer reveals and end-of-round found/missed learning records remain available.
+- Repeats that three-stage sequence for all seven wheels; Stage 4 therefore begins Guided Study for Wheel 2, and Stage 21 is the Memory Challenge for Wheel 7.
+- Added a permanent **Currency Rush** practice activity button to the Learning Quests/Learning Academy view.
+- Added an optional **Currency Rush Bonus** button to the Puzzle Solved panel. Exiting this route restores the completed crossword and its Next Puzzle control instead of losing the player's place.
+- Kept Currency Rush knowledge points isolated from permanent coins, XP, achievements, mastery, saves, and crossword progression. No repeatable spendable reward path was added.
+- Rebuilt the web bundle and synchronized the identical assets into the Capacitor iOS bundle.
+
+### Files modified
+
+- `src/currency-rush.js`
+- `currency-rush.css`
+- `index.html`
+- `app.js`
+- `word-game-app.js`
+- `word-game.css`
+- `tests/currency-rush.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Currency Rush focused suite: **12 of 12 passed**.
+- Complete automated suite: **557 of 557 passed**.
+- Browser verification confirmed Round 1 displays `ROUND 1 OF 21 · GUIDED STUDY`, Round 2 repeats Wheel 1 as `CODE RECALL`, and Round 3 repeats Wheel 1 as `MEMORY CHALLENGE` with no pre-answer reference panel.
+- Automated coverage verifies the complete Stage 1–6 mapping across Wheels 1–2, the final Wheel 7/Stage 21 mapping, code suppression, no-reference memory mode, both navigation entries, and the absence of permanent reward writes.
+- Web and iOS bundle parity passed after `npx cap copy ios`.
+- Unsigned iOS Simulator Release build succeeded against the iPhoneSimulator 27.1 SDK.
+- No production deployment was performed. Recommended next step: owner play-tests the three Wheel 1 stages, then decides whether the optional crossword bonus should remain available after every puzzle or only at selected level milestones. Any spendable bonus reward still requires a separate one-time reward and deduplication policy.
+
+---
+
 ## 2026-10-26 — Currency Rush playable prototype and progressive learning completed locally
 
 Built the isolated FinLit Quest Currency Rush bonus game and then applied the owner's progressive-learning update. The feature is available as a local practice preview and is intentionally disconnected from coins, XP, achievements, crossword progression, and permanent player saves until its integration and reward rules receive separate approval.

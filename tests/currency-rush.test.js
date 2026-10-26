@@ -70,17 +70,29 @@ test("the UI is an isolated practice route with touch, pointer, keyboard, result
   const html=read("index.html"),js=read("src/currency-rush.js"),css=read("currency-rush.css");
   assert.match(html,/id="currencyRushScreen"/);assert.match(html,/PRACTICE ONLY/);assert.match(html,/id="crMusicToggle"[^>]+aria-label="Mute background music"/);
   assert.match(js,/pointerdown/);assert.match(js,/pointermove/);assert.match(js,/pointerMoved/);assert.match(js,/selected\.length===3\)submitSelection/);assert.match(js,/keydown/);assert.match(js,/new URLSearchParams\(win\.location\.search\).*bonus/);
+  assert.match(js,/targetsAlongSegment/);assert.match(js,/getCoalescedEvents/);assert.match(js,/processPointer\(event\);pointerDown=false/,"pointer-up position is processed before submit");
   assert.doesNotMatch(js,/learning\.save|player\.coins|player\.xp|achievement/i,"bonus UI must not touch permanent progression or spendable rewards");
   assert.match(css,/touch-action:none/);assert.match(css,/@media\(max-width:520px\)/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
 });
 
-test("Rounds 1 and 2 are guided, while Round 3 onward hides every pre-answer reference",()=>{
+test("every wheel follows study, code-recall, then no-reference memory stages",()=>{
   const html=read("index.html"),js=read("src/currency-rush.js"),css=read("currency-rush.css");
   assert.match(html,/id="crReferencePanel"/);assert.match(html,/country, currency, and code/i);
-  assert.match(js,/const guided=roundNumber<=2/);assert.match(js,/crReferencePanel.*toggle\("hidden",!guided\)/);
-  assert.match(js,/if\(roundNumber>2\)return/);assert.match(js,/CURRENCIES REMAINING/);
+  assert.deepEqual([1,2,3,4,5,6].map(number=>{const stage=game.stageForNumber(data,number);return[stage.wheelNumber,stage.mode.id]}),[[1,"study"],[1,"recall"],[1,"memory"],[2,"study"],[2,"recall"],[2,"memory"]]);
+  assert.equal(game.stageForNumber(data,21).wheelNumber,7);assert.equal(game.stageForNumber(data,21).mode.id,"memory");
+  assert.match(js,/currentStage\.mode\.reference!=="hidden"/);assert.match(js,/crReferencePanel.*toggle\("hidden",!hasReference\)/);
+  assert.match(js,/currentStage\.mode\.reference==="hidden"\)return/);assert.match(js,/CURRENCIES REMAINING/);
+  assert.match(js,/showCode=currentStage\.mode\.reference==="full"\|\|found/);assert.match(js,/code hidden/);assert.match(js,/"\?\?\?"/);
   assert.match(css,/is-memory-round \.cr-layout/);
   assert.match(html,/id="crMissed"/);assert.match(js,/summary\.missed\.forEach\(code=>missed\.append\(resultItem\(code\)\)\)/);
+});
+
+test("Currency Rush is available from Learning Academy and as an optional crossword bonus without touching rewards",()=>{
+  const html=read("index.html"),app=read("app.js"),wordGame=read("word-game-app.js"),js=read("src/currency-rush.js");
+  assert.match(html,/id="journeyCurrencyRush"/);assert.match(html,/id="wgCompleteCurrencyRush"/);
+  assert.match(app,/journeyCurrencyRush.*openCurrencyRush/);assert.match(wordGame,/wgCompleteCurrencyRush.*crossword-bonus/);
+  assert.match(js,/launchSource==="crossword-bonus"/);assert.match(js,/renderWorldJourneyMap\?\.\("learning"\)/);
+  assert.doesNotMatch(js,/learning\.save|player\.coins|player\.xp|achievement/i);
 });
 
 test("the audio bridge exposes presentation sounds only and keeps music mute independent",()=>{
