@@ -578,7 +578,7 @@ function wgRenderWheel(letters) {
   wgState.wheelTiles.forEach(tile => {
     seen[tile.letter] = (seen[tile.letter] || 0) + 1;
     const b = document.createElement("button");
-    b.type = "button"; b.className = "letter"; b.textContent = tile.letter; b.dataset.tileId = tile.id;
+    b.type = "button"; b.draggable = false; b.className = "letter"; b.textContent = tile.letter; b.dataset.tileId = tile.id;
     b.setAttribute("aria-pressed", "false");
     b.setAttribute("aria-label", totals[tile.letter] > 1 ? `${tile.letter}, ${seen[tile.letter]} of ${totals[tile.letter]}` : tile.letter);
     wheel.append(b);
@@ -655,6 +655,9 @@ function wgEndPointer(e) {
   // Some browsers omit the last pointermove. Process pointerup itself before
   // deciding which word was traced.
   wgProcessPointerPosition(e);
+  wgFinishPointerSelection();
+}
+function wgFinishPointerSelection() {
   const shouldSubmit = wgState.selected.length > 1 && wgGestureLetters > 1, retappedLast = wgRetapLast;
   wgResetPointer();
   if (shouldSubmit) wgSubmitWord();
@@ -662,6 +665,13 @@ function wgEndPointer(e) {
     const word = wgSelectedWord();
     if (wgCanSubmitTapWord(word) || FinLitWheelInteraction.shouldSubmitOnRetap(retappedLast, word, wgState.words, wgState.found, wgWordOptions())) wgSubmitWord(); else wgUpdateSelection();
   }
+}
+function wgRecoverPointer() {
+  if (!wgPointerDown) return;
+  // Mobile browsers can cancel or drop capture during a perfectly valid wheel
+  // gesture. Keep tapped letters and submit a multi-letter swipe instead of
+  // erasing the attempt and forcing the player to spell it again.
+  wgFinishPointerSelection();
 }
 function wgCancelPointer() {
   if (!wgPointerDown) return;
@@ -1091,11 +1101,16 @@ function wgShowDefinitions() { wgRenderDefinitionsList(); $("#wgDefinitionsPanel
 function wgHideDefinitions() { $("#wgDefinitionsPanel").classList.add("hidden"); }
 
 const wgWheelElement = $("#wgWheel");
+// Prevent the browser's translucent native drag image / text selection from
+// following the pointer instead of the game's own trace line.
+wgWheelElement.addEventListener("dragstart", event => event.preventDefault());
+wgWheelElement.addEventListener("selectstart", event => event.preventDefault());
+wgWheelElement.addEventListener("contextmenu", event => event.preventDefault());
 wgWheelElement.addEventListener("pointerdown", wgBeginPointer);
 wgWheelElement.addEventListener("pointermove", wgMovePointer);
 wgWheelElement.addEventListener("pointerup", wgEndPointer);
-wgWheelElement.addEventListener("pointercancel", wgCancelPointer);
-wgWheelElement.addEventListener("lostpointercapture", () => { if (wgPointerDown) wgCancelPointer(); });
+wgWheelElement.addEventListener("pointercancel", wgRecoverPointer);
+wgWheelElement.addEventListener("lostpointercapture", wgRecoverPointer);
 wgWheelElement.addEventListener("click", event => {
   const button = event.target.closest(".letter");
   if (!button || event.detail !== 0) return;

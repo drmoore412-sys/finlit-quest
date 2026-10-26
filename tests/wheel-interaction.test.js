@@ -88,8 +88,12 @@ test("runtime uses pointer movement hit testing, cancellation cleanup, and keybo
   assert.match(source,/targetsAlongSegment\(from, to, targets\)/);
   assert.match(source,/getCoalescedEvents/);
   assert.match(source,/wgProcessPointerPosition\(e\);[\s\S]{0,160}const shouldSubmit/,"pointer-up is sampled before submission");
-  assert.match(source,/addEventListener\("pointercancel", wgCancelPointer\)/);
-  assert.match(source,/addEventListener\("lostpointercapture"/);
+  assert.match(source,/addEventListener\("pointercancel", wgRecoverPointer\)/);
+  assert.match(source,/addEventListener\("lostpointercapture", wgRecoverPointer\)/);
+  assert.match(source,/function wgRecoverPointer\(\)[\s\S]{0,420}wgFinishPointerSelection\(\)/,"capture loss recovers rather than discards the attempt");
+  assert.match(source,/addEventListener\("dragstart", event => event\.preventDefault\(\)\)/,"native ghost dragging is disabled");
+  assert.match(source,/addEventListener\("selectstart", event => event\.preventDefault\(\)\)/,"text selection cannot steal the wheel gesture");
+  assert.match(source,/b\.draggable = false/,"letter tiles never create a browser drag image");
   assert.match(source,/const shouldSubmit = wgState\.selected\.length > 1 && wgGestureLetters > 1/,"a one-tile finger wobble must not submit an incomplete gesture");
   assert.match(source,/event\.key === "Backspace"/);
   assert.match(source,/\["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"\]/);
@@ -116,4 +120,6 @@ test("responsive UI includes a live word readout, layered trace, and narrow-phon
   assert.match(css,/@media\(max-width:340px\)/);
   assert.match(css,/width:min\(78vw,310px\)/);
   assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+  assert.match(css,/-webkit-user-drag:none/);
+  assert.match(css,/-webkit-touch-callout:none/);
 });

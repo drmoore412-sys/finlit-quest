@@ -10,6 +10,46 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Bonus Games hub and interrupted-wheel recovery completed locally
+
+Moved standalone practice experiences out of bottom-of-page banners into a dedicated top-level arcade and corrected a second wheel reliability defect reproduced in the local browser. This milestone remains local and has not been deployed.
+
+### Completed work
+
+- Added a third **Bonus Games** tab beside Word Quests and Learning Quests.
+- Added a responsive Bonus Arcade hub containing Currency Rush, Where Should My Money Go?, and a reserved future-games card.
+- Removed the scattered bottom game banners; Currency Rush now returns to Bonus Games when launched from the arcade while the post-crossword bonus still returns to the completed puzzle.
+- Reproduced the remaining wheel failure: some browsers emitted `pointercancel` or `lostpointercapture`, causing the game to erase the selected letters and report “Selection cancelled.”
+- Changed interrupted pointer handling to preserve tapped letters and submit a completed multi-letter swipe instead of discarding the attempt.
+- Disabled browser-native drag images, text selection, long-press callouts, and context menus on both crossword and Currency Rush wheels. Letter tiles are explicitly non-draggable.
+- Rebuilt the web bundle and synchronized the same assets into the local Capacitor iOS bundle.
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `journey.css`
+- `word-game-app.js`
+- `word-game.css`
+- `src/currency-rush.js`
+- `currency-rush.css`
+- `tests/wheel-interaction.test.js`
+- `tests/currency-rush.test.js`
+- `tests/world-selection.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Focused interaction and audio tests: **88 of 88 passed**.
+- Complete automated suite: **558 of 558 passed**.
+- Local browser verification confirmed the Bonus Games desktop layout, Currency Rush launch/return routing, and first-entry acceptance of `NET` after the same automated pointer sequence had previously reproduced “Selection cancelled.”
+- Architectural decision: standalone mini-games belong in Bonus Games; Learning Quests remains reserved for authored educational lessons and activities.
+- Known issue: real-device testing is still recommended for the exact iPhone touch sequence that originally produced the ghost drag.
+- Recommended next step: owner reviews the local Bonus Games layout and wheel feel. Do not deploy until that review is complete.
+
+---
+
 ## 2026-10-26 — Shared letter-wheel reliability restored and verified for deployment
 
 Corrected intermittent word-entry failures in both governed crosswords and Currency Rush. The issue was input sampling, not puzzle data: fast pointer movement could cross a letter between browser events, and the final pointer-up position was not processed before submission.

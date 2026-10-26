@@ -83,9 +83,11 @@ const WORLD_PLAYABLE_IDS=new Set(WORLD_DEFINITIONS_2027.filter(world=>world.curr
 function renderWorldJourneyMap(mode){
   $("#journeyTabQuest").classList.toggle("active",mode==="quest");$("#journeyTabQuest").setAttribute("aria-selected",mode==="quest");
   $("#journeyTabLearning").classList.toggle("active",mode==="learning");$("#journeyTabLearning").setAttribute("aria-selected",mode==="learning");
+  $("#journeyTabGames").classList.toggle("active",mode==="games");$("#journeyTabGames").setAttribute("aria-selected",mode==="games");
+  $("#bonusGamesHub").classList.toggle("hidden",mode!=="games");$("#journeyWorldMap").classList.toggle("hidden",mode==="games");$("#dailyReward").classList.toggle("hidden",mode==="games");
+  if(mode==="games")return;
   $("#worldMapKicker").textContent=mode==="quest"?"WORD QUESTS":"LEARNING QUESTS";
   $("#worldMapTitle").textContent=mode==="quest"?"Your Word Quest Journey":"Your Learning Quest Journey";
-  $("#journeyLearningBanner").classList.toggle("hidden",mode==="learning");const fcLink=$("#journeyFinancialCityLink");if(fcLink)fcLink.classList.toggle("hidden",mode!=="learning");const currencyRush=$("#journeyCurrencyRush");if(currencyRush)currencyRush.classList.toggle("hidden",mode!=="learning");
   const player=learning.save.player;
   $("#worldMapCoins").textContent=player.coins;$("#worldMapXp").textContent=player.xp;$("#worldMapGems").textContent=0;
   WORLD_JOURNEY_ORDER.forEach(worldId=>{
@@ -169,8 +171,8 @@ $("#dailyRewardClaim").onclick=claimDailyRewardFromUi;
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!$("#worldSelectScreen").classList.contains("hidden"))renderDailyReward()});
 $("#journeyTabQuest").onclick=()=>renderWorldJourneyMap("quest");
 $("#journeyTabLearning").onclick=()=>renderWorldJourneyMap("learning");
-$("#journeyLearningBanner").onclick=()=>renderWorldJourneyMap("learning");
-$("#journeyCurrencyRush").onclick=()=>window.openCurrencyRush?.({source:"learning",stage:1});
+$("#journeyTabGames").onclick=()=>renderWorldJourneyMap("games");
+$("#journeyCurrencyRush").onclick=()=>window.openCurrencyRush?.({source:"bonus-games",stage:1});
 $("#worldMapThemeToggle").onclick=toggleTheme;
 
 document.documentElement.dataset.theme=learning.save.settings.theme||localStorage.getItem("fq_theme")||"light";learning.save.settings.theme=document.documentElement.dataset.theme;learning.persist();$$(".theme-toggle").forEach(btn=>btn.textContent=document.documentElement.dataset.theme==="dark"?"☀":"☾");

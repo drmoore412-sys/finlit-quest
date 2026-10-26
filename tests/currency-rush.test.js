@@ -70,9 +70,11 @@ test("the UI is an isolated practice route with touch, pointer, keyboard, result
   const html=read("index.html"),js=read("src/currency-rush.js"),css=read("currency-rush.css");
   assert.match(html,/id="currencyRushScreen"/);assert.match(html,/PRACTICE ONLY/);assert.match(html,/id="crMusicToggle"[^>]+aria-label="Mute background music"/);
   assert.match(js,/pointerdown/);assert.match(js,/pointermove/);assert.match(js,/pointerMoved/);assert.match(js,/selected\.length===3\)submitSelection/);assert.match(js,/keydown/);assert.match(js,/new URLSearchParams\(win\.location\.search\).*bonus/);
-  assert.match(js,/targetsAlongSegment/);assert.match(js,/getCoalescedEvents/);assert.match(js,/processPointer\(event\);pointerDown=false/,"pointer-up position is processed before submit");
+  assert.match(js,/targetsAlongSegment/);assert.match(js,/getCoalescedEvents/);assert.match(js,/processPointer\(event\);finishPointer\(\)/,"pointer-up position is processed before submit");
+  assert.match(js,/addEventListener\("pointercancel",finishPointer\)/);assert.match(js,/addEventListener\("lostpointercapture"/);
+  assert.match(js,/button\.draggable=false/);assert.match(js,/addEventListener\("dragstart",event=>event\.preventDefault\(\)\)/);
   assert.doesNotMatch(js,/learning\.save|player\.coins|player\.xp|achievement/i,"bonus UI must not touch permanent progression or spendable rewards");
-  assert.match(css,/touch-action:none/);assert.match(css,/@media\(max-width:520px\)/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+  assert.match(css,/touch-action:none/);assert.match(css,/-webkit-user-drag:none/);assert.match(css,/@media\(max-width:520px\)/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
 });
 
 test("every wheel follows study, code-recall, then no-reference memory stages",()=>{
@@ -87,11 +89,11 @@ test("every wheel follows study, code-recall, then no-reference memory stages",(
   assert.match(html,/id="crMissed"/);assert.match(js,/summary\.missed\.forEach\(code=>missed\.append\(resultItem\(code\)\)\)/);
 });
 
-test("Currency Rush is available from Learning Academy and as an optional crossword bonus without touching rewards",()=>{
+test("Currency Rush has a dedicated Bonus Games home and remains an optional crossword bonus without touching rewards",()=>{
   const html=read("index.html"),app=read("app.js"),wordGame=read("word-game-app.js"),js=read("src/currency-rush.js");
-  assert.match(html,/id="journeyCurrencyRush"/);assert.match(html,/id="wgCompleteCurrencyRush"/);
-  assert.match(app,/journeyCurrencyRush.*openCurrencyRush/);assert.match(wordGame,/wgCompleteCurrencyRush.*crossword-bonus/);
-  assert.match(js,/launchSource==="crossword-bonus"/);assert.match(js,/renderWorldJourneyMap\?\.\("learning"\)/);
+  assert.match(html,/id="journeyTabGames"/);assert.match(html,/id="bonusGamesHub"/);assert.match(html,/id="journeyCurrencyRush"/);assert.match(html,/id="journeyFinancialCityLink"/);assert.match(html,/id="wgCompleteCurrencyRush"/);
+  assert.match(app,/journeyTabGames.*renderWorldJourneyMap\("games"\)/);assert.match(app,/journeyCurrencyRush.*bonus-games/);assert.match(wordGame,/wgCompleteCurrencyRush.*crossword-bonus/);
+  assert.match(js,/launchSource==="crossword-bonus"/);assert.match(js,/renderWorldJourneyMap\?\.\("games"\)/);
   assert.doesNotMatch(js,/learning\.save|player\.coins|player\.xp|achievement/i);
 });
 

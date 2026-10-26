@@ -81,6 +81,7 @@
       <div class="journey-tabs" role="tablist" aria-label="Quest type">
         <button class="journey-tab active" id="journeyTabQuest" role="tab" aria-selected="true"><span class="journey-tab-icon" aria-hidden="true">🧭</span>Word Quests</button>
         <button class="journey-tab" id="journeyTabLearning" role="tab" aria-selected="false"><span class="journey-tab-icon" aria-hidden="true">📖</span>Learning Quests</button>
+        <button class="journey-tab" id="journeyTabGames" role="tab" aria-selected="false"><span class="journey-tab-icon" aria-hidden="true">🎮</span>Bonus Games</button>
       </div>
 
       <div class="daily-reward" id="dailyReward" role="region" aria-labelledby="dailyRewardTitle">
@@ -95,7 +96,25 @@
         <p class="daily-reward-status" id="dailyRewardStatus" role="status" aria-live="polite" tabindex="-1"></p>
       </div>
 
-      <div class="journey-layout journey-layout-solo">
+      <section class="bonus-games-hub hidden" id="bonusGamesHub" aria-labelledby="bonusGamesTitle">
+        <div class="bonus-games-heading"><span>BONUS ARCADE</span><h1 id="bonusGamesTitle">Play. Practice. Explore.</h1><p>Short financial games for skill-building between Word Quests.</p></div>
+        <div class="bonus-games-grid">
+          <button class="bonus-game-card currency" id="journeyCurrencyRush" type="button">
+            <span class="bonus-game-art" aria-hidden="true">🌍</span>
+            <span class="bonus-game-copy"><small>SPEED ROUND · PRACTICE</small><strong>Currency Rush</strong><em>Learn international currency codes through guided study and memory challenges.</em><b>Play now <span aria-hidden="true">→</span></b></span>
+          </button>
+          <a class="bonus-game-card city" id="journeyFinancialCityLink" href="financial-city.html">
+            <span class="bonus-game-art" aria-hidden="true">🏙️</span>
+            <span class="bonus-game-copy"><small>DECISION GAME · EDUCATIONAL DRAFT</small><strong>Where Should My Money Go?</strong><em>Explore spending choices and see how everyday decisions shape your financial city.</em><b>Explore <span aria-hidden="true">→</span></b></span>
+          </a>
+          <article class="bonus-game-card future" aria-label="More bonus games are coming">
+            <span class="bonus-game-art" aria-hidden="true">✨</span>
+            <span class="bonus-game-copy"><small>ARCADE EXPANSION</small><strong>More adventures ahead</strong><em>Future practice games will appear here instead of being scattered across the journey.</em><b>Coming soon</b></span>
+          </article>
+        </div>
+      </section>
+
+      <div class="journey-layout journey-layout-solo" id="journeyWorldMap">
         <section class="journey-map" aria-labelledby="worldMapTitle">
           <div class="map-heading"><span id="worldMapKicker">WORD QUESTS</span><h1 id="worldMapTitle">Your Word Quest Journey</h1><p>Travel through the worlds and master money one puzzle at a time.</p></div>
           <div class="journey-cloud cloud-one" aria-hidden="true"></div><div class="journey-cloud cloud-two" aria-hidden="true"></div>
@@ -171,9 +190,6 @@
         </section>
       </div>
 
-      <button class="continue-adventure" id="journeyLearningBanner"><span class="cta-compass" aria-hidden="true">📖</span><span><small>WANT LESSONS, ACTIVITIES, AND QUIZZES?</small>Open Learning Quests</span><b>→</b></button>
-      <a class="continue-adventure hidden" id="journeyFinancialCityLink" href="financial-city.html" style="text-decoration:none"><span class="cta-compass" aria-hidden="true">🏙️</span><span><small>BONUS GAME · EDUCATIONAL DRAFT</small>Where Should My Money Go?</span><b>→</b></a>
-      <button class="continue-adventure hidden" id="journeyCurrencyRush"><span class="cta-compass" aria-hidden="true">🌍</span><span><small>LEARNING ACADEMY · PRACTICE GAME</small>Currency Rush</span><b>→</b></button>
     </section>
 
     <section class="wg-screen" id="worldGameScreen">

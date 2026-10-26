@@ -5,10 +5,12 @@ const path=require("node:path");
 const {ROOT}=require("./helpers.js");
 
 const html=fs.readFileSync(path.join(ROOT,"index.html"),"utf8");
+const worldMapStart=html.indexOf('id="journeyWorldMap"');
+const worldMapEnd=html.indexOf('<section class="wg-screen"',worldMapStart);
+const worldMapSection=html.slice(worldMapStart,worldMapEnd);
 
 test("Choose Your World presents all 13 owner-approved worlds in order",()=>{
-  const section=html.split('id="worldSelectScreen"')[1].split("</section>")[0];
-  const ids=[...section.matchAll(/id="(select[A-Za-z]+World)"/g)].map(match=>match[1]);
+  const ids=[...worldMapSection.matchAll(/id="(select[A-Za-z]+World)"/g)].map(match=>match[1]);
   assert.deepEqual(ids,[
     "selectMoneyBasicsWorld",
     "selectCreditWorld",
@@ -27,10 +29,9 @@ test("Choose Your World presents all 13 owner-approved worlds in order",()=>{
 });
 
 test("the eight new world cards are playable and no longer marked Coming Soon",()=>{
-  const section=html.split('id="worldSelectScreen"')[1].split("</section>")[0];
   const newWorldIds=["coins","ai_technology","real_estate","taxes","insurance","business","social_media","retirement"];
   for(const worldId of newWorldIds){
-    const node=section.match(new RegExp(`<button[^>]+data-world="${worldId}"[\\s\\S]*?<\\/button>`));
+    const node=worldMapSection.match(new RegExp(`<button[^>]+data-world="${worldId}"[\\s\\S]*?<\\/button>`));
     assert.ok(node,worldId);
     assert.doesNotMatch(node[0],/coming-soon/);
     assert.doesNotMatch(node[0],/Coming soon/i);
