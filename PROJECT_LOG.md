@@ -10,6 +10,39 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Approved portal artwork added to Bonus Games
+
+Integrated the owner's exact attached fantasy portal PNG as the Bonus Games hub background without regenerating, substituting, or recompressing the artwork. The dragon, glowing portal, castle, village, and treasure chest remain visible behind readable glass game cards.
+
+### Completed work
+
+- Saved the byte-identical 1672×941 PNG at `assets/images/bonus-games-portal.png` (SHA-256 `7ca93018f1878415db117dd89a7a81a2413da8901fba68d41cdf17ae53379522`).
+- Added responsive cover positioning for desktop and mobile, a restrained readability overlay, and translucent game-card and heading surfaces.
+- Added the image to the production web build manifest and synchronized identical bytes into the Capacitor iOS bundle.
+- Captured desktop and mobile review screenshots in `artifacts/bonus-games/`.
+
+### Files modified
+
+- `assets/images/bonus-games-portal.png`
+- `journey.css`
+- `scripts/build-www.sh`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/journey.css`
+- `ios/App/App/public/assets/images/bonus-games-portal.png`
+- `artifacts/bonus-games/bonus-games-background-desktop.png`
+- `artifacts/bonus-games/bonus-games-background-mobile.png`
+- `PROJECT_LOG.md`
+
+### Verification and status
+
+- Source, generated web, and generated iOS images have the same SHA-256 checksum.
+- Complete automated suite: **561 of 561 passed**.
+- Desktop review at 1440×1050 and mobile review at 375×812 confirmed readable cards and responsive artwork positioning.
+- No games, routes, puzzles, progression, saves, audio, rewards, XP, coins, or achievements changed.
+- This update remains local and is not deployed.
+
+---
+
 ## 2026-10-26 — Bonus Games moved ahead of Learning Quests
 
 Reordered the World Quest Journey navigation to show **Word Quests → Bonus Games → Learning Quests**, as requested by the owner. Routes, content, and tab behavior are unchanged.

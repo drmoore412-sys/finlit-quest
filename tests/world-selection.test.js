@@ -80,6 +80,15 @@ test("Bonus Games appears before Learning Quests in the primary Journey navigati
   assert.ok(html.indexOf('id="journeyTabGames"')<html.indexOf('id="journeyTabLearning"'));
 });
 
+test("the Bonus Games hub uses the owner-approved local portal artwork",()=>{
+  const css=fs.readFileSync(path.join(ROOT,"journey.css"),"utf8");
+  const asset=path.join(ROOT,"assets/images/bonus-games-portal.png");
+  assert.ok(fs.existsSync(asset));
+  assert.ok(fs.statSync(asset).size>2_000_000,"the approved full-resolution PNG must not be replaced by a lightweight placeholder");
+  assert.match(css,/\.bonus-games-hub[^}]*url\("assets\/images\/bonus-games-portal\.png"\)/);
+  assert.match(css,/\.bonus-game-card[^}]*backdrop-filter/,"game cards remain readable over the artwork");
+});
+
 test("the World Quest Journey uses the owner-approved local Golden Castle PNG across the complete route",()=>{
   const css=fs.readFileSync(path.join(ROOT,"journey.css"),"utf8");
   const asset=path.join(ROOT,"assets/images/golden-castle-journey.png");
