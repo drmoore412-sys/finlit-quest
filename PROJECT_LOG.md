@@ -10,6 +10,252 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Currency Rush playable prototype and progressive learning completed locally
+
+Built the isolated FinLit Quest Currency Rush bonus game and then applied the owner's progressive-learning update. The feature is available as a local practice preview and is intentionally disconnected from coins, XP, achievements, crossword progression, and permanent player saves until its integration and reward rules receive separate approval.
+
+### Completed work
+
+- Added a cinematic international-currency arena with a glowing globe, nine-letter wheel, floating currency symbols, responsive glass panels, coin rain, success reveal, and final results presentation.
+- Added mouse/touch swipe, tap, repeated-tile protection, keyboard entry, cancellation, invalid feedback, duplicate protection, 60-second timer, live scoring, streak bonuses, completion bonus, and early-finish bonus.
+- Validated the seven owner-supplied wheels mechanically against the official ISO 4217 List One published 2026-09-17 by the SIX ISO 4217 Maintenance Agency. Runtime data contains 71 unique current codes and 88 wheel placements; exact letter multiplicities are enforced.
+- Added full code, currency name, country/countries, and local flag presentation. Shared currencies such as EUR and USD summarize their multiple listed economies, while globally administered codes such as XDR use a global marker.
+- Implemented progressive learning: Rounds 1–2 show the exact target list with country, full currency name, and code and visibly mark discoveries; Rounds 3–7 remove the entire reference list and show only currencies remaining until a correct answer or the results screen.
+- Results now show full code/name/country records for both found and missed currencies in every round.
+- Reused the existing original Web Audio engine for rising per-letter tones, correct/invalid/duplicate feedback, coin sparkle, round completion, continuous music, and the independent persistent music-only mute preference.
+- Added a narrow integration surface (`openCurrencyRush` / `FinLitCurrencyRushController`) for a future between-level reward gate or unlimited Learning Academy practice. No integration was activated in production progression.
+- Added a deterministic ISO XML importer so future official-list refreshes can regenerate the runtime records without manual code invention.
+
+### Files added
+
+- `content/currency-rush-data.js`
+- `src/currency-rush.js`
+- `currency-rush.css`
+- `scripts/import-currency-rush-data.mjs`
+- `tests/currency-rush.test.js`
+- `artifacts/currency-rush/currency-rush-desktop-guided.png`
+- `artifacts/currency-rush/currency-rush-desktop-memory.png`
+- `artifacts/currency-rush/currency-rush-mobile-guided.png`
+- `artifacts/currency-rush/currency-rush-mobile-reference.png`
+
+### Files modified
+
+- `index.html`
+- `word-game-app.js`
+- `scripts/build-www.sh`
+- `tests/bundle-parity.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Currency Rush focused suite: **11 of 11 passed**.
+- Complete automated suite: **556 of 556 passed**.
+- Browser interaction verified a successful AED tap sequence, +100 practice knowledge points, currency reveal, coin presentation, guided-list discovery highlighting, a Round 3 memory screen with no answers exposed, and music-mute persistence after reload.
+- Responsive visual inspection completed at 1440×1000 and 390×844. The mobile reference remains below the wheel in a bounded scroll region, so it does not obscure the timer or wheel.
+- Browser console errors after guided and memory-round checks: **0**.
+- Web bundle rebuilt and Capacitor assets synchronized. Source and iOS hashes match for the HTML, Currency Rush CSS, engine, and currency data.
+- Unsigned iOS Simulator Release build succeeded against the iPhoneSimulator 27.1 SDK.
+- No production deployment was performed. Recommended next step: owner play/listening review of all seven practice rounds, followed by a separate decision about where the Learning Academy entry appears and whether/when between-level play may issue a one-time governed reward.
+- The owner's exact Golden Castle Journey artwork remains a separate unresolved asset request and was not changed by this milestone.
+
+---
+
+## 2026-10-26 — Persistent music-only mute completed; Golden Castle asset still unavailable
+
+Completed and verified the independent background-music mute milestone while preserving the existing sound-effects channel. The requested owner-approved Golden Castle Journey artwork was not accessible in the conversation, attachment cache, project, Downloads, or temporary upload area, so the journey background was intentionally not replaced or approximated.
+
+### Completed work
+
+- Added a visible, touch-sized speaker control to the World Quest Journey header and the shared level/gameplay header.
+- Added the independent persistent `finlitQuest.musicEnabled` preference. Muting fades only the music bus; rising letter tones, correct/incorrect feedback, coin sounds, and completion fanfares remain governed by the existing effects preference and volume.
+- Preserved the saved music volume while muted and restored that exact volume when unmuted.
+- Kept the music engine alive across Journey, world, level, and puzzle navigation so navigation does not create duplicate music or restart the loop.
+- Preserved browser audio-unlock handling for iPhone Safari/WKWebView and desktop browsers.
+- Added accessible dynamic labels (`Mute background music` / `Unmute background music`), pressed state, keyboard focus treatment, and 42–44px touch targets.
+
+### Files modified
+
+- `index.html`
+- `journey.css`
+- `app.js`
+- `word-game.css`
+- `word-game-app.js`
+- `src/victory-celebration.js`
+- `tests/game-audio.test.js`
+- `tests/victory-celebration.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, blocker, and next step
+
+- Focused audio/parity suite: **57 of 57 passed**.
+- Complete automated suite: **545 of 545 passed**.
+- Browser interaction confirmed music-only mute on the Journey page, persistence into Money Basics level selection, persistence after reload, and restoration to the prior 28% volume when unmuted. The effects control remained enabled at 90% while music was muted.
+- Production web bundle rebuilt and Capacitor iOS assets synchronized successfully.
+- Unsigned iOS Simulator build succeeded against the iPhoneSimulator 27.1 SDK.
+- Golden Castle integration remains blocked: no matching castle/pathway/portal image file was exposed by the user's attempted attachment. The available temporary images were inspected and were unrelated, so none was substituted.
+- Remaining work after the exact file is successfully attached: copy and optimize that exact artwork without visible degradation, integrate responsive Journey positioning around its landmarks, add asset/bundle regression tests, capture desktop and iPhone screenshots, rerun the full suite/build, and update this log with the completed image milestone.
+- No production deployment was performed.
+
+---
+
+## 2026-10-26 — World backgrounds made prominent with translucent gameplay glass
+
+Completed the background-visibility correction across the shared 13-world presentation layer. This was a CSS-only gameplay-surface change: no puzzle data, curriculum, audio behavior, rewards, hint rules, saves, or progression logic changed.
+
+### Completed work
+
+- Reduced the full-screen art tint from the previous heavy navy veil to a restrained 22–45% directional readability gradient so each installed fantasy environment remains prominent.
+- Rebuilt the three Level panels as 23–27% dark glass with subtle borders, shadows, saturation, and 7px backdrop blur.
+- Rebuilt the crossword board as 16–20% glass and the letter wheel as 16–20% glass, using background alpha rather than parent `opacity`, so child text and controls stay fully opaque.
+- Kept crossword cells intentionally high contrast at 92% background alpha, strengthened their borders, and retained solid selected/found states.
+- Kept game buttons, progress indicators, navigation, and action controls legible; added targeted text shadows instead of another page-wide overlay.
+- Softened the top bar, world header, mission card, and daily status panel so more of the world remains visible throughout level selection and gameplay.
+- Preserved the existing responsive crop rules and reduced-motion behavior for all 13 stable world IDs.
+
+### Files modified
+
+- `word-game.css`
+- `tests/world-backgrounds.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Added a regression test that enforces the intended level/board/wheel alpha ranges, limited backdrop blur, and the rule against container-level opacity.
+- Complete automated suite: **543 of 543 passed**.
+- Production web bundle rebuilt successfully; Capacitor assets synchronized to iOS.
+- Unsigned iOS Simulator build succeeded against the iPhoneSimulator 27.1 SDK.
+- Browser visual checks completed for the narrow/mobile level-selection, crossword, and wheel views. The same shared CSS rules cover every world and default desktop layouts.
+- Before/after screenshots were captured during implementation; the after views confirm that the Money Basics environment remains clearly visible behind all primary gameplay surfaces while controls retain contrast.
+- The three exact owner-approved image files remain pending and were not replaced: `assets/worlds/coins-currency-approved.jpg`, `assets/worlds/insurance-protection-approved.jpg`, and `assets/worlds/social-media-approved.jpg`.
+- No production deployment was performed. Recommended next step: owner reviews the local glass treatment across a few preferred backgrounds, then supplies the three pending approved files before release QA.
+
+---
+
+## 2026-10-26 — Ten cinematic world backgrounds integrated; three approved assets pending
+
+Implemented the shared 13-world background system and combined it with the completed interactive audio engine. Ten original, optimized cinematic environment images are installed. The three images the owner previously approved were not present in the repository, so their mappings remain explicitly pending rather than being silently replaced.
+
+### Completed work
+
+- Added a governed background manifest for all 13 stable world IDs with exact themes, desktop/mobile crop positions, atmosphere palettes, and asset status.
+- Generated and installed ten original 16:9 stylized-3D environments for Money Basics, Credit, Crypto, Banking, Investing, AI & Technology, Real Estate, Taxes, Business, and Retirement.
+- Optimized the ten runtime JPEGs to 516–643 KB each; worlds load their own image only when entered.
+- Preserved the exact approved-artwork slots for Coins & Currency, Insurance & Protection, and Social Media & Digital Income. Those worlds use clearly temporary thematic gradients until the owner supplies the exact files.
+- Added responsive `cover` cropping, a readability overlay, translucent gameplay surfaces, subtle low-cost atmospheric drift/particles, and complete `prefers-reduced-motion` handling.
+- Kept each background active through all three levels and 15 games without changing world names or navigation.
+- Retained the complete Web Audio implementation: rising letter tones, correct/incorrect responses, coin/crossword/level/world sounds, continuous synthesized music, future licensed-track adapter, independent saved volume controls, master mute, and iPhone unlock behavior.
+- Preserved all 58 canonical puzzles, 195 placements, 13 worlds, permanent IDs, saves, coins, XP, rewards, reward deduplication, and governed hint pricing.
+
+### Files added
+
+- `content/world-backgrounds.js`
+- `assets/worlds/README.md`
+- Ten optimized JPEGs under `assets/worlds/`
+- `tests/world-backgrounds.test.js`
+
+### Files modified
+
+- `word-game-app.js`
+- `word-game.css`
+- `index.html`
+- `scripts/build-www.sh`
+- `tests/bundle-parity.test.js`
+- Generated web/native bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, known issues, and next steps
+
+- Complete automated suite: **542 of 542 passed**.
+- Browser interaction opened Games 1, 6, and 11 in every one of the 13 worlds; all 39 sampled games loaded a wheel and crossword, all ten installed image mappings reached `ready`, and the three pending approved slots remained correctly labeled `awaiting-owner-approved-file`.
+- Narrow/mobile gameplay inspection confirmed `cover` cropping, readable glass panels, accessible controls, free Level 1 hints, and responsive layout. Desktop/narrow CSS paths and native bundle parity are regression-covered.
+- Browser console errors after the complete sweep: **0**.
+- Web bundle rebuilt, Capacitor iOS assets synchronized, and the unsigned iOS Release build succeeded against iPhoneOS 27.1.
+- Missing exact approved assets: `assets/worlds/coins-currency-approved.jpg`, `assets/worlds/insurance-protection-approved.jpg`, and `assets/worlds/social-media-approved.jpg`.
+- No production deployment was performed. Next: owner reviews the local backgrounds and audio, supplies the three approved image files, then the same QA gates run again before any deployment authorization.
+
+---
+
+## 2026-10-26 — Audio progression tiers and licensed-track integration completed locally
+
+Completed the second audio milestone without changing curriculum, puzzles, progression, rewards, or save data. The crossword now distinguishes immediate letter anticipation from accepted answers, coin rewards, crossword completion, level completion, and world completion, while retaining a continuous low-volume music bed.
+
+### Completed work
+
+- Added a compact original coin-reward sound and distinct original fanfares for crossword, five-puzzle level, and fifteen-puzzle world completion.
+- Added completion-sound priority and temporary music ducking so simultaneous milestones resolve as one clear celebration rather than overlapping at excessive volume.
+- Kept rising tones immediate for every newly selected wheel tile, including repeated letters, rapid selections, tapping, dragging, and canceled attempts.
+- Preserved gentle invalid and canceled-selection resolutions and the existing accepted-answer/key-term sounds.
+- Added a future licensed-music adapter. `content/audio-config.js` intentionally leaves `musicTrackUrl` empty, so the synthesized loop remains active until the owner purchases and adds the Suno file. No preview or unlicensed audio was used.
+- The licensed track, when configured later, uses the same persistent music bus, mute preference, volume control, looping behavior, and iPhone audio-unlock path; puzzle and level changes do not recreate or restart it.
+- Completion-tier selection is derived read-only from permanent puzzle history after progress is saved. It does not alter rewards, completion state, coins, XP, mastery, or permanent IDs.
+- Rebuilt the web bundle and synchronized identical assets into the Capacitor iOS bundle.
+
+### Files modified
+
+- `content/audio-config.js` (new)
+- `src/game-audio.js`
+- `src/victory-celebration.js`
+- `word-game-app.js`
+- `index.html`
+- `scripts/build-www.sh`
+- `tests/game-audio.test.js`
+- `tests/victory-celebration.test.js`
+- `tests/bundle-parity.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Complete automated suite: **537 of 537 passed**.
+- Production web bundle rebuilt and Capacitor iOS synchronization completed successfully.
+- Unsigned iOS Release build completed successfully against the iPhoneOS 27.1 SDK.
+- Local browser interaction verified letter selection, canceled selection, master mute/unmute, the separate Effects and Music controls, all 13 existing world cards, and zero console errors.
+- Automated audio tests verify rising pitch, repeated-letter handling, rapid-voice limits, independent bus gains, suspended-context activation, continuous music without puzzle restarts, licensed-track fallback, and distinct coin/crossword/level/world signatures.
+- No production deployment was performed. Next: conduct an owner listening review on desktop and a real iPhone; after purchasing the soundtrack, add the licensed local audio asset and set `musicTrackUrl`, then rerun this same verification before separately authorizing deployment.
+
+---
+
+## 2026-10-26 — Interactive crossword audio system completed locally
+
+Implemented an original Web Audio system for crossword gameplay. A quiet synthesized music loop now begins after the required player gesture, continues without restarting across level selection, traced words, puzzle transitions, and the completion panel, and stops when the player exits to the world journey.
+
+### Completed work
+
+- Extended the existing single `AudioContext` engine with independent effects and music buses.
+- Added an original eight-beat background arrangement using synthesized roots, melody notes, and restrained phrase chords; no audio files, third-party music, network requests, or libraries are used.
+- Preserved the rising per-letter tone sequence and ensured one tone plays only for each newly selected physical tile, including repeated letters and rapid swipes.
+- Preserved distinct accepted-answer chimes, financial-term wins, key-term and completion flourishes, and the gentle incorrect-word resolution.
+- Added a soft canceled-selection resolution for pointer cancellation, Escape, and the Clear control.
+- Added separate, accessible Effects and Music volume sliders in the gameplay header and completion panel.
+- Persisted the music level independently under `finlitQuest.musicVolume`; the existing saved master mute preference still disables both buses.
+- Kept the low music bus outside the rapid-swipe effects voice cap, retained per-voice gain limits, and continued using the shared compressor to prevent excessive loudness.
+- Preserved all worlds, puzzles, permanent IDs, rewards, saves, coins, XP, hint behavior, and gameplay mechanics.
+
+### Files modified
+
+- `src/game-audio.js`
+- `src/victory-celebration.js`
+- `word-game-app.js`
+- `index.html`
+- `word-game.css`
+- `tests/game-audio.test.js`
+- `tests/victory-celebration.test.js`
+- Generated web/native bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Complete automated suite: **533 of 533 passed**.
+- Web bundle rebuilt and Capacitor iOS assets synchronized successfully.
+- Local browser verification confirmed independent volume adjustment, persistence after reload, mute/unmute behavior, traced-letter selection, canceled selection, gameplay exit, and zero console errors.
+- The background music is intentionally quieter than effects by default (28% versus 90%) and uses the same player-controlled master mute.
+- No production deployment was performed. Next: owner listens to the local mix on desktop and a real iPhone, adjusts the default mix if desired, then separately authorizes production deployment.
+
+---
+
 ## 2026-10-19 — 13-world production deployment completed
 
 Deployed and verified the 13-world, three-level FinLit Quest release on the existing GitHub Pages production site. The live game now exposes 15 playable puzzle placements in every world, for 195 total world placements backed by 58 canonical puzzles.
@@ -3719,3 +3965,11 @@ Milestone 4 should focus on interaction-controller extraction and testable UI st
 
 ## 2026-10-17 — Coins World research package (draft)
 - staging/research/coins-world/2026-10-17/: register (20 types screened; 8 single-word candidates) and owner review packet. Research only; no IDs, runtime or tests changed.
+
+## 2026-10-26 — Financial City bonus page + Codex visual/audio/Currency Rush upgrades prepared for production
+- Owner instructed deployment of Codex's 2026-10-26 upgrades (10 world backgrounds, interactive audio, continuous music with music-only mute, Currency Rush practice bonus) plus the Financial City bonus game.
+- Added financial-city.html ("Where Should My Money Go?") as its own page with separate localStorage keys (flq-financial-city-proto-v1, flq-fc-audio-v1). It does not read or write coins, XP, achievements, mastery or saves. Visible "educational draft" banner; noindex while draft. Linked from the Learning Quests view only (#journeyFinancialCityLink). Added to build-www.sh, iOS public copy and bundle-parity test.
+- Content is DRAFT, not Approved & Locked, no permanent IDs. Unverified figures (e.g. retirement-saving placeholder) remain flagged in-page.
+- Three owner-approved images (golden treasure vault, insurance shield, neon creator studio) and the exact Golden Castle Journey image are still missing and NOT substituted. Currency Rush remains practice-only (no coins/XP).
+- Branch release/financial-city-and-codex-upgrades cut from origin/main (site files were identical to the prior local branch; only staging/exports differed and are not part of this release). Suite 556/556.
+- Not tested: real iPhone Safari, real audio output. Open: Zoe crypto-heavy plan still scores high in Financial City scoring.

@@ -117,6 +117,8 @@ const wgAudio = FinLitAudio.create({
   window,
   isEnabled: () => FinLitVictory.loadSoundEnabled(localStorage),
   getVolume: () => FinLitVictory.loadSoundVolume(localStorage) / 100,
+  getMusicVolume: () => FinLitVictory.loadMusicEnabled(localStorage) ? FinLitVictory.loadMusicVolume(localStorage) / 100 : 0,
+  musicUrl: window.FINLIT_AUDIO_CONFIG?.musicTrackUrl || "",
 });
 ["pointerdown", "keydown", "touchend"].forEach(type => document.addEventListener(type, () => wgAudio.unlock(), { capture: true, passive: true }));
 const WG_LETTER_HINT_COST = 100;
@@ -139,6 +141,33 @@ function wgCanAffordHint(balance, cost) {
 }
 
 function wgWorld() { return WG_WORLDS[wgState.worldId]; }
+function wgApplyWorldBackground(worldId) {
+  const screen = $("#worldGameScreen");
+  const background = window.FINLIT_WORLD_BACKGROUNDS?.[worldId];
+  screen.dataset.worldTheme = worldId;
+  screen.dataset.worldAtmosphere = background?.atmosphere || "sapphire";
+  screen.dataset.worldArtStatus = background?.assetStatus || (background?.imageUrl ? "loading" : "unavailable");
+  screen.classList.remove("is-world-art-loaded");
+  screen.style.setProperty("--wg-world-image", background?.imageUrl ? `url("${background.imageUrl}")` : "none");
+  screen.style.setProperty("--wg-world-position", background?.position || "center center");
+  screen.style.setProperty("--wg-world-position-mobile", background?.mobilePosition || background?.position || "center center");
+  screen.style.setProperty("--wg-world-accent", background?.accent || "#2ee6c8");
+  screen.setAttribute("aria-description", background?.theme ? `${background.theme} world` : "Financial learning world");
+  if (!background?.imageUrl) return;
+
+  const image = new Image();
+  image.decoding = "async";
+  image.onload = () => {
+    if (wgState.worldId !== worldId) return;
+    screen.dataset.worldArtStatus = "ready";
+    screen.classList.add("is-world-art-loaded");
+  };
+  image.onerror = () => {
+    if (wgState.worldId !== worldId) return;
+    screen.dataset.worldArtStatus = "load-error";
+  };
+  image.src = background.imageUrl;
+}
 function wgIsFinancialCategory(category) { return FinLitPuzzleBank.isFinancialCategory ? FinLitPuzzleBank.isFinancialCategory(category) : category === "financial"; }
 function wgNewWorldVocabulary(worldId) {
   return (window.FINLIT_2027_NEW_WORLD_TERMS?.terms || []).filter(term => term.worldId === worldId).map(term => ({word:term.word,definition:term.definition,termId:term.id}));
@@ -312,6 +341,7 @@ function wgOpenWorld(worldId) {
   $("#app").classList.remove("journey-mode");
   wgState.worldId = worldId;
   const world = wgWorld();
+  wgApplyWorldBackground(worldId);
   hideAllScreens();
   $("#worldGameScreen").classList.remove("hidden");
   $("#wgWorldIcon").textContent = world.icon;
@@ -319,6 +349,7 @@ function wgOpenWorld(worldId) {
   window.scrollTo(0, 0);
   wgShowLevelSelect();
   wgUpdateHeader();
+  wgAudio.startMusic();
 }
 
 function wgShowLevelSelect() {
@@ -384,8 +415,12 @@ function wgBackFromWorldGame() {
   if (!$("#wgPuzzleExperience").classList.contains("hidden")) {
     wgShowLevelSelect();
   } else {
-    showWorldSelect();
+    wgReturnToWorldSelect();
   }
+}
+
+function wgReturnToWorldSelect() {
+  showWorldSelect();
 }
 
 function wgIsTutorialLevel() {
@@ -433,6 +468,7 @@ function wgRenderPuzzle() {
   // World-specific puzzleHistory still controls curriculum progress, but cannot
   // turn the same puzzle into a second first-completion celebration or payout.
   wgState.completedBefore = wgCanonicalRecord(puzzle).timesCompleted > 0;
+  wgState.completionSoundKind = "crossword";
   wgState.victoryShown = false;
   $("#wgPuzzleTitle").textContent = `Level ${wgState.levelNumber} · Game ${wgState.playthroughIndex + 1}`;
   wgRenderGrid();
@@ -612,8 +648,10 @@ function wgEndPointer(e) {
 }
 function wgCancelPointer() {
   if (!wgPointerDown) return;
+  const hadSelection = wgState.selected.length > 0;
   wgResetPointer();
   wgClearSelection();
+  if (hadSelection) wgAudio.cancel();
   wgShowWordFeedback("Selection cancelled", "cancelled");
 }
 function wgResetPointer() {
@@ -721,6 +759,7 @@ function wgFoundWord(word) {
     bankState.puzzleHistory = FinLitPuzzleBank.recordPlaythrough(bankState.puzzleHistory, [currentPuzzleId], completedAt);
     learning.save.canonicalPuzzleProgress[currentPuzzleId] = FinLitPuzzleBank.recordCanonicalCompletion(learning.save.canonicalPuzzleProgress[currentPuzzleId], wgState.worldId, completedAt);
     learning.persist();
+    wgState.completionSoundKind = wgCompletionSoundKind();
     wgUpdateHeader();
     wgUpdateProgress();
     wgUpdateAssistUi();
@@ -741,6 +780,17 @@ function wgPlayFoundSound(word, reward) {
     return;
   }
   wgAudio.correct(wgIsFinancialCategory(reward.category) ? "financial" : "ordinary");
+  if (reward.isNewSolve && reward.coins > 0) wgAudio.coinReward({ coins: reward.coins, delay: .2 });
+}
+
+// The completion tier is derived only after the current puzzle has been
+// recorded. It changes presentation, never unlocks content or grants rewards.
+function wgCompletionSoundKind() {
+  const bank = wgEnsureBank(), history = wgEffectiveHistory(bank);
+  const completed = puzzle => Boolean(history[puzzle.id]?.timesPlayed > 0);
+  if (bank.length && bank.every(completed)) return "world";
+  const level = FinLitPuzzleBank.puzzleLevels(bank, WG_GAMES_PER_LEVEL)[wgState.levelNumber - 1] || [];
+  return level.length && level.every(completed) ? "level" : "crossword";
 }
 
 // A small coin flight marks a newly rewarded financial concept. The final word
@@ -792,7 +842,14 @@ function wgShowPuzzleComplete() {
 // puzzle that was not completed before; a replay keeps the ordinary per-word feedback.
 const wgVictory = FinLitVictory.createController({
   document, window, storage: localStorage,
-  audio: { play: ({ pings } = {}) => wgAudio.grandJackpot({ coins: pings }), stop: () => wgAudio.stopJackpots(), reset: () => {} },
+  audio: {
+    play: ({ pings, soundKind = "crossword" } = {}) => ({
+      world: wgAudio.worldComplete,
+      level: wgAudio.levelComplete,
+      crossword: wgAudio.grandJackpot,
+    }[soundKind] || wgAudio.grandJackpot)({ coins: pings }),
+    stop: () => wgAudio.stopJackpots(), reset: () => {},
+  },
 });
 const wgTermVictory = FinLitVictory.createController({
   document, window, storage: localStorage,
@@ -801,7 +858,7 @@ const wgTermVictory = FinLitVictory.createController({
 let wgVictoryPulseTimer = null;
 function wgSyncSoundToggle() {
   const on = FinLitVictory.loadSoundEnabled(localStorage), button = $("#wgSoundToggle"), header = $("#wgSoundButton");
-  const volume = FinLitVictory.loadSoundVolume(localStorage);
+  const volume = FinLitVictory.loadSoundVolume(localStorage), musicVolume = FinLitVictory.loadMusicVolume(localStorage);
   button.setAttribute("aria-pressed", String(on));
   button.textContent = on ? "🔊 Sound on" : "🔇 Sound off";
   header.setAttribute("aria-pressed", String(on));
@@ -809,17 +866,47 @@ function wgSyncSoundToggle() {
   header.textContent = on ? "🔊" : "🔇";
   [$("#wgVolumeSlider"), $("#wgCompleteVolumeSlider")].forEach(slider => { slider.value = String(volume); slider.disabled = !on; });
   [$("#wgVolumeValue"), $("#wgCompleteVolumeValue")].forEach(value => { value.textContent = `${volume}%`; });
+  [$("#wgMusicVolumeSlider"), $("#wgCompleteMusicVolumeSlider")].forEach(slider => { slider.value = String(musicVolume); slider.disabled = !on; });
+  [$("#wgMusicVolumeValue"), $("#wgCompleteMusicVolumeValue")].forEach(value => { value.textContent = `${musicVolume}%`; });
+  wgSyncMusicToggle();
+}
+function wgSyncMusicToggle() {
+  const on = FinLitVictory.loadMusicEnabled(localStorage);
+  [$("#worldMapMusicToggle"), $("#wgMusicToggle")].forEach(button => {
+    if (!button) return;
+    button.setAttribute("aria-pressed", String(!on));
+    button.setAttribute("aria-label", on ? "Mute background music" : "Unmute background music");
+    button.title = on ? "Mute background music" : "Unmute background music";
+    button.textContent = on ? "🔊" : "🔇";
+    button.classList.toggle("is-muted", !on);
+  });
+}
+function wgToggleMusic() {
+  const next = !FinLitVictory.loadMusicEnabled(localStorage);
+  FinLitVictory.saveMusicEnabled(localStorage, next);
+  if (next) {
+    wgAudio.unlock();
+    wgAudio.setMusicVolume(FinLitVictory.loadMusicVolume(localStorage) / 100);
+    wgAudio.startMusic();
+  } else wgAudio.setMusicVolume(0);
+  wgSyncMusicToggle();
 }
 function wgToggleSound() {
   const next = !FinLitVictory.loadSoundEnabled(localStorage);
   FinLitVictory.saveSoundEnabled(localStorage, next);
-  if (!next) { wgVictory.stopSound(); wgAudio.stop(); } else { wgAudio.unlock(); wgAudio.correct("ordinary"); }
+  if (!next) { wgVictory.stopSound(); wgAudio.stop(); } else { wgAudio.unlock(); wgAudio.startMusic(); wgAudio.correct("ordinary"); }
   wgSyncSoundToggle();
 }
 function wgSetSoundVolume(event) {
   const volume = FinLitVictory.clampVolume(event.currentTarget.value);
   FinLitVictory.saveSoundVolume(localStorage, volume);
   wgAudio.setVolume(volume / 100);
+  wgSyncSoundToggle();
+}
+function wgSetMusicVolume(event) {
+  const volume = FinLitVictory.clampVolume(event.currentTarget.value);
+  FinLitVictory.saveMusicVolume(localStorage, volume);
+  wgAudio.setMusicVolume(FinLitVictory.loadMusicEnabled(localStorage) ? volume / 100 : 0);
   wgSyncSoundToggle();
 }
 function wgEndVictoryUi() {
@@ -834,7 +921,7 @@ function wgStartVictory() {
   const newlyCompleted = !wgState.completedBefore;
   wgSyncSoundToggle();
   const result = wgVictory.start({
-    coins: wgState.puzzleCoins, xp: wgState.puzzleXp, newlyCompleted,
+    coins: wgState.puzzleCoins, xp: wgState.puzzleXp, newlyCompleted, soundKind: wgState.completionSoundKind,
     from: $("#wgCompleteCoins"), to: document.querySelector(".wg-currency"),
     onDone: wgEndVictoryUi,
   });
@@ -996,7 +1083,7 @@ wgWheelElement.addEventListener("click", event => {
 });
 wgWheelElement.addEventListener("keydown", event => {
   const button = event.target.closest(".letter"), buttons = $$("#wgWheel .letter");
-  if (event.key === "Escape") { event.preventDefault(); wgClearSelection(); return; }
+  if (event.key === "Escape") { event.preventDefault(); const hadSelection = wgState.selected.length > 0; wgClearSelection(); if (hadSelection) wgAudio.cancel(); return; }
   if (event.key === "Backspace" && wgState.selected.length) { event.preventDefault(); wgState.selected.pop(); wgUpdateSelection(); return; }
   if (button && (event.key === "Enter" || event.key === " ") && wgState.selected.at(-1) === button.dataset.tileId && wgState.words.includes(wgSelectedWord())) { event.preventDefault(); wgSubmitWord(); return; }
   if (!button || !["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key)) return;
@@ -1011,24 +1098,51 @@ if (typeof ResizeObserver === "function") new ResizeObserver(() => wgUpdateSelec
 else window.addEventListener("resize", wgUpdateSelection);
 
 $("#wgBack").onclick = wgBackFromWorldGame;
-$("#wgBrandLogo").onclick = showWorldSelect;
+$("#wgBrandLogo").onclick = wgReturnToWorldSelect;
 $("#wgSettingsButton").onclick = toggleTheme;
 $("#wgNavShuffle").onclick = wgShuffle;
 $("#wgHintButton").onclick = wgHint;
 $("#wgNavHint").onclick = wgRevealFull;
 $("#wgDefinitionsButton").onclick = wgShowDefinitions;
-$("#wgClearSelection").onclick = () => wgClearSelection();
+$("#wgClearSelection").onclick = () => { const hadSelection = wgState.selected.length > 0; wgClearSelection(); if (hadSelection) wgAudio.cancel(); };
 $("#wgDefinitionsClose").onclick = wgHideDefinitions;
 $("#wgCompleteContinue").onclick = wgContinueAfterComplete;
 $("#wgCelebrateSkip").onclick = wgSkipVictory;
 $("#wgSoundToggle").onclick = wgToggleSound;
 $("#wgSoundButton").onclick = wgToggleSound;
+$("#worldMapMusicToggle").onclick = wgToggleMusic;
+$("#wgMusicToggle").onclick = wgToggleMusic;
 $("#wgVolumeSlider").oninput = wgSetSoundVolume;
 $("#wgCompleteVolumeSlider").oninput = wgSetSoundVolume;
+$("#wgMusicVolumeSlider").oninput = wgSetMusicVolume;
+$("#wgCompleteMusicVolumeSlider").oninput = wgSetMusicVolume;
 document.addEventListener("keydown", event => { if (event.key === "Escape" && wgVictory.isRunning()) { event.preventDefault(); wgSkipVictory(); } });
 wgSyncSoundToggle();
+window.FinLitMusic = {
+  enterJourney() {
+    wgSyncMusicToggle();
+    wgAudio.startMusic();
+  },
+  sync: wgSyncMusicToggle,
+};
+// Presentation-only bridge for isolated bonus games. It reuses the single
+// AudioContext and the player's existing effects/music preferences, while
+// exposing no learning save, coin, XP, achievement, or progression methods.
+window.FinLitBonusAudio = {
+  unlock: () => wgAudio.unlock(),
+  startMusic: () => wgAudio.startMusic(),
+  letter: position => wgAudio.letter(position),
+  correct: () => wgAudio.correct("financial"),
+  wrong: () => wgAudio.wrong(),
+  duplicate: () => wgAudio.duplicate(),
+  cancel: () => wgAudio.cancel(),
+  coin: () => wgAudio.coinReward({ coins: 100 }),
+  complete: () => wgAudio.levelComplete({ coins: 0 }),
+  isMusicEnabled: () => FinLitVictory.loadMusicEnabled(localStorage),
+  toggleMusic: () => { wgToggleMusic(); return FinLitVictory.loadMusicEnabled(localStorage); },
+};
 $("#wgNavJourney").onclick = wgShowLevelSelect;
-$("#wgNavPause").onclick = showWorldSelect;
+$("#wgNavPause").onclick = wgReturnToWorldSelect;
 
 $("#wgHintCost").textContent = WG_LETTER_HINT_COST;
 $("#wgRevealCost").textContent = WG_FULL_REVEAL_COST;

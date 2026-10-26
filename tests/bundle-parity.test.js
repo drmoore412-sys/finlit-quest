@@ -10,7 +10,7 @@ const {ROOT}=require("./helpers.js");
 
 const BUNDLE=path.join(ROOT,"ios/App/App/public");
 const read=(base,file)=>fs.readFileSync(path.join(base,file));
-const MIRRORED=["learning-engine.js","word-game-app.js","app.js","index.html","journey.css","src/puzzle-bank-engine.js","src/v3-puzzle-slate.js","src/victory-celebration.js","src/game-audio.js","word-game.css","content/credit-term-identities.js","content/v3-supplemental-terms.js"];
+const MIRRORED=["financial-city.html","learning-engine.js","word-game-app.js","app.js","index.html","journey.css","src/puzzle-bank-engine.js","src/v3-puzzle-slate.js","src/victory-celebration.js","src/game-audio.js","src/currency-rush.js","word-game.css","currency-rush.css","content/audio-config.js","content/world-backgrounds.js","content/currency-rush-data.js","content/credit-term-identities.js","content/v3-supplemental-terms.js"];
 
 test("the reward feature files in the iOS bundle are byte-identical to the web source",()=>{
   MIRRORED.forEach(file=>assert.ok(read(ROOT,file).equals(read(BUNDLE,file)),`${file} differs between source and ios/App/App/public — re-sync the bundle`));

@@ -8,9 +8,19 @@
     linear-gradient(180deg,var(--wg-bg-2),var(--wg-bg) 60%);
   position:relative;overflow-x:hidden;
 }
-.wg-screen:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#2a3f5c 1px,transparent 1px);background-size:26px 26px;opacity:.18;pointer-events:none}
+.wg-screen:before{content:"";position:absolute;inset:-1%;background-image:linear-gradient(180deg,#06101e73 0%,#07112038 34%,#07101d66 100%),var(--wg-world-image,none);background-size:cover;background-position:center,var(--wg-world-position,center center);background-repeat:no-repeat;opacity:0;transform:scale(1.025);transition:opacity .55s ease;pointer-events:none;will-change:transform;animation:wgWorldDrift 24s ease-in-out infinite alternate}
+.wg-screen.is-world-art-loaded:before{opacity:1}
+.wg-screen:after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 12% 18%,var(--wg-world-accent,#2ee6c8) 0 2px,transparent 3px),radial-gradient(circle at 78% 24%,#fff 0 1px,transparent 2px),radial-gradient(circle at 36% 72%,var(--wg-world-accent,#2ee6c8) 0 1px,transparent 2px);background-size:210px 190px,270px 240px,330px 300px;opacity:.16;mix-blend-mode:screen;pointer-events:none;animation:wgWorldParticles 22s linear infinite}
+.wg-screen[data-world-art-status="awaiting-owner-approved-file"]:before{opacity:.32;background-image:linear-gradient(180deg,#071220cc,#07101df2)}
+.wg-screen[data-world-theme="coins"]{background:radial-gradient(circle at 50% 12%,#8f621d 0%,#2f220e 30%,#09101d 72%)}
+.wg-screen[data-world-theme="insurance"]{background:radial-gradient(circle at 50% 20%,#15564f 0%,#102b35 34%,#08101d 74%)}
+.wg-screen[data-world-theme="social_media"]{background:radial-gradient(circle at 50% 18%,#57245f 0%,#1f214b 35%,#080f1d 76%)}
+.wg-screen>.wg-topbar,.wg-screen>.wg-world-header,.wg-screen>.wg-level-select,.wg-screen>.wg-puzzle-experience{position:relative;z-index:1}
+@keyframes wgWorldDrift{from{transform:scale(1.025) translate3d(-.35%,0,0)}to{transform:scale(1.07) translate3d(.35%,-.25%,0)}}
+@keyframes wgWorldParticles{from{background-position:0 0,0 0,0 0}to{background-position:18px -70px,-24px -82px,14px -58px}}
 
-.wg-topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.wg-topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1;padding:10px;border:1px solid #d9edff26;border-radius:18px;background:#07122294;backdrop-filter:blur(8px) saturate(1.08);box-shadow:0 12px 34px #02081433}
+.wg-topbar>.wg-music-toggle{margin-left:auto;border-color:#7893ad70;background:#07192bd9}
 .wg-brand{display:flex;align-items:center;gap:8px}
 .wg-logo{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:0;padding:0;overflow:hidden;background:#040f32;box-shadow:0 0 0 3px #f2b84b33;cursor:pointer}
 .wg-logo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -27,18 +37,19 @@
 .wg-level-track{height:5px;border-radius:6px;background:#132342;margin:6px 0 4px;overflow:hidden}
 .wg-level-track span{display:block;height:100%;background:linear-gradient(90deg,var(--wg-teal),#7ffff0);width:0}
 .wg-level small{color:var(--wg-muted);font-size:9px}
-.wg-volume-control{display:grid;grid-template-columns:auto minmax(58px,1fr) 30px;align-items:center;gap:6px;margin-top:5px;color:var(--wg-muted);font-size:9px;font-weight:700}
+.wg-audio-mix{display:grid;gap:2px;margin-top:4px}
+.wg-volume-control{display:grid;grid-template-columns:42px minmax(58px,1fr) 30px;align-items:center;gap:6px;color:var(--wg-muted);font-size:9px;font-weight:700}
 .wg-volume-control input{width:100%;height:20px;margin:0;accent-color:var(--wg-teal)}
 .wg-volume-control input:focus-visible{outline:2px solid var(--wg-gold);outline-offset:2px}
 .wg-volume-control input:disabled{opacity:.45}
 .wg-volume-control output{color:var(--wg-text);font-variant-numeric:tabular-nums;text-align:right}
 
-.wg-world-header{display:flex;align-items:center;gap:12px;margin:20px 0 14px;position:relative;z-index:1}
+.wg-world-header{display:flex;align-items:center;gap:12px;margin:20px 0 14px;padding:10px 12px;position:relative;z-index:1;border:1px solid #d9edff24;border-radius:18px;background:#07122280;backdrop-filter:blur(7px) saturate(1.08);box-shadow:0 10px 26px #0208142b}
 .wg-back{border:1px solid var(--wg-border);background:var(--wg-panel);color:var(--wg-text);border-radius:50%;width:38px;height:38px;font-size:16px}
 .wg-world-icon{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:24px;background:radial-gradient(circle,#163a2f,#0f1c33);border:1px solid #2ee6c855;box-shadow:0 0 0 4px #2ee6c81a}
 .wg-world-copy{flex:1;min-width:0}
 .wg-eyebrow{margin:0;font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--wg-teal);text-transform:uppercase}
-.wg-world-copy h1{margin:2px 0 0;font-size:19px;color:var(--wg-text)}
+.wg-world-copy h1{margin:2px 0 0;font-size:19px;color:var(--wg-text);text-shadow:0 2px 8px #020814d9}
 .wg-words-solved{text-align:right;font-size:10px;color:var(--wg-muted);min-width:100px}
 .wg-words-solved b{display:block;font-size:16px;color:var(--wg-text);margin:1px 0}
 .wg-words-track{height:5px;border-radius:6px;background:#132342;overflow:hidden;margin-top:4px}
@@ -47,29 +58,29 @@
 .wg-level-select{position:relative;z-index:1;max-width:760px;margin:4px auto 0}
 .wg-level-select-intro{text-align:center;margin:6px 0 18px}
 .wg-level-select-intro p{margin:0;color:var(--wg-gold);font-size:10px;font-weight:900;letter-spacing:.16em}
-.wg-level-select-intro h2{margin:5px 0 4px;color:var(--wg-text);font-size:clamp(24px,6vw,34px)}
+.wg-level-select-intro h2{margin:5px 0 4px;color:var(--wg-text);font-size:clamp(24px,6vw,34px);text-shadow:0 3px 12px #020814e6}
 .wg-level-select-intro span{color:var(--wg-muted);font-size:13px}
 .wg-level-list{display:grid;gap:14px}
-.wg-level-card{background:linear-gradient(145deg,#122440,#0d192d);border:1px solid var(--wg-border);border-radius:22px;padding:16px;box-shadow:0 16px 34px #02081445}
+.wg-level-card{background:linear-gradient(145deg,rgba(18,36,64,.27),rgba(7,18,35,.23));border:1px solid #bddfff42;border-radius:22px;padding:16px;box-shadow:0 16px 34px #02081438,inset 0 1px #ffffff12;backdrop-filter:blur(7px) saturate(1.1)}
 .wg-level-card:first-child{border-color:#f2b84b70}
 .wg-level-card-header{display:flex;align-items:center;gap:12px;margin-bottom:13px}
 .wg-level-badge{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#132d4d;color:var(--wg-teal);font:900 21px/1 var(--font-display);border:1px solid #2ee6c844}
 .wg-level-card:first-child .wg-level-badge{color:#2b1600;background:linear-gradient(145deg,#ffcf70,#e9a72f);border-color:#ffe0a0}
-.wg-level-card-copy{flex:1;min-width:0}.wg-level-card-copy h3{margin:0 0 3px;font-size:17px;color:var(--wg-text)}
+.wg-level-card-copy{flex:1;min-width:0}.wg-level-card-copy h3{margin:0 0 3px;font-size:17px;color:var(--wg-text);text-shadow:0 2px 7px #020814e6}
 .wg-level-card-copy p{margin:0;color:var(--wg-muted);font-size:12px;line-height:1.35}
 .wg-level-card-status{color:var(--wg-teal);font-size:11px;font-weight:900;white-space:nowrap}
 .wg-game-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.wg-game-button{min-height:66px;border:1px solid #345273;border-radius:14px;background:#0b172a;color:var(--wg-text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-weight:900;cursor:pointer}
+.wg-game-button{min-height:66px;border:1px solid #6b91b866;border-radius:14px;background:rgba(7,20,39,.78);color:var(--wg-text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-weight:900;cursor:pointer;box-shadow:inset 0 1px #ffffff0e;text-shadow:0 2px 6px #020814}
 .wg-game-button span{font-size:17px}.wg-game-button small{color:var(--wg-muted);font-size:9px;letter-spacing:.04em}
 .wg-game-button:hover,.wg-game-button:focus-visible{border-color:var(--wg-teal);background:#122c43;outline:2px solid transparent;transform:translateY(-1px)}
 .wg-game-button.is-complete{border-color:#2ee6c877;background:#12352f;color:#8dffe8}.wg-game-button.is-complete small{color:#75d8c6}
 .wg-game-button.is-current{border-color:var(--wg-gold);box-shadow:0 0 0 3px #f2b84b20}
 .wg-puzzle-experience{display:block}
 
-.wg-board{background:radial-gradient(circle at 50% 28%,#15294c,#091426 72%);border:1px solid #2a4566;border-radius:26px;padding:clamp(18px,5vw,30px) clamp(12px,4vw,22px);display:grid;place-items:center;min-height:clamp(255px,39vh,380px);position:relative;z-index:1;overflow:hidden;box-shadow:inset 0 1px #ffffff0d,0 18px 42px #02081466}
+.wg-board{background:radial-gradient(circle at 50% 28%,rgba(21,41,76,.20),rgba(5,17,34,.16) 72%);border:1px solid #b6daf44a;border-radius:26px;padding:clamp(18px,5vw,30px) clamp(12px,4vw,22px);display:grid;place-items:center;min-height:clamp(255px,39vh,380px);position:relative;z-index:1;overflow:hidden;box-shadow:inset 0 1px #ffffff14,0 18px 42px #02081438;backdrop-filter:blur(4px) saturate(1.08)}
 .wg-board:after{content:"";position:absolute;inset:auto 12% -55% 12%;height:75%;border-radius:50%;background:#2ee6c80a;filter:blur(22px);pointer-events:none}
 .wg-board .crossword{display:grid;grid-template-columns:repeat(var(--wg-grid-cols),minmax(0,1fr));grid-template-rows:repeat(var(--wg-grid-rows),auto);gap:clamp(2px,.85vw,4px);width:100%;max-width:min(100%,var(--wg-grid-max-width));position:relative;z-index:1}
-.wg-board .crossword .cell{width:auto;height:auto;aspect-ratio:1;border:1px solid #527096;border-radius:clamp(5px,1.8vw,9px);background:linear-gradient(145deg,#132541,#0c192d);color:var(--wg-text);box-shadow:inset 0 1px #ffffff0e,0 3px 8px #0005;font-size:clamp(13px,4vw,20px)}
+.wg-board .crossword .cell{width:auto;height:auto;aspect-ratio:1;border:1px solid #7898ba;border-radius:clamp(5px,1.8vw,9px);background:linear-gradient(145deg,rgba(19,37,65,.92),rgba(12,25,45,.92));color:var(--wg-text);box-shadow:inset 0 1px #ffffff17,0 3px 8px #0007;font-size:clamp(13px,4vw,20px);text-shadow:0 2px 5px #000}
 .wg-board .crossword .cell.found{background:linear-gradient(145deg,#f8fbff,#dce8f4);border-color:#fff;color:#0a2641;box-shadow:0 5px 12px #0005,inset 0 1px #fff;animation:none}
 .wg-board .crossword .cell.hinted{color:var(--wg-gold);border-color:var(--wg-gold);background:#2a241c}
 .wg-board .crossword .cell.just-found{animation:wgCellReveal .34s cubic-bezier(.2,1.55,.4,1) both}
@@ -87,7 +98,7 @@
 
 .wg-wheel-row{display:flex;align-items:center;justify-content:center;margin:0;position:relative;z-index:1}
 .wg-wheel-wrap{width:min(78vw,310px);height:auto;aspect-ratio:1;flex:0 0 auto;position:relative}
-.wg-wheel-wrap .wheel{inset:0;background:radial-gradient(circle at 36% 28%,#1c355a 0%,#10223f 42%,#081427 100%);border:1px solid #38577d;box-shadow:inset 0 2px 2px #ffffff12,inset 0 -18px 38px #02081488,0 20px 42px #02081488;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+.wg-wheel-wrap .wheel{inset:0;background:radial-gradient(circle at 36% 28%,rgba(28,53,90,.20) 0%,rgba(16,34,63,.18) 42%,rgba(5,17,34,.16) 100%);border:1px solid #b7d8f05c;box-shadow:inset 0 2px 2px #ffffff17,inset 0 -18px 38px #02081424,0 20px 42px #02081438;backdrop-filter:blur(4px) saturate(1.08);touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
 .wg-wheel-wrap .wheel:before{content:"";position:absolute;inset:9%;border:1px solid #ffffff0a;border-radius:50%;box-shadow:inset 0 0 32px #2ee6c808}
 .wg-wheel-wrap .letter{width:clamp(50px,15vw,60px);height:clamp(50px,15vw,60px);padding:0;background:transparent;color:var(--wg-text);border:0;box-shadow:none;font-size:clamp(24px,7vw,31px);font-family:var(--font-display);font-weight:900;text-shadow:0 3px 7px #000b;outline:none;transition:left .44s cubic-bezier(.2,.8,.25,1) var(--wg-shuffle-delay,0ms),top .44s cubic-bezier(.2,.8,.25,1) var(--wg-shuffle-delay,0ms),transform .14s ease,color .14s ease,background-color .14s ease,box-shadow .14s ease;z-index:3}
 .wg-wheel-wrap .letter:hover{box-shadow:none;color:#fff}
@@ -107,7 +118,7 @@
 .wg-wheel-actions .wg-clear-selection small{display:none}.wg-wheel-actions .wg-clear-selection.is-visible{opacity:1;pointer-events:auto;transform:scale(1)}
 .wg-practice-notice{max-width:560px;margin:-8px auto 18px;padding:10px 14px;border:1px solid #f2b84b66;border-radius:12px;background:#f2b84b12;color:var(--wg-gold);font-size:12px;font-weight:700;line-height:1.45;text-align:center;position:relative;z-index:1}
 
-.wg-mission-card{background:var(--wg-panel);border:1px solid var(--wg-border);border-radius:20px;padding:18px;position:relative;z-index:1}
+.wg-mission-card{background:rgba(7,18,35,.56);border:1px solid #bddfff38;border-radius:20px;padding:18px;position:relative;z-index:1;backdrop-filter:blur(6px);box-shadow:0 12px 28px #0208142b}
 .wg-mission-heading{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--wg-teal)}
 .wg-mission-card h2{margin:8px 0 4px;font-size:22px;color:var(--wg-text);text-transform:capitalize}
 .wg-mission-card.non-financial h2{text-transform:none;font-size:18px;letter-spacing:.025em}
@@ -119,7 +130,7 @@
 .wg-mission-reward b{color:var(--wg-text);font-size:14px}
 .wg-mission-reward small{color:var(--wg-muted);font-weight:400;font-size:11px}
 
-.wg-status-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0;padding:12px 16px;background:var(--wg-panel);border:1px solid var(--wg-border);border-radius:16px;font-size:11px;color:var(--wg-text);flex-wrap:wrap;position:relative;z-index:1}
+.wg-status-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0;padding:12px 16px;background:rgba(7,18,35,.56);border:1px solid #bddfff38;border-radius:16px;font-size:11px;color:var(--wg-text);flex-wrap:wrap;position:relative;z-index:1;backdrop-filter:blur(6px);box-shadow:0 10px 24px #02081424}
 .wg-streak{font-weight:800}
 .wg-daily{text-align:right;color:var(--wg-muted);font-size:9px;letter-spacing:.05em}
 .wg-daily b{display:block;color:var(--wg-text);font-size:12px;margin:2px 0}
@@ -206,10 +217,11 @@
 .world-card-body small{color:var(--wg-muted);font-size:12.5px;line-height:1.4}
 .world-card-arrow{flex:none;color:var(--wg-gold);font-size:18px;font-weight:900}
 
-@media(max-width:390px){.wg-screen{padding:12px 10px 82px}.wg-currencies{min-width:max-content}.wg-currency{padding:5px 7px}.wg-level{min-width:0}.wg-world-header{margin:14px 0 10px}.wg-level-card{padding:13px 10px}.wg-game-list{gap:5px}.wg-game-button{min-height:60px;border-radius:12px}.wg-board{min-height:240px;padding:16px 9px}.wg-word-readout{margin-top:9px}.wg-wheel-wrap{width:min(80vw,286px)}.wg-wheel-actions{gap:7px;margin-bottom:14px}.wg-wheel-actions button{padding:7px 5px}.wg-mission-card{padding:14px}.wg-status-bar{margin:12px 0}}
+@media(max-width:600px){.wg-screen:before{background-position:center,var(--wg-world-position-mobile,center center)}}
+@media(max-width:390px){.wg-screen{padding:12px 10px 82px}.wg-topbar{padding:8px}.wg-currencies{min-width:max-content}.wg-currency{padding:5px 7px}.wg-level{min-width:0}.wg-world-header{margin:14px 0 10px;padding:8px}.wg-level-card{padding:13px 10px}.wg-game-list{gap:5px}.wg-game-button{min-height:60px;border-radius:12px}.wg-board{min-height:240px;padding:16px 9px}.wg-word-readout{margin-top:9px}.wg-wheel-wrap{width:min(80vw,286px)}.wg-wheel-actions{gap:7px;margin-bottom:14px}.wg-wheel-actions button{padding:7px 5px}.wg-mission-card{padding:14px}.wg-status-bar{margin:12px 0}}
 @media(max-width:340px){.wg-screen{padding-left:8px;padding-right:8px}.wg-wheel-wrap{width:min(82vw,252px)}.wg-wheel-wrap .letter{width:48px;height:48px;font-size:23px}.wg-board{min-height:224px}.wg-wheel-actions button small{font-size:9px}}
 
-@media(prefers-reduced-motion:reduce){.wg-wheel-wrap .letter,.wg-word-readout,.wg-wheel-actions .wg-clear-selection{transition:none!important;animation:none!important}.wg-board .crossword .cell.just-found{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.wg-screen:before,.wg-screen:after,.wg-wheel-wrap .letter,.wg-word-readout,.wg-wheel-actions .wg-clear-selection{transition:none!important;animation:none!important}.wg-board .crossword .cell.just-found{animation:none!important}}
 
 /* Explicit migration/debug fallback only. Normal launches use the approved V3 banks. */
 html[data-finlit-puzzle-mode="legacy"] body{padding-top:18px}
@@ -227,7 +239,7 @@ html[data-finlit-puzzle-mode="legacy"] body::before{content:"LEGACY DIAGNOSTIC M
 .wg-currency.vc-pulse{animation:vcPulse .6s ease}
 @keyframes vcPulse{50%{transform:scale(1.12);filter:brightness(1.3)}}
 .wg-celebrate-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 12px}
-.wg-complete-volume{width:min(100%,260px);margin:0 auto 12px;font-size:12px}
+.wg-complete-volume{width:min(100%,300px);margin:0 auto 12px;font-size:12px;gap:5px}
 .wg-btn-ghost{min-height:44px;padding:10px 14px;border:1px solid var(--wg-border);border-radius:12px;background:transparent;color:var(--wg-text);font-weight:700;font-size:13px;cursor:pointer}
 .wg-btn-ghost[hidden]{display:none}
 .wg-btn-ghost:focus-visible{outline:2px solid var(--wg-teal);outline-offset:2px}

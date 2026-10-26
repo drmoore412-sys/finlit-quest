@@ -95,6 +95,8 @@ test("the completion announcement states the actual coins and XP",()=>{
   assert.equal(victory.announcement({coins:35,xp:8}),"Puzzle solved! You earned 35 coins and 8 XP.");
   assert.equal(victory.announcement({coins:1,xp:0}),"Puzzle solved! You earned 1 coin and 0 XP.");
   assert.equal(victory.announcement({coins:0,xp:0,newlyCompleted:false}),"Puzzle solved again. You earned 0 coins and 0 XP.");
+  assert.equal(victory.announcement({coins:35,xp:8,soundKind:"level"}),"Level complete! You earned 35 coins and 8 XP.");
+  assert.equal(victory.announcement({coins:35,xp:8,soundKind:"world"}),"World complete! You earned 35 coins and 8 XP.");
 });
 
 test("the sound preference defaults on, persists, and fails safely when storage is blocked",()=>{
@@ -127,6 +129,34 @@ test("sound volume defaults to the established level, persists, clamps safely, a
   assert.equal(victory.VOLUME_KEY,"finlitQuest.soundVolume");
 });
 
+test("music volume has an independent persistent preference",()=>{
+  const storage=fakeStorage();
+  assert.equal(victory.DEFAULT_MUSIC_VOLUME,28);
+  assert.equal(victory.loadMusicVolume(storage),28);
+  assert.equal(victory.saveMusicVolume(storage,35),true);
+  assert.equal(victory.loadMusicVolume(storage),35);
+  assert.deepEqual(storage.writes,[["finlitQuest.musicVolume","35"]]);
+  const blocked=fakeStorage({},{throws:true});
+  assert.equal(victory.loadMusicVolume(blocked),28);
+  assert.equal(victory.saveMusicVolume(blocked,20),false);
+  assert.equal(victory.MUSIC_VOLUME_KEY,"finlitQuest.musicVolume");
+});
+
+test("background music mute has its own persistent preference and never changes effect sound",()=>{
+  const storage=fakeStorage();
+  assert.equal(victory.loadMusicEnabled(storage),true,"music defaults on");
+  assert.equal(victory.saveMusicEnabled(storage,false),true);
+  assert.equal(victory.loadMusicEnabled(storage),false);
+  assert.equal(victory.loadSoundEnabled(storage),true,"effects remain enabled");
+  assert.deepEqual(storage.writes,[["finlitQuest.musicEnabled","off"]]);
+  assert.equal(victory.saveMusicEnabled(storage,true),true);
+  assert.equal(victory.loadMusicEnabled(storage),true);
+  const blocked=fakeStorage({},{throws:true});
+  assert.equal(victory.loadMusicEnabled(blocked),true);
+  assert.equal(victory.saveMusicEnabled(blocked,false),false);
+  assert.equal(victory.MUSIC_ENABLED_KEY,"finlitQuest.musicEnabled");
+});
+
 test("the controller drives the injected audio: it plays only for a new, unmuted completion and stops on skip",()=>{
   const make=(storage,audio)=>victory.createController({document:fakeDocument(),window:{innerWidth:400,innerHeight:800,matchMedia:()=>({matches:false})},storage,audio,setTimer:()=>1,clearTimer:()=>{}});
   const spy=()=>{const calls=[];return{calls,play:o=>{calls.push(["play",o.pings]);return true},stop:()=>calls.push(["stop"]),reset:()=>calls.push(["reset"])}};
@@ -141,6 +171,15 @@ test("the controller drives the injected audio: it plays only for a new, unmuted
   assert.equal(replay.calls.filter(call=>call[0]==="play").length,0,"a replay is silent");
   const none=make(fakeStorage(),null);
   assert.equal(none.start({coins:35,xp:8,newlyCompleted:true}).running,true,"without an audio engine the celebration still runs, silently");
+});
+
+test("the controller forwards crossword, level, and world sound tiers without touching rewards",()=>{
+  const played=[];const audio={play:options=>played.push(options),stop(){},reset(){}};
+  const controller=victory.createController({document:fakeDocument(),window:{innerWidth:400,innerHeight:800,matchMedia:()=>({matches:false})},storage:fakeStorage(),audio,setTimer:()=>1,clearTimer:()=>{}});
+  controller.start({coins:80,xp:12,newlyCompleted:true,soundKind:"level"});
+  controller.start({coins:80,xp:12,newlyCompleted:true,soundKind:"world"});
+  assert.deepEqual(played.map(item=>item.soundKind),["level","world"]);
+  assert.ok(played.every(item=>Number.isInteger(item.pings)&&item.pings>0));
 });
 
 test("a failing audio engine never breaks the celebration",()=>{
@@ -239,7 +278,8 @@ test("the completion panel exposes the announcement, skip, mute, and an accessib
   assert.match(html,/id="wgCompleteAnnouncement" role="status" aria-live="polite"/);
   assert.match(html,/<button type="button" class="wg-btn-ghost" id="wgCelebrateSkip" hidden>Skip animation<\/button>/);
   assert.match(html,/<button type="button" class="wg-btn-ghost" id="wgSoundToggle" aria-pressed="true">/);
-  assert.match(html,/id="wgCompleteVolumeSlider"[^>]*aria-label="Sound volume"/);
+  assert.match(html,/id="wgCompleteVolumeSlider"[^>]*aria-label="Effects volume"/);
+  assert.match(html,/id="wgCompleteMusicVolumeSlider"[^>]*aria-label="Music volume"/);
   assert.match(html,/src\/victory-celebration\.js\?v=\d+/);
   assert.match(read("scripts/build-www.sh"),/src\/victory-celebration\.js/,"the module ships in the iOS bundle");
   assert.match(read("word-game.css"),/\.vc-layer\{[^}]*pointer-events:none/,"effects never block taps");

@@ -5,7 +5,10 @@
   // receives the coins/XP the reward code already granted and never reads or writes a save.
   const SOUND_KEY="finlitQuest.victorySound";
   const VOLUME_KEY="finlitQuest.soundVolume";
+  const MUSIC_VOLUME_KEY="finlitQuest.musicVolume";
+  const MUSIC_ENABLED_KEY="finlitQuest.musicEnabled";
   const DEFAULT_VOLUME=90;
+  const DEFAULT_MUSIC_VOLUME=28;
   const DURATION_MS=2600;
   const TERM_DURATION_MS=1200;
   const LIMITS=Object.freeze({coins:12,dollars:8,minCoins:4});
@@ -30,6 +33,18 @@
   }
   function saveSoundVolume(storage,volume){
     try{storage.setItem(VOLUME_KEY,String(clampVolume(volume)));return true}catch(_){return false}
+  }
+  function loadMusicVolume(storage){
+    try{const stored=storage.getItem(MUSIC_VOLUME_KEY);return stored===null?DEFAULT_MUSIC_VOLUME:clampVolume(stored)}catch(_){return DEFAULT_MUSIC_VOLUME}
+  }
+  function saveMusicVolume(storage,volume){
+    try{storage.setItem(MUSIC_VOLUME_KEY,String(clampVolume(volume)));return true}catch(_){return false}
+  }
+  function loadMusicEnabled(storage){
+    try{return storage.getItem(MUSIC_ENABLED_KEY)!=="off"}catch(_){return true}
+  }
+  function saveMusicEnabled(storage,enabled){
+    try{storage.setItem(MUSIC_ENABLED_KEY,enabled?"on":"off");return true}catch(_){return false}
   }
   function coinCount(coins){
     const earned=Math.max(0,Math.floor(Number(coins)||0));
@@ -60,11 +75,12 @@
     const motion=celebrate&&!reducedMotion;
     return{celebrate,motion,confetti:0,coins:motion?termCoinCount(coins):0,dollars:0,sound:false,durationMs:motion?TERM_DURATION_MS:0};
   }
-  function announcement({coins=0,xp=0,newlyCompleted=true}={}){
+  function announcement({coins=0,xp=0,newlyCompleted=true,soundKind="crossword"}={}){
     const c=Math.max(0,Math.floor(Number(coins)||0)),x=Math.max(0,Math.floor(Number(xp)||0));
     const plural=(n,word)=>`${n} ${word}${n===1?"":"s"}`;
     const earned=`You earned ${plural(c,"coin")} and ${x} XP.`;
-    return newlyCompleted?`Puzzle solved! ${earned}`:`Puzzle solved again. ${earned}`;
+    const heading=soundKind==="world"?"World complete!":soundKind==="level"?"Level complete!":"Puzzle solved!";
+    return newlyCompleted?`${heading} ${earned}`:`Puzzle solved again. ${earned}`;
   }
 
   // Draws the effects layer. Everything is aria-hidden, pointer-events:none (see CSS) and removed
@@ -92,14 +108,14 @@
       const was=running;running=false;
       return was;
     }
-    function start({coins=0,xp=0,newlyCompleted=true,newlySolved=true,kind="puzzle",from=null,to=null,onDone=null}={}){
+    function start({coins=0,xp=0,newlyCompleted=true,newlySolved=true,kind="puzzle",soundKind="crossword",from=null,to=null,onDone=null}={}){
       finish();
       const isTerm=kind==="term";
       const settings=isTerm
         ?termPlan({reducedMotion:prefersReducedMotion(win),newlySolved,coins})
         :plan({reducedMotion:prefersReducedMotion(win),newlyCompleted,coins,soundEnabled:loadSoundEnabled(storage)});
-      const result={plan:settings,announcement:isTerm?null:announcement({coins,xp,newlyCompleted})};
-      if(settings.sound){try{sound.reset();sound.play({pings:settings.coins})}catch(_){}}
+      const result={plan:settings,announcement:isTerm?null:announcement({coins,xp,newlyCompleted,soundKind})};
+      if(settings.sound){try{sound.reset();sound.play({pings:settings.coins,soundKind})}catch(_){}}
       if(!settings.motion){result.running=false;if(typeof onDone==="function")onDone();return result}
       layer=doc.createElement("div");
       layer.className=isTerm?"vc-layer vc-term-layer":"vc-layer";layer.setAttribute("aria-hidden","true");
@@ -125,5 +141,5 @@
     return{start,skip:finish,stopSound:()=>sound.stop(),isRunning:()=>running};
   }
 
-  return{SOUND_KEY,VOLUME_KEY,DEFAULT_VOLUME,DURATION_MS,TERM_DURATION_MS,LIMITS,TERM_LIMITS,prefersReducedMotion,loadSoundEnabled,saveSoundEnabled,clampVolume,loadSoundVolume,saveSoundVolume,coinCount,termCoinCount,plan,termPlan,announcement,createController};
+  return{SOUND_KEY,VOLUME_KEY,MUSIC_VOLUME_KEY,MUSIC_ENABLED_KEY,DEFAULT_VOLUME,DEFAULT_MUSIC_VOLUME,DURATION_MS,TERM_DURATION_MS,LIMITS,TERM_LIMITS,prefersReducedMotion,loadSoundEnabled,saveSoundEnabled,clampVolume,loadSoundVolume,saveSoundVolume,loadMusicVolume,saveMusicVolume,loadMusicEnabled,saveMusicEnabled,coinCount,termCoinCount,plan,termPlan,announcement,createController};
 });

@@ -29,7 +29,7 @@ const FQ_SCREEN_IDS=["welcomeScreen","worldSelectScreen","dashboardScreen","work
 function hideAllScreens(){FQ_SCREEN_IDS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add("hidden")})}
 
 function showWelcome(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#welcomeScreen").classList.remove("hidden");window.scrollTo(0,0)}
-function showWorldSelect(){hideAllScreens();$("#app").classList.add("journey-mode");$("#worldSelectScreen").classList.remove("hidden");renderWorldJourneyMap("quest");renderDailyReward();window.scrollTo(0,0)}
+function showWorldSelect(){hideAllScreens();$("#app").classList.add("journey-mode");$("#worldSelectScreen").classList.remove("hidden");renderWorldJourneyMap("quest");renderDailyReward();window.FinLitMusic?.enterJourney();window.scrollTo(0,0)}
 // Word Quests route into gameplay only when the governed world registry says
 // an approved runtime puzzle bank exists. Approved world identities without an
 // approved bank stay visible as Coming Soon and never initialize progress.
@@ -85,7 +85,7 @@ function renderWorldJourneyMap(mode){
   $("#journeyTabLearning").classList.toggle("active",mode==="learning");$("#journeyTabLearning").setAttribute("aria-selected",mode==="learning");
   $("#worldMapKicker").textContent=mode==="quest"?"WORD QUESTS":"LEARNING QUESTS";
   $("#worldMapTitle").textContent=mode==="quest"?"Your Word Quest Journey":"Your Learning Quest Journey";
-  $("#journeyLearningBanner").classList.toggle("hidden",mode==="learning");
+  $("#journeyLearningBanner").classList.toggle("hidden",mode==="learning");const fcLink=$("#journeyFinancialCityLink");if(fcLink)fcLink.classList.toggle("hidden",mode!=="learning");
   const player=learning.save.player;
   $("#worldMapCoins").textContent=player.coins;$("#worldMapXp").textContent=player.xp;$("#worldMapGems").textContent=0;
   WORLD_JOURNEY_ORDER.forEach(worldId=>{

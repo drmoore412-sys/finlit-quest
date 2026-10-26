@@ -7,11 +7,11 @@
   <meta name="description" content="Play. Learn. Master your financial future. FinLit Quest teaches real financial literacy through 13 playable word-puzzle worlds.">
   <meta name="theme-color" content="#0a1120">
 
-  <link rel="icon" href="assets/brand/favicon/favicon.ico?v=1792431909532" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon/favicon-16.png?v=1792431909532">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon/favicon-32.png?v=1792431909532">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/icons/apple-touch-icon-180.png?v=1792431909532">
-  <link rel="manifest" href="manifest.webmanifest?v=1792431909532">
+  <link rel="icon" href="assets/brand/favicon/favicon.ico?v=1793048275610" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon/favicon-16.png?v=1793048275610">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon/favicon-32.png?v=1793048275610">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/icons/apple-touch-icon-180.png?v=1793048275610">
+  <link rel="manifest" href="manifest.webmanifest?v=1793048275610">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -28,21 +28,22 @@
   <meta name="twitter:description" content="A word-puzzle game that teaches real financial literacy through 13 playable learning worlds.">
   <meta name="twitter:image" content="https://finlitquest.com/assets/brand/web/og-image-1200x630.png">
 
-  <link rel="stylesheet" href="design-tokens.css?v=1792431909532">
-  <link rel="stylesheet" href="styles.css?v=1792431909532">
-  <link rel="stylesheet" href="hints.css?v=1792431909532">
-  <link rel="stylesheet" href="premium.css?v=1792431909532">
-  <link rel="stylesheet" href="learning-engine.css?v=1792431909532">
-  <link rel="stylesheet" href="micro-lessons.css?v=1792431909532">
-  <link rel="stylesheet" href="journey.css?v=1792431909532">
-  <link rel="stylesheet" href="workbook-engine.css?v=1792431909532">
-  <link rel="stylesheet" href="word-game.css?v=1792431909532">
+  <link rel="stylesheet" href="design-tokens.css?v=1793048275610">
+  <link rel="stylesheet" href="styles.css?v=1793048275610">
+  <link rel="stylesheet" href="hints.css?v=1793048275610">
+  <link rel="stylesheet" href="premium.css?v=1793048275610">
+  <link rel="stylesheet" href="learning-engine.css?v=1793048275610">
+  <link rel="stylesheet" href="micro-lessons.css?v=1793048275610">
+  <link rel="stylesheet" href="journey.css?v=1793048275610">
+  <link rel="stylesheet" href="workbook-engine.css?v=1793048275610">
+  <link rel="stylesheet" href="word-game.css?v=1793048275610">
+  <link rel="stylesheet" href="currency-rush.css?v=1793048275610">
 </head>
 <body>
   <main class="app" id="app">
     <section class="wg-screen welcome-screen hidden" id="welcomeScreen">
       <div class="welcome-card">
-        <div class="wg-logo welcome-logo"><img src="assets/brand/web/wg-logo-96.png?v=1792431909532" alt="FinLit Quest"></div>
+        <div class="wg-logo welcome-logo"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></div>
         <h1>Your Financial Journey Starts Here</h1>
         <p class="welcome-tagline">Build real-world money skills through puzzles, challenges, and guided learning.</p>
         <div class="welcome-path">
@@ -67,12 +68,13 @@
 
     <section class="dashboard journey-dashboard world-map-screen hidden" id="worldSelectScreen">
       <header class="journey-topbar">
-        <div class="journey-brand"><span class="journey-logo journey-logo-img"><img src="assets/brand/web/wg-logo-96.png?v=1792431909532" alt="FinLit Quest"></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
+        <div class="journey-brand"><span class="journey-logo journey-logo-img"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
         <div class="journey-currencies" aria-label="Player resources">
           <div><span class="currency-icon coin">$</span><strong id="worldMapCoins">0</strong><small>COINS</small></div>
           <div><span class="currency-icon xp">★</span><strong id="worldMapXp">0</strong><small>XP</small></div>
           <div><span class="currency-icon gem">◆</span><strong id="worldMapGems">0</strong><small>GEMS</small></div>
         </div>
+        <button class="music-toggle" id="worldMapMusicToggle" type="button" aria-pressed="false" aria-label="Mute background music" title="Mute background music">🔊</button>
         <button class="theme-toggle" id="worldMapThemeToggle" aria-label="Toggle dark mode">☾</button>
       </header>
 
@@ -170,11 +172,12 @@
       </div>
 
       <button class="continue-adventure" id="journeyLearningBanner"><span class="cta-compass" aria-hidden="true">📖</span><span><small>WANT LESSONS, ACTIVITIES, AND QUIZZES?</small>Open Learning Quests</span><b>→</b></button>
+      <a class="continue-adventure hidden" id="journeyFinancialCityLink" href="financial-city.html" style="text-decoration:none"><span class="cta-compass" aria-hidden="true">🏙️</span><span><small>BONUS GAME · EDUCATIONAL DRAFT</small>Where Should My Money Go?</span><b>→</b></a>
     </section>
 
     <section class="wg-screen" id="worldGameScreen">
       <header class="wg-topbar">
-        <div class="wg-brand"><button class="wg-logo" id="wgBrandLogo" aria-label="FinLit Quest home"><img src="assets/brand/web/wg-logo-96.png?v=1792431909532" alt="FinLit Quest"></button><div><b>FINLIT</b><b>QUEST</b></div></div>
+        <div class="wg-brand"><button class="wg-logo" id="wgBrandLogo" aria-label="FinLit Quest home"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></button><div><b>FINLIT</b><b>QUEST</b></div></div>
         <div class="wg-currencies">
           <div class="wg-currency"><span>💰</span><div><b id="wgCoins">0</b><small>COINS</small></div></div>
           <div class="wg-currency"><span>⭐</span><div><b id="wgXp">0</b><small>XP</small></div></div>
@@ -184,8 +187,12 @@
           <div class="wg-level-row"><span id="wgLevelLabel">LEVEL 1</span><span class="wg-level-tools"><button class="wg-icon-btn" id="wgSoundButton" aria-pressed="true" aria-label="Sound on" title="Sound on or off">🔊</button><button class="wg-icon-btn" id="wgSettingsButton" aria-label="Toggle theme">⚙</button></span></div>
           <div class="wg-level-track"><span id="wgLevelBar"></span></div>
           <small id="wgLevelXpText">0 / 250 XP</small>
-          <label class="wg-volume-control" for="wgVolumeSlider"><span>Volume</span><input id="wgVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Sound volume"><output id="wgVolumeValue" for="wgVolumeSlider">90%</output></label>
+          <div class="wg-audio-mix" aria-label="Audio mix">
+            <label class="wg-volume-control" for="wgVolumeSlider"><span>Effects</span><input id="wgVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"><output id="wgVolumeValue" for="wgVolumeSlider">90%</output></label>
+            <label class="wg-volume-control" for="wgMusicVolumeSlider"><span>Music</span><input id="wgMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"><output id="wgMusicVolumeValue" for="wgMusicVolumeSlider">28%</output></label>
+          </div>
         </div>
+        <button class="music-toggle wg-music-toggle" id="wgMusicToggle" type="button" aria-pressed="false" aria-label="Mute background music" title="Mute background music">🔊</button>
       </header>
 
       <div class="wg-world-header">
@@ -293,7 +300,10 @@
             <button type="button" class="wg-btn-ghost" id="wgCelebrateSkip" hidden>Skip animation</button>
             <button type="button" class="wg-btn-ghost" id="wgSoundToggle" aria-pressed="true">🔊 Sound on</button>
           </div>
-          <label class="wg-volume-control wg-complete-volume" for="wgCompleteVolumeSlider"><span>Volume</span><input id="wgCompleteVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Sound volume"><output id="wgCompleteVolumeValue" for="wgCompleteVolumeSlider">90%</output></label>
+          <div class="wg-audio-mix wg-complete-volume" aria-label="Audio mix">
+            <label class="wg-volume-control" for="wgCompleteVolumeSlider"><span>Effects</span><input id="wgCompleteVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"><output id="wgCompleteVolumeValue" for="wgCompleteVolumeSlider">90%</output></label>
+            <label class="wg-volume-control" for="wgCompleteMusicVolumeSlider"><span>Music</span><input id="wgCompleteMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"><output id="wgCompleteMusicVolumeValue" for="wgCompleteMusicVolumeSlider">28%</output></label>
+          </div>
           <div class="wg-complete-actions"><button class="wg-btn-primary" id="wgCompleteContinue">Next Puzzle →</button></div>
         </div>
       </section>
@@ -368,6 +378,33 @@
         </div>
         <button class="continue-adventure" id="continueLearning"><span class="cta-compass"><svg><use href="#icon-compass"/></svg></span><span><small id="continueKicker">CURRENT QUEST</small>Continue Adventure</span><b>→</b></button>
       </footer>
+    </section>
+
+    <section class="currency-rush-screen hidden" id="currencyRushScreen" aria-label="Currency Rush international currency challenge">
+      <div class="cr-stars" aria-hidden="true"></div>
+      <header class="cr-topbar">
+        <button class="cr-back" id="crExit" type="button" aria-label="Return to World Quest Journey">←</button>
+        <div class="cr-heading"><small id="crRoundLabel">ROUND 1 OF 7</small><strong id="crRoundTitle">Currency Wheel 1</strong></div>
+        <button class="cr-music" id="crMusicToggle" type="button" aria-pressed="false" aria-label="Mute background music">🔊</button>
+      </header>
+      <div class="cr-layout">
+        <aside class="cr-card cr-stats" aria-label="Round status">
+          <div class="cr-timer-ring" id="crTimerRing"><span><strong id="crTime">60</strong><small>SECONDS</small></span></div>
+          <div class="cr-stat"><small>KNOWLEDGE POINTS</small><strong id="crScore">0</strong></div>
+          <div class="cr-stat"><small id="crCountLabel">CURRENCIES FOUND</small><strong id="crFoundCount">0 / 0</strong></div>
+          <div class="cr-stat"><small>GOAL</small><strong>Find them all</strong></div>
+        </aside>
+        <section class="cr-card cr-arena" aria-label="Nine-letter currency wheel">
+          <div class="cr-globe" aria-hidden="true"></div><div class="cr-symbols" aria-hidden="true"><span>$</span><span>€</span><span>¥</span><span>£</span></div>
+          <div class="cr-wheel-shell"><div class="cr-wheel" id="crWheel"><svg class="cr-trace" viewBox="0 0 420 420" preserveAspectRatio="none" aria-hidden="true"><polyline id="crTrace" points=""></polyline></svg></div></div>
+          <div class="cr-current" id="crCurrentWord" aria-live="polite">—</div><p class="cr-message" id="crMessage" role="status" aria-live="polite">Connect three letters to discover a currency</p>
+          <button class="cr-control" id="crClear" type="button">Clear selection</button>
+        </section>
+        <aside class="cr-card cr-collection-panel" id="crReferencePanel"><h2>Currency Reference</h2><p class="cr-reference-note">Study the country, currency, and code while you play.</p><ol class="cr-found-list" id="crFoundList"></ol></aside>
+      </div>
+      <section class="cr-reveal hidden" id="crReveal" role="status" aria-live="assertive"><span class="cr-reveal-flag" id="crRevealFlag">🌐</span><h2 id="crRevealCode">USD FOUND!</h2><h3 id="crRevealName">US Dollar</h3><p id="crRevealCountry">United States</p><strong id="crRevealPoints">+100 KNOWLEDGE POINTS</strong></section>
+      <div class="cr-coin-rain" id="crCoinRain" aria-hidden="true"></div>
+      <section class="cr-results hidden" id="crResults" aria-labelledby="crResultHeadline"><div class="cr-results-card"><span class="cr-results-kicker">ROUND RESULTS</span><h2 id="crResultHeadline">Time's Up!</h2><div class="cr-final-score" id="crResultScore">0</div><div class="cr-final-score"><small>KNOWLEDGE POINTS · PRACTICE ONLY</small></div><div class="cr-result-stats"><div><span>CURRENCIES</span><strong id="crResultFound">0 / 0</strong></div><div><span>ACCURACY</span><strong id="crResultAccuracy">0%</strong></div><div><span>STREAK BONUS</span><strong id="crResultStreak">+0</strong></div></div><p class="cr-result-bonuses" id="crResultBonuses"></p><section class="cr-result-section"><h3>Your currency collection</h3><div class="cr-result-collection" id="crCollection"></div></section><section class="cr-result-section"><h3>Codes to review</h3><div class="cr-result-collection" id="crMissed"></div></section><small class="currency-rush-source">Codes validated against ISO 4217 List One, published 2026-09-17 by the official SIX Maintenance Agency.</small><div class="cr-results-actions"><button id="crResultsExit" type="button">Return</button><button id="crReplay" type="button">Replay</button><button class="primary" id="crNextRound" type="button">Next Round →</button></div></div></section>
     </section>
 
     <section class="wb-screen hidden" id="workbookScreen">
@@ -448,35 +485,39 @@
   </main>
 
   <div class="toast" id="toast" aria-live="polite"></div>
-  <script src="content/crypto-terms.js?v=1792431909532"></script>
-  <script src="worlds/crypto.js?v=1792431909532"></script>
-  <script src="src/content-validator.js?v=1792431909532"></script>
-  <script src="src/world-loader.js?v=1792431909532"></script>
-  <script src="src/game-engine.js?v=1792431909532"></script>
-  <script src="src/wheel-interaction.js?v=1792431909532"></script>
-  <script src="learning-engine.js?v=1792431909532"></script>
-  <script src="content/world-definitions-2027.js?v=1792431909532"></script>
-  <script src="content/2027-new-world-terms.js?v=1792431909532"></script>
-  <script src="content/2027-new-world-puzzle-banks.js?v=1792431909532"></script>
-  <script src="content/shared-puzzle-library-2027.js?v=1792431909532"></script>
-  <script src="app.js?v=1792431909532"></script>
-  <script src="curriculum/credit/approved/runtime/credit-foundations.js?v=1792431909532"></script>
-  <script src="worlds/credit-foundations.js?v=1792431909532"></script>
-  <script src="src/workbook-engine.js?v=1792431909532"></script>
-  <script src="workbook-app.js?v=1792431909532"></script>
-  <script src="content/credit-game-terms.js?v=1792431909532"></script>
-  <script src="content/credit-term-identities.js?v=1792431909532"></script>
-  <script src="content/money-basics-terms.js?v=1792431909532"></script>
-  <script src="content/money-basics-puzzle-bank.js?v=1792431909532"></script>
-  <script src="content/banking-basics-terms.js?v=1792431909532"></script>
-  <script src="content/banking-basics-puzzle-bank.js?v=1792431909532"></script>
-  <script src="content/investing-basics-terms.js?v=1792431909532"></script>
-  <script src="content/investing-basics-puzzle-bank.js?v=1792431909532"></script>
-  <script src="src/puzzle-bank-engine.js?v=1792431909532"></script>
-  <script src="content/v3-supplemental-terms.js?v=1792431909532"></script>
-  <script src="src/v3-puzzle-slate.js?v=1792431909532"></script>
-  <script src="src/game-audio.js?v=1792431909532"></script>
-  <script src="src/victory-celebration.js?v=1792431909532"></script>
-  <script src="word-game-app.js?v=1792431909532"></script>
+  <script src="content/crypto-terms.js?v=1793048275610"></script>
+  <script src="worlds/crypto.js?v=1793048275610"></script>
+  <script src="src/content-validator.js?v=1793048275610"></script>
+  <script src="src/world-loader.js?v=1793048275610"></script>
+  <script src="src/game-engine.js?v=1793048275610"></script>
+  <script src="src/wheel-interaction.js?v=1793048275610"></script>
+  <script src="learning-engine.js?v=1793048275610"></script>
+  <script src="content/world-definitions-2027.js?v=1793048275610"></script>
+  <script src="content/2027-new-world-terms.js?v=1793048275610"></script>
+  <script src="content/2027-new-world-puzzle-banks.js?v=1793048275610"></script>
+  <script src="content/shared-puzzle-library-2027.js?v=1793048275610"></script>
+  <script src="app.js?v=1793048275610"></script>
+  <script src="curriculum/credit/approved/runtime/credit-foundations.js?v=1793048275610"></script>
+  <script src="worlds/credit-foundations.js?v=1793048275610"></script>
+  <script src="src/workbook-engine.js?v=1793048275610"></script>
+  <script src="workbook-app.js?v=1793048275610"></script>
+  <script src="content/credit-game-terms.js?v=1793048275610"></script>
+  <script src="content/credit-term-identities.js?v=1793048275610"></script>
+  <script src="content/money-basics-terms.js?v=1793048275610"></script>
+  <script src="content/money-basics-puzzle-bank.js?v=1793048275610"></script>
+  <script src="content/banking-basics-terms.js?v=1793048275610"></script>
+  <script src="content/banking-basics-puzzle-bank.js?v=1793048275610"></script>
+  <script src="content/investing-basics-terms.js?v=1793048275610"></script>
+  <script src="content/investing-basics-puzzle-bank.js?v=1793048275610"></script>
+  <script src="src/puzzle-bank-engine.js?v=1793048275610"></script>
+  <script src="content/v3-supplemental-terms.js?v=1793048275610"></script>
+  <script src="src/v3-puzzle-slate.js?v=1793048275610"></script>
+  <script src="content/audio-config.js?v=1793048275610"></script>
+  <script src="content/world-backgrounds.js?v=1793048275610"></script>
+  <script src="content/currency-rush-data.js?v=1793048275610"></script>
+  <script src="src/game-audio.js?v=1793048275610"></script>
+  <script src="src/victory-celebration.js?v=1793048275610"></script>
+  <script src="word-game-app.js?v=1793048275610"></script>
+  <script src="src/currency-rush.js?v=1793048275610"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ const audio=require("../src/game-audio.js");
 const read=file=>fs.readFileSync(path.join(ROOT,file),"utf8");
 
 function fakeWindow({state="running",throwOn=null}={}){
-  const log={contexts:0,oscillators:[],gains:[],closed:0,resumed:0,buses:[]};
+  const log={contexts:0,oscillators:[],gains:[],closed:0,resumed:0,buses:[],mediaSources:0};
   class Ctx{
     constructor(){if(throwOn==="construct")throw new Error("no audio");log.contexts++;log.ctx=this;this.currentTime=0;this.state=state;this.destination={}}
     resume(){log.resumed++;this.state="running";return Promise.resolve()}
@@ -21,6 +21,7 @@ function fakeWindow({state="running",throwOn=null}={}){
     }
     createDynamicsCompressor(){return{threshold:{},ratio:{},connect(){}}}
     createBiquadFilter(){return{type:"",frequency:{},connect(){}}}
+    createMediaElementSource(){log.mediaSources++;return{connect(){}}}
     createOscillator(){
       if(throwOn==="oscillator")throw new Error("boom");
       const o={type:"",frequency:{value:0,setValueAtTime(v){o.freq=v},exponentialRampToValueAtTime(v){o.endFreq=v}},connect(){},start(t){o.startAt=t},stop(t){o.stopAt=t}};
@@ -33,6 +34,16 @@ function engine(options={}){
   const {win,log}=fakeWindow(options.win||{});
   const api=audio.create({window:win,isEnabled:options.isEnabled||(()=>true),getVolume:options.getVolume||(()=>audio.DEFAULT_VOLUME)});
   return{api,log,win};
+}
+function musicEngine(options={}){
+  const {win,log}=fakeWindow(options.win||{});const intervals=[];const cleared=[];
+  const api=audio.create({
+    window:win,isEnabled:options.isEnabled||(()=>true),getVolume:options.getVolume||(()=>audio.DEFAULT_VOLUME),
+    getMusicVolume:options.getMusicVolume||(()=>audio.DEFAULT_MUSIC_VOLUME),
+    setIntervalFn:(callback,delay)=>{intervals.push({callback,delay});return intervals.length},
+    clearIntervalFn:id=>cleared.push(id),
+  });
+  return{api,log,intervals,cleared};
 }
 const span=log=>Math.max(...log.oscillators.map(o=>o.stopAt))-Math.min(...log.oscillators.map(o=>o.startAt));
 const firstFreqs=log=>log.oscillators.filter(o=>o.type==="triangle").map(o=>o.freq);
@@ -101,6 +112,51 @@ test("one click per call: repeated calls make repeated clicks, and the engine ad
   assert.equal(log.oscillators.length,one*3);
 });
 
+test("background music waits for unlock, loops once, and never restarts between words or puzzles",()=>{
+  const {api,log,intervals}=musicEngine();
+  assert.equal(api.startMusic(),false,"autoplay rules block music before a gesture");
+  assert.equal(log.contexts,0);
+  assert.equal(api.unlock(),true,"the real gesture unlock starts requested music");
+  assert.equal(api.isMusicPlaying(),true);
+  assert.equal(intervals.length,1);assert.equal(intervals[0].delay,audio.MUSIC_BEAT_MS);
+  const voicesAfterFirstBeat=log.oscillators.length;
+  api.letter(1);api.correct("ordinary");api.startMusic();api.startMusic();
+  assert.equal(intervals.length,1,"word results and repeated puzzle starts keep the original loop");
+  assert.equal(log.contexts,1,"music and effects share one AudioContext");
+  intervals[0].callback();
+  assert.ok(log.oscillators.length>voicesAfterFirstBeat,"the next background beat is scheduled");
+});
+
+test("a future licensed soundtrack drops into the same seamless music bus without changing gameplay",()=>{
+  const {win,log}=fakeWindow();let played=0,paused=0;
+  const track={src:"",loop:false,preload:"",crossOrigin:"",play(){played++;return Promise.resolve()},pause(){paused++}};
+  const intervals=[];
+  const api=audio.create({window:win,musicUrl:"assets/audio/finlit-quest-theme.m4a",createAudioElement:()=>track,setIntervalFn:callback=>{intervals.push(callback);return 1},clearIntervalFn:()=>{}});
+  api.unlock();assert.equal(api.startMusic(),true);
+  assert.equal(api.musicMode(),"licensed");assert.equal(track.src,"assets/audio/finlit-quest-theme.m4a");assert.equal(track.loop,true);assert.equal(track.preload,"auto");
+  assert.equal(played,1);assert.equal(log.mediaSources,1);assert.equal(intervals.length,0,"licensed playback replaces, rather than layers over, the synth loop");
+  api.startMusic();assert.equal(played,1,"game and level transitions never restart the licensed track");
+  api.stopMusic();assert.equal(paused,1);
+});
+
+test("music has an independent saved-volume input and can pause without disabling effects",()=>{
+  let musicVolume=.28;const {api,log,intervals,cleared}=musicEngine({getMusicVolume:()=>musicVolume});
+  api.unlock();api.startMusic();
+  assert.equal(log.gains[1].gain.value,.28,"music uses its own master bus");
+  musicVolume=.12;assert.equal(api.setMusicVolume(.12),.12);assert.equal(log.gains[1].gain.value,.12);
+  assert.equal(api.setMusicVolume(0),0);assert.equal(api.isMusicPlaying(),false);assert.deepEqual(cleared,[1]);
+  const before=log.oscillators.length;api.letter(2);assert.ok(log.oscillators.length>before,"effects remain available when music is at zero");
+  musicVolume=.2;api.setMusicVolume(.2);assert.equal(api.isMusicPlaying(),true);assert.equal(intervals.length,2,"raising music above zero resumes the requested loop");
+  api.stopMusic();assert.equal(api.isMusicPlaying(),false);assert.equal(api.letter(3),true,"leaving gameplay stops music, not effects");
+});
+
+test("background voices stay quiet and do not consume the rapid-swipe effects voice cap",()=>{
+  const {api,log,intervals}=musicEngine();api.unlock();api.startMusic();
+  for(let i=0;i<20;i++)intervals[0].callback();
+  assert.ok(log.gains[1].gain.value<=audio.DEFAULT_MUSIC_VOLUME,"the music master remains below effects volume");
+  const before=log.oscillators.length;assert.equal(api.letter(1),true);assert.equal(log.oscillators.length,before+3,"letter feedback remains immediate after many music beats");
+});
+
 test("word feedback tiers are distinct and soft",()=>{
   const sig=name=>{const {api,log}=engine();api.unlock();api[name](name==="correct"?"x":undefined);return log};
   const ordinary=(()=>{const {api,log}=engine();api.unlock();api.correct("ordinary");return log})();
@@ -112,6 +168,18 @@ test("word feedback tiers are distinct and soft",()=>{
   const loudest=log=>Math.max(...log.gains.map(g=>g.peak));
   assert.ok(loudest(wrong)<=.04&&loudest(duplicate)<=.03,"wrong and duplicate are soft");
   assert.ok(wrong.oscillators[0].endFreq<wrong.oscillators[0].freq,"wrong falls gently rather than rising like a win");
+});
+
+test("coin, crossword, level, and world rewards have distinct bounded cues",()=>{
+  const sound=name=>{const {api,log}=engine();api.unlock();api[name]({coins:8});return log};
+  const coin=sound("coinReward"),crossword=sound("grandJackpot"),level=sound("levelComplete"),world=sound("worldComplete");
+  assert.ok(span(coin)<.4,"coin reward stays compact");
+  assert.ok(span(crossword)>=2&&span(crossword)<=3);
+  assert.ok(span(level)>=1.8&&span(level)<=2.4);
+  assert.ok(span(world)>=2.5&&span(world)<=3);
+  const signatures=[coin,crossword,level,world].map(log=>log.oscillators.map(o=>`${o.type}:${Math.round(o.freq)}`).join("|"));
+  assert.equal(new Set(signatures).size,4,"every progression event has its own composition");
+  [coin,crossword,level,world].forEach(log=>assert.ok(Math.max(...log.gains.map(g=>g.peak))<=audio.MAX_GAIN+1e-9));
 });
 
 test("the key-term mini jackpot lasts about 1 to 1.5 seconds and is bigger than a financial chime",()=>{
@@ -188,7 +256,7 @@ test("loudness is capped on every voice, and clicks never pile up on top of a lo
 test("audio is optional: no AudioContext, a throwing constructor or a throwing oscillator never throws or blocks",()=>{
   const none=audio.create({window:{}});
   assert.equal(none.unlock(),false);
-  ["letter","correct","wrong","duplicate","miniJackpot","grandJackpot","stop","stopJackpots"].forEach(name=>assert.doesNotThrow(()=>none[name](1),name));
+  ["letter","correct","wrong","duplicate","cancel","coinReward","miniJackpot","grandJackpot","levelComplete","worldComplete","startMusic","stopMusic","stop","stopJackpots"].forEach(name=>assert.doesNotThrow(()=>none[name](1),name));
   const broken=engine({win:{throwOn:"construct"}});
   assert.doesNotThrow(()=>{broken.api.unlock();broken.api.letter(1);broken.api.grandJackpot()});
   const boom=engine({win:{throwOn:"oscillator"}});boom.api.unlock();
@@ -238,34 +306,85 @@ test("wrong, duplicate and optional bonus words get neutral feedback and never a
   assert.ok(!/wgAudio\.correct/.test(fn),"zero-reward bonus words never play a win sound");
 });
 
-test("sound tiers: grand only through the victory celebration, mini only for the key term of a new puzzle, chimes otherwise",()=>{
+test("sound tiers: completion fanfares only use the victory controller, mini only uses the key term, and other answers chime",()=>{
   const fn=app.slice(app.indexOf("function wgPlayFoundSound"),app.indexOf("function wgShowPuzzleComplete"));
   assert.match(fn,/if \(complete && fresh\) return;/,"the last word of a new completion plays nothing here: the grand jackpot starts once, so the key term as the last word never plays a mini first");
   assert.match(fn,/fresh && word === wgState\.puzzleModel\.anchorWord/);
   assert.equal((fn.match(/miniJackpot\(\)/g)||[]).length,1);
   assert.ok(!/grandJackpot/.test(fn),"the grand jackpot is never started from the per-word path");
   assert.match(fn,/wgAudio\.correct\(wgIsFinancialCategory\(reward\.category\) \? "financial" : "ordinary"\)/);
-  assert.match(app,/play: \(\{ pings \} = \{\}\) => wgAudio\.grandJackpot\(\{ coins: pings \}\)/,"the victory controller is the only caller of the grand jackpot");
-  assert.equal((app.match(/grandJackpot\(/g)||[]).length,1);
+  assert.match(app,/world: wgAudio\.worldComplete,[\s\S]*level: wgAudio\.levelComplete,[\s\S]*crossword: wgAudio\.grandJackpot/,"the victory controller selects the progression tier");
+  assert.equal((app.match(/wgAudio\.grandJackpot/g)||[]).length,2,"crossword is the explicit tier and safe fallback in one dispatcher");
   const found=app.slice(app.indexOf("function wgFoundWord"),app.indexOf("function wgPlayFoundSound"));
   assert.ok(found.indexOf("answerReward(")<found.indexOf("wgPlayFoundSound("),"the sound tier is chosen after the reward is computed and only reads it");
   assert.ok(!/learning\.save|\.coins\s*\+?=|\.xp\s*\+?=/.test(fn),"the sound path grants nothing");
+  assert.match(fn,/reward\.isNewSolve && reward\.coins > 0\) wgAudio\.coinReward/,"a rewarded accepted word receives the compact coin cue");
+});
+
+test("level and world completion sounds derive from recorded progress without changing progress",()=>{
+  const fn=app.slice(app.indexOf("function wgCompletionSoundKind"),app.indexOf("// A small coin flight"));
+  assert.match(fn,/bank\.length && bank\.every\(completed\).*return "world"/s);
+  assert.match(fn,/level\.length && level\.every\(completed\) \? "level" : "crossword"/);
+  assert.ok(!/persist|recordPlaythrough|\.coins|\.xp/.test(fn),"tier detection is read-only");
+  assert.match(app,/wgState\.completionSoundKind = wgCompletionSoundKind\(\)/,"tier is chosen only after completion is recorded");
+  assert.match(app,/soundKind: wgState\.completionSoundKind/);
 });
 
 test("persistent mute and accessible volume controls stay synchronized in play and completion states",()=>{
   const html=read("index.html");
   assert.match(html,/id="wgSoundButton" aria-pressed="true" aria-label="Sound on"/);
   assert.match(html,/id="wgSoundToggle" aria-pressed="true"/);
-  assert.match(html,/id="wgVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Sound volume"/);
-  assert.match(html,/id="wgCompleteVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Sound volume"/);
+  assert.match(html,/id="wgVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"/);
+  assert.match(html,/id="wgCompleteVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"/);
+  assert.match(html,/id="wgMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"/);
+  assert.match(html,/id="wgCompleteMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"/);
+  assert.match(html,/id="worldMapMusicToggle"[^>]*aria-label="Mute background music"/);
+  assert.match(html,/id="wgMusicToggle"[^>]*aria-label="Mute background music"/);
   assert.match(app,/\$\("#wgSoundToggle"\)\.onclick = wgToggleSound;\s*\$\("#wgSoundButton"\)\.onclick = wgToggleSound;/);
   assert.match(app,/\$\("#wgVolumeSlider"\)\.oninput = wgSetSoundVolume;\s*\$\("#wgCompleteVolumeSlider"\)\.oninput = wgSetSoundVolume;/);
+  assert.match(app,/\$\("#wgMusicVolumeSlider"\)\.oninput = wgSetMusicVolume;\s*\$\("#wgCompleteMusicVolumeSlider"\)\.oninput = wgSetMusicVolume;/);
+  assert.match(app,/\$\("#worldMapMusicToggle"\)\.onclick = wgToggleMusic;\s*\$\("#wgMusicToggle"\)\.onclick = wgToggleMusic;/);
   assert.equal((app.match(/saveSoundEnabled\(/g)||[]).length,1,"the preference is written in exactly one place");
   assert.equal((app.match(/saveSoundVolume\(/g)||[]).length,1,"volume is written through one shared handler");
+  assert.equal((app.match(/saveMusicVolume\(/g)||[]).length,1,"music volume is written through one shared handler");
+  assert.equal((app.match(/saveMusicEnabled\(/g)||[]).length,1,"music mute is written through one shared handler");
   assert.match(app,/if \(!next\) \{ wgVictory\.stopSound\(\); wgAudio\.stop\(\); \}/,"muting cuts any playing sound at once");
   assert.match(app,/isEnabled: \(\) => FinLitVictory\.loadSoundEnabled\(localStorage\)/,"the engine reads the same preference the celebration uses");
   assert.match(app,/getVolume: \(\) => FinLitVictory\.loadSoundVolume\(localStorage\) \/ 100/);
+  assert.match(app,/getMusicVolume: \(\) => FinLitVictory\.loadMusicEnabled\(localStorage\) \? FinLitVictory\.loadMusicVolume\(localStorage\) \/ 100 : 0/);
   assert.match(app,/wgAudio\.setVolume\(volume \/ 100\)/,"a slider change reaches the live master output immediately");
+  assert.match(app,/wgAudio\.setMusicVolume\(FinLitVictory\.loadMusicEnabled\(localStorage\) \? volume \/ 100 : 0\)/,"music changes reach only the separate music output");
+  assert.match(app,/function wgToggleMusic[\s\S]*?saveMusicEnabled[\s\S]*?setMusicVolume\(0\)/,"music-only mute cuts the music bus immediately");
+  const musicToggle=app.slice(app.indexOf("function wgToggleMusic"),app.indexOf("function wgToggleSound"));
+  assert.ok(!/saveSoundEnabled|setVolume\(/.test(musicToggle),"music mute cannot change effects preferences or volume");
+});
+
+test("music spans journey, level selection, words, puzzle changes and completion without restarting",()=>{
+  assert.match(app,/function wgOpenWorld[\s\S]*?wgAudio\.startMusic\(\);\s*\}/);
+  const render=app.slice(app.indexOf("function wgRenderPuzzle"),app.indexOf("function wgRenderGrid"));
+  const submit=app.slice(app.indexOf("function wgSubmitWord"),app.indexOf("function wgShowPuzzleComplete"));
+  const completion=app.slice(app.indexOf("function wgShowPuzzleComplete"),app.indexOf("// Victory celebration"));
+  assert.ok(!/startMusic|stopMusic/.test(render),"rendering a new puzzle does not restart the music");
+  assert.ok(!/startMusic|stopMusic/.test(submit),"word results do not restart the music");
+  assert.ok(!/startMusic|stopMusic/.test(completion),"completion does not restart the music");
+  assert.match(app,/window\.FinLitMusic = \{[\s\S]*?enterJourney\(\)[\s\S]*?wgAudio\.startMusic\(\)/);
+  assert.match(read("app.js"),/function showWorldSelect\(\)[\s\S]{0,260}window\.FinLitMusic\?\.enterJourney\(\)/);
+  assert.match(app,/function wgReturnToWorldSelect\(\) \{\s*showWorldSelect\(\);\s*\}/);
+  assert.doesNotMatch(app,/function wgReturnToWorldSelect\(\) \{\s*wgAudio\.stopMusic/);
+});
+
+test("music toggle styling stays touch accessible on journey and gameplay screens",()=>{
+  const journey=read("journey.css"),game=read("word-game.css");
+  assert.match(journey,/\.music-toggle\{[^}]*width:44px[^}]*height:44px/);
+  assert.match(journey,/\.music-toggle:focus-visible\{[^}]*outline:3px solid/);
+  assert.match(journey,/\.music-toggle\.is-muted/);
+  assert.match(game,/\.wg-topbar>\.wg-music-toggle/);
+});
+
+test("pointer, Escape, and clear-button cancellations resolve gently",()=>{
+  assert.match(app,/function wgCancelPointer[\s\S]*?if \(hadSelection\) wgAudio\.cancel\(\)/);
+  assert.match(app,/event\.key === "Escape"[\s\S]{0,180}wgAudio\.cancel\(\)/);
+  assert.match(app,/\$\("#wgClearSelection"\)\.onclick[\s\S]{0,180}wgAudio\.cancel\(\)/);
 });
 
 test("the audio module ships in the page and the native bundle and loads before the game",()=>{
@@ -273,4 +392,7 @@ test("the audio module ships in the page and the native bundle and loads before 
   assert.ok(html.indexOf("src/game-audio.js")>0&&html.indexOf("src/game-audio.js")<html.indexOf("word-game-app.js"));
   assert.match(read("scripts/build-www.sh"),/src\/game-audio\.js/);
   assert.match(read("tests/bundle-parity.test.js"),/src\/game-audio\.js/);
+  assert.match(html,/content\/audio-config\.js\?v=\d+/);
+  assert.match(app,/musicUrl: window\.FINLIT_AUDIO_CONFIG\?\.musicTrackUrl \|\| ""/);
+  assert.match(read("content/audio-config.js"),/musicTrackUrl:""/,"the unlicensed placeholder stays empty and the synth remains active");
 });

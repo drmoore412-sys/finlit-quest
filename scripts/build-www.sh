@@ -27,8 +27,11 @@ copy privacy.html
 copy terms.html
 copy support.html
 
+# Standalone bonus game (own page, own saves; linked from Learning Quests)
+copy financial-city.html
+
 # Stylesheets
-for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css; do
+for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css; do
   copy "$f"
 done
 
@@ -38,13 +41,19 @@ for f in app.js learning-engine.js word-game-app.js workbook-app.js; do
 done
 
 # Scripts (src/ pure modules actually referenced by index.html)
-for f in src/content-validator.js src/game-engine.js src/wheel-interaction.js src/puzzle-bank-engine.js src/v3-puzzle-slate.js src/game-audio.js src/victory-celebration.js src/workbook-engine.js src/world-loader.js; do
+for f in src/content-validator.js src/game-engine.js src/wheel-interaction.js src/puzzle-bank-engine.js src/v3-puzzle-slate.js src/game-audio.js src/victory-celebration.js src/currency-rush.js src/workbook-engine.js src/world-loader.js; do
   copy "$f"
 done
 
 # Content + world + curriculum runtime data
-for f in content/world-definitions-2027.js content/2027-new-world-terms.js content/2027-new-world-puzzle-banks.js content/shared-puzzle-library-2027.js content/crypto-terms.js content/credit-game-terms.js content/credit-term-identities.js content/money-basics-terms.js content/money-basics-puzzle-bank.js content/banking-basics-terms.js content/banking-basics-puzzle-bank.js content/investing-basics-terms.js content/investing-basics-puzzle-bank.js content/v3-supplemental-terms.js worlds/crypto.js worlds/credit-foundations.js curriculum/credit/approved/runtime/credit-foundations.js; do
+for f in content/world-definitions-2027.js content/2027-new-world-terms.js content/2027-new-world-puzzle-banks.js content/shared-puzzle-library-2027.js content/audio-config.js content/world-backgrounds.js content/currency-rush-data.js content/crypto-terms.js content/credit-game-terms.js content/credit-term-identities.js content/money-basics-terms.js content/money-basics-puzzle-bank.js content/banking-basics-terms.js content/banking-basics-puzzle-bank.js content/investing-basics-terms.js content/investing-basics-puzzle-bank.js content/v3-supplemental-terms.js worlds/crypto.js worlds/credit-foundations.js curriculum/credit/approved/runtime/credit-foundations.js; do
   copy "$f"
+done
+
+# Optimized world artwork. The three owner-approved files remain absent until
+# their exact assets are supplied; the runtime config records that explicitly.
+for f in "$ROOT"/assets/worlds/*.jpg; do
+  copy "${f#$ROOT/}"
 done
 
 # Brand assets actually referenced at runtime (favicon, apple-touch-icon, in-app header logo, PWA icons)
