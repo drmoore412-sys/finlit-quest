@@ -10,6 +10,44 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Approved Golden Castle Journey artwork integrated locally
+
+Integrated the owner's exact attached Golden Castle PNG into the World Quest Journey page without regenerating, recompressing, or substituting the artwork. This milestone is complete locally and has not been deployed.
+
+### Completed work
+
+- Saved the byte-identical approved image at `assets/images/golden-castle-journey.png` (1536×1024 PNG; SHA-256 `ba0bc3ed7fabdb48adc17e94a9130ae5b4aeb553f279bb6e8c2feed36579015f`).
+- Replaced the synthetic Journey scenery with the approved castle, crescent moon, waterfalls, and golden, blue, and green paths while preserving all 13 world controls and their order.
+- Used aspect-ratio-preserving `background-size: 100% auto` presentation, translucent glass controls, limited blur, and responsive positioning. Desktop cards avoid the castle; mobile shows the complete artwork before the scrollable world route begins.
+- Removed the old synthetic SVG path, clouds, river shimmer, and path spark from the Journey screen so they do not cover or conflict with the approved artwork.
+- Added the image to the production web build manifest and synchronized the exact same bytes into the Capacitor iOS bundle.
+- Captured reviewed desktop and iPhone-size screenshots under `artifacts/golden-castle/`.
+
+### Files modified
+
+- `assets/images/golden-castle-journey.png`
+- `journey.css`
+- `scripts/build-www.sh`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/journey.css`
+- `ios/App/App/public/assets/images/golden-castle-journey.png`
+- `artifacts/golden-castle/golden-castle-desktop.png`
+- `artifacts/golden-castle/golden-castle-mobile.png`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Complete automated suite: **559 of 559 passed**.
+- Production web build completed: **69 files, 9.6 MB**.
+- Unsigned iOS Simulator Release build succeeded with Xcode and the iPhoneSimulator 27.1 SDK.
+- Source, generated web, and generated iOS images have the same SHA-256 checksum, confirming exact asset parity.
+- Desktop review at 1440×1050 and mobile review at 375×812 confirmed that the artwork is not stretched, the major landmarks remain visible, and world navigation remains readable.
+- Existing music-only mute behavior, sound effects, puzzles, saves, XP, coins, achievements, and rewards were not changed.
+- Known issue: final physical-iPhone visual confirmation remains recommended because simulator-sized browser review cannot reproduce every device safe-area and browser-toolbar combination.
+- Recommended next step: owner reviews the local screenshots. Do not deploy until the owner approves the combined local changes; the live website remains unchanged.
+
+---
+
 ## 2026-10-26 — Bonus Games hub and interrupted-wheel recovery completed locally
 
 Moved standalone practice experiences out of bottom-of-page banners into a dedicated top-level arcade and corrected a second wheel reliability defect reproduced in the local browser. This milestone remains local and has not been deployed.

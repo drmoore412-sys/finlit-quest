@@ -74,3 +74,13 @@ test("all governed runtime files load before the shared word-game engine",()=>{
   assert.ok(newTerms<engine);
   assert.ok(newBanks<engine);
 });
+
+test("the World Quest Journey uses the owner-approved local Golden Castle PNG without distortion",()=>{
+  const css=fs.readFileSync(path.join(ROOT,"journey.css"),"utf8");
+  const asset=path.join(ROOT,"assets/images/golden-castle-journey.png");
+  assert.ok(fs.existsSync(asset));
+  assert.ok(fs.statSync(asset).size>2_000_000,"the approved full-resolution PNG must not be replaced by a lightweight placeholder");
+  assert.match(css,/#worldSelectScreen \.journey-map[^{]*\{[^}]*url\("assets\/images\/golden-castle-journey\.png"\)/);
+  assert.match(css,/background-size:100% auto/,"the background keeps its source aspect ratio");
+  assert.match(css,/#worldSelectScreen \.journey-node[^}]*backdrop-filter/,"world controls remain readable over the artwork");
+});

@@ -25,6 +25,12 @@
 
 .journey-logo-img{background:none;box-shadow:none}.journey-logo-img img{width:100%;height:100%;object-fit:contain}
 .journey-layout-solo{display:block}.journey-layout-solo .journey-map{min-height:1840px}
+#worldSelectScreen .journey-map{background-color:#071426;background-image:linear-gradient(180deg,#02081712 0,#0208171f 420px,#071426c7 790px,#071426 1120px),url("assets/images/golden-castle-journey.png");background-repeat:no-repeat;background-position:center top;background-size:100% auto;border-color:#8fa5c052;box-shadow:inset 0 1px #ffffff28,0 24px 55px #0008}
+#worldSelectScreen .journey-map:before{z-index:1;background:linear-gradient(90deg,#02081738 0,transparent 28%,transparent 72%,#02081730 100%),linear-gradient(180deg,transparent 0 68%,#0714268c 100%);opacity:1;pointer-events:none}
+#worldSelectScreen .map-heading{padding:11px 14px;border:1px solid #ffffff2b;border-radius:16px;background:#07142673;box-shadow:0 10px 28px #0004;backdrop-filter:blur(6px);text-shadow:0 2px 7px #000}
+#worldSelectScreen .journey-node{border-color:#9bb0c36b;background:linear-gradient(145deg,#0b2237c7,#091726b8);box-shadow:0 14px 30px #020b14a6,inset 0 1px #ffffff18;backdrop-filter:blur(7px) saturate(1.12)}
+#worldSelectScreen .journey-path,#worldSelectScreen .river-shimmer,#worldSelectScreen .journey-cloud,#worldSelectScreen .path-spark{display:none}
+@media(min-width:701px){#worldSelectScreen .node-2{left:36%;right:auto}}
 .journey-tabs{position:relative;z-index:9;display:flex;gap:10px;margin:2px 0 18px}
 .journey-tab{display:flex;align-items:center;gap:8px;border:1px solid #38506a;border-radius:999px;padding:10px 18px;color:#9db0c2;background:#07192bd9;font:900 12px inherit;letter-spacing:.02em;cursor:pointer}
 .journey-tab-icon{font-size:14px}
@@ -44,6 +50,7 @@
 .journey-node.coming-soon .node-state{color:#ffe2a0;background:#62491399}
 #journeyLearningBanner .cta-compass{font-size:22px}
 @media(max-width:900px){.journey-layout-solo .journey-map{min-height:1840px}}
+@media(max-width:700px){#worldSelectScreen .journey-map{background-image:linear-gradient(180deg,#0208170a 0,#02081718 190px,#071426d6 410px,#071426 650px),url("assets/images/golden-castle-journey.png");background-size:100% auto;background-position:center top}#worldSelectScreen .map-heading{top:278px;left:12px;right:12px}#worldSelectScreen .node-1{top:375px}#worldSelectScreen .node-2{top:505px}#worldSelectScreen .node-3{top:635px}#worldSelectScreen .node-4{top:765px}#worldSelectScreen .node-5{top:895px}#worldSelectScreen .node-6{top:1025px}#worldSelectScreen .node-7{top:1155px}#worldSelectScreen .node-8{top:1285px}#worldSelectScreen .node-9{top:1415px}#worldSelectScreen .node-10{top:1545px}#worldSelectScreen .node-11{top:1675px}#worldSelectScreen .node-12{top:1805px}#worldSelectScreen .node-13{top:1935px}#worldSelectScreen.journey-dashboard .journey-map{min-height:2070px}#worldSelectScreen .journey-path{top:340px;height:calc(100% - 355px)}}
 @media(max-width:700px){.journey-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.journey-tab{justify-content:center;padding:10px 7px;font-size:10px}.bonus-games-hub{padding:22px 14px}.bonus-games-grid{grid-template-columns:1fr}.bonus-game-card,.bonus-game-card.future{grid-column:auto;grid-template-columns:78px 1fr;min-height:190px;padding:17px;gap:14px}.bonus-game-art{width:72px;border-radius:21px;font-size:38px}}
 @media(max-width:390px){.journey-tab{display:grid;justify-items:center;gap:3px;padding:8px 4px;font-size:9px}.journey-tab-icon{font-size:16px}.bonus-game-card{grid-template-columns:1fr}.bonus-game-art{width:62px}.bonus-game-copy strong{font-size:23px}}
 
