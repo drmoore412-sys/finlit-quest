@@ -10,6 +10,36 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Golden Castle background extended through the complete Journey page
+
+Responded to owner review that the approved artwork ended halfway down the world route. The same approved PNG now forms one continuous background from the top of the Journey map through the final world card, with no repeated-image seam.
+
+### Completed work
+
+- Changed the Journey artwork from a top-only background to a full-height background spanning all 13 world cards.
+- Preserved the exact approved PNG and the existing translucent navigation cards, labels, routes, music controls, and gameplay behavior.
+- Rebuilt the web bundle, synchronized the iOS bundle, and replaced the desktop and mobile review screenshots with the full-height result.
+
+### Files modified
+
+- `journey.css`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/journey.css`
+- `artifacts/golden-castle/golden-castle-desktop.png`
+- `artifacts/golden-castle/golden-castle-mobile.png`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Complete automated suite: **559 of 559 passed**.
+- Desktop full-page review at 1440×1050 and mobile full-page review at 375×812 confirmed the image reaches the final world card and contains no repeat seam.
+- The web and iOS bundles were regenerated from the same source CSS.
+- Unsigned iOS Simulator Release build succeeded with Xcode and the iPhoneSimulator 27.1 SDK.
+- No puzzles, progression, hints, audio, saves, rewards, XP, coins, or achievements changed.
+- This update remains local and is not deployed.
+
+---
+
 ## 2026-10-26 — Approved Golden Castle Journey artwork integrated locally
 
 Integrated the owner's exact attached Golden Castle PNG into the World Quest Journey page without regenerating, recompressing, or substituting the artwork. This milestone is complete locally and has not been deployed.
