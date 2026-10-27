@@ -1217,4 +1217,6 @@ if (!localStorage.getItem("finlitQuest.onboarded")) {
   showWelcome();
 } else {
   showWorldSelect();
+  // Return links from Financial City / DeFi Tower land on the Bonus Games tab.
+  if (window.location.hash === "#bonus-games") renderWorldJourneyMap("games");
 }

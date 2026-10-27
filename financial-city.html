@@ -407,7 +407,7 @@ table.cmp td{width:27%}
 <link rel="stylesheet" href="defi-tower.css">
 </head>
 <body>
-<div class="fq-topnote" role="note"><a href="index.html">&larr; Back to FinLit Quest</a><span>Educational draft &middot; scenarios are fictional and wording is still under review &middot; not financial advice</span></div>
+<div class="fq-topnote" role="note"><a href="index.html#bonus-games">&larr; Back to Bonus Games</a><span>Educational draft &middot; scenarios are fictional and wording is still under review &middot; not financial advice</span></div>
 
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -1914,6 +1914,8 @@ table.cmp td{width:27%}
 
   if (window.FLQ_TOWER) { var tstore = null; try { tstore = window.localStorage; } catch (e) {} FLQ_TOWER.mount({ storage:tstore, esc:esc, sfx:sfx, rerender:function(f){ render(f); } }); }
   render(false);
+  // Deep link from the Bonus Games hub: financial-city.html?open=tower opens the DeFi Tower intro directly.
+  try { if (window.FLQ_TOWER && new URLSearchParams(window.location.search).get("open") === "tower") { actions.tower(); } } catch (e) {}
 })();
 </script>
 
