@@ -1914,8 +1914,8 @@ table.cmp td{width:27%}
 
   if (window.FLQ_TOWER) { var tstore = null; try { tstore = window.localStorage; } catch (e) {} FLQ_TOWER.mount({ storage:tstore, esc:esc, sfx:sfx, rerender:function(f){ render(f); } }); }
   render(false);
-  // Deep link from the Bonus Games hub: financial-city.html?open=tower opens the DeFi Tower intro directly.
-  try { if (window.FLQ_TOWER && new URLSearchParams(window.location.search).get("open") === "tower") { actions.tower(); } } catch (e) {}
+  // Deep links from the Bonus Games hub: ?open=tower opens the DeFi Tower intro; ?open=decision opens the Decision challenge intro.
+  try { var openP = new URLSearchParams(window.location.search).get("open"); if (openP === "tower" && window.FLQ_TOWER) { actions.tower(); } else if (openP === "decision") { actions.intro(); } } catch (e) {}
 })();
 </script>
 
