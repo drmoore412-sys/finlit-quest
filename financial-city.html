@@ -404,6 +404,7 @@ table.cmp td{width:27%}
 .celebrate .burst i{width:22px;height:22px}
 @media (prefers-reduced-motion:reduce){.coinfx{display:none}}
 </style>
+<link rel="stylesheet" href="defi-tower.css">
 </head>
 <body>
 <div class="fq-topnote" role="note"><a href="index.html">&larr; Back to FinLit Quest</a><span>Educational draft &middot; scenarios are fictional and wording is still under review &middot; not financial advice</span></div>
@@ -1160,6 +1161,7 @@ table.cmp td{width:27%}
 
 </script>
 
+<script src="defi-tower.js"></script>
 <script id="ui">
 (function () {
   var F = window.FLQ;
@@ -1234,6 +1236,7 @@ table.cmp td{width:27%}
       '<p class="lede">There is no single best place for your money. The right home depends on what the money is for, when you need it, how easily you must reach it, and how much risk you can take. Explore eight destinations, then make six real-life calls.</p>'+
       '<div class="row"><button class="btn primary" data-action="intro">Decision challenge</button><button class="btn primary" data-action="bprofiles">The $10,000 challenge</button><button class="btn" data-action="academy">Learning Academy</button></div></section>'+
     '<section class="panel map-card" aria-label="Financial City">'+'<div class="stage home">'+cityScene("home")+'</div>'+'</section>'+
+    (window.FLQ_TOWER ? '<section class="panel tw-home" aria-label="DeFi Tower"><button class="tw-enter-card" data-action="tower"><img class="tw-mini" src="assets/defi-tower/defi-tower-thumb.jpg" width="480" height="270" alt="" loading="lazy"><span><b class="tw-title">DeFi Tower</b> <span class="tag gold">Educational draft</span><small>Climb eight floors of real-life crypto and DeFi decisions. Three choices each, feedback right away.</small></span></button></section>' : '')+
     '<section class="panel list-map"><h2>Eight destinations</h2><p class="muted small" style="margin:6px 0 12px">Tap one to open its lesson.</p><div class="dgrid">'+list+'</div></section>'+
     '<section class="two">'+
       '<div class="panel"><span class="eyebrow">Mode 1 · Playable now</span><h3 style="margin:6px 0">Financial Decision Challenge</h3><p class="muted">Six scenarios, one best-fit destination each. You always get an explanation, whether or not you pick the best fit.</p></div>'+
@@ -1341,7 +1344,7 @@ table.cmp td{width:27%}
   }
 
   function render(focus){
-    var v = S.screen==="home"?viewHome():S.screen==="dest"?viewDest():S.screen==="academy"?viewAcademy():S.screen==="intro"?viewIntro():S.screen==="play"?viewPlay():S.screen==="profiles"?viewProfiles():S.screen==="alloc"?viewAlloc():S.screen==="sim"?viewSim():S.screen==="bresult"?viewBResult():viewResult();
+    var v = S.screen==="tower"&&window.FLQ_TOWER?FLQ_TOWER.view():S.screen==="home"?viewHome():S.screen==="dest"?viewDest():S.screen==="academy"?viewAcademy():S.screen==="intro"?viewIntro():S.screen==="play"?viewPlay():S.screen==="profiles"?viewProfiles():S.screen==="alloc"?viewAlloc():S.screen==="sim"?viewSim():S.screen==="bresult"?viewBResult():viewResult();
     app.innerHTML = v;
     if (S.screen==="alloc") updateAlloc(); if (S.screen==="sim") simBoot(); if (S.screen==="bresult") afterBResult();
     if (focus!==false) { var f = document.getElementById("focus"); if (f) { try { f.focus({preventScroll:true}); } catch(e){} } }
@@ -1691,11 +1694,14 @@ table.cmp td{width:27%}
   /* ===== Financial City scene (layered SVG, CSS-animated). Placeholder artwork: hand-built vector, not final illustration. ===== */
   var BPOS = {
     treasury:{ x:130, y:352, s:0.86 }, defi:{ x:520, y:362, s:1.05 }, stocks:{ x:860, y:362, s:1.0 },
-    bank:{ x:320, y:432, s:1.0 }, stable:{ x:700, y:452, s:1.0 },
+    bank:{ x:320, y:432, s:1.0 }, stable:{ x:700, y:452, s:1.0 }, tower:{ x:690, y:338, s:1.0 },
     credit:{ x:150, y:548, s:0.95 }, retire:{ x:880, y:546, s:0.95 }, hysa:{ x:400, y:566, s:1.0 }
   };
-  var SHORT = { bank:'Traditional Bank', credit:'Credit Union', hysa:'High-Yield Savings', stocks:'Stocks & ETFs', treasury:'Treasury', retire:'Retirement', stable:'Stablecoins', defi:'DeFi' };
+  var SHORT = { bank:'Traditional Bank', credit:'Credit Union', hysa:'High-Yield Savings', stocks:'Stocks & ETFs', treasury:'Treasury', retire:'Retirement', stable:'Stablecoins', defi:'DeFi', tower:'DeFi Tower' };
   var DRAW_ORDER = ["treasury","defi","stocks","bank","stable","credit","retire","hysa"];
+  /* The DeFi Tower is a ninth, home-map-only building. The allocation and simulation scenes keep the original eight. */
+  var HOME_ORDER = ["treasury","tower","defi","stocks","bank","stable","credit","retire","hysa"];
+  var TOWER_NODE = { color:"#8f7bff", name:"DeFi Tower", short:"Eight-floor DeFi decision challenge" };
   var PLAZA = { x:566, y:520 };
 
   var BLD = {
@@ -1796,28 +1802,30 @@ table.cmp td{width:27%}
     d += " L1000 "+y+"Z"; return "<path d='"+d+"' fill='"+fill+"' opacity='"+op+"'/>"+wins;
   }
   function cityScene(mode){
+    var order = mode==="home" ? HOME_ORDER : DRAW_ORDER;
+    BLD.tower = BLD.tower || function(){ return window.FLQ_TOWER ? FLQ_TOWER.sceneBuilding(FLQ_TOWER.litCount()) : ""; };
     var stars = "", s = 11; function r(){ s = (s*9301+49297)%233280; return s/233280; }
     for (var i=0;i<60;i++) stars += "<circle class='star' style='animation-delay:"+(r()*4).toFixed(1)+"s' cx='"+(r()*1000).toFixed(0)+"' cy='"+(r()*230).toFixed(0)+"' r='"+(0.6+r()*1.3).toFixed(1)+"' fill='#fff'/>";
     var grid = ""; for (var g=-5; g<=5; g++) grid += "<line x1='500' y1='330' x2='"+(500+g*260)+"' y2='620' stroke='rgba(160,170,255,.07)'/>";
     [356,392,440,505,590].forEach(function(y){ grid += "<line x1='0' x2='1000' y1='"+y+"' y2='"+y+"' stroke='rgba(160,170,255,.06)'/>"; });
     var roads = "", glowroads = "";
-    DRAW_ORDER.forEach(function(k){ var p = BPOS[k], ex = p.x, ey = p.y+10; var cx = (ex+PLAZA.x)/2, cy = Math.max(ey,PLAZA.y)+ (ey<PLAZA.y?-14:18);
+    order.forEach(function(k){ var p = BPOS[k], ex = p.x, ey = p.y+10; var cx = (ex+PLAZA.x)/2, cy = Math.max(ey,PLAZA.y)+ (ey<PLAZA.y?-14:18);
       var d = "M"+PLAZA.x+" "+PLAZA.y+" Q"+cx+" "+cy+" "+ex+" "+ey;
       glowroads += "<path d='"+d+"' stroke='#ffb86b' stroke-width='16' opacity='.10' fill='none' stroke-linecap='round'/>";
       roads += "<path class='road' d='"+d+"' />"; });
-    var blds = DRAW_ORDER.map(function(k){
-      var p = BPOS[k], d = F.dest(k);
+    var blds = order.map(function(k){
+      var p = BPOS[k], d = k==="tower" ? TOWER_NODE : F.dest(k);
       var label = "<g class='ln'><rect x='-92' y='16' width='184' height='28' rx='10'/><text x='0' y='36' text-anchor='middle' class='lname'>"+esc(SHORT[k])+"</text></g>"+
         (mode==="home" ? "" : "<g class='la'><rect x='-52' y='48' width='104' height='28' rx='14'/><text id='sa-"+k+"' x='0' y='68' text-anchor='middle' class='lamt'>$0</text></g>");
-      var attrs = mode==="home" ? " data-action='open' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(d.name)+": "+esc(d.short)+". Press Enter to open its lesson.'"
+      var attrs = mode==="home" && k==="tower" ? " data-action='tower' tabindex='0' role='button' aria-label='DeFi Tower: eight-floor decision challenge, educational draft. Press Enter to climb.'" : mode==="home" ? " data-action='open' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(d.name)+": "+esc(d.short)+". Press Enter to open its lesson.'"
         : mode==="alloc" ? " data-action='bfocus' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(B.LABEL[k])+": jump to its amount'"
         : " role='img' aria-label='"+esc(B.LABEL[k])+"'";
-      return "<g class='bld b-"+k+"' id='bld-"+k+"' style='--c:"+d.color+"'"+attrs+"><g transform='translate("+p.x+" "+p.y+") scale("+p.s+")'><ellipse class='bring' cx='0' cy='6' rx='104' ry='18' fill='none'/><g class='bfloat'>"+BLD[k]()+"</g>"+label+(mode==="home"?"<g class='enter'><text x='0' y='-"+(k==="treasury"?206:k==="defi"?196:k==="stocks"?176:k==="bank"?160:150)+"' text-anchor='middle'>Enter</text></g>":"")+"</g></g>";
+      return "<g class='bld b-"+k+"' id='bld-"+k+"' style='--c:"+d.color+"'"+attrs+"><g transform='translate("+p.x+" "+p.y+") scale("+p.s+")'><ellipse class='bring' cx='0' cy='6' rx='104' ry='18' fill='none'/><g class='bfloat'>"+BLD[k]()+"</g>"+label+(mode==="home"?"<g class='enter'><text x='0' y='-"+(k==="tower"?196:k==="treasury"?206:k==="defi"?196:k==="stocks"?176:k==="bank"?160:150)+"' text-anchor='middle'>Enter</text></g>":"")+"</g></g>";
     }).join("");
     var fountain = "<ellipse cx='"+PLAZA.x+"' cy='"+PLAZA.y+"' rx='96' ry='22' fill='#10153f' stroke='#f6dc8a' stroke-opacity='.6' stroke-width='2'/><ellipse cx='"+PLAZA.x+"' cy='"+(PLAZA.y-2)+"' rx='56' ry='12' fill='#1d2a6a'/>"+
       "<path class='jet' d='M"+PLAZA.x+" "+(PLAZA.y-4)+" Q"+(PLAZA.x-18)+" "+(PLAZA.y-50)+" "+(PLAZA.x-30)+" "+(PLAZA.y-8)+"' fill='none' stroke='#9fe9ff' stroke-width='3'/><path class='jet d2' d='M"+PLAZA.x+" "+(PLAZA.y-4)+" Q"+(PLAZA.x+18)+" "+(PLAZA.y-56)+" "+(PLAZA.x+30)+" "+(PLAZA.y-8)+"' fill='none' stroke='#9fe9ff' stroke-width='3'/><path class='jet d3' d='M"+PLAZA.x+" "+(PLAZA.y-4)+" L"+PLAZA.x+" "+(PLAZA.y-62)+"' fill='none' stroke='#fff3b0' stroke-width='3'/>";
     var wallet = mode==="alloc" ? "<g id='walletpt' transform='translate(500 108)'><ellipse rx='30' ry='9' cy='24' fill='#f6dc8a' opacity='.25' filter='url(#fBlur)'/><rect x='-26' y='-6' width='52' height='32' rx='8' fill='#2a2a52' stroke='url(#gGold)' stroke-width='2.5'/><rect x='-26' y='0' width='52' height='6' fill='url(#gGold)' opacity='.8'/><circle cx='14' cy='14' r='5' fill='url(#gGold)'/></g>" : "";
-    return "<svg class='scene' viewBox='0 0 1000 620' preserveAspectRatio='xMidYMax slice' role='group' aria-label='Financial City, a night-time fantasy city with eight financial destinations'>"+sceneDefs()+
+    return "<svg class='scene' viewBox='0 0 1000 620' preserveAspectRatio='xMidYMax slice' role='group' aria-label='Financial City, a night-time fantasy city with eight financial destinations"+(mode==="home"?" and the DeFi Tower":"")+"'>"+sceneDefs()+
       "<rect width='1000' height='620' fill='url(#gSky)'/>"+
       "<ellipse class='aurora' cx='300' cy='110' rx='320' ry='46' fill='#47d1c4' opacity='.10' filter='url(#fBlur)'/><ellipse class='aurora a2' cx='720' cy='150' rx='300' ry='40' fill='#a78bfa' opacity='.14' filter='url(#fBlur)'/>"+
       stars+"<circle cx='880' cy='84' r='34' fill='url(#gMoon)' filter='url(#fGlow)' opacity='.95'/><circle cx='868' cy='76' r='6' fill='#c8c4f0' opacity='.5'/><circle cx='892' cy='96' r='4' fill='#c8c4f0' opacity='.5'/>"+
@@ -1861,6 +1869,7 @@ table.cmp td{width:27%}
 
   var actions = {
     home:function(){ go("home"); },
+    tower:function(){ if (!window.FLQ_TOWER) return; FLQ_TOWER.enter(); S.back = "home"; go("tower"); },
     academy:function(){ go("academy"); },
     intro:function(){ go("intro"); },
     practice:function(){ S.ctx="practice"; startRun(); },
@@ -1877,13 +1886,14 @@ table.cmp td{width:27%}
   app.addEventListener("click", function(e){
     var el = e.target.closest("[data-action]"); if (!el || el.disabled) return;
     var act = el.dataset.action; if (["brun","confirm","bans"].indexOf(act)<0) sfx("tap");
-    var a = actions[act] || actionsB[act]; if (a) a(el);
+    var a = actions[act] || actionsB[act] || (window.FLQ_TOWER && FLQ_TOWER.actions[act]); if (a) a(el);
   });
   app.addEventListener("keydown", function(e){
     var el = e.target.closest("[data-action]");
     if (el && el.tagName!=="BUTTON" && (e.key==="Enter"||e.key===" ")) { e.preventDefault(); el.dispatchEvent(new MouseEvent("click", { bubbles:true, cancelable:true })); }
   });
   document.addEventListener("keydown", function(e){
+    if (S.screen==="tower" && window.FLQ_TOWER) { if (FLQ_TOWER.onKey(e)) e.preventDefault(); return; }
     if (S.screen!=="play" || e.metaKey||e.ctrlKey||e.altKey) return;
     var scn = F.SCENARIOS[S.order[S.idx]];
     if (!S.answered && /^[1-4]$/.test(e.key)) { var o = scn._opts[+e.key-1]; if (o) { S.sel=o.dest; render(false); } }
@@ -1902,6 +1912,7 @@ table.cmp td{width:27%}
     ["pointerdown","touchend","keydown"].forEach(function(t){ document.addEventListener(t, first, true); });
   })();
 
+  if (window.FLQ_TOWER) { var tstore = null; try { tstore = window.localStorage; } catch (e) {} FLQ_TOWER.mount({ storage:tstore, esc:esc, sfx:sfx, rerender:function(f){ render(f); } }); }
   render(false);
 })();
 </script>

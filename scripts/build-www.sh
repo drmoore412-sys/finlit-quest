@@ -29,6 +29,11 @@ copy support.html
 
 # Standalone bonus game (own page, own saves; linked from Bonus Games)
 copy financial-city.html
+copy defi-tower.js
+copy defi-tower.css
+copy assets/defi-tower/defi-tower-hero.jpg
+copy assets/defi-tower/defi-tower-thumb.jpg
+copy assets/defi-tower/defi-tower-map.jpg
 
 # Stylesheets
 for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css; do
