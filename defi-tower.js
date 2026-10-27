@@ -197,50 +197,28 @@
   }
   function startRun(saved) { saved.run = newRun(); return saved.run; }
 
-  /* ---------- artwork (original vector; placeholder-quality art in the established Financial City style) ---------- */
-  function defsSvg() {
-    return "<defs>" +
-      "<linearGradient id='twCrystal' x1='0' y1='0' x2='1' y2='0'><stop offset='0' stop-color='#2a2095'/><stop offset='.42' stop-color='#6f5cf0'/><stop offset='.6' stop-color='#4a3ccf'/><stop offset='1' stop-color='#1a1360'/></linearGradient>" +
-      "<linearGradient id='twGold' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#fbe7a0'/><stop offset='.5' stop-color='#e2b24a'/><stop offset='1' stop-color='#b07d1f'/></linearGradient>" +
-      "<radialGradient id='twGem' cx='40%' cy='35%' r='70%'><stop offset='0' stop-color='#f2fdff'/><stop offset='.5' stop-color='#7fe6ff'/><stop offset='1' stop-color='#4a3ccf'/></radialGradient>" +
-      "<radialGradient id='twPortal' cx='50%' cy='50%' r='50%'><stop offset='0' stop-color='#fff3b0'/><stop offset='.45' stop-color='#a995ff'/><stop offset='1' stop-color='#241a7c'/></radialGradient>" +
-      "<linearGradient id='twBeam' x1='0' y1='1' x2='0' y2='0'><stop offset='0' stop-color='#7fe6ff' stop-opacity='.55'/><stop offset='1' stop-color='#7fe6ff' stop-opacity='0'/></linearGradient>" +
-      "<filter id='twGlow' x='-40%' y='-40%' width='180%' height='180%'><feGaussianBlur stdDeviation='3' result='b'/><feMerge><feMergeNode in='b'/><feMergeNode in='SourceGraphic'/></feMerge></filter>" +
-      "</defs>";
-  }
-  function hw(y) { return 54 + (y + 14) * (24 / 208); }
-  /* Origin at the base centre; grows upward. lit[i] = floor i+1 has been answered at least once. current = highlighted floor index or -1. */
-  function towerArt(lit, current) {
-    lit = lit || []; var out = defsSvg();
-    out += "<ellipse cx='0' cy='4' rx='110' ry='16' fill='#8f7bff' opacity='.20' filter='url(#twGlow)'/>";
-    out += "<rect class='tw-beam' x='-14' y='-420' width='28' height='190' fill='url(#twBeam)' opacity='.5'/>";
-    out += "<ellipse class='tw-portal' cx='-92' cy='-6' rx='14' ry='26' fill='none' stroke='#a995ff' stroke-width='3' filter='url(#twGlow)'/><ellipse cx='-92' cy='-6' rx='7' ry='15' fill='url(#twPortal)' opacity='.85'/>";
-    out += "<ellipse class='tw-portal' cx='92' cy='-6' rx='14' ry='26' fill='none' stroke='#7fe6ff' stroke-width='3' filter='url(#twGlow)'/><ellipse cx='92' cy='-6' rx='7' ry='15' fill='url(#twPortal)' opacity='.85'/>";
-    out += "<polygon points='-70,0 70,0 62,-14 -62,-14' fill='url(#twGold)' stroke='#fff1b8' stroke-width='1.5'/>";
-    for (var i = 0; i < 8; i++) {
-      var yb = -14 - i * 26, yt = yb - 26, wb = hw(yb), wt = hw(yt), on = !!lit[i], cur = (i === current);
-      out += "<g class='tw-floor" + (on ? " on" : "") + (cur ? " cur" : "") + "'>" +
-        "<polygon points='" + (-wb) + "," + yb + " " + wb + "," + yb + " " + wt + "," + yt + " " + (-wt) + "," + yt + "' fill='url(#twCrystal)' stroke='" + (cur ? "#fff1b8" : "#c9b6ff") + "' stroke-opacity='" + (cur ? 1 : .55) + "' stroke-width='" + (cur ? 2.4 : 1.2) + "'/>";
-      if (on) out += "<polygon points='" + (-wb) + "," + yb + " " + wb + "," + yb + " " + wt + "," + yt + " " + (-wt) + "," + yt + "' fill='#7fe6ff' opacity='.20'/>";
-      out += "<line x1='" + (-wt) + "' y1='" + yt + "' x2='" + wt + "' y2='" + yt + "' stroke='url(#twGold)' stroke-width='3'/>";
-      [-22, 0, 22].forEach(function (x) {
-        out += "<polygon points='" + x + "," + (yb - 8) + " " + (x + 5) + "," + (yb - 13) + " " + x + "," + (yb - 18) + " " + (x - 5) + "," + (yb - 13) + "' fill='" + (on ? "#bff3ff" : "#4a4aa8") + "' opacity='" + (on ? .95 : .7) + "'" + (on ? " filter='url(#twGlow)'" : "") + "/>";
-      });
-      out += "</g>";
-    }
-    out += "<rect x='-8' y='-232' width='16' height='12' fill='url(#twGold)'/>";
-    out += "<polygon class='tw-gem' points='0,-318 -22,-268 0,-236 22,-268' fill='url(#twGem)' stroke='#fbe7a0' stroke-width='2' filter='url(#twGlow)'/>";
-    out += "<ellipse class='tw-orbit' cx='0' cy='-270' rx='38' ry='9' fill='none' stroke='#fbe7a0' stroke-width='1.6' opacity='.8'/>";
-    out += "<path d='M-18 -14v-26a18 18 0 0 1 36 0v26z' fill='url(#twPortal)' stroke='url(#twGold)' stroke-width='3' filter='url(#twGlow)'/>";
-    out += "<g class='tw-coins'><circle cx='-80' cy='-130' r='6' fill='url(#twGold)'/><circle cx='84' cy='-176' r='5' fill='url(#twGold)'/><circle cx='-64' cy='-214' r='4.5' fill='url(#twGold)'/><circle cx='70' cy='-92' r='4' fill='url(#twGold)'/></g>";
-    return out;
-  }
+  /* ---------- artwork ----------
+     The owner-approved DeFi Tower illustration (assets/defi-tower/). The original is never regenerated or redrawn here:
+     the intro shows the complete image (no crop), and the city map shows a crop of the same image around the skyscraper. */
+  var ART = { hero: "assets/defi-tower/defi-tower-hero.jpg", map: "assets/defi-tower/defi-tower-map.jpg", thumb: "assets/defi-tower/defi-tower-thumb.jpg", w: 1672, h: 941, mapW: 350, mapH: 800 };
+  var ART_ALT = "DeFi Tower at night: a glowing gold-and-glass skyscraper rising over a futuristic city, with five floating panels that introduce stablecoins, Ethereum, Bitcoin, governance tokens and other cryptocurrencies.";
+  /* The five education panels in the illustration, repeated as real text so they stay readable on small screens and for screen readers. */
+  var PANELS = [
+    { title: "Stablecoins", examples: "USDC · USDT · DAI", text: "Digital dollars used for deposits, lending, borrowing and payments.", note: "They aim to hold a steady value but are generally not insured like bank deposits, and they can lose their peg." },
+    { title: "Ethereum", examples: "ETH", text: "Used for transactions, collateral and paying network fees.", note: "Its price can swing widely, so collateral can be sold automatically if its value falls." },
+    { title: "Bitcoin", examples: "BTC · WBTC", text: "Bitcoin can be used through tokenized versions such as Wrapped Bitcoin (WBTC).", note: "A wrapped version adds extra risks, such as depending on the company or code that issues it." },
+    { title: "Governance tokens", examples: "UNI · AAVE", text: "Allow holders to participate in decisions about certain DeFi protocols.", note: "Holding one does not guarantee a return, and its price can fall." },
+    { title: "Other cryptocurrencies", examples: "SOL · AVAX", text: "Used within decentralized financial ecosystems on their respective blockchains.", note: "Each blockchain and app carries its own technical and market risks." }
+  ];
+  /* Map building: a crop of the approved image in a gold frame, with a row of eight dots showing visited floors. */
   function sceneBuilding(litCount) {
-    var lit = []; for (var i = 0; i < 8; i++) lit.push(i < (litCount || 0));
-    return towerArt(lit, -1);
-  }
-  function heroSvg(lit, current) {
-    return "<svg class='tw-art' viewBox='-130 -340 260 360' role='img' aria-label='A glowing crystal-and-gold tower of eight floors with digital vault doors and magical portals at its base'>" + towerArt(lit, current) + "</svg>";
+    var w = 112, h = Math.round(w * ART.mapH / ART.mapW), x = -w / 2, y = -h - 12, dots = "";
+    for (var i = 0; i < 8; i++) dots += "<circle cx='" + (-35 + i * 10) + "' cy='-4' r='3.2' fill='" + (i < (litCount || 0) ? "#7fe6ff" : "#2a2f66") + "' stroke='#e9b949' stroke-width='.8'/>";
+    return "<defs><clipPath id='twClip'><rect x='" + x + "' y='" + y + "' width='" + w + "' height='" + h + "' rx='9'/></clipPath>" +
+      "<linearGradient id='twFrame' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#fbe7a0'/><stop offset='.5' stop-color='#e2b24a'/><stop offset='1' stop-color='#8f7bff'/></linearGradient></defs>" +
+      "<ellipse cx='0' cy='2' rx='80' ry='12' fill='#8f7bff' opacity='.28'/>" +
+      "<image href='" + ART.map + "' x='" + x + "' y='" + y + "' width='" + w + "' height='" + h + "' preserveAspectRatio='xMidYMid slice' clip-path='url(#twClip)'/>" +
+      "<rect x='" + x + "' y='" + y + "' width='" + w + "' height='" + h + "' rx='9' fill='none' stroke='url(#twFrame)' stroke-width='3'/>" + dots;
   }
 
   /* ---------- screens ---------- */
@@ -250,7 +228,6 @@
   function esc(s) { return (ctx && ctx.esc) ? ctx.esc(s) : String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function persist() { if (ctx) saveSaved(ctx.storage, T.saved); }
   function sfx(n) { try { if (ctx && ctx.sfx) ctx.sfx(n); } catch (e) {} }
-  function litList() { var l = []; for (var i = 0; i < 8; i++) l.push(!!(T.saved.seen[FLOORS[i].id] || T.saved.banked[FLOORS[i].id])); return l; }
 
   function header() {
     return "<div class='top'><div class='brand'><b>FinLit Quest</b><span>DeFi Tower · educational draft</span></div>" +
@@ -275,6 +252,13 @@
     return "<ol class='tw-prog' aria-label='Floor progress, floor " + (T.idx + 1) + " of " + FLOORS.length + "'>" + items + "</ol>";
   }
 
+  function panelsHtml() {
+    return "<section class='panel tw-panels' aria-labelledby='tw-panels-h'><h2 id='tw-panels-h'>The five panels in the picture</h2>" +
+      "<p class='muted small'>The same lessons as the illustration, in plain text. These are examples of well-known assets, not recommendations, and none of them is a guaranteed return.</p>" +
+      "<ul class='tw-panel-list'>" + PANELS.map(function (p) {
+        return "<li><b>" + esc(p.title) + "</b> <span class='tag gold'>" + esc(p.examples) + "</span><p>" + esc(p.text) + "</p><p class='muted small'>" + esc(p.note) + "</p></li>";
+      }).join("") + "</ul></section>";
+  }
   function viewIntro() {
     var s = T.saved, run = s.run, started = run && answeredCount(run) > 0, complete = run && run.done;
     var cta;
@@ -283,6 +267,7 @@
     else cta = "<button class='btn primary' data-action='tstart'>Start climbing</button>";
     return header() +
       "<div class='row'><button class='btn ghost' data-action='home'>← City</button></div>" + draftBanner() +
+      "<figure class='tw-banner'><img src='" + ART.hero + "' width='" + ART.w + "' height='" + ART.h + "' alt='" + ART_ALT + "' decoding='async'><figcaption class='small muted'>Illustration for the educational draft. Token names and logos shown are examples of well-known assets, not recommendations or endorsements.</figcaption></figure>" +
       "<section class='panel tw-hero'><div class='tw-hero-text'><span class='eyebrow'>Financial City · New destination</span>" +
       "<h1 tabindex='-1' id='focus'>The DeFi Tower</h1>" +
       "<p class='lede'>Eight floors. One real-life money decision on each. Climb the crystal tower, make the call, and find out why a choice fits or doesn’t. Decentralized finance (DeFi) can be useful to understand, but it comes with risks that are easy to miss.</p>" +
@@ -292,7 +277,7 @@
       "<li>Some floors have more than one defensible answer. A perfect score never requires using DeFi.</li>" +
       "<li>Replaying is practice. Saved tower points can be earned once per floor, so replays can’t inflate them.</li></ul>" +
       "<p class='small muted'>Your best climb: <b>" + (s.best ? s.best + " / " + maxScore() : "not finished yet") + "</b> · Saved tower points: <b>" + bankedTotal(s) + " / " + maxScore() + "</b></p></div>" +
-      "<div class='tw-hero-art'>" + heroSvg(litList(), -1) + "</div></section>" +
+      "</div></section>" + panelsHtml() +
       "<section class='panel tw-notice'><h3>Read this first</h3><p class='muted'>" + esc(RISK_NOTE) + "</p></section>" + footer(true);
   }
 
@@ -414,7 +399,7 @@
     emptySaved: emptySaved, newRun: newRun, sanitizeSaved: sanitizeSaved, loadSaved: loadSaved, saveSaved: saveSaved,
     answer: answer, finishRun: finishRun, startRun: startRun, runScore: runScore, bankedTotal: bankedTotal, seenCount: seenCount,
     answeredCount: answeredCount, allAnswered: allAnswered, maxScore: maxScore, pointsFor: pointsFor, firstOpenIndex: firstOpenIndex,
-    sceneBuilding: sceneBuilding, heroSvg: heroSvg, litCount: litCount,
+    sceneBuilding: sceneBuilding, ART: ART, PANELS: PANELS, litCount: litCount,
     mount: mount, enter: enter, view: view, actions: actions, onKey: onKey, state: state, unmountForTest: unmountForTest
   };
   return api;

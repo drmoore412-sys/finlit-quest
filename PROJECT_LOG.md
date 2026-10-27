@@ -10,6 +10,21 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Approved DeFi Tower artwork integrated (branch feature/defi-tower) — NOT DEPLOYED
+
+The project-owner-supplied cinematic DeFi Tower image was approved for development integration. The image was not regenerated or substituted. The earlier vector placeholder tower (map building and intro art) is removed.
+
+- Original preserved: assets/defi-tower/source/defi-tower-approved-original.png (1672x941 PNG, not shipped in the app bundle).
+- Intro screen: assets/defi-tower/defi-tower-hero.jpg, the complete uncropped image at full 1672x941 resolution (JPEG quality 93, 4:4:4), displayed at its native 16:9 aspect ratio with real alt text and a caption.
+- Map: assets/defi-tower/defi-tower-map.jpg, a 350x800 crop of the same image around the skyscraper ("DeFi TOWER" sign and entrance stay recognizable, neighbouring panels excluded), shown in a gold frame with a row of eight dots for visited floors.
+- Home entry card thumbnail: assets/defi-tower/defi-tower-thumb.jpg (480px version of the full image).
+- Readability: the picture's text is small on phones, so the five education panels (Stablecoins, Ethereum, Bitcoin/WBTC, Governance tokens, Other cryptocurrencies) are repeated as real HTML text beneath the intro, each with a short risk note (not insured, no guaranteed return, wrapped-asset and collateral risks). Examples are labelled as not recommendations or endorsements.
+- Unchanged: eight floors, choices, scoring, replay protection, saved progress, sound settings, Financial City challenges. Wheel-fix branch not merged.
+- Files changed: defi-tower.js, defi-tower.css, financial-city.html, scripts/build-www.sh, tests/defi-tower.test.js, the four assets above, the iOS bundle copies (ios/App/App/public/ same paths), PROJECT_LOG.md.
+- Tests: full suite 599/599 (new tests for the full-image display, native aspect ratio and dimensions, original preserved, map crop, HTML panel text, bundle parity). Real-browser checks (desktop, 390px touch, reduced motion, keyboard climb, replay protection, mute persistence): all passed, no horizontal scroll, no console errors.
+- Remaining release blockers: (1) scenario wording, answers and scoring are still DRAFT and need accuracy review; (2) the image shows real crypto brand logos (USDC, Tether, DAI, Bitcoin, Uniswap, Aave, Solana, Avalanche) and token names, so logo/trademark and App Store review should be confirmed with the owner; (3) the full-resolution image adds about 1.0 MB (hero) to the app bundle; (4) no real-iPhone testing and no Xcode build here; (5) the picture's own captions ("Digital dollars...") are shown as supplied and should be included in the accuracy review.
+
+
 ## 2026-10-26 — DeFi Tower added to Financial City (educational draft) — NOT DEPLOYED
 
 Branch: feature/defi-tower, cut from the deployed commit 5ad4dc8 so it is fully separate from the pending letter-wheel fix (which stays on release/financial-city-and-codex-upgrades, commit c44724f, awaiting real-iPhone validation). No wheel, Word Quest or Currency Rush files were touched.

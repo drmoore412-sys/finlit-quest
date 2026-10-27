@@ -1236,7 +1236,7 @@ table.cmp td{width:27%}
       '<p class="lede">There is no single best place for your money. The right home depends on what the money is for, when you need it, how easily you must reach it, and how much risk you can take. Explore eight destinations, then make six real-life calls.</p>'+
       '<div class="row"><button class="btn primary" data-action="intro">Decision challenge</button><button class="btn primary" data-action="bprofiles">The $10,000 challenge</button><button class="btn" data-action="academy">Learning Academy</button></div></section>'+
     '<section class="panel map-card" aria-label="Financial City">'+'<div class="stage home">'+cityScene("home")+'</div>'+'</section>'+
-    (window.FLQ_TOWER ? '<section class="panel tw-home" aria-label="DeFi Tower"><button class="tw-enter-card" data-action="tower"><svg class="tw-mini" viewBox="0 0 48 64" aria-hidden="true" fill="none" stroke="#a995ff" stroke-width="2.5" stroke-linejoin="round"><path d="M12 60 16 20 24 4l8 16 4 40z" fill="rgba(139,124,246,.28)"/><path d="M14 44h20M15 32h18M17 20h14" stroke="#e9b949"/></svg><span><b class="tw-title">DeFi Tower</b> <span class="tag gold">Educational draft</span><small>Climb eight floors of real-life crypto and DeFi decisions. Three choices each, feedback right away.</small></span></button></section>' : '')+
+    (window.FLQ_TOWER ? '<section class="panel tw-home" aria-label="DeFi Tower"><button class="tw-enter-card" data-action="tower"><img class="tw-mini" src="assets/defi-tower/defi-tower-thumb.jpg" width="480" height="270" alt="" loading="lazy"><span><b class="tw-title">DeFi Tower</b> <span class="tag gold">Educational draft</span><small>Climb eight floors of real-life crypto and DeFi decisions. Three choices each, feedback right away.</small></span></button></section>' : '')+
     '<section class="panel list-map"><h2>Eight destinations</h2><p class="muted small" style="margin:6px 0 12px">Tap one to open its lesson.</p><div class="dgrid">'+list+'</div></section>'+
     '<section class="two">'+
       '<div class="panel"><span class="eyebrow">Mode 1 · Playable now</span><h3 style="margin:6px 0">Financial Decision Challenge</h3><p class="muted">Six scenarios, one best-fit destination each. You always get an explanation, whether or not you pick the best fit.</p></div>'+
@@ -1694,7 +1694,7 @@ table.cmp td{width:27%}
   /* ===== Financial City scene (layered SVG, CSS-animated). Placeholder artwork: hand-built vector, not final illustration. ===== */
   var BPOS = {
     treasury:{ x:130, y:352, s:0.86 }, defi:{ x:520, y:362, s:1.05 }, stocks:{ x:860, y:362, s:1.0 },
-    bank:{ x:320, y:432, s:1.0 }, stable:{ x:700, y:452, s:1.0 }, tower:{ x:688, y:326, s:0.78 },
+    bank:{ x:320, y:432, s:1.0 }, stable:{ x:700, y:452, s:1.0 }, tower:{ x:690, y:338, s:1.0 },
     credit:{ x:150, y:548, s:0.95 }, retire:{ x:880, y:546, s:0.95 }, hysa:{ x:400, y:566, s:1.0 }
   };
   var SHORT = { bank:'Traditional Bank', credit:'Credit Union', hysa:'High-Yield Savings', stocks:'Stocks & ETFs', treasury:'Treasury', retire:'Retirement', stable:'Stablecoins', defi:'DeFi', tower:'DeFi Tower' };
@@ -1820,7 +1820,7 @@ table.cmp td{width:27%}
       var attrs = mode==="home" && k==="tower" ? " data-action='tower' tabindex='0' role='button' aria-label='DeFi Tower: eight-floor decision challenge, educational draft. Press Enter to climb.'" : mode==="home" ? " data-action='open' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(d.name)+": "+esc(d.short)+". Press Enter to open its lesson.'"
         : mode==="alloc" ? " data-action='bfocus' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(B.LABEL[k])+": jump to its amount'"
         : " role='img' aria-label='"+esc(B.LABEL[k])+"'";
-      return "<g class='bld b-"+k+"' id='bld-"+k+"' style='--c:"+d.color+"'"+attrs+"><g transform='translate("+p.x+" "+p.y+") scale("+p.s+")'><ellipse class='bring' cx='0' cy='6' rx='104' ry='18' fill='none'/><g class='bfloat'>"+BLD[k]()+"</g>"+label+(mode==="home"?"<g class='enter'><text x='0' y='-"+(k==="tower"?330:k==="treasury"?206:k==="defi"?196:k==="stocks"?176:k==="bank"?160:150)+"' text-anchor='middle'>Enter</text></g>":"")+"</g></g>";
+      return "<g class='bld b-"+k+"' id='bld-"+k+"' style='--c:"+d.color+"'"+attrs+"><g transform='translate("+p.x+" "+p.y+") scale("+p.s+")'><ellipse class='bring' cx='0' cy='6' rx='104' ry='18' fill='none'/><g class='bfloat'>"+BLD[k]()+"</g>"+label+(mode==="home"?"<g class='enter'><text x='0' y='-"+(k==="tower"?196:k==="treasury"?206:k==="defi"?196:k==="stocks"?176:k==="bank"?160:150)+"' text-anchor='middle'>Enter</text></g>":"")+"</g></g>";
     }).join("");
     var fountain = "<ellipse cx='"+PLAZA.x+"' cy='"+PLAZA.y+"' rx='96' ry='22' fill='#10153f' stroke='#f6dc8a' stroke-opacity='.6' stroke-width='2'/><ellipse cx='"+PLAZA.x+"' cy='"+(PLAZA.y-2)+"' rx='56' ry='12' fill='#1d2a6a'/>"+
       "<path class='jet' d='M"+PLAZA.x+" "+(PLAZA.y-4)+" Q"+(PLAZA.x-18)+" "+(PLAZA.y-50)+" "+(PLAZA.x-30)+" "+(PLAZA.y-8)+"' fill='none' stroke='#9fe9ff' stroke-width='3'/><path class='jet d2' d='M"+PLAZA.x+" "+(PLAZA.y-4)+" Q"+(PLAZA.x+18)+" "+(PLAZA.y-56)+" "+(PLAZA.x+30)+" "+(PLAZA.y-8)+"' fill='none' stroke='#9fe9ff' stroke-width='3'/><path class='jet d3' d='M"+PLAZA.x+" "+(PLAZA.y-4)+" L"+PLAZA.x+" "+(PLAZA.y-62)+"' fill='none' stroke='#fff3b0' stroke-width='3'/>";

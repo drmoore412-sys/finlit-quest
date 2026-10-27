@@ -329,7 +329,8 @@ test("double taps cannot double-score a floor", () => {
 });
 
 test("responsive and reduced-motion support in the styles", () => {
-  assert.match(css, /@media \(max-width:760px\)[\s\S]*\.tw-hero\{grid-template-columns:1fr\}/);
+  assert.match(css, /@media \(max-width:760px\)[\s\S]*\.tw-nav\{flex-direction:column-reverse/);
+  assert.match(css, /\.tw-banner img\{[^}]*width:100%;height:auto/);
   assert.match(css, /@media \(prefers-reduced-motion:no-preference\)/, "animations are opt-in");
   assert.match(css, /@media \(prefers-reduced-motion:reduce\)[\s\S]*animation:none/);
   assert.match(css, /\.sr\{/);
@@ -425,10 +426,48 @@ test("the tower files ship in the web build and the iOS bundle", () => {
   });
 });
 
-test("artwork helpers render the eight-floor crystal tower with lit floors for visited floors", () => {
-  const art = T.heroSvg([true, true, false, false, false, false, false, false], 2);
-  assert.equal((art.match(/class='tw-floor/g) || []).length, 8);
-  assert.equal((art.match(/tw-floor on/g) || []).length, 2);
-  assert.match(art, /tw-floor cur/); assert.match(art, /role='img'/); assert.match(art, /aria-label=/);
-  assert.match(T.sceneBuilding(3), /tw-floor on/);
+test("the map building is a framed crop of the approved illustration with a visited-floors row, not redrawn art", () => {
+  const b = T.sceneBuilding(3);
+  assert.match(b, /<image href='assets\/defi-tower\/defi-tower-map\.jpg'/);
+  assert.equal((b.match(/<circle /g) || []).length, 8, "eight floor dots");
+  assert.equal((b.match(/fill='#7fe6ff'/g) || []).length, 3, "three visited floors are lit");
+  assert.equal(T.heroSvg, undefined, "the vector placeholder tower is gone");
+});
+
+test("the five education panels in the picture are also provided as readable HTML text", () => {
+  assert.equal(T.PANELS.length, 5);
+  mounted();
+  const v = T.view();
+  ["Stablecoins", "Ethereum", "Bitcoin", "Governance tokens", "Other cryptocurrencies", "USDC · USDT · DAI", "UNI · AAVE", "SOL · AVAX"].forEach(t => assert.ok(v.includes(t), t));
+  assert.match(v, /Digital dollars used for deposits, lending, borrowing and payments\./);
+  assert.match(v, /Allow holders to participate in decisions about certain DeFi protocols\./);
+  assert.match(v, /not recommendations/); assert.match(v, /none of them is a guaranteed return/);
+  assert.match(T.PANELS[0].note, /not insured/);
+});
+
+test("the full illustration is shown uncropped at its native aspect ratio, and the original is preserved", () => {
+  const fs2 = fs, hero = fs2.readFileSync(path.join(ROOT, "assets/defi-tower/defi-tower-hero.jpg"));
+  const w = hero.readUInt16BE(hero.indexOf(Buffer.from([0xff, 0xc2])) + 7), h = hero.readUInt16BE(hero.indexOf(Buffer.from([0xff, 0xc2])) + 5);
+  assert.equal(w, 1672); assert.equal(h, 941);
+  const png = fs2.readFileSync(path.join(ROOT, "assets/defi-tower/source/defi-tower-approved-original.png"));
+  assert.equal(png.readUInt32BE(16), 1672); assert.equal(png.readUInt32BE(20), 941);
+  assert.match(css, /\.tw-banner img\{[^}]*aspect-ratio:1672\/941/);
+  assert.doesNotMatch(css, /\.tw-banner img\{[^}]*object-fit:\s*cover/);
+  assert.match(T.view.toString() + fs.readFileSync(path.join(ROOT, "defi-tower.js"), "utf8"), /width='" \+ ART\.w/);
+});
+
+test("the owner-supplied DeFi Tower illustration is shown with alt text, a caption, and ships in web and iOS bundles", () => {
+  ["assets/defi-tower/defi-tower-hero.jpg", "assets/defi-tower/defi-tower-thumb.jpg", "assets/defi-tower/defi-tower-map.jpg"].forEach(f => {
+    const buf = fs.readFileSync(path.join(ROOT, f));
+    assert.ok(buf.length > 20000 && buf.length < 1500000, `${f} should be a web-optimized JPEG`);
+    assert.equal(buf[0], 0xff); assert.equal(buf[1], 0xd8);
+    assert.ok(buf.equals(fs.readFileSync(path.join(ROOT, "ios/App/App/public", f))), `${f} must match the iOS bundle copy`);
+    assert.match(read("scripts/build-www.sh"), new RegExp("copy " + f.replace(/[.\/]/g, "\\$&")));
+  });
+  mounted();
+  const v = T.view();
+  assert.match(v, /<img src='assets\/defi-tower\/defi-tower-hero\.jpg' width='1672' height='941' alt='DeFi Tower at night/);
+  assert.match(v, /five floating panels/);
+  assert.match(v, /not recommendations or endorsements/);
+  assert.match(fc, /<img class="tw-mini" src="assets\/defi-tower\/defi-tower-thumb\.jpg"[^>]*alt=""/);
 });
