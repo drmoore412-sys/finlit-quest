@@ -7,7 +7,7 @@ test("Bonus Games hub keeps Currency Rush and has separate Financial City and De
   assert.match(hub,/id="journeyCurrencyRush"/);
   assert.match(hub,/id="journeyFinancialCityLink"[^>]*href="financial-city\.html"/);
   assert.match(hub,/id="journeyDefiTowerLink"[^>]*href="financial-city\.html\?open=tower"/);
-  assert.match(hub,/<strong>Financial City<\/strong>/);assert.match(hub,/<strong>DeFi Tower<\/strong>/);
+  assert.match(hub,/FINANCIAL CITY[^<]*<\/small><strong>Where Should My Money Go\?<\/strong>/);assert.match(hub,/<strong>DeFi Tower<\/strong>/);
   assert.equal((hub.match(/class="bonus-game-card /g)||[]).length,4,"currency, city, tower, coming-soon");
 });
 test("DeFi Tower card uses the same card structure and does not claim guaranteed returns",()=>{
