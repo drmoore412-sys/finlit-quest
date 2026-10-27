@@ -1,0 +1,70 @@
+/* DeFi Tower — styles for the Financial City feature (educational draft). Uses the page's existing design tokens. */
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.tw-stats{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.tw-draft{padding:10px 14px;border:1px dashed var(--line);border-radius:10px;background:rgba(233,185,73,.07);color:var(--gold-soft);font-size:.88rem;max-width:90ch}
+.tw-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:24px;align-items:center;background:
+  radial-gradient(600px 360px at 85% 40%,rgba(139,124,246,.28),transparent 70%),var(--panel)}
+.tw-hero-text{display:grid;gap:14px;align-content:start}
+.tw-hero-art{display:flex;justify-content:center}
+.tw-art{width:100%;max-width:300px;height:auto;display:block;overflow:visible;filter:drop-shadow(0 0 22px rgba(139,124,246,.55))}
+.tw-facts{--c:var(--violet)}
+.tw-notice{border-color:var(--line)}
+.tw-prog{list-style:none;margin:0;padding:0;display:flex;gap:8px;flex-wrap:wrap}
+.tw-step{display:flex}
+.tw-dot{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid var(--line-soft);background:rgba(255,255,255,.05);font-weight:700;font-variant-numeric:tabular-nums}
+.tw-step.good .tw-dot{border-color:var(--good);background:rgba(82,214,160,.18)}
+.tw-step.learn .tw-dot{border-color:var(--learn);background:rgba(242,180,90,.16)}
+.tw-step.now .tw-dot{border-color:var(--gold);box-shadow:0 0 0 3px rgba(233,185,73,.28)}
+.tw-floor-card{display:grid;gap:16px}
+.tw-floor-head{display:flex;gap:14px;align-items:center}
+.tw-badge{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:14px;font:700 1.5rem var(--font-display);color:#1c1405;background:linear-gradient(180deg,#f3cc66,#d9a232);box-shadow:0 0 18px rgba(233,185,73,.35)}
+.tw-setup{max-width:72ch}
+.tw-assume{border:1px solid var(--line-soft);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;background:rgba(139,124,246,.08);padding:10px 14px;font-size:.88rem;color:var(--muted)}
+.tw-assume b{color:var(--text);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+.tw-assume ul{margin:8px 0 0;padding-left:18px;display:grid;gap:4px}
+.tw-q{font-size:clamp(1.15rem,3vw,1.5rem)}
+.tw-opts{margin-top:-4px}
+.tw-opt{min-height:60px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;--c:var(--violet)}
+.tw-letter{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;border:1.5px solid var(--line);font-weight:700;color:var(--gold-soft)}
+.tw-ctext{flex:1;min-width:0;line-height:1.4}
+.tw-pick{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:99px;border:1px solid currentColor;font-size:.72rem;opacity:.9}
+.tw-opt[disabled]{opacity:1}
+.tw-opt[disabled]:not(.best):not(.picked-wrong){opacity:.62}
+.tw-opt.tw-bestmark{border-color:rgba(82,214,160,.55)}
+.tw-fb{display:grid;gap:2px;border-top:1px solid var(--line-soft);padding-top:16px}
+.tw-fb b[tabindex]{font-size:1.1rem}
+.tw-fb b[tabindex]:focus{outline:none}
+.tw-nav{justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:16px}
+.tw-nav .btn{min-height:46px}
+.tw-result{display:grid;gap:8px}
+.tw-review{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.tw-review li{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line-soft);border-radius:10px;background:rgba(255,255,255,.03)}
+.tw-dcard-wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
+.tw-enter-card{display:flex;gap:14px;align-items:center;text-align:left;width:100%;padding:14px;border:1.5px solid var(--violet);border-radius:14px;background:linear-gradient(135deg,rgba(139,124,246,.22),rgba(233,185,73,.08));min-height:64px;touch-action:manipulation}
+.tw-enter-card:hover{border-color:var(--gold)}
+.tw-enter-card small{display:block;color:var(--muted)}
+.tw-mini{flex:none;width:48px;height:64px;overflow:visible}
+.bld.b-tower .bring{stroke:#8f7bff}
+@media (max-width:760px){
+  .tw-hero{grid-template-columns:1fr}
+  .tw-hero-art{order:-1}
+  .tw-art{max-width:200px}
+  .tw-nav{flex-direction:column-reverse;align-items:stretch}
+  .tw-nav .btn{width:100%}
+  .tw-dot{width:30px;height:30px;font-size:.85rem}
+  .tw-prog{gap:6px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .tw-gem{animation:twPulse 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  .tw-orbit{animation:twOrbit 7s linear infinite;transform-box:fill-box;transform-origin:center}
+  .tw-portal{animation:twPortal 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  .tw-coins circle{animation:twBob 3.6s ease-in-out infinite}
+  .tw-coins circle:nth-child(2){animation-delay:-1s}.tw-coins circle:nth-child(3){animation-delay:-2s}.tw-coins circle:nth-child(4){animation-delay:-2.8s}
+  .tw-beam{animation:twBeam 4.4s ease-in-out infinite}
+}
+@keyframes twPulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes twOrbit{0%{transform:rotate(-6deg) scaleX(1)}50%{transform:rotate(6deg) scaleX(.9)}100%{transform:rotate(-6deg) scaleX(1)}}
+@keyframes twPortal{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes twBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes twBeam{0%,100%{opacity:.35}50%{opacity:.6}}
+@media (prefers-reduced-motion:reduce){.tw-gem,.tw-orbit,.tw-portal,.tw-coins circle,.tw-beam{animation:none!important}}
