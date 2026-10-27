@@ -161,7 +161,7 @@ test("already-completed words are never rewarded twice, for every answer in all 
 
 test("the runtime wires the confirm tap, the pending hint, the mode marker, and the composition status",()=>{
   const source=fs.readFileSync(path.join(ROOT,"word-game-app.js"),"utf8");
-  assert.match(source,/wgRetapLast = Boolean\(wgState\.selected\.length\) && button\.dataset\.tileId === wgState\.selected\.at\(-1\)/);
+  assert.match(source,/wgRetapLast = Boolean\(startTile\) && Boolean\(lastId\) && startTile\.id === lastId/);
   assert.match(source,/FinLitWheelInteraction\.shouldSubmitOnRetap\(retappedLast, word, wgState\.words, wgState\.found, wgWordOptions\(\)\)/);   // wgWordOptions (the wheel and found bonus words) was added with the global DUE bonus word
   assert.match(source,/tap the last letter again to submit/);
   assert.match(source,/document\.documentElement\.dataset\.finlitPuzzleMode = WG_V3_ENABLED \? "v3" : "legacy";/);

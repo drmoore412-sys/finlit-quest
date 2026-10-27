@@ -70,7 +70,7 @@ test("the UI is an isolated practice route with touch, pointer, keyboard, result
   const html=read("index.html"),js=read("src/currency-rush.js"),css=read("currency-rush.css");
   assert.match(html,/id="currencyRushScreen"/);assert.match(html,/PRACTICE ONLY/);assert.match(html,/id="crMusicToggle"[^>]+aria-label="Mute background music"/);
   assert.match(js,/pointerdown/);assert.match(js,/pointermove/);assert.match(js,/pointerMoved/);assert.match(js,/selected\.length===3\)submitSelection/);assert.match(js,/keydown/);assert.match(js,/new URLSearchParams\(win\.location\.search\).*bonus/);
-  assert.match(js,/targetsAlongSegment/);assert.match(js,/getCoalescedEvents/);assert.match(js,/processPointer\(event\);finishPointer\(\)/,"pointer-up position is processed before submit");
+  assert.match(js,/createGesture/);assert.match(js,/getCoalescedEvents/);assert.match(js,/processPointer\(event\);syncGesture\(gesture\.end\(/,"pointer-up position is processed before submit");
   assert.match(js,/addEventListener\("pointercancel",finishPointer\)/);assert.match(js,/addEventListener\("lostpointercapture"/);
   assert.match(js,/button\.draggable=false/);assert.match(js,/addEventListener\("dragstart",event=>event\.preventDefault\(\)\)/);
   assert.doesNotMatch(js,/learning\.save|player\.coins|player\.xp|achievement/i,"bonus UI must not touch permanent progression or spendable rewards");

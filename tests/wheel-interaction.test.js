@@ -84,10 +84,10 @@ test("fast pointer segments recover every crossed tile in travel order",()=>{
 test("runtime uses pointer movement hit testing, cancellation cleanup, and keyboard alternatives",()=>{
   const source=fs.readFileSync(path.join(ROOT,"word-game-app.js"),"utf8");
   assert.match(source,/addEventListener\("pointermove", wgMovePointer\)/);
-  assert.match(source,/wgHitTestLetter\(e\.clientX, e\.clientY\)/);
-  assert.match(source,/targetsAlongSegment\(from, to, targets\)/);
+  assert.match(source,/FinLitWheelInteraction\.tileAtPoint\(point, wgGeo\.targets\)/);
+  assert.match(source,/FinLitWheelInteraction\.createGesture\(\)/);
   assert.match(source,/getCoalescedEvents/);
-  assert.match(source,/wgProcessPointerPosition\(e\);[\s\S]{0,160}const shouldSubmit/,"pointer-up is sampled before submission");
+  assert.match(source,/wgProcessPointerPosition\(e\);[\s\S]{0,220}wgFinishPointerSelection\(\);\n\}\nfunction wgFinishPointerSelection\(\) \{\n  const shouldSubmit/,"pointer-up is sampled before submission");
   assert.match(source,/addEventListener\("pointercancel", wgRecoverPointer\)/);
   assert.match(source,/addEventListener\("lostpointercapture", wgRecoverPointer\)/);
   assert.match(source,/function wgRecoverPointer\(\)[\s\S]{0,420}wgFinishPointerSelection\(\)/,"capture loss recovers rather than discards the attempt");

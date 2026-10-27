@@ -608,59 +608,80 @@ function wgWordOptions() { return { wheelLetters: wgState.puzzleModel ? wgState.
 function wgCanSubmitTapWord(word) {
   return FinLitWheelInteraction.canSubmitTapWord(word, wgState.words, wgState.found, wgWordOptions());
 }
-function wgHitTestLetter(clientX, clientY) {
-  let closest = null, closestDistance = Infinity;
-  $$("#wgWheel .letter").forEach(button => {
-    const rect = button.getBoundingClientRect(), x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
-    const distance = Math.hypot(clientX - x, clientY - y);
-    if (distance <= Math.max(rect.width, rect.height) * .6 && distance < closestDistance) { closest = button; closestDistance = distance; }
-  });
-  return closest;
-}
-function wgButtonsAlongPointer(from, to) {
+// ---- Letter-wheel input (shared engine: src/wheel-interaction.js createGesture) ----
+// Tile geometry is measured ONCE when a gesture starts and reused for every pointer sample, so tracing
+// never forces layout. Centres come from the wheel's own percentage layout (not the animated transform),
+// so a swipe that starts during a shuffle still lands on the tiles' final positions.
+let wgGesture = null, wgGeo = null, wgPaintQueued = false;
+function wgMeasureWheel() {
+  const wheel = $("#wgWheel"), wheelRect = wheel.getBoundingClientRect(), svgRect = $("#wgTrace").getBoundingClientRect();
   const targets = $$("#wgWheel .letter").map(button => {
-    const rect = button.getBoundingClientRect();
-    return { button, x: rect.left + rect.width / 2, y: rect.top + rect.height / 2, radius: Math.max(rect.width, rect.height) * .68 };
+    const left = parseFloat(button.style.left), top = parseFloat(button.style.top);
+    const x = Number.isFinite(left) ? wheelRect.left + wheelRect.width * left / 100 : button.getBoundingClientRect().left + button.offsetWidth / 2;
+    const y = Number.isFinite(top) ? wheelRect.top + wheelRect.height * top / 100 : button.getBoundingClientRect().top + button.offsetHeight / 2;
+    return { id: button.dataset.tileId, button, x, y, radius: Math.max(button.offsetWidth, button.offsetHeight) / 2 };
   });
-  return FinLitWheelInteraction.targetsAlongSegment(from, to, targets).map(target => target.button);
+  return { svgRect, targets };
+}
+function wgSyncGesture(events) {
+  if (!events.length) return;
+  wgState.selected = wgGesture.selected;
+  wgGestureLetters = wgGesture.added;
+  // Audio is scheduled after state is updated and never gates selection.
+  events.forEach(event => { if (event.type === "add") { try { wgAudio.letter(wgState.selected.indexOf(event.id) + 1 || wgState.selected.length); } catch (_) {} } });
 }
 function wgProcessPointerPosition(event) {
   const samples = typeof event.getCoalescedEvents === "function" ? event.getCoalescedEvents() : [];
   const points = [...samples, event].map(sample => ({ x: sample.clientX, y: sample.clientY })).filter(point => Number.isFinite(point.x) && Number.isFinite(point.y));
-  points.forEach(point => {
-    wgButtonsAlongPointer(wgPointerPoint || point, point).forEach(wgAddLetter);
-    wgPointerPoint = point;
-  });
+  points.forEach(point => { wgSyncGesture(wgGesture.advance(point)); wgPointerPoint = point; });
+}
+function wgRequestPaint() {
+  if (wgPaintQueued) return;
+  wgPaintQueued = true;
+  requestAnimationFrame(() => { wgPaintQueued = false; if (wgPointerDown) wgUpdateSelection(); });
 }
 
 function wgBeginPointer(e) {
   if (e.button !== undefined && e.button !== 0) return;
-  const button = e.target.closest?.(".letter") || wgHitTestLetter(e.clientX, e.clientY);
-  if (!button) return;
+  if (wgPointerDown) wgResetPointer();   // a lost pointerup must never leave the wheel stuck
+  wgGeo = wgMeasureWheel();
+  const pressed = e.target.closest?.(".letter");
+  let point = { x: e.clientX, y: e.clientY };
+  let startTile = FinLitWheelInteraction.tileAtPoint(point, wgGeo.targets);
+  // The browser says a tile itself was pressed even if its centre-based zone missed (odd sizes/zoom): trust it.
+  if (!startTile && pressed) { startTile = wgGeo.targets.find(target => target.button === pressed) || null; if (startTile) point = { x: startTile.x, y: startTile.y }; }
+  // A press in the gap beside a letter is still a swipe: the gesture is armed and picks up the first tile the
+  // finger slides across, instead of silently ignoring the attempt.
+  const lastId = wgState.selected.at(-1);
+  wgGesture = FinLitWheelInteraction.createGesture();
+  const events = wgGesture.begin(point, wgGeo.targets, wgState.selected);
   e.preventDefault();
-  wgPointerDown = true; wgPointerId = e.pointerId; wgGestureLetters = 0; wgPointerPoint = {x:e.clientX, y:e.clientY};
+  wgPointerDown = true; wgPointerId = e.pointerId; wgGestureLetters = 0; wgPointerPoint = point;
   // Pressing the tile that is already the last selection is a "confirm" tap (see FinLitWheelInteraction.shouldSubmitOnRetap).
-  wgRetapLast = Boolean(wgState.selected.length) && button.dataset.tileId === wgState.selected.at(-1);
-  $("#wgWheel").setPointerCapture?.(e.pointerId);
-  wgAddLetter(button);
+  wgRetapLast = Boolean(startTile) && Boolean(lastId) && startTile.id === lastId;
+  try { $("#wgWheel").setPointerCapture?.(e.pointerId); } catch (_) {}
+  wgSyncGesture(events);
+  wgUpdateSelection();
 }
 function wgMovePointer(e) {
   if (!wgPointerDown || e.pointerId !== wgPointerId) return;
   e.preventDefault();
   wgProcessPointerPosition(e);
-  wgUpdateSelection();
+  wgRequestPaint();
 }
 function wgEndPointer(e) {
   if (!wgPointerDown || e.pointerId !== wgPointerId) return;
   // Some browsers omit the last pointermove. Process pointerup itself before
   // deciding which word was traced.
   wgProcessPointerPosition(e);
+  if (wgGesture) wgSyncGesture(wgGesture.end({ x: e.clientX, y: e.clientY }));
   wgFinishPointerSelection();
 }
 function wgFinishPointerSelection() {
-  const shouldSubmit = wgState.selected.length > 1 && wgGestureLetters > 1, retappedLast = wgRetapLast;
+  const shouldSubmit = wgState.selected.length > 1 && wgGestureLetters > 1, retappedLast = wgRetapLast, touchedLetters = wgGestureLetters > 0;
   wgResetPointer();
   if (shouldSubmit) wgSubmitWord();
+  else if (!touchedLetters && !retappedLast) wgUpdateSelection();   // a press that never reached a letter must not submit an earlier tapped word
   else {
     const word = wgSelectedWord();
     if (wgCanSubmitTapWord(word) || FinLitWheelInteraction.shouldSubmitOnRetap(retappedLast, word, wgState.words, wgState.found, wgWordOptions())) wgSubmitWord(); else wgUpdateSelection();
@@ -684,6 +705,8 @@ function wgCancelPointer() {
 function wgResetPointer() {
   const pointerId = wgPointerId;
   wgPointerDown = false; wgPointerId = null; wgRetapLast = false; wgGestureLetters = 0; wgPointerPoint = null;
+  if (wgGesture) wgGesture.reset();
+  wgGesture = null; wgGeo = null;
   if (pointerId !== null) { try { $("#wgWheel").releasePointerCapture?.(pointerId); } catch (_) {} }
   wgUpdateSelection();
 }
@@ -712,11 +735,11 @@ function wgUpdateSelection() {
   const submit = $("#wgSubmitSelection");
   submit.disabled = !word;
   submit.setAttribute("aria-label", word ? `Submit ${word}` : "Submit selected word");
-  const svg = $("#wgTrace"), svgRect = svg.getBoundingClientRect();
+  const svg = $("#wgTrace"), geo = wgPointerDown && wgGeo ? wgGeo : wgMeasureWheel(), svgRect = geo.svgRect;
   svg.setAttribute("viewBox", `0 0 ${svgRect.width || 1} ${svgRect.height || 1}`);
   const points = wgState.selected.map(id => {
-    const button = buttons.find(item => item.dataset.tileId === id), rect = button?.getBoundingClientRect();
-    return rect ? `${rect.left + rect.width / 2 - svgRect.left},${rect.top + rect.height / 2 - svgRect.top}` : "";
+    const target = geo.targets.find(item => item.id === id);
+    return target ? `${target.x - svgRect.left},${target.y - svgRect.top}` : "";
   }).filter(Boolean);
   if (wgPointerDown && wgPointerPoint) points.push(`${wgPointerPoint.x - svgRect.left},${wgPointerPoint.y - svgRect.top}`);
   const value = points.join(" ");

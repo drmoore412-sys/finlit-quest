@@ -10,6 +10,34 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Shared letter-wheel gesture engine (crossword + Currency Rush) — NOT DEPLOYED, NOT COMMITTED
+
+Status: local only, awaiting review. Real-iPhone testing NOT done (sandbox is Chromium-only, simulated mouse + CDP touch; no WebKit).
+
+Root causes (measured):
+1. Catch zones were about 1.4x the visible tile radius; straight swipes between non-adjacent letters clipped neighbours (simulation: old engine 69% clean on direct-line swipes vs about 97% at 1.0x).
+2. A press landing in the gap beside a letter was ignored (crossword hit-test and Currency Rush required pointerdown on the button).
+3. Currency Rush: a short/failed swipe left its letters selected and contaminated the next attempt.
+4. Releasing just short of the final letter lost that letter.
+5. Crossword re-measured layout and rewrote the trace on every pointermove (jank).
+6. Grazing the previous tile could delete a letter.
+7. Currency Rush "CODE FOUND!" overlay intercepted pointer events and swallowed the next swipe (fixed: pointer-events:none).
+
+Code changes: src/wheel-interaction.js (pure gesture engine: createGesture, segmentHits, tileAtPoint, closestApproach; defaults enter 1.0, start 1.3, backtrack .55, release 1.6); word-game-app.js and src/currency-rush.js now use it (cached geometry, rAF painting, audio in try/catch after state update); currency-rush.css overlay fix; iOS bundle copies synced (byte parity verified). Unchanged: answers, currency-code validation, scoring, timers, rewards, saves.
+
+Tests: full suite 580/580 (new tests/wheel-gesture.test.js, 19 tests; 5 legacy source-pattern tests updated, intent preserved).
+
+Benchmarks (first-attempt acceptance; Chromium, desktop viewport; animations/blur disabled in the harness for BOTH builds to make it runnable on 2 CPUs):
+- Currency Rush, 294 trials each: before 245 (83.3%) -> after 293 (99.7%). Mouse 84.4% -> 99.3%; touch 82.3% -> 100%. Slow 79.8 -> 100; medium 89.3 -> 100; fast 96.4 -> 100; burst 52.4 -> 97.6. Straight 81.5 -> 99.4; curved 85.7 -> 100. Leftover-selection (stuck) 17 -> 0.
+- Currency Rush extra styles, 120 trials: 57.5% -> 96.7% (press-in-gap 1/36 -> 36/36; release-short 25/36 -> 33/36; direct chords 43/48 -> 47/48). Remaining 4 misses: 3 release-short touch, 1 chord.
+- Crossword, 294 trials each (final word of each puzzle excluded: completion overlay is a harness artefact): 94.2% -> 96.6%. Slow/medium/fast: 100% -> 100% (252/252 both; hub-routed styles were already fine). Burst: 59.5% -> 76.2%. Mouse 94.6 -> 96.6; touch 93.9 -> 96.6.
+- Crossword extra styles, 80 trials: 60.0% -> 100%.
+- Pointer handler cost per move (ms mean/p95): crossword 0.541/1.3 -> 0.055/0.2; Currency Rush 0.245/0.7 -> 0.051/0.2. No added input lag.
+- Behaviour checks (before -> after): CR short swipe clears (fail -> pass); CR lift near last letter completes (fail -> pass); lift between two equal letters does not guess (pass); touchcancel / mouse-up outside page leave nothing selected; no page scroll while tracing (touch-action none); page scroll still works outside wheel; 390px layouts fine; reduced-motion works.
+
+Remaining limitations: crossword burst failures (10 trials, 5 words, deterministic) are 2-4 event swipes whose straight lines pass within about one tile radius of a neighbour; Currency Rush: 3 release-short touch misses. No WebKit/real iPhone; synthetic paths; the 99% target is met for Currency Rush and for slow/medium/fast crossword, not for crossword burst stress. iOS xcodebuild could not be run (no Xcode in this environment); bundle parity verified only.
+
+
 ## 2026-10-26 — Approved portal artwork added to Bonus Games
 
 Integrated the owner's exact attached fantasy portal PNG as the Bonus Games hub background without regenerating, substituting, or recompressing the artwork. The dragon, glowing portal, castle, village, and treasure chest remain visible behind readable glass game cards.
