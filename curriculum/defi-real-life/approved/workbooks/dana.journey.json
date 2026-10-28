@@ -1,0 +1,1137 @@
+{
+ "schema": "flq.defi-rl.journey.v1",
+ "slug": "dana",
+ "id": "defi.dana",
+ "display": {
+  "name": "Dana Okafor",
+  "blurb": "A 29-year-old saving 24 months for her first home: a vault offer, a wallet scam, a repair bill, a price crash, a bonus, a paper trail and the final numbers."
+ },
+ "logic_ver": "0.6.1",
+ "text_ver": "0.6.1-w5",
+ "status": "APPROVED (D-1 to D-3); curriculum design only",
+ "source_doc": "dana-v0.6.1-FINAL-CANDIDATE.md",
+ "pending_wording": [],
+ "wording_fixes": [
+  {
+   "id": "dana.v0.6.1-w1.1",
+   "from": "both B and C would carry a note",
+   "to": "both selling and holding would carry a note"
+  },
+  {
+   "id": "dana.v0.6.1-w1.2",
+   "from": "Choosing B would have kept month 24",
+   "to": "Keeping the loan open and adding the whole bonus to home savings would have kept month 24"
+  },
+  {
+   "id": "dana.v0.6.1-w1.3",
+   "from": "so B does not earn credit",
+   "to": "so keeping it open does not earn credit"
+  },
+  {
+   "id": "dana.v0.6.1-w1.4",
+   "from": "exactly what C does, so the two score the same",
+   "to": "exactly what the budget-first plan does, so the two score the same"
+  },
+  {
+   "id": "dana.v0.6.1-w1.5",
+   "from": "D5 trade-off table headers A/B",
+   "to": "Repay Keystone, rest to home savings / All to home savings, keep the loan"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q6.a.other-holdings",
+   "from": "{cond(pre.VAULT>0,\"The vault clears in \"+str(ceil(pre.VAULT/2000))+\" weeks (\"+m(pre.VAULT)+\" to home savings). \",\"\")|t}{cond(pre.KLOAN>0,\"The Keystone loan (\"+m(pre.KLOAN)+\") is repaid first with Repay with collateral. \",\"\")|t}{cond(pre.ETH>0,\"The ETH sells for \"+m(d.OTHER)+\" net of a \"+m(d.FEES)+\" fee into Other available cash. \",\"\")|t}The paper trail is ready.",
+   "to": "{cond(pre.VAULT>0,\"The vault clears in \"+str(ceil(pre.VAULT/2000))+\" weeks (\"+m(pre.VAULT)+\" to home savings). \",\"\")|t}{cond(pre.KLOAN>0,\"The Keystone loan (\"+m(pre.KLOAN)+\") is repaid first with Repay with collateral. \",\"\")|t}{cond(pre.ETH>0,\"Selling the ETH (\"+m(pre.ETH)+\") costs a \"+m(d.FEES)+\" fee. \"+cond(pre.KLOAN>0,\"After the loan is repaid, \",\"\")+m(d.OTHER)+\" reaches Other available cash. \",\"\")|t}The paper trail is ready.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q6.b.nothing-stranded",
+   "from": "The late scramble adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+   "to": "{cond(pre.VAULT>0,\"The vault balance could all leave at $2,000 a week in the last three weeks, so nothing was stranded. \",\"\")|t}The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q6.b.example-amount",
+   "from": "At $2,000 a week only $6,000 can leave in the last three weeks. About {eom(24).VAULT|r} would remain in the vault. A bigger vault strands far more (about $17,203 on a $21,000 vault). The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+   "to": "At $2,000 a week only $6,000 can leave in the last three weeks. About {eom(24).VAULT|r} would remain in the vault. A bigger vault strands far more (in this story the largest vault, about $22,801 at this point, would leave about $17,203 behind). The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q7.a.other-outcomes",
+   "from": "To earn {gap} in a month at 14% APR Dana would need about {gap/(D(\"0.14\")/12)|r} in the pool ({gap} ÷ (14% ÷ 12)). In this story the pool returns −4.0%: a {fin.LOSS-pre.LOSS} loss. The gap becomes {gap+fin.LOSS-pre.LOSS}{cond(run.delay>0,\" and she needs a \"+str(int(run.delay))+\"-month delay\"+cond(run.status==\"paused\",\" and the purchase is still paused\",\"\"),\"\")|t}.",
+   "to": "To earn {gap} in a month at 14% APR Dana would need about {gap/(D(\"0.14\")/12)|r} in the pool ({gap} ÷ (14% ÷ 12)). In this story the pool returns −4.0%: a {fin.LOSS-pre.LOSS} loss. The gap becomes {gap+fin.LOSS-pre.LOSS}{cond(run.delay>0,\" and she needs a \"+str(int(run.delay))+\"-month delay\"+cond(run.status==\"paused\",\" and the purchase is still paused\",\"\"),\"\")|t}.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q7.a.no-gap",
+   "from": "The pool returns −4.0% in this story: a {fin.LOSS-pre.LOSS} loss. Putting money into a yield bet when nothing needs covering only adds risk.",
+   "to": "The pool returns −4.0% in this story: a {fin.LOSS-pre.LOSS} loss. Putting money into a yield bet when nothing needs covering only adds risk.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q7.b",
+   "from": "With a gap her reserve can cover, drawing from emergency savings closes on time. If the reserve cannot cover the gap, the draw is refused and nothing moves. That spends the fund meant for her first year as a homeowner. With no gap, drawing $0 changes nothing, exactly what the budget-first plan does, so the two score the same.",
+   "to": "Drawing from emergency savings closes on time when the reserve can cover the gap. If the reserve cannot cover the gap, the draw is refused and nothing moves. That spends the fund meant for her first year as a homeowner. With no gap, drawing $0 changes nothing, exactly what the budget-first plan does, so the two score the same.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q7.c.other-outcomes",
+   "from": "The flexible budget supplies up to $450 at the end of month 23 and up to $450 at the end of month 24, so no new debt, no yield bets and no emergency savings are used. The gap was {gap}; closing {cond(run.delay>0,\"moved by \"+str(int(run.delay))+\" month(s)\",\"stays on time\")|t}{cond(run.status==\"paused\",\" and the purchase is paused\",\"\")|t}.",
+   "to": "The flexible budget supplies up to $450 at the end of month 23 and up to $450 at the end of month 24, so no new debt, no yield bets and no emergency savings are used. The gap was {gap}; closing {cond(run.delay>0,\"moved by \"+str(int(run.delay))+\" month(s)\",\"stays on time\")|t}{cond(run.status==\"paused\",\" and the purchase is paused\",\"\")|t}.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q7.c.no-gap",
+   "from": "There is no gap to cover, so nothing needs to move. Changing nothing is exactly what this plan does.",
+   "to": "There is no gap to cover, so nothing needs to move. Changing nothing is exactly what this plan does.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w2.q7.situation.question-6-label",
+   "from": "D6",
+   "to": "question 6",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w3.q3.c",
+   "from": "It avoids the loan but takes $900 from a fund that has no cushion: her insured savings sit exactly on the $45,000 plan, and nothing refills them, while the emergency fund exists for exactly this bill.",
+   "to": "It avoids the loan but spends $900 of the savings set aside for the purchase, and the plan has nothing to refill that $900. The emergency fund exists for exactly this bill.",
+   "approval": "D-6 final text cleanup 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w3.q7.closing-note",
+   "from": "{cond(ans[4]==\"A\" and d5.KLOAN>0 and run.delay==1,\"Clearing the Keystone loan used \"+m(d5.KLOAN)+\" of your purchase fund. At month 24 you were \"+m(run.need-m24.HOME)+\" short of the requirement and the budget could not cover it, so closing moved to month 25. That was the price of removing a loan that could have forced a sale of your ETH. Keeping the loan open and adding the whole bonus to home savings would have kept month 24 but left the loan open. Both were reasonable. Your score reflects the quality of the decision, not the closing month.\",\"\")|t}",
+   "to": "{cond(ans[4]==\"A\" and d5.KLOAN>0 and run.delay==1,\"Clearing the Keystone loan used \"+m(d5.KLOAN)+\" of your purchase fund. At month 24 you were \"+m(run.need-m24.HOME)+\" short of the requirement and the budget could not cover it, so closing moved to month 25. That was the price of removing a loan that could have forced a sale of your ETH. Your score reflects the quality of the decision, not the closing month.\",\"\")|t}",
+   "approval": "D-6 final text cleanup 2026-10-28"
+  },
+  {
+   "id": "dana.v0.6.1-w4.claims.moving-cost-label",
+   "from": "about $3,500 to move.",
+   "to": "about $3,500 to move (an assumption in this story)."
+  },
+  {
+   "id": "dana.v0.6.1-w5.q7.estimates",
+   "from": "Her lender sends a revised Loan Estimate.",
+   "to": "Her lender updates its cost estimates."
+  },
+  {
+   "id": "dana.v0.6.1-w5.q2.ladder",
+   "from": "connecting \"shares\"; \"moves no funds\"; allowance \"lets\"; \"Read it first\"",
+   "to": "hedged: \"usually shares\", \"does not move funds by itself\", \"can let\"; \"Check what a request actually asks\""
+  },
+  {
+   "id": "dana.v0.6.1-w5.labels",
+   "from": "ETH moves, 0% savings, $250 floor, closing day, opening values unlabeled",
+   "to": "labeled as scenario assumptions"
+  },
+  {
+   "id": "dana.v0.6.1-w5.plan.conventions",
+   "from": "(no note on student-loan convention or emergency target)",
+   "to": "Plan line states monthly student-loan interest is a model simplification and the three-month emergency target is the scenario's choice."
+  }
+ ],
+ "intro": "Dana Okafor, 29, wants to buy her first home in 24 months. Take-home pay $4,600 a month. Essentials $2,900 (rent 1,500, utilities and phone 260, groceries 520, transport 260, insurance 110, student-loan payment 250). Flexible budget $700 ($250 floor plus $450 discretionary, set for this scenario). $1,000 a month goes to home savings. Opening (scenario assumptions): checking $1,800, emergency savings $8,700 (3 months of essentials), home savings $21,000 (insured), ETH $2,400 ($2,000 hardware wallet, $400 browser wallet), student loan $12,000 at 6.00% APR.",
+ "plan": [
+  "Harbor Vault, Keystone Loans, Apex Yield and Surge Pool are fictional. Their terms are story rules, not market data. ETH price moves are scenario events, and insured savings are modeled at 0% interest, which is lower than a real account would pay. Student-loan interest is modeled monthly, while real loans usually accrue interest daily. The three-month emergency target is this scenario's choice; official guidance varies and some suggests six months.",
+  "Available purchase cash is insured home savings only. Vault funds, Apex Yield and Surge Pool balances, ETH and emergency savings do not count until they are moved. Other available cash counts only after Dana moves it.",
+  "The $450 records-reconstruction cost, the $450 rate-lock extension fee per delay month and the 3-month delay cap are scenario assumptions, not market data. Real fees and lock terms vary by lender.",
+  "Good decisions do not guarantee outcomes. A perfect score is possible on a path where the purchase is still delayed."
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "month": 1,
+   "title": "The Vault Offer",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "main"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Home savings (purchase cash)",
+       "{pre.HOME}"
+      ],
+      [
+       "Other available cash",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.APEX}",
+       "pre.APEX>0"
+      ],
+      [
+       "ETH value",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "ETH pledged to Keystone",
+       "{pre.PLEDGED}",
+       "pre.PLEDGED>0"
+      ],
+      [
+       "Keystone loan owed",
+       "{pre.KLOAN}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Student loan (6%)",
+       "{pre.STU}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Dana, 29, wants to buy her first home in 24 months. She needs $45,000 total purchase cash: a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move (an assumption in this story). Her insured home savings hold {pre.HOME} and she adds $1,000 a month, which reaches $45,000 on the last day of month 24; this scenario assumes closing on that day, after the transfer. She also keeps {pre.RES} in emergency savings, {pre.CHK} in checking, {pre.ETH} in ETH from an old purchase and a {pre.STU} student loan at 6%.\n\nA coworker shows her Harbor Vault. It advertises 8.30% APY (8.00% APR, variable, credited monthly). It lends dollar-pegged tokens through smart contracts. It is not a bank and its balances are not FDIC-insured.\n\nWhat should Dana do with her home savings?",
+   "options": {
+    "a": {
+     "t": "Move all $21,000 into Harbor Vault to earn more before she buys."
+    },
+    "b": {
+     "t": "Keep the home savings in the insured account. Revisit DeFi only with money she does not need for the purchase."
+    },
+    "c": {
+     "t": "Move $6,000 into Harbor Vault after reading its terms, and keep $15,000 insured."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "Dana puts her whole purchase fund outside deposit insurance, and the rate is variable. The same {d.VAULT} earns {d.VAULT*D(\"0.083\")} a year at a constant 8.30%. In this story it earns {eom(12).VAULT-d.VAULT} because the rate falls. A freeze or loss would cost far more than that.",
+      "ref": "Dana puts her whole purchase fund outside deposit insurance, and the rate is variable. The same $21,000 earns $1,743 a year at a constant 8.30%. In this story it earns $1,406.20 because the rate falls. A freeze or loss would cost far more than that.",
+      "rp": "",
+      "dk": "D1|A (0)",
+      "assert": "d.VAULT==21000 and d.HOME==-21000"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "The money has a date. The plan already reaches $45,000 with no yield.",
+      "ref": "The money has a date. The plan already reaches $45,000 with no yield.",
+      "rp": "",
+      "dk": "D1|B (100)",
+      "assert": "d.VAULT==0 and d.HOME==0"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "Reading the terms is good practice. But {d.VAULT} is {d.VAULT/pre.HOME*100|p0} of the fund. At 8.30% for a year it earns about {d.VAULT*D(\"0.083\")}. In this story {eom(12).VAULT-d.VAULT}. A freeze would take months to refill at $1,000 a month.",
+      "ref": "Reading the terms is good practice. But $6,000 is 29% of the fund. At 8.30% for a year it earns about $498. In this story $401.78. A freeze would take months to refill at $1,000 a month.",
+      "rp": "",
+      "dk": "D1|C (0)",
+      "assert": "d.VAULT==6000 and d.HOME==-6000"
+     }
+    ]
+   },
+   "why": "Compare what is gained with what is at risk. Roughly $400 to $500 will not change whether Dana can buy. A loss could.",
+   "takeaway": "A quoted DeFi rate is pay for taking risk, not a free upgrade. APR and APY differ, and the rate can change. Money with a deadline belongs where principal is protected and accessible."
+  },
+  {
+   "n": 2,
+   "month": 4,
+   "title": "The \"Wallet Support\" Message",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "main"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Home savings (purchase cash)",
+       "{pre.HOME}"
+      ],
+      [
+       "Other available cash",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.APEX}",
+       "pre.APEX>0"
+      ],
+      [
+       "ETH value",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "ETH pledged to Keystone",
+       "{pre.PLEDGED}",
+       "pre.PLEDGED>0"
+      ],
+      [
+       "Keystone loan owed",
+       "{pre.KLOAN}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Student loan (6%)",
+       "{pre.STU}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Dana keeps her ETH in two wallets: $2,000 in a hardware wallet and $400 in a browser wallet she uses for apps. Her home savings hold {pre.HOME}. A message arrives:\n\n\"Wallet Support: your wallet has been flagged. Verify within 24 hours or it will be frozen.\" It includes a link.\n\nWhat should Dana do?",
+   "options": {
+    "a": {
+     "t": "Open the link and connect her browser wallet to the \"verification\" page to see what it wants, without signing anything."
+    },
+    "b": {
+     "t": "Follow the page's instructions and enter her 12-word recovery phrase to \"verify\" ownership."
+    },
+    "c": {
+     "t": "Not use the link. Type her wallet's official address herself, review its connected sites and approvals there, and report the message."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "Nothing was taken this time: Dana declined the signing request and disconnected. But connecting to an unsolicited site shares her address and balance, and these pages are built to follow a connection with a signing request. A good outcome did not make it a safe test.",
+      "ref": "Nothing was taken this time: Dana declined the signing request and disconnected. But connecting to an unsolicited site shares her address and balance, and these pages are built to follow a connection with a signing request. A good outcome did not make it a safe test.",
+      "rp": "",
+      "dk": "D2|A (0)",
+      "assert": "d.ETH==0 and d.LOSS==0"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "A recovery phrase is the master key. The browser wallet is emptied (−{-d.ETH}). The hardware wallet has a different phrase and is untouched.",
+      "ref": "A recovery phrase is the master key. The browser wallet is emptied (−$400). The hardware wallet has a different phrase and is untouched.",
+      "rp": "",
+      "dk": "D2|B (0)",
+      "assert": "d.ETH==-400 and d.LOSS==400"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "Dana acts on channels she opens herself.",
+      "ref": "Dana acts on channels she opens herself.",
+      "rp": "",
+      "dk": "D2|C (100)",
+      "assert": "d.ETH==0 and d.LOSS==0"
+     }
+    ]
+   },
+   "why": "Four different actions, four different risks.\n1. Viewing a suspicious message is safe by itself. Risk starts when you act on it.\n2. Connecting a wallet usually shares your public address and balances. It does not move funds by itself, but on an unsolicited site it is not a safe test.\n3. Signing a message or transaction authorizes what it says. Check what a request actually asks before you approve it, and decline what you cannot read.\n4. Approving token access (an allowance) can let a contract move a chosen token up to a limit, sometimes unlimited, until revoked.\n5. A recovery phrase is none of these. No legitimate support asks for it.",
+   "takeaway": "Control of a wallet is control of the money. Verify through channels you open yourself, and never share a recovery phrase."
+  },
+  {
+   "n": 3,
+   "month": 6,
+   "title": "The Repair Bill",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "main"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Home savings (purchase cash)",
+       "{pre.HOME}"
+      ],
+      [
+       "Other available cash",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.APEX}",
+       "pre.APEX>0"
+      ],
+      [
+       "ETH value",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "ETH pledged to Keystone",
+       "{pre.PLEDGED}",
+       "pre.PLEDGED>0"
+      ],
+      [
+       "Keystone loan owed",
+       "{pre.KLOAN}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Student loan (6%)",
+       "{pre.STU}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Dana's car needs a $900 repair this week. Checking holds {pre.CHK}. Her home savings hold {pre.HOME}, emergency savings {pre.RES}, and her ETH is worth {pre.ETH}.\n\nKeystone Loans would lend $900 against her ETH at 9%. If the loan reaches 80% of the ETH's value it forces a sale, and her ETH stays locked until it is repaid.\n\nHow should Dana pay?",
+   "options": {
+    "a": {
+     "t": "Pay from emergency savings, then rebuild it with $200 a month from her flexible budget."
+    },
+    "b": {
+     "t": "Borrow $900 from Keystone Loans against her ETH."
+    },
+    "c": {
+     "t": "Withdraw $900 from home savings."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "This is what emergency savings are for. The fund drops to {post.RES} ({post.RES/2900|f2} months of essentials, above the 1-month line) and is rebuilt by the end of month 11.",
+      "ref": "This is what emergency savings are for. The fund drops to $7,800 (2.69 months of essentials, above the 1-month line) and is rebuilt by the end of month 11.",
+      "rp": "BC",
+      "dk": "D3|A (100)",
+      "assert": "d.RES==-900 and eom(11).RES==8700 and eom(10).RES<8700"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "Dana has the cash. Borrowing against a volatile asset adds 9% interest and a forced-sale trigger for a bill she can pay.",
+      "ref": "Dana has the cash. Borrowing against a volatile asset adds 9% interest and a forced-sale trigger for a bill she can pay.",
+      "rp": "BC",
+      "dk": "D3|B (0)",
+      "assert": "d.KLOAN==900"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "It avoids the loan but spends $900 of the savings set aside for the purchase, and the plan has nothing to refill that $900. The emergency fund exists for exactly this bill.",
+      "ref": "It avoids the loan but takes $900 from a fund that has no cushion: her insured savings sit exactly on the $45,000 plan, and nothing refills them, while the emergency fund exists for exactly this bill.",
+      "rp": "BC",
+      "dk": "D3|C (0)",
+      "assert": "d.HOME==-900",
+      "locked": "It avoids the loan but takes $900 from a fund that has no cushion: her insured savings sit exactly on the $45,000 plan, and nothing refills them, while the emergency fund exists for exactly this bill.",
+      "approved": "dana.q3.c.exact-45000 (D-6 final text cleanup 2026-10-28)",
+      "dev": "approved text-only correction (D-6): the locked claim that savings sit exactly on the $45,000 plan is true only on some D1 paths"
+     }
+    ]
+   },
+   "takeaway": "A crypto-backed loan creates a debt with a trigger. It is not new money. Use the account designed for the emergency first."
+  },
+  {
+   "n": 4,
+   "month": 9,
+   "title": "The ETH Drop",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "noloan",
+      "loan"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Home savings (purchase cash)",
+       "{pre.HOME}"
+      ],
+      [
+       "Other available cash",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.APEX}",
+       "pre.APEX>0"
+      ],
+      [
+       "ETH value",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "ETH pledged to Keystone",
+       "{pre.PLEDGED}",
+       "pre.PLEDGED>0"
+      ],
+      [
+       "Keystone loan owed",
+       "{pre.KLOAN}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Student loan (6%)",
+       "{pre.STU}"
+      ]
+     ]
+    }
+   ],
+   "situation": {
+    "noloan": "ETH has fallen 40% since month 1, so Dana's {pre.ETH/D(\"0.6\")} is now worth {pre.ETH}. She has no debt on it. Home savings hold {pre.HOME} and emergency savings {pre.RES}{cond(pre.RES<8700,\" (rebuilding)\",\"\")}. The purchase is 15 months away. Her plan reaches $45,000 without any ETH.\n\nWhat should Dana do?",
+    "loan": "ETH has fallen 40%. Dana owes Keystone Loans {pre.KLOAN} ($900 plus {pre.INT} interest). Her pledged ETH is worth {pre.ETH}, so the loan is {pre.ltv|p1} of its value. A forced sale happens at 80%. Her emergency savings are intact at {pre.RES} and home savings hold {pre.HOME}. The purchase is 15 months away.\n\nHer pledged ETH cannot be sold or withdrawn while any balance is owed. Keystone offers Repay with collateral: one transaction that sells just enough pledged ETH at today's price (0.5% swap fee) to clear the interest and then the principal, and releases the rest. Dana can also repay from cash, then withdraw the ETH.\n\nWhat should Dana do?"
+   },
+   "options": {
+    "a": {
+     "t": "Add $500 from home savings to buy ETH at the lower price.",
+     "tv": [
+      {
+       "v": [
+        "loan"
+       ],
+       "t": "Do nothing and hope ETH recovers."
+      }
+     ]
+    },
+    "b": {
+     "t": "Sell all of the ETH and keep the cash as Other available cash.",
+     "tv": [
+      {
+       "v": [
+        "loan"
+       ],
+       "t": "Use Repay with collateral to clear the loan in full and keep whatever ETH is left."
+      }
+     ]
+    },
+    "c": {
+     "t": "Keep the ETH, add nothing, and set a written rule that it never funds the home or the reserve.",
+     "tv": [
+      {
+       "v": [
+        "loan"
+       ],
+       "t": "Repay $500 from emergency savings and keep the loan open."
+      }
+     ]
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='noloan'",
+      "text": "Purchase money moves into a volatile asset 15 months before a fixed date. \"It fell, so it is cheap\" is not evidence.",
+      "ref": "Purchase money moves into a volatile asset 15 months before a fixed date. \"It fell, so it is cheap\" is not evidence.",
+      "rp": "BCA",
+      "dk": "D4|A (0)|v1",
+      "assert": "d.HOME==-500"
+     },
+     {
+      "when": "v=='loan'",
+      "text": "Dana is close to forced liquidation. If ETH falls further (month 11) Keystone takes {-row(11,\"LIQUIDATION\",\"ETH\")} of ETH: {-(row(11,\"LIQUIDATION\",\"KLP\")+row(11,\"LIQUIDATION\",\"KLI\"))} to clear the debt and a {-row(11,\"LIQUIDATION\",\"ETH\")+(row(11,\"LIQUIDATION\",\"KLP\")+row(11,\"LIQUIDATION\",\"KLI\"))} penalty. She keeps {nx.ETH}. Her realized loss against month 1 is {nx.LOSS}.",
+      "ref": "Dana is close to forced liquidation. If ETH falls further (month 11) Keystone takes $980.44 of ETH: $933.75 to clear the debt and a $46.69 penalty. She keeps $161.28. Her realized loss against month 1 is $1,035.57.",
+      "rp": "BCB",
+      "dk": "D4|A (0)|v2",
+      "assert": "nx.KLOAN==0 and d.KLOAN==0"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='noloan'",
+      "text": "The ETH is not part of the plan. Selling realizes a {d.LOSS} loss against its month-1 value and costs a {d.FEES} swap fee. It removes a volatile asset and simplifies paperwork. The proceeds ({d.OTHER}) are Other available cash, which does not count toward the purchase unless Dana moves it.",
+      "ref": "The ETH is not part of the plan. Selling realizes a $960 loss against its month-1 value and costs a $7.20 swap fee. It removes a volatile asset and simplifies paperwork. The proceeds ($1,432.80) are Other available cash, which does not count toward the purchase unless Dana moves it.",
+      "rp": "BCA",
+      "dk": "D4|B (100)|v1",
+      "assert": "post.ETH==0 and d.OTHER>0"
+     },
+     {
+      "when": "v=='loan'",
+      "text": "It removes the liquidation risk and the 9% interest for a {d.FEES} swap fee. It makes the loss permanent: the ETH sold was worth {d.LOSS} less than at month 1.",
+      "ref": "It removes the liquidation risk and the 9% interest for a $4.62 swap fee. It makes the loss permanent: the ETH sold was worth $616.58 less than at month 1.",
+      "rp": "BCB",
+      "dk": "D4|B (100)|v2",
+      "assert": "post.KLOAN==0"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='noloan'",
+      "text": "There is no debt on the ETH, the amount is small, her reserve is rebuilding on schedule, and the plan works without it. Holding would be the weaker answer if she were borrowing against it, short on her reserve, counting on it for the purchase, or if the deadline were close.",
+      "ref": "There is no debt on the ETH, the amount is small, her reserve is rebuilding on schedule, and the plan works without it. Holding would be the weaker answer if she were borrowing against it, short on her reserve, counting on it for the purchase, or if the deadline were close.",
+      "rp": "BCA",
+      "dk": "D4|C (100), because of Dana's circumstances|v1",
+      "assert": "d.HOME==0 and d.ETH==0"
+     },
+     {
+      "when": "v=='loan'",
+      "text": "The loan-to-value falls to {post.ltv|p1} and survives the next drop ({s11.ltv|p1} at month 11). But it spends emergency money to protect a speculative position while 9% debt stays open.",
+      "ref": "The loan-to-value falls to 29.2% and survives the next drop (42.3% at month 11). But it spends emergency money to protect a speculative position while 9% debt stays open.",
+      "rp": "BCB",
+      "dk": "D4|C (0)|v2",
+      "assert": "d.RES==-500"
+     }
+    ]
+   },
+   "why": {
+    "noloan": "Neither is right in general. The answer depends on loan status, size, reserves and the deadline. If Dana had drawn $900 from home savings at the repair bill, both selling and holding would carry a note that her purchase fund is $900 behind.",
+    "loan": "Selling is right here because the loan is near 80%, the deadline is 15 months out, and the reserve does not need to be touched. Holding with a far lower loan-to-value and no deadline could be reasonable."
+   },
+   "takeaway": {
+    "noloan": "A price drop forces a decision only when something depends on it. Decide by what the position is for and what could force you to sell.",
+    "loan": "A loan turns a paper loss into a possible forced sale. Collateral stays locked until you repay."
+   }
+  },
+  {
+   "n": 5,
+   "month": 12,
+   "title": "The Bonus",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "nl_on",
+      "nl_behind",
+      "l_manage",
+      "l_not"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Home savings (purchase cash)",
+       "{pre.HOME}"
+      ],
+      [
+       "Other available cash",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.APEX}",
+       "pre.APEX>0"
+      ],
+      [
+       "ETH value",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "ETH pledged to Keystone",
+       "{pre.PLEDGED}",
+       "pre.PLEDGED>0"
+      ],
+      [
+       "Keystone loan owed",
+       "{pre.KLOAN}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Student loan (6%)",
+       "{pre.STU}"
+      ],
+      [
+       "Emergency fund fully funded?",
+       "Yes"
+      ],
+      [
+       "Keystone loan open?",
+       "{cond(pre.KLOAN>0,\"Yes\",\"No\")|t}"
+      ],
+      [
+       "On plan for $45,000 (insured home savings plus the 12 remaining transfers)?",
+       "{cond(t.t3,\"Yes\",\"No\")|t}"
+      ],
+      [
+       "Loan within Keystone's 50% lending limit (\"manageable\" in this game)?",
+       "{cond(t.t4,\"Yes\",\"No\")|t}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Already $2,000 or more ahead of plan?",
+       "{cond(t.t5,\"Yes\",\"No\")|t}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Lending limit (maximum loan-to-value)",
+       "The most a lender will lend against the collateral on the day the loan is made. In this game: 50%.",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Forced-sale line (liquidation threshold)",
+       "The loan-to-value at which the lender sells the collateral. In this game: 80%.",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Current loan-to-value",
+       "Loan owed divided by current collateral value. It moves every day with the price, and rises as interest builds. Dana today: {pre.ltv|p1}.",
+       "pre.KLOAN>0"
+      ]
+     ]
+    }
+   ],
+   "situation": {
+    "nl_on": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nWhat should Dana do with the bonus?",
+    "nl_behind": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nWhat should Dana do with the bonus?",
+    "l_manage": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nDana still owes Keystone Loans {pre.KLOAN}. Her pledged ETH is worth {pre.ETH}, so her loan is {pre.ltv|p1} of its value.\n\nKeystone's rules (fictional): Lending limit 50%: the most Keystone will lend against ETH when a loan is made. Forced-sale line 80%: if the loan reaches 80% of the ETH's value, Keystone sells the ETH. For Dana, that happens if her ETH falls from {pre.ETH} to about {pre.KLOAN/D(\"0.8\")|r}, a drop of about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price. (The loan grows a little each month, so that line moves up slowly.)\n\nWhat should Dana do with the bonus?",
+    "l_not": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nDana still owes Keystone Loans {pre.KLOAN}. Her pledged ETH is worth {pre.ETH}, so her loan is {pre.ltv|p1} of its value.\n\nKeystone's rules (fictional): Lending limit 50%: the most Keystone will lend against ETH when a loan is made. Forced-sale line 80%: if the loan reaches 80% of the ETH's value, Keystone sells the ETH. For Dana, that happens if her ETH falls from {pre.ETH} to about {pre.KLOAN/D(\"0.8\")|r}, a drop of about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price. (The loan grows a little each month, so that line moves up slowly.)\n\nWhat should Dana do with the bonus?"
+   },
+   "options": {
+    "a": {
+     "t": "Use it to prepay the 6% student loan.",
+     "tv": [
+      {
+       "v": [
+        "l_manage",
+        "l_not"
+       ],
+       "t": "Repay the outstanding Keystone crypto-backed loan, then put the remaining bonus into home savings."
+      }
+     ]
+    },
+    "b": {
+     "t": "Add it to home savings.",
+     "tv": [
+      {
+       "v": [
+        "l_manage",
+        "l_not"
+       ],
+       "t": "Add the whole bonus to home savings and keep the Keystone loan open."
+      }
+     ]
+    },
+    "c": {
+     "t": "Deposit it in Apex Yield."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v in ['l_manage','l_not']",
+      "text": "You cleared a 9% debt that could have forced a sale of your ETH, and only {pre.KLOAN} left your purchase fund. The other {D(2000)-pre.KLOAN} went to home savings. Less cash means less room at closing. You will see how much in month 23.",
+      "ref": "You cleared a 9% debt that could have forced a sale of your ETH, and only $432.85 left your purchase fund. The other $1,567.15 went to home savings. Less cash means less room at closing. You will see how much in month 23.",
+      "rp": "BCBC",
+      "dk": "D5|A, Keystone loan open",
+      "assert": "d.KLOAN==-pre.KLOAN and d.HOME==2000-pre.KLOAN"
+     },
+     {
+      "when": "v in ['nl_on','nl_behind']",
+      "text": "Prepaying a 6% loan is a guaranteed 6% saving. On the reference path interest saved through month 24 is $123.36 and payoff moves from month 56 to month 46. The cost is liquidity: $2,000 cannot come back, and purchase cash is $2,000 lower.",
+      "ref": "Prepaying a 6% loan is a guaranteed 6% saving. On the reference path interest saved through month 24 is $123.36 and payoff moves from month 56 to month 46. The cost is liquidity: $2,000 cannot come back, and purchase cash is $2,000 lower.",
+      "rp": "BCAC",
+      "dk": "D5|A, no loan",
+      "assert": "d.STU==-2000"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='l_manage'",
+      "text": "You kept every dollar of the bonus working toward the deadline and left a 9% loan open. The loan is smaller than Keystone would lend today and ETH would have to fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} more before a forced sale. That is a real risk, only a small one right now. Watch it if the price drops, and remember the interest keeps building.",
+      "ref": "You kept every dollar of the bonus working toward the deadline and left a 9% loan open. The loan is smaller than Keystone would lend today and ETH would have to fall about ⟨46%⟩ more before a forced sale. That is a real risk, only a small one right now. Watch it if the price drops, and remember the interest keeps building.",
+      "rp": "BCBC",
+      "dk": "D5|B, Keystone loan open, manageable",
+      "refre": "You\\ kept\\ every\\ dollar\\ of\\ the\\ bonus\\ working\\ toward\\ the\\ deadline\\ and\\ left\\ a\\ 9%\\ loan\\ open\\.\\ The\\ loan\\ is\\ smaller\\ than\\ Keystone\\ would\\ lend\\ today\\ and\\ ETH\\ would\\ have\\ to\\ fall\\ about\\ -?\\$?[\\d,]+(?:\\.\\d+)?%?\\ more\\ before\\ a\\ forced\\ sale\\.\\ That\\ is\\ a\\ real\\ risk,\\ only\\ a\\ small\\ one\\ right\\ now\\.\\ Watch\\ it\\ if\\ the\\ price\\ drops,\\ and\\ remember\\ the\\ interest\\ keeps\\ building\\.",
+      "assert": "d.HOME==2000 and d.KLOAN==0"
+     },
+     {
+      "when": "v=='l_not'",
+      "text": "Your loan is above the 50% Keystone would lend today. In this game that counts as a loan to clear first, so keeping it open does not earn credit. It is not a prediction that a sale was coming: ETH would still have to fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} more. It is a game rule for scoring. Real lenders and protocols set their own limits.",
+      "ref": "Your loan is above the 50% Keystone would lend today. In this game that counts as a loan to clear first, so keeping it open does not earn credit. It is not a prediction that a sale was coming: ETH would still have to fall about ⟨36%⟩ more. It is a game rule for scoring. Real lenders and protocols set their own limits.",
+      "rp": "BBBC",
+      "dk": "D5|B, Keystone loan open, not manageable",
+      "refre": "Your\\ loan\\ is\\ above\\ the\\ 50%\\ Keystone\\ would\\ lend\\ today\\.\\ In\\ this\\ game\\ that\\ counts\\ as\\ a\\ loan\\ to\\ clear\\ first,\\ so\\ keeping\\ it\\ open\\ does\\ not\\ earn\\ credit\\.\\ It\\ is\\ not\\ a\\ prediction\\ that\\ a\\ sale\\ was\\ coming:\\ ETH\\ would\\ still\\ have\\ to\\ fall\\ about\\ -?\\$?[\\d,]+(?:\\.\\d+)?%?\\ more\\.\\ It\\ is\\ a\\ game\\ rule\\ for\\ scoring\\.\\ Real\\ lenders\\ and\\ protocols\\ set\\ their\\ own\\ limits\\.",
+      "assert": "d.HOME==2000 and d.KLOAN==0"
+     },
+     {
+      "when": "v in ['nl_on','nl_behind']",
+      "text": "The money stays protected and gives the purchase fund a cushion. The 6% loan stays.",
+      "ref": "The money stays protected and gives the purchase fund a cushion. The 6% loan stays.",
+      "rp": "BCAC",
+      "dk": "D5|B, no loan",
+      "assert": "d.HOME==2000"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "\"Audit pending\" means no independent review yet. In month 16 Apex Yield is exploited. A recovery plan in month 20 returns 55%: {row(20,\"Apex recovery\",\"HOME\")} comes back and {2000-row(20,\"Apex recovery\",\"HOME\")} is lost.",
+      "ref": "\"Audit pending\" means no independent review yet. In month 16 Apex Yield is exploited. A recovery plan in month 20 returns 55%: $1,100 comes back and $900 is lost.",
+      "rp": "BCAC",
+      "dk": "D5|C (0)",
+      "assert": "d.APEX==2000 and row(20,\"Apex recovery\",\"HOME\")==1100"
+     }
+    ]
+   },
+   "after": {
+    "l_manage": "In this game, a Keystone loan counts as 'manageable' if it is at or below Keystone's 50% lending limit. That line is a simplification for scoring, not a safe level in real life and not financial advice. A loan below it can still be sold if the price falls far enough, and a loan above it may take a large fall to be sold. Check your own lender's terms.",
+    "l_not": "In this game, a Keystone loan counts as 'manageable' if it is at or below Keystone's 50% lending limit. That line is a simplification for scoring, not a safe level in real life and not financial advice. A loan below it can still be sold if the price falls far enough, and a loan above it may take a large fall to be sold. Check your own lender's terms."
+   },
+   "cmp": {
+    "l_manage": {
+     "h": [
+      "Repay Keystone, rest to home savings",
+      "All to home savings, keep the loan"
+     ],
+     "rows": [
+      [
+       "What it protects",
+       "Dana from a forced sale of her ETH, and from 9% interest",
+       "The purchase deadline, with {pre.KLOAN} more cash toward it"
+      ],
+      [
+       "Purchase cash after this decision",
+       "{x.a.HOME}",
+       "{x.b.HOME}"
+      ],
+      [
+       "What it costs",
+       "{pre.KLOAN} of purchase cash. In this story that can mean closing in month 25 and a $450 illustrative extension fee",
+       "A 9% loan stays open (about $3.15 a month) and its collateral stays locked until Dana repays it"
+      ],
+      [
+       "What it risks",
+       "A later closing if the cash margin at month 24 is thin",
+       "ETH must fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price before a forced sale. If that happens, Dana loses about 5% extra of the loan and the ETH"
+      ]
+     ]
+    }
+   },
+   "takeaway": "Compare any yield with the certain return of paying down debt and the safety of a funded goal. A loan secured by a falling asset has a trigger as well as a rate, and the lender's lending limit is not the same as its forced-sale line. Weigh both, then check what the money does for a deadline."
+  },
+  {
+   "n": 6,
+   "month": 19,
+   "title": "The Paper Trail",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "main"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Home savings (purchase cash)",
+       "{pre.HOME}"
+      ],
+      [
+       "Other available cash",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.APEX}",
+       "pre.APEX>0"
+      ],
+      [
+       "ETH value",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "ETH pledged to Keystone",
+       "{pre.PLEDGED}",
+       "pre.PLEDGED>0"
+      ],
+      [
+       "Keystone loan owed",
+       "{pre.KLOAN}",
+       "pre.KLOAN>0"
+      ],
+      [
+       "Student loan (6%)",
+       "{pre.STU}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Dana's lender is moving toward closing. The underwriter wants large deposits explained and the source of her funds documented. Her loan officer reminds her that the figures on her Loan Estimate are estimates and that the Closing Disclosure will give the final numbers at least three business days before closing. Meanwhile Harbor Vault announces a $2,000-per-week withdrawal limit.\n\nHer DeFi holdings: Harbor Vault {pre.VAULT}, ETH {pre.ETH} (index 55), Keystone loan {pre.KLOAN}. Home savings {pre.HOME}.\n\nWhat should Dana do?",
+   "options": {
+    "a": {
+     "t": "Start moving all DeFi holdings into her bank accounts now (repaying any crypto loan first), and save the statements and transaction history."
+    },
+    "b": {
+     "t": "Wait until about three weeks before closing to move the money, to keep earning vault interest."
+    },
+    "c": {
+     "t": "Move everything now, but keep no records, since it is her own money."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "pre.VAULT>0 and pre.ETH>0 and pre.KLOAN==0",
+      "text": "The vault clears in {ceil(pre.VAULT/2000)|n} weeks ({pre.VAULT} to home savings). The ETH sells for {d.OTHER} net of a {d.FEES} fee into Other available cash. The paper trail is ready.",
+      "ref": "The vault clears in 4 weeks ($6,514.64 to home savings). The ETH sells for $1,313.40 net of a $6.60 fee into Other available cash. The paper trail is ready.",
+      "rp": "CCACB",
+      "dk": "D6|A (100)",
+      "assert": "d.HOME==pre.VAULT and post.VAULT==0 and post.ETH==0"
+     },
+     {
+      "when": "True",
+      "text": "{cond(pre.VAULT>0,\"The vault clears in \"+str(ceil(pre.VAULT/2000))+\" weeks (\"+m(pre.VAULT)+\" to home savings). \",\"\")|t}{cond(pre.KLOAN>0,\"The Keystone loan (\"+m(pre.KLOAN)+\") is repaid first with Repay with collateral. \",\"\")|t}{cond(pre.ETH>0,\"Selling the ETH (\"+m(pre.ETH)+\") costs a \"+m(d.FEES)+\" fee. \"+cond(pre.KLOAN>0,\"After the loan is repaid, \",\"\")+m(d.OTHER)+\" reaches Other available cash. \",\"\")|t}The paper trail is ready.",
+      "ref": null,
+      "rp": "",
+      "dk": "D6|A (100)",
+      "assert": "post.VAULT==0 and post.ETH==0 and post.KLOAN==0 and (pre.ETH==0 or d.OTHER == pre.ETH - d.FEES - pre.KLOAN)",
+      "approved": "dana.q6.a.other-holdings (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     }
+    ],
+    "b": [
+     {
+      "when": "eom(24).VAULT>0",
+      "text": "At $2,000 a week only $6,000 can leave in the last three weeks. About {eom(24).VAULT|r} would remain in the vault. A bigger vault strands far more (in this story the largest vault, about $22,801 at this point, would leave about $17,203 behind). The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+      "ref": "At $2,000 a week only $6,000 can leave in the last three weeks. About $629 would remain in the vault. A bigger vault strands far more (about $17,203 on a $21,000 vault). The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+      "rp": "CCACB",
+      "dk": "D6|B (0)",
+      "assert": "d.HOME==0 and run.docfee==450",
+      "approved": "dana.q6.b.example-amount (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged",
+      "locked": "At $2,000 a week only $6,000 can leave in the last three weeks. About {eom(24).VAULT|r} would remain in the vault. A bigger vault strands far more (about $17,203 on a $21,000 vault). The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense)."
+     },
+     {
+      "when": "True",
+      "text": "{cond(pre.VAULT>0,\"The vault balance could all leave at $2,000 a week in the last three weeks, so nothing was stranded. \",\"\")|t}The late scramble also adds Dana's $450 records-reconstruction cost (fictional, her own expense).",
+      "ref": null,
+      "rp": "",
+      "dk": "D6|B (0)",
+      "assert": "run.docfee==450 and eom(24).VAULT==0",
+      "approved": "dana.q6.b.nothing-stranded (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "The money moves, but nothing shows where it came from, so Dana pays the same $450 (fictional) to rebuild the paper trail.",
+      "ref": "The money moves, but nothing shows where it came from, so Dana pays the same $450 (fictional) to rebuild the paper trail.",
+      "rp": "CCACB",
+      "dk": "D6|C (0)",
+      "assert": "run.docfee==450"
+     }
+    ]
+   },
+   "why": "DeFi balances do not spend like bank balances. Withdrawal limits, collateral locks and documentation take time, so exits belong well before the date the money is needed.",
+   "takeaway": "Plan your exit from a DeFi position before the day you need the cash, and keep records of every transfer."
+  },
+  {
+   "n": 7,
+   "month": 23,
+   "title": "The Final Numbers",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "gap",
+      "nogap"
+     ],
+     "items": [
+      [
+       "Opening balance, month 23",
+       "{pre.HOME}"
+      ],
+      [
+       "End of month 23 (after the $1,000 transfer)",
+       "{pre.HOME+1000}"
+      ],
+      [
+       "Projected closing balance (end of month 24)",
+       "{proj}"
+      ],
+      [
+       "Requirement (total purchase cash needed)",
+       "{run.need}"
+      ],
+      [
+       "Gap",
+       "{gap}",
+       "gap>0"
+      ],
+      [
+       "Surplus",
+       "{proj-run.need}",
+       "gap<=0"
+      ],
+      [
+       "Other available cash (not counted)",
+       "{pre.OTHER}",
+       "pre.OTHER>0"
+      ],
+      [
+       "Emergency savings",
+       "{pre.RES}"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ]
+     ],
+     "note": "Reserve rule for the emergency-savings answer: Dana's emergency savings can be drawn only if the draw makes the purchase affordable at closing. If the gap is larger than her emergency savings, the transfer is refused: it would drain her safety net and still not buy the house. She keeps her reserve and the delay rules apply as for any other answer. If a draw goes through and would leave her under one month of essentials ($2,900), the screen shows a warning before she confirms. A draw can never exceed the balance."
+    }
+   ],
+   "situation": {
+    "gap": "Her lender updates its cost estimates. Estimated closing costs rose from $11,500 to $13,100 (updated property-tax and insurance deposits and prepaid items), so Cash to Close is now $43,100 ($30,000 down + $13,100). Her mover's quote rose from $3,500 to $4,400. Dana's total purchase cash needed is $47,500. If the records cost from question 6 applies it is $47,950. The Closing Disclosure will arrive at least three business days before closing and can still differ.{cond(pre0.OTHER>0,\"\\n\\nDana holds Other available cash \"+m(pre0.OTHER)+\". It does not count toward the purchase unless she moves it. (An unscored control, shown before she answers, moves it into home savings. It is not one of the answers.) When Dana uses it, the screen recalculates today's balance, the projected closing balance, the gap and which answers can earn credit. She can use or clear it until she locks her answer.\",\"\")|t}\n\nToday (month 23): home savings {pre.HOME}.\nProjected at closing (end of month 24): {proj}.\nGap: {gap}.\n\nHow should Dana handle the gap?",
+    "nogap": "Her lender updates its cost estimates. Estimated closing costs rose from $11,500 to $13,100 (updated property-tax and insurance deposits and prepaid items), so Cash to Close is now $43,100 ($30,000 down + $13,100). Her mover's quote rose from $3,500 to $4,400. Dana's total purchase cash needed is $47,500. If the records cost from question 6 applies it is $47,950. The Closing Disclosure will arrive at least three business days before closing and can still differ.{cond(pre0.OTHER>0,\"\\n\\nDana holds Other available cash \"+m(pre0.OTHER)+\". It does not count toward the purchase unless she moves it. (An unscored control, shown before she answers, moves it into home savings. It is not one of the answers.) When Dana uses it, the screen recalculates today's balance, the projected closing balance, the gap and which answers can earn credit. She can use or clear it until she locks her answer.\",\"\")|t}\n\nToday (month 23): home savings {pre.HOME}.\nProjected at closing (end of month 24): {proj}.\nProjected cash exceeds the requirement by {proj-run.need}.\n\nHow should Dana handle the gap?"
+   },
+   "options": {
+    "a": {
+     "t": "Put $5,000 of home savings into Surge Pool, advertising 14%, for the last 30 days to earn the difference."
+    },
+    "b": {
+     "t": "Cover any gap from emergency savings at closing, only if that covers the whole gap."
+    },
+    "c": {
+     "t": "Cover any gap with savings from her flexible budget first, up to $450 at the end of month 23 and up to $450 at the end of month 24. If still short, delay closing one month at a time, up to three months. No new debt, no yield bets, no emergency savings."
+    }
+   },
+   "closing_note": "{cond(ans[4]==\"A\" and d5.KLOAN>0 and run.delay==1,\"Clearing the Keystone loan used \"+m(d5.KLOAN)+\" of your purchase fund. At month 24 you were \"+m(run.need-m24.HOME)+\" short of the requirement and the budget could not cover it, so closing moved to month 25. That was the price of removing a loan that could have forced a sale of your ETH. Your score reflects the quality of the decision, not the closing month.\",\"\")|t}",
+   "feedback": {
+    "a": [
+     {
+      "when": "gap>0 and run.delay==1",
+      "text": "To earn {gap} in a month at 14% APR Dana would need about {gap/(D(\"0.14\")/12)|r} in the pool ({gap} ÷ (14% ÷ 12)). In this story the pool returns −4.0%: a {fin.LOSS-pre.LOSS} loss. The gap becomes {gap+fin.LOSS-pre.LOSS} and she needs a one-month delay.",
+      "ref": "To earn $500 in a month at 14% APR Dana would need about $42,857 in the pool ($500 ÷ (14% ÷ 12)). In this story the pool returns −4.0%: a $200 loss. The gap becomes $700 and she needs a one-month delay.",
+      "rp": "BCACBA",
+      "dk": "D7|A (0)",
+      "assert": "fin.LOSS-pre.LOSS==200"
+     },
+     {
+      "when": "gap>0",
+      "text": "To earn {gap} in a month at 14% APR Dana would need about {gap/(D(\"0.14\")/12)|r} in the pool ({gap} ÷ (14% ÷ 12)). In this story the pool returns −4.0%: a {fin.LOSS-pre.LOSS} loss. The gap becomes {gap+fin.LOSS-pre.LOSS}{cond(run.delay>0,\" and she needs a \"+str(int(run.delay))+\"-month delay\"+cond(run.status==\"paused\",\" and the purchase is still paused\",\"\"),\"\")|t}.",
+      "ref": null,
+      "rp": "",
+      "dk": "D7|A (0)",
+      "assert": "run.gapfinal == gap+fin.LOSS-pre.LOSS-1000*run.delay and fin.LOSS-pre.LOSS==200",
+      "approved": "dana.q7.a.other-outcomes (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     },
+     {
+      "when": "gap<=0",
+      "text": "The pool returns −4.0% in this story: a {fin.LOSS-pre.LOSS} loss. Putting money into a yield bet when nothing needs covering only adds risk.",
+      "ref": null,
+      "rp": "",
+      "dk": "D7|A (0)",
+      "assert": "fin.LOSS-pre.LOSS==200",
+      "approved": "dana.q7.a.no-gap (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "Drawing from emergency savings closes on time when the reserve can cover the gap. If the reserve cannot cover the gap, the draw is refused and nothing moves. That spends the fund meant for her first year as a homeowner. With no gap, drawing $0 changes nothing, exactly what the budget-first plan does, so the two score the same.",
+      "ref": null,
+      "rp": "BCACBA",
+      "dk": "D7|B (0 with a gap; 100 with no gap)",
+      "locked": "With a gap her reserve can cover, B closes on time by drawing from emergency savings. If the reserve cannot cover the gap, B is refused and nothing moves. That spends the fund meant for her first year as a homeowner. With no gap B draws $0 and changes nothing, exactly what the budget-first plan does, so the two score the same.",
+      "assert": "True",
+      "approved": "dana.q7.b.letter-references (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     }
+    ],
+    "c": [
+     {
+      "when": "gap>450 and gap<=900 and run.delay==0",
+      "text": "{min(D(450),gap)} comes from the flexible budget at the end of month 23 and the remaining {gap-min(D(450),gap)} at the end of month 24 (down to the $250 floor). No money arrives at the moment of decision, so a {gap} gap cannot be covered by one $450 month. Closing stays on time and no new risk is added.",
+      "ref": "$450 comes from the flexible budget at the end of month 23 and the remaining $50 at the end of month 24 (down to the $250 floor). No money arrives at the moment of decision, so a $500 gap cannot be covered by one $450 month. Closing stays on time and no new risk is added.",
+      "rp": "BCACBA",
+      "dk": "D7|C (100)",
+      "assert": "True"
+     },
+     {
+      "when": "gap>0",
+      "text": "The flexible budget supplies up to $450 at the end of month 23 and up to $450 at the end of month 24, so no new debt, no yield bets and no emergency savings are used. The gap was {gap}; closing {cond(run.delay>0,\"moved by \"+str(int(run.delay))+\" month(s)\",\"stays on time\")|t}{cond(run.status==\"paused\",\" and the purchase is paused\",\"\")|t}.",
+      "ref": null,
+      "rp": "",
+      "dk": "D7|C (100)",
+      "assert": "d.RES==0 and d.POOL==0 and d.KLOAN==0",
+      "approved": "dana.q7.c.other-outcomes (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     },
+     {
+      "when": "gap<=0",
+      "text": "There is no gap to cover, so nothing needs to move. Changing nothing is exactly what this plan does.",
+      "ref": null,
+      "rp": "",
+      "dk": "D7|C (100)",
+      "approved": "dana.q7.c.no-gap (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     }
+    ]
+   },
+   "after": "Good decisions do not guarantee outcomes. You can make every decision well and still close later than planned. Prices, fees and market moves were outside your control. Your score measures your decisions, not the closing date.",
+   "takeaway": "Close a cash gap with the cash you control, not with yield. Estimates change, so plan for the Closing Disclosure to differ."
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flq.defi-rl.tree.v1",
+  "title": "DeFi in Real Life runtime decision tree (generated; never hand-edited)",
+  "type": "object",
+  "required": ["schema", "slug", "id", "name", "logic", "text", "draft", "pending", "hash", "Q", "N", "S"],
+  "properties": {
+    "schema": { "const": "flq.defi-rl.tree.v1" },
+    "slug": { "enum": ["zoe", "maya", "jules", "marcus", "elena", "dana"] },
+    "logic": { "type": "string", "description": "Scoring/ledger version. A change resets saved progress." },
+    "text": { "type": "string", "description": "Wording version. A change never resets banked points." },
+    "draft": { "type": "boolean" },
+    "pending": { "type": "array", "items": { "type": "string" }, "description": "Unapproved wording ids; blocks release." },
+    "Q": { "type": "array", "minItems": 7, "maxItems": 7, "items": {
+      "type": "object", "required": ["id", "n", "month", "title", "opts"],
+      "properties": { "id": { "pattern": "^defi\\.[a-z]+\\.q[1-7]$" }, "n": { "type": "integer" }, "month": { "type": "integer" },
+        "title": { "type": "integer", "description": "index into S" }, "tk": { "type": "integer" },
+        "opts": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "pattern": "^defi\\.[a-z]+\\.q[1-7]\\.opt_[abc]$" } },
+        "vars": { "type": "array", "items": { "pattern": "^defi\\.[a-z]+\\.q[1-7]\\.var_[a-z0-9_]+$" } } } } },
+    "N": { "type": "object", "description": "node key = letters of answers given so far ('' .. 7); Dana's last question also has key+'+'",
+      "additionalProperties": { "type": "object", "required": ["v", "sit", "show", "note", "o"],
+        "properties": { "v": { "type": "string" }, "sit": { "type": "integer" }, "note": { "type": "integer" },
+          "show": { "type": "array", "items": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 } },
+          "w": { "type": "integer" }, "aft": { "type": "integer" }, "tk": { "type": "integer" }, "ac": { "const": 1 },
+          "cmp": { "type": "object", "required": ["h", "r"] },
+          "o": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "object", "required": ["t", "f", "p"],
+            "properties": { "t": { "type": "integer" }, "f": { "type": "integer" }, "p": { "enum": [0, 100] }, "cn": { "type": "integer" }, "u": { "type": "integer" } } } } } } },
+    "S": { "type": "array", "items": { "type": "string" }, "description": "interned string table" }
+  }
+}

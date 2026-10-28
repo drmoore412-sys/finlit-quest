@@ -1,0 +1,52 @@
+/* DeFi in Real Life — styles for the Financial City journeys (educational draft). Uses the page's existing design tokens; prefix rl-. */
+.rl-stats{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.rl-draft{margin:0;padding:10px 14px;border:1px dashed var(--line);border-radius:10px;background:rgba(233,185,73,.07);color:var(--gold-soft);font-size:.88rem;max-width:90ch}
+.rl-hero{display:grid;gap:14px;align-content:start;background:radial-gradient(600px 360px at 85% 40%,rgba(139,124,246,.22),transparent 70%),var(--panel)}
+.rl-facts{display:grid;gap:6px}
+.rl-cards{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.rl-card{width:100%;min-height:44px;text-align:left;display:grid;gap:6px;align-content:start;padding:14px 16px;border:1px solid var(--line-soft);border-left:3px solid var(--violet);border-radius:12px;background:rgba(255,255,255,.04);color:var(--text);font:inherit;cursor:pointer}
+.rl-card:hover,.rl-card:focus-visible{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(233,185,73,.25)}
+.rl-card small{color:var(--muted);line-height:1.4}
+.rl-card-meta{font-variant-numeric:tabular-nums}
+.rl-err{color:var(--learn);margin:0}
+.rl-notice{margin:0;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(139,124,246,.08);font-size:.9rem}
+.rl-prog{list-style:none;margin:0;padding:0;display:flex;gap:8px;flex-wrap:wrap}
+.rl-step{display:flex}
+.rl-dot{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid var(--line-soft);background:rgba(255,255,255,.05);font-weight:700;font-variant-numeric:tabular-nums}
+.rl-step.good .rl-dot{border-color:var(--good);background:rgba(82,214,160,.18)}
+.rl-step.learn .rl-dot{border-color:var(--learn);background:rgba(242,180,90,.16)}
+.rl-step.now .rl-dot{border-color:var(--gold);box-shadow:0 0 0 3px rgba(233,185,73,.28)}
+.rl-card-q{display:grid;gap:16px}
+.rl-q-head{display:flex;gap:14px;align-items:center}
+.rl-badge{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:14px;font:700 1.5rem var(--font-display);color:#1c1405;background:linear-gradient(180deg,#f3cc66,#d9a232);box-shadow:0 0 18px rgba(233,185,73,.35)}
+.rl-sit{max-width:72ch}
+.rl-sit p,.rl-ftext p{margin:0 0 .7em}
+.rl-state{width:100%;max-width:72ch;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
+.rl-state th,.rl-state td{padding:6px 10px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
+.rl-state th{font-weight:600;color:var(--muted);width:44%}
+.rl-assume{border:1px solid var(--line-soft);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;background:rgba(139,124,246,.08);padding:10px 14px;font-size:.88rem;color:var(--muted);max-width:72ch}
+.rl-assume p{margin:0 0 .5em}
+.rl-alloc{display:grid;gap:4px;padding:10px 14px;border:1px solid var(--line-soft);border-radius:10px;max-width:72ch}
+.rl-alloc label{display:flex;gap:10px;align-items:center;min-height:44px;cursor:pointer}
+.rl-alloc input{width:20px;height:20px}
+.rl-opts{display:grid;gap:10px}
+.rl-opt{display:flex;gap:12px;align-items:flex-start;min-height:56px;text-align:left}
+.rl-opt[disabled]{opacity:.7;cursor:default}
+.rl-num{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:8px;border:1px solid var(--line);font-weight:700}
+.rl-ctext{display:grid;gap:4px;flex:1;min-width:0;overflow-wrap:anywhere}
+.rl-pick{color:var(--gold-soft);font-weight:600}
+.rl-unavail{color:var(--learn)}
+.rl-fb{display:grid;gap:12px;border-top:1px solid var(--line-soft);padding-top:14px;max-width:72ch}
+.rl-fb .verdict{display:flex;gap:12px;align-items:center}
+.rl-fb .pts{font:700 1.6rem var(--font-display);font-variant-numeric:tabular-nums}
+.rl-fb .good-t,.rl-result .good-t,.rl-review .good-t{color:var(--good)}
+.rl-fb .learn-t,.rl-result .learn-t,.rl-review .learn-t{color:var(--learn)}
+.rl-note{margin:0;font-size:.9rem;color:var(--muted)}
+.rl-cmp{overflow-x:auto}
+.rl-cmp table{border-collapse:collapse;font-size:.85rem;min-width:100%;font-variant-numeric:tabular-nums}
+.rl-cmp th,.rl-cmp td{padding:5px 8px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
+.rl-nav{justify-content:space-between}
+.rl-review{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rl-review li{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+@media (max-width:520px){.rl-q-head{align-items:flex-start}.rl-badge{width:44px;height:44px;font-size:1.25rem}}
+@media (prefers-reduced-motion:reduce){.rl-card,.rl-opt{transition:none}}

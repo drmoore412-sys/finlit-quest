@@ -1,0 +1,708 @@
+{
+ "schema": "flq.defi-rl.journey.v1",
+ "slug": "marcus",
+ "id": "defi.marcus",
+ "display": {
+  "name": "Marcus Rivera",
+  "blurb": "A freelance designer, 38, with lumpy income: paid in USDC, a late client, a scam message and an exploited vault."
+ },
+ "logic_ver": "0.2",
+ "text_ver": "0.2.2",
+ "status": "APPROVED & LOCKED (curriculum design only)",
+ "source_doc": "batch1-marcus-journey-v0.2-APPROVED-LOCKED.md",
+ "pending_wording": [],
+ "intro": "Marcus Rivera, 38, freelance designer. His income is lumpy, so he keeps three ring-fenced pools: runway (emergency savings), tax, and optional (experiments). Business cash $2,400, personal checking $900, emergency savings $2,600, no crypto, no debt. A business credit card (limit $1,500, 2% a month) is unused.",
+ "plan": [
+  "Stablecoin limit: hold no more than $1,500 in USDC at a time.",
+  "Runway: emergency savings target $6,000 (two months of personal spending). He has $2,600. Runway money is not for yield.",
+  "Tax reserve is committed money. It is for the next estimated payment, not for experiments. Real estimated-tax dates are April 15, June 15, September 15 and January 15; this story uses a simplified schedule and an assumed set-aside rate.",
+  "Operating buffer: about $1,500 stays in business cash. Cash above it is surplus that can be moved.",
+  "Records: log every crypto receipt and every conversion.",
+  "Wallet safety: never sign an unsolicited request, and never pay a fee to \"release\" money.",
+  "No chasing losses."
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "month": 1,
+   "title": "Paid in USDC",
+   "rung": "Records and conversion",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Business cash",
+       "{pre.BIZ} after this month's $1,500 costs and $820 tax set-aside"
+      ],
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER} (target $6,000)"
+      ],
+      [
+       "Tax reserve",
+       "{pre.TAX}"
+      ],
+      [
+       "USDC received",
+       "{pre.USDC} (your limit: $1,500)"
+      ]
+     ],
+     "note": "(Month 1 receipts: $3,100 in dollars plus the $2,500 USDC invoice.)"
+    }
+   ],
+   "situation": "A client pays a $2,500 invoice in USDC. In this story the invoice counts as $2,500 of income when you receive it, whether or not you convert it, so 20% of net receipts is set aside either way (a simplifying assumption in this scenario). USDC is a dollar stablecoin, not an insured deposit. You can convert it to dollars for a 1% fee.",
+   "options": {
+    "a": {
+     "t": "Convert all of it to dollars."
+    },
+    "b": {
+     "t": "Convert half."
+    },
+    "c": {
+     "t": "Hold all of it in USDC."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You converted all {pre.USDC} (fee {fee}). Business cash is now {post.BIZ} and you hold no USDC. It earns 100 because it brings your USDC to $0, inside your $1,500 limit. Next: more business cash for the months ahead, and nothing in USDC to record or protect.",
+      "ref": "You converted all $2,500 (fee $25). Business cash is now $5,655 and you hold no USDC. It earns 100 because it brings your USDC to $0, inside your $1,500 limit. Next: more business cash for the months ahead, and nothing in USDC to record or protect.",
+      "rp": "",
+      "dk": "Q1|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You converted half (fee {fee}). Business cash is now {post.BIZ} and you hold {post.USDC} in USDC. It earns 100 because the {post.USDC} you keep is within your $1,500 limit. Next: you still hold USDC, so wallet safety (Q5) and records and conversion (Q6) apply to it.",
+      "ref": "You converted half (fee $12.50). Business cash is now $4,417.50 and you hold $1,250 in USDC. It earns 100 because the $1,250 you keep is within your $1,500 limit. Next: you still hold USDC, so wallet safety (Q5) and records and conversion (Q6) apply to it.",
+      "rp": "",
+      "dk": "Q1|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You held all {post.USDC} in USDC. Business cash stays at {post.BIZ}. It scores 0 because {post.USDC} is above your $1,500 limit, and a stablecoin is not an insured account. Next: business cash is {x.b.BIZ-post.BIZ} lower than if you had converted half and {x.a.BIZ-post.BIZ} lower than if you had converted it all. That matters in Q4 if a client pays late.",
+      "ref": "You held all $2,500 in USDC. Business cash stays at $3,180. It scores 0 because $2,500 is above your $1,500 limit, and a stablecoin is not an insured account. Next: business cash is $1,237.50 lower than if you had converted half and $2,475 lower than if you had converted it all. That matters in Q4 if a client pays late.",
+      "rp": "",
+      "dk": "Q1|C"
+     }
+    ]
+   },
+   "takeaway": "A payment in crypto is still a payment you have to plan for. Decide how much you will hold before it arrives, and set the tax money aside either way."
+  },
+  {
+   "n": 2,
+   "month": 3,
+   "title": "Yield on the runway?",
+   "rung": "Runway",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER} (target $6,000: {pre.EMER/6000*100|p0})"
+      ],
+      [
+       "Tax reserve",
+       "{pre.TAX} (the month-4 payment of $2,460 is due next month)"
+      ],
+      [
+       "USDC",
+       "{pre.USDC}"
+      ]
+     ]
+    }
+   ],
+   "situation": "A friend shows you Apex Yield. It advertises about 0.4% a month on a dollar balance. It is unaudited, not insured, and the rate varies and is never guaranteed. You would fund it from emergency savings.",
+   "options": {
+    "a": {
+     "t": "Leave the emergency savings alone."
+    },
+    "b": {
+     "t": "Move $1,000 into Apex Yield."
+    },
+    "c": {
+     "t": "Move $2,000 into Apex Yield."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You left your emergency savings alone. It earns 100 because the runway is below your target and runway money is not for yield. \"About 0.4% a month\" is an advertised rate, not a promise. Next: {pre.EMER} stays available for the month-6 client delay.",
+      "ref": "You left your emergency savings alone. It earns 100 because the runway is below your target and runway money is not for yield. \"About 0.4% a month\" is an advertised rate, not a promise. Next: $2,600 stays available for the month-6 client delay.",
+      "rp": "",
+      "dk": "Q2|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You moved $1,000 (fee {fee}; {d.VAULT} in the vault). Emergency savings are now {post.EMER}. It scores 0 because the runway was already below target. For the next months the vault is credited about 0.4% a month (a scenario assumption; this did not decide the score). Next: $1,000 less runway at month 6, and the vault balance matters again at month 12.",
+      "ref": "You moved $1,000 (fee $5; $995 in the vault). Emergency savings are now $1,600. It scores 0 because the runway was already below target. For the next months the vault is credited about 0.4% a month (a scenario assumption; this did not decide the score). Next: $1,000 less runway at month 6, and the vault balance matters again at month 12.",
+      "rp": "",
+      "dk": "Q2|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You moved $2,000 (fee {fee}; {d.VAULT} in the vault). Emergency savings are now {post.EMER}. It scores 0 for the same reason, at a larger size. Next: only {post.EMER} of runway at month 6, and a larger vault balance at month 12.",
+      "ref": "You moved $2,000 (fee $10; $1,990 in the vault). Emergency savings are now $600. It scores 0 for the same reason, at a larger size. Next: only $600 of runway at month 6, and a larger vault balance at month 12.",
+      "rp": "",
+      "dk": "Q2|C"
+     }
+    ]
+   },
+   "takeaway": "Build the runway before chasing yield. A yield offer is not a reason to put money you may need soon into an unaudited product."
+  },
+  {
+   "n": 3,
+   "month": 5,
+   "title": "The tax money in the corner",
+   "rung": "Tax",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "Tax reserve",
+       "{pre.TAX}"
+      ],
+      [
+       "Next estimated payment",
+       "$1,820, due month 7"
+      ]
+     ],
+     "note": "That payment is the sum of what is set aside in months 4, 5 and 6; months 4 and 5 ({pre.TAX}) are already in the reserve and month 6 adds $180."
+    }
+   ],
+   "situation": "The reserve is idle for two months before the payment. A friend suggests parking part of it somewhere that \"earns\" until it is due, then selling back before month 7.",
+   "options": {
+    "a": {
+     "t": "Keep the reserve in cash."
+    },
+    "b": {
+     "t": "Park $1,000 of it in Apex Yield until month 7."
+    },
+    "c": {
+     "t": "Park $1,500 of it in ETH until month 7."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You kept the reserve in cash. It earns 100 because the reserve already belongs to the month-7 payment. Next: the payment is made in full on time.",
+      "ref": "You kept the reserve in cash. It earns 100 because the reserve already belongs to the month-7 payment. Next: the payment is made in full on time.",
+      "rp": "",
+      "dk": "Q3|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You parked $1,000 for two months (fee {fee}), and sold it back at month 7 (fee {lt.fee}). The model credits no yield on this short parking, so the cost was the {fee+lt.fee} of fees; the month-7 payment was still made in full. It scores 0 because the reserve is committed to a payment and the plan keeps it in cash, not because of the fees. Next: a smaller reserve for two months, restored by month 7.",
+      "ref": "You parked $1,000 for two months (fee $5), and sold it back at month 7 (fee $4.98). The model credits no yield on this short parking, so the cost was the $9.98 of fees; the month-7 payment was still made in full. It scores 0 because the reserve is committed to a payment and the plan keeps it in cash, not because of the fees. Next: a smaller reserve for two months, restored by month 7.",
+      "rp": "",
+      "dk": "Q3|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You parked $1,500 in ETH (fee {fee}; {d.ETH} of ETH). In this scenario ETH was priced 15% lower by month 7, so the position was worth {d.ETH+lt.mkt.ETH} (a {-lt.mkt.ETH} market loss); you sold it back (fee {lt.fee}) and {d.ETH+lt.mkt.ETH-lt.fee} returned, {1500-(d.ETH+lt.mkt.ETH-lt.fee)} less than the $1,500 you moved ({-lt.mkt.ETH} market loss plus {fee+lt.fee} of fees). The month-7 payment was still made in full. **The price move did not decide the score.** It scores 0 because the reserve is committed money and the plan keeps it in cash. Next: a reserve {1500-(d.ETH+lt.mkt.ETH-lt.fee)} lower than it would have been.",
+      "ref": "You parked $1,500 in ETH (fee $7.50; $1,492.50 of ETH). In this scenario ETH was priced 15% lower by month 7, so the position was worth $1,268.63 (a $223.87 market loss); you sold it back (fee $6.34) and $1,262.29 returned, $237.71 less than the $1,500 you moved ($223.87 market loss plus $13.84 of fees). The month-7 payment was still made in full. **The price move did not decide the score.** It scores 0 because the reserve is committed money and the plan keeps it in cash. Next: a reserve $237.71 lower than it would have been.",
+      "rp": "",
+      "dk": "Q3|C"
+     }
+    ]
+   },
+   "takeaway": "Tax money is not optional capital. If it is owed in two months, it stays where it can be paid."
+  },
+  {
+   "n": 4,
+   "month": 6,
+   "title": "The client pays late",
+   "rung": "Cash flow",
+   "disclosure": "You are choosing a **standing plan** for months 6 and 7, not predicting this month's gap. The plan is scored on the order it puts your safety nets in: spend less or use your own emergency savings first, and a 2%-a-month card last. That is judged from what you hold now. It does not depend on whether a gap actually appears, and nothing later is used to score it.",
+   "show": [
+    {
+     "v": [
+      "short"
+     ],
+     "items": [
+      [
+       "Business cash after costs and tax set-aside",
+       "{pre.BIZ}"
+      ],
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "USDC",
+       "{pre.USDC}",
+       "pre.USDC>0"
+      ],
+      [
+       "Tax reserve",
+       "{pre.TAX}"
+      ]
+     ],
+     "note": "The business can send only {pre.BIZ}, so personal checking is **{3000-pre.PER-pre.BIZ} short** of the $3,000 you spend."
+    },
+    {
+     "v": [
+      "covered"
+     ],
+     "items": [
+      [
+       "Business cash after costs and tax set-aside",
+       "{pre.BIZ}"
+      ],
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "Tax reserve",
+       "{pre.TAX}"
+      ]
+     ],
+     "note": "The business can send the full $3,000 (leaving {pre.BIZ-3000}), so personal checking is **not short**. Your plan only matters if a gap appears, so choose the plan you would follow if it did."
+    }
+   ],
+   "situation": "A client delays a $3,200 payment. This month only **$2,400** arrives instead of $5,600. You normally move $3,000 from business cash to personal checking and spend $3,000. Whether your personal checking is short depends on how much cash the business has.",
+   "options": {
+    "a": {
+     "t": "Keep spending $3,000. If personal checking runs short, cover the gap from emergency savings."
+    },
+    "b": {
+     "t": "Cut personal spending to $2,200 a month for months 6 and 7."
+    },
+    "c": {
+     "t": "Put any gap on the business credit card (2% a month) and leave emergency savings alone."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='short'",
+      "text": "You kept spending $3,000 and covered the {3000-pre.PER-pre.BIZ} gap from emergency savings ({eom(6).EMER} left). It earns 100 because a late client is what emergency savings are for. Next: slightly smaller runway.",
+      "ref": "You kept spending $3,000 and covered the $80 gap from emergency savings ($2,520 left). It earns 100 because a late client is what emergency savings are for. Next: slightly smaller runway.",
+      "rp": "CAA",
+      "dk": "Q4|A, 4-short"
+     },
+     {
+      "when": "v=='covered'",
+      "text": "You kept spending $3,000. Business cash covered it ({pre.BIZ-3000} left), so nothing came from emergency savings. It earns 100 because the plan uses savings first if needed. Next: nothing changes.",
+      "ref": "You kept spending $3,000. Business cash covered it ($1,495 left), so nothing came from emergency savings. It earns 100 because the plan uses savings first if needed. Next: nothing changes.",
+      "rp": "AAA",
+      "dk": "Q4|A, 4-covered"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='short'",
+      "text": "You cut spending to $2,200. No gap, no savings used, no card. Personal checking is {eom(7).PER} after month 7. It earns 100: trimming spending first protects the runway. Next: a small cushion in personal checking.",
+      "ref": "You cut spending to $2,200. No gap, no savings used, no card. Personal checking is $1,520 after month 7. It earns 100: trimming spending first protects the runway. Next: a small cushion in personal checking.",
+      "rp": "CAA",
+      "dk": "Q4|B, 4-short"
+     },
+     {
+      "when": "v=='covered'",
+      "text": "You cut spending to $2,200. Personal checking rises to {eom(6).PER} and then {eom(7).PER} after month 7, with nothing borrowed. It earns 100 for the same reason. Next: $1,600 more in personal checking.",
+      "ref": "You cut spending to $2,200. Personal checking rises to $1,700 and then $2,500 after month 7, with nothing borrowed. It earns 100 for the same reason. Next: $1,600 more in personal checking.",
+      "rp": "AAA",
+      "dk": "Q4|B, 4-covered"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='short'",
+      "text": "You put the {3000-pre.PER-pre.BIZ} on the card (2% a month): {eom(6).CARD} after month 6 and {eom(13).CARD} by month 13, because the model never repays it. It scores 0 because you had {pre.EMER} in emergency savings, and a 2%-a-month card is the last resort, not the first. Next: a small card balance that keeps growing.",
+      "ref": "You put the $80 on the card (2% a month): $81.60 after month 6 and $93.73 by month 13, because the model never repays it. It scores 0 because you had $2,600 in emergency savings, and a 2%-a-month card is the last resort, not the first. Next: a small card balance that keeps growing.",
+      "rp": "CAA",
+      "dk": "Q4|C, 4-short"
+     },
+     {
+      "when": "v=='covered'",
+      "text": "Nothing was short, so **nothing was borrowed** and nothing changed. It scores 0 because the plan you chose puts a 2%-a-month card ahead of the {pre.EMER} of emergency savings you hold. Next: nothing changes.",
+      "ref": "Nothing was short, so **nothing was borrowed** and nothing changed. It scores 0 because the plan you chose puts a 2%-a-month card ahead of the $2,600 of emergency savings you hold. Next: nothing changes.",
+      "rp": "AAA",
+      "dk": "Q4|C, 4-covered"
+     }
+    ]
+   },
+   "takeaway": "A late client tests cash flow. Use the runway or trim spending before borrowing at 2% a month, and notice that holding the invoice in USDC left the business with less cash exactly when it was needed."
+  },
+  {
+   "n": 5,
+   "month": 8,
+   "title": "Sign here to release your invoice",
+   "rung": "Wallet safety",
+   "show": [
+    {
+     "v": [
+      "held"
+     ],
+     "items": [
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "USDC",
+       "{pre.USDC}",
+       "pre.USDC>0"
+      ],
+      [
+       "Apex Yield",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "empty"
+     ],
+     "items": [
+      [
+       "Personal checking",
+       "{pre.PER}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "Wallet",
+       "empty"
+      ]
+     ]
+    }
+   ],
+   "situation": "A message appears to come from a client. It asks you either to **sign a wallet message** or to **pay a $45 \"verification fee\"** to \"release\" an invoice. You did not ask for it.",
+   "options": {
+    "a": {
+     "t": "Ignore it and do not sign or pay."
+    },
+    "b": {
+     "t": "Pay the $45 fee."
+    },
+    "c": {
+     "t": "Sign the message."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You did not sign or pay. Nothing changed. It earns 100 because an unsolicited request to sign or to pay a fee to \"release\" money is a scam signal; the safe move is not to engage. Next: your holdings are untouched.",
+      "ref": "You did not sign or pay. Nothing changed. It earns 100 because an unsolicited request to sign or to pay a fee to \"release\" money is a scam signal; the safe move is not to engage. Next: your holdings are untouched.",
+      "rp": "",
+      "dk": "Q5|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You paid $45; personal checking is {post.PER}. It scores 0 because paying a fee to \"release\" money rewards the scam, and nothing is released. Next: a small loss.",
+      "ref": "You paid $45; personal checking is $855. It scores 0 because paying a fee to \"release\" money rewards the scam, and nothing is released. Next: a small loss.",
+      "rp": "",
+      "dk": "Q5|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='held'",
+      "text": "You signed. The {lst(cond(pre.USDC>0,\"USDC (\"+m(pre.USDC)+\")\"),cond(pre.VAULT>0,\"Apex Yield (\"+m(pre.VAULT)+\")\"))} {cond(pre.USDC>0 and pre.VAULT>0,\"were\",\"was\")} drained: {pre.USDC+pre.VAULT+pre.ETH+pre.TAXV} gone. It scores 0 because a signature can authorize a transaction you did not intend. Next: those positions no longer exist, which changes Q6 and Q7.",
+      "ref": "You signed. The USDC ($1,250) and Apex Yield ($1,015.06) were drained: $2,265.06 gone. It scores 0 because a signature can authorize a transaction you did not intend. Next: those positions no longer exist, which changes Q6 and Q7.",
+      "rp": "BBAA",
+      "dk": "Q5|C, wallet holds something (example)"
+     },
+     {
+      "when": "v=='empty'",
+      "text": "You signed. The wallet holds nothing, so **nothing was drained this time**. It still scores 0 because the rule is about signing an unsolicited request, not about the balance. Next: nothing changes.",
+      "ref": "You signed. The wallet holds nothing, so **nothing was drained this time**. It still scores 0 because the rule is about signing an unsolicited request, not about the balance. Next: nothing changes.",
+      "rp": "AAAA",
+      "dk": "Q5|C, wallet empty"
+     }
+    ]
+   },
+   "takeaway": "Money is rarely \"released\" by signing or paying a stranger. When a request is unsolicited and urgent, verify it independently."
+  },
+  {
+   "n": 6,
+   "month": 10,
+   "title": "Catching up on records",
+   "rung": "Records",
+   "show": [
+    {
+     "v": [
+      "held_all",
+      "held_half",
+      "none"
+     ],
+     "items": [
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "USDC",
+       "{pre.USDC}"
+      ],
+      [
+       "Tax reserve",
+       "{pre.TAX} (payment $3,100 due)"
+      ]
+     ]
+    }
+   ],
+   "situation": "Another estimated tax payment ($3,100) is due this month, paid from the tax reserve. Your tax adviser asks, as in Marcus's own plan, for a record of every crypto receipt and every conversion. What you do now depends on whether you still hold USDC.",
+   "options": {
+    "a": {
+     "t": "Update your records of every crypto receipt and conversion, **and convert all the USDC you still hold** (1% fee)."
+    },
+    "b": {
+     "t": "Update your records, **and** set a rule for future crypto invoices. Convert half; the rest stays under $1,500.",
+     "tv": [
+      {
+       "v": [
+        "none"
+       ],
+       "t": "Update your records, **and** set a rule for future crypto invoices: change your invoice terms so future crypto clients pay in dollars or you convert the same day (costs $0; no benefit is modeled)."
+      }
+     ]
+    },
+    "c": {
+     "t": "Skip the records and leave things as they are."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v!='none'",
+      "text": "You updated the records and converted the remaining USDC (fee {fee} on {pre.USDC}). Your USDC is now $0. It earns 100 because records come first and the remainder was above what the plan needs. Next: no USDC to protect at months 12 and 13.",
+      "ref": "You updated the records and converted the remaining USDC (fee $25 on $2,500). Your USDC is now $0. It earns 100 because records come first and the remainder was above what the plan needs. Next: no USDC to protect at months 12 and 13.",
+      "rp": "CAAAA",
+      "dk": "Q6|A, held",
+      "dev": "the locked text marks its dollar figures \"in the example\"; they are rendered from the ledger"
+     },
+     {
+      "when": "v=='none'",
+      "text": "You updated the records. Nothing moved, and it cost $0. It earns 100 because a log is the foundation for every later tax conversation. Next: nothing changes.",
+      "ref": "You updated the records. Nothing moved, and it cost $0. It earns 100 because a log is the foundation for every later tax conversation. Next: nothing changes.",
+      "rp": "AAAAA",
+      "dk": "Q6|A, none"
+     }
+    ],
+    "b": [
+     {
+      "when": "v!='none'",
+      "text": "You updated the records and converted half (fee {fee} on {-d.USDC}; {post.USDC} stays). It earns 100 because the remainder is within your $1,500 limit. Next: some USDC remains.",
+      "ref": "You updated the records and converted half (fee $12.50 on $1,250; $1,250 stays). It earns 100 because the remainder is within your $1,500 limit. Next: some USDC remains.",
+      "rp": "CAAAA",
+      "dk": "Q6|B, held",
+      "assert": "post.USDC <= 1500"
+     },
+     {
+      "when": "v=='none'",
+      "text": "You updated the records and changed your invoice terms so future crypto clients pay in dollars or you convert the same day. It cost $0, and **no financial benefit is modeled**. It earns 100 because the habit shortens the time any crypto sits unconverted. Next: nothing changes in this story.",
+      "ref": "You updated the records and changed your invoice terms so future crypto clients pay in dollars or you convert the same day. It cost $0, and **no financial benefit is modeled**. It earns 100 because the habit shortens the time any crypto sits unconverted. Next: nothing changes in this story.",
+      "rp": "AAAAA",
+      "dk": "Q6|B, none"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You skipped the records. In month 12 an accountant clean-up of the unrecorded crypto costs $300 (an assumption in this scenario; it comes from business cash). It scores 0 because missing records make tax work harder; the $300 did not decide the score. Next: $300 less cash at month 12.",
+      "ref": "You skipped the records. In month 12 an accountant clean-up of the unrecorded crypto costs $300 (an assumption in this scenario; it comes from business cash). It scores 0 because missing records make tax work harder; the $300 did not decide the score. Next: $300 less cash at month 12.",
+      "rp": "",
+      "dk": "Q6|C"
+     }
+    ]
+   },
+   "takeaway": "Records are cheap while you are small and expensive later. Keep a log of every crypto receipt and conversion, and decide how future payments will arrive."
+  },
+  {
+   "n": 7,
+   "month": 12,
+   "title": "The vault reports an exploit",
+   "rung": "Incidents",
+   "show": [
+    {
+     "v": [
+      "vault"
+     ],
+     "items": [
+      [
+       "Apex Yield",
+       "{pre.VAULT} (after losing half)"
+      ],
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER} (target $6,000)"
+      ],
+      [
+       "Surplus over the $1,500 buffer",
+       "{pre.BIZ-1500}"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "surplus",
+      "nothing"
+     ],
+     "items": [
+      [
+       "Apex Yield",
+       "{pre.VAULT}"
+      ],
+      [
+       "Business cash",
+       "{pre.BIZ}"
+      ],
+      [
+       "Emergency savings",
+       "{pre.EMER}"
+      ],
+      [
+       "Surplus over the buffer",
+       "{max(0,pre.BIZ-1500)}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Apex Yield reports an exploit. Any balance you hold there has lost half its value. **No recovery or compensation has been announced**, and nothing guarantees one. Your emergency savings are below your $6,000 target, and your business cash is above your $1,500 operating buffer.",
+   "options": {
+    "a": {
+     "t": "Withdraw what is left (if any) and rebuild emergency savings with business cash above $1,500."
+    },
+    "b": {
+     "t": "Wait and do nothing."
+    },
+    "c": {
+     "t": "Add $500 to Apex Yield to recoup."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='vault'",
+      "text": "You withdrew the remaining {pre.VAULT} (fee {fee}) and moved {pre.BIZ-1500} of surplus business cash to emergency savings, now {post.EMER}. It earns 100 because your runway is far below target and the experimental position has already been hit; rebuild the runway first. Next: the story ends with a stronger runway and no vault position.",
+      "ref": "You withdrew the remaining $515.70 (fee $2.58) and moved $2,035 of surplus business cash to emergency savings, now $4,148.12. It earns 100 because your runway is far below target and the experimental position has already been hit; rebuild the runway first. Next: the story ends with a stronger runway and no vault position.",
+      "rp": "ABAAAA",
+      "dk": "Q7|A, 7-vault"
+     },
+     {
+      "when": "v=='surplus'",
+      "text": "You moved {pre.BIZ-1500} of surplus business cash to emergency savings, now {post.EMER}. It earns 100 because the runway is below target and the surplus can rebuild it. Next: a stronger runway.",
+      "ref": "You moved $2,035 of surplus business cash to emergency savings, now $4,635. It earns 100 because the runway is below target and the surplus can rebuild it. Next: a stronger runway.",
+      "rp": "AAAAAA",
+      "dk": "Q7|A, 7-surplus"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You waited. Nothing moved. It scores 0 because you had a damaged experimental position and/or idle surplus cash while the runway is below target, and nothing has been announced that changes that. Next: nothing changes.",
+      "ref": "You waited. Nothing moved. It scores 0 because you had a damaged experimental position and/or idle surplus cash while the runway is below target, and nothing has been announced that changes that. Next: nothing changes.",
+      "rp": "",
+      "dk": "Q7|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You added $500 (fee {fee}; {d.VAULT} in the vault). It scores 0 because adding money to a protocol that was just exploited, with no recovery announced, is chasing a loss. In this scenario a second exploit at month 13 removes that new deposit ({d.VAULT}). **That scripted event is shown as what happened; it did not decide the score.** Next: $500 less business cash and no runway rebuild.",
+      "ref": "You added $500 (fee $2.50; $497.50 in the vault). It scores 0 because adding money to a protocol that was just exploited, with no recovery announced, is chasing a loss. In this scenario a second exploit at month 13 removes that new deposit ($497.50). **That scripted event is shown as what happened; it did not decide the score.** Next: $500 less business cash and no runway rebuild.",
+      "rp": "",
+      "dk": "Q7|C"
+     }
+    ]
+   },
+   "takeaway": "After an incident, protect the runway first and do not add money to recoup a loss. No recovery is guaranteed, and nothing in this story depends on one."
+  }
+ ],
+ "wording_fixes": [
+  {
+   "id": "marcus.v0.2.1.claims.estimated-tax-dates",
+   "from": "Tax reserve is committed money. It is for the next estimated payment, not for experiments.",
+   "to": "... Real estimated-tax dates are April 15, June 15, September 15 and January 15; this story uses a simplified schedule and an assumed set-aside rate."
+  },
+  {
+   "id": "marcus.v0.2.2.q1.label",
+   "from": "(a scenario assumption; UNVERIFIED)",
+   "to": "(a simplifying assumption in this scenario)"
+  }
+ ]
+}

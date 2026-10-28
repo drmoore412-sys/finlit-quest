@@ -1,0 +1,697 @@
+{
+ "schema": "flq.defi-rl.journey.v1",
+ "slug": "maya",
+ "id": "defi.maya",
+ "display": {
+  "name": "Maya Chen",
+  "blurb": "A 24-year-old in her first full-time job: a thin cushion, an employer match, a depegged stablecoin and a self-imposed crypto allowance."
+ },
+ "logic_ver": "0.2",
+ "text_ver": "0.2",
+ "status": "APPROVED & LOCKED (curriculum design only)",
+ "source_doc": "batch1-maya-journey-v0.2-APPROVED-LOCKED.md",
+ "pending_wording": [],
+ "intro": "Maya, 24, first full-time job. Take-home pay $2,900 a month (after tax, before any retirement contribution; assumed gross $3,800). Living costs $2,350 a month. Opening: checking $500, savings $1,000, retirement account $2,200. No crypto. Each month-end, anything over $500 in checking is moved to savings automatically.",
+ "plan": [
+  "Starter fund: $3,300 of liquid cash (checking + savings).",
+  "Full cushion: $4,700 (two months of living costs).",
+  "Crypto allowance: $200 in total until the cushion reaches $4,700, and the starter fund must still be at least $3,300 after any purchase. Once the cushion is $4,700 or more after a purchase, the $200 limit no longer applies.",
+  "Order of operations: Reserve, then free money (employer match), then wallet safety, then optional experiments.",
+  "Cash in this story is checking + savings only. The retirement account and the vault are not cash."
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "month": 1,
+   "title": "12%, but your cushion is thin",
+   "rung": "Reserve",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Liquid cash",
+       "{pre.cash} (about 0.9 months of costs)"
+      ],
+      [
+       "Starter-fund line",
+       "$3,300"
+      ]
+     ]
+    }
+   ],
+   "situation": "A coworker shows you Harbor Vault, which advertises \"up to 12% a year\" on a dollar stablecoin. You are saving toward a starter fund and your first laptop replacement.",
+   "options": {
+    "a": {
+     "t": "Keep your savings where they are."
+    },
+    "b": {
+     "t": "Put $300 of savings into Harbor Vault."
+    },
+    "c": {
+     "t": "Put $1,000 of savings into Harbor Vault."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You kept your savings. Nothing changed. It earns 100 because your cushion is under your $3,300 starter-fund line, and money you may need soon is not for a vault. \"Up to 12%\" is an advertised top rate, not a promise. Next: your cash keeps building toward the line.",
+      "ref": "You kept your savings. Nothing changed. It earns 100 because your cushion is under your $3,300 starter-fund line, and money you may need soon is not for a vault. \"Up to 12%\" is an advertised top rate, not a promise. Next: your cash keeps building toward the line.",
+      "rp": "",
+      "dk": "Q1|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You moved {-d.SAV} into the vault ({d.VAULT} after the fee). Liquid cash is now {post.cash}. It scores 0 because your cushion is already below the starter-fund line. Next: your cash is {-d.SAV} lower in Q2 and Q3, and the vault's value matters again in Q5.",
+      "ref": "You moved $300 into the vault ($298.50 after the fee). Liquid cash is now $1,750. It scores 0 because your cushion is already below the starter-fund line. Next: your cash is $300 lower in Q2 and Q3, and the vault's value matters again in Q5.",
+      "rp": "",
+      "dk": "Q1|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You moved {-d.SAV} into the vault ({d.VAULT} after the fee). Liquid cash is now {post.cash}. It scores 0 for the same reason, at a larger size. Next: much less cash for the car repair and laptop ahead, and a larger vault position in Q5.",
+      "ref": "You moved $1,000 into the vault ($995 after the fee). Liquid cash is now $1,050. It scores 0 for the same reason, at a larger size. Next: much less cash for the car repair and laptop ahead, and a larger vault position in Q5.",
+      "rp": "",
+      "dk": "Q1|C"
+     }
+    ]
+   },
+   "takeaway": "Build the reserve before chasing yield. A yield offer is not a reason to lend out money you might need."
+  },
+  {
+   "n": 2,
+   "month": 2,
+   "title": "Free money: the employer match",
+   "rung": "Free money",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Cash after this month's pay",
+       "{pre.cash} (Checking {pre.CHK} · Savings {pre.SAV})"
+      ],
+      [
+       "After this month's living costs ($2,350)",
+       "{pre.cash-2350}"
+      ],
+      [
+       "One month of costs",
+       "$2,350"
+      ],
+      [
+       "Retirement account",
+       "{pre.RET} (retirement money, not emergency savings)"
+      ]
+     ]
+    }
+   ],
+   "situation": "In this story, Maya's employer plan opens. She chooses how much of her pay to contribute. Under this fictional plan the company matches 100% of her contribution, up to 4% of her pay before tax ($3,800 a month). Real employer plans vary: match formulas, eligibility waits and vesting schedules differ, so check the actual plan.",
+   "options": {
+    "a": {
+     "t": "Contribute 4%. You put in $152, the employer adds $152, and the retirement account receives $304. Your cash falls about $129.20 a month."
+    },
+    "b": {
+     "t": "Contribute 2%. $76 from you plus $76 from the employer: $152 into the account; your cash falls about $64.60 a month."
+    },
+    "c": {
+     "t": "Contribute 0%. Nothing goes in. You give up $152 a month of employer match."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You chose 4%. You put in $152, the employer added $152, and {d.RET} went into the retirement account; your cash fell about {-d.cash}. It earns 100 because a 100% match is an immediate return on the money you put in. Next: your cash grows a little slower, which Q3's plan check will show.",
+      "ref": "You chose 4%. You put in $152, the employer added $152, and $304 went into the retirement account; your cash fell about $129.20. It earns 100 because a 100% match is an immediate return on the money you put in. Next: your cash grows a little slower, which Q3's plan check will show.",
+      "rp": "",
+      "dk": "Q2|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "pre.cash-2350<2350",
+      "text": "You chose 2%, which captures half the match. It scores 100 because your cash after costs is under one month of costs, so protecting liquidity can justify a smaller contribution. You leave $76 a month of match unused. Next: your cash grows faster.",
+      "ref": "You chose 2%, which captures half the match. It scores 100 because your cash after costs is under one month of costs, so protecting liquidity can justify a smaller contribution. You leave $76 a month of match unused. Next: your cash grows faster.",
+      "rp": "C",
+      "dk": "Q2|B, 100",
+      "assert": "pre.cash-2350<2350"
+     },
+     {
+      "when": "pre.cash-2350>=2350",
+      "text": "You chose 2%. It scores 0 because your cash after costs was {pre.cash-2350}, at or above one month of costs, so you could afford the full match and gave up $76 a month. Next: slightly more cash, less in retirement.",
+      "ref": "You chose 2%. It scores 0 because your cash after costs was $2,600, at or above one month of costs, so you could afford the full match and gave up $76 a month. Next: slightly more cash, less in retirement.",
+      "rp": "A",
+      "dk": "Q2|B, 0",
+      "assert": "pre.cash-2350>=2350"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You chose 0%. It scores 0 because you gave up $152 a month of employer money, about $1,976 over the story. Next: more cash now, nothing growing in the plan.",
+      "ref": "You chose 0%. It scores 0 because you gave up $152 a month of employer money, about $1,976 over the story. Next: more cash now, nothing growing in the plan.",
+      "rp": "",
+      "dk": "Q2|C"
+     }
+    ]
+   },
+   "takeaway": "A match is usually the first return to capture unless cash is too thin to spare the contribution. Retirement money and emergency savings do different jobs."
+  },
+  {
+   "n": 3,
+   "month": 4,
+   "title": "Your first crypto",
+   "rung": "Optional experiments (inside your plan)",
+   "show": [
+    {
+     "v": [
+      "in_plan",
+      "out_of_plan"
+     ],
+     "items": [
+      [
+       "Available cash (checking + savings)",
+       "{pre.cash}"
+      ],
+      [
+       "Starter-reserve line (Maya's plan)",
+       "$3,300"
+      ],
+      [
+       "Cash remaining after a $150 purchase",
+       "{pre.cash-150}"
+      ],
+      [
+       "Crypto bought so far",
+       "{pre.cumETH} of your $200 allowance"
+      ],
+      [
+       "Plan check for $150",
+       "{cond(v==\"in_plan\",\"cash after \"+m(pre.cash-150)+\" is at or above $3,300 → within your plan\",\"cash after \"+m(pre.cash-150)+\" is below $3,300 → outside your plan\")}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Maya wants to try a small crypto purchase while she is still building her starter reserve. A purchase can go through and still break her own plan.",
+   "options": {
+    "a": {
+     "t": "Buy $150 of ETH and keep the recovery phrase backed up offline. This breaks your plan: it will go through, but it leaves you at {pre.cash-150}, below your own $3,300 line.",
+     "tv": [
+      {
+       "v": [
+        "in_plan"
+       ],
+       "t": "Buy $150 of ETH and keep the recovery phrase backed up offline. Within your plan: {pre.cash-150} would remain, at or above $3,300."
+      }
+     ]
+    },
+    "b": {
+     "t": "Wait."
+    },
+    "c": {
+     "t": "Buy $500 of ETH. It leaves {pre.cash-500} and is over your $200 allowance."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='in_plan'",
+      "text": "You bought $150 of ETH ({d.ETH} after the fee) and backed up the phrase offline. It scores 100 because it stayed inside your plan: within $200 of crypto and with at least $3,300 left. The score does not depend on where the ETH price goes next. Next: you hold ETH, which Q4 tests.",
+      "ref": "You bought $150 of ETH ($149.25 after the fee) and backed up the phrase offline. It scores 100 because it stayed inside your plan: within $200 of crypto and with at least $3,300 left. The score does not depend on where the ETH price goes next. Next: you hold ETH, which Q4 tests.",
+      "rp": "AB",
+      "dk": "Q3|A-1",
+      "assert": "post.cash>=3300"
+     },
+     {
+      "when": "v=='out_of_plan'",
+      "text": "You bought $150 of ETH. The purchase went through, but it left you at {post.cash}, below your own $3,300 line. It scores 0 because the decision broke your plan, even though nothing stopped the transaction. The score would be the same whether ETH rises or falls. Next: less cash for the car repair and laptop, and you hold ETH in Q4.",
+      "ref": "You bought $150 of ETH. The purchase went through, but it left you at $3,162.40, below your own $3,300 line. It scores 0 because the decision broke your plan, even though nothing stopped the transaction. The score would be the same whether ETH rises or falls. Next: less cash for the car repair and laptop, and you hold ETH in Q4.",
+      "rp": "AA",
+      "dk": "Q3|A-2",
+      "assert": "post.cash<3300"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You waited. Nothing changed. It earns 100 because waiting keeps your plan intact and your allowance available. Waiting is not always the best answer; it is here because the purchase would break your plan. Next: no crypto in your wallet at Q4.",
+      "ref": "You waited. Nothing changed. It earns 100 because waiting keeps your plan intact and your allowance available. Waiting is not always the best answer; it is here because the purchase would break your plan. Next: no crypto in your wallet at Q4.",
+      "rp": "",
+      "dk": "Q3|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You bought $500 ({d.ETH} after the fee). It scores 0 because it is over your $200 allowance and drops your cash well below $3,300. Next: $500 less cash and a larger ETH balance exposed in Q4.",
+      "ref": "You bought $500 ($497.50 after the fee). It scores 0 because it is over your $200 allowance and drops your cash well below $3,300. Next: $500 less cash and a larger ETH balance exposed in Q4.",
+      "rp": "",
+      "dk": "Q3|C"
+     }
+    ]
+   },
+   "takeaway": "An executed purchase can still violate your own financial plan. A plan is checked before you buy. An offline backup protects a recovery phrase from being lost; it does not protect you from a signature you approve (Q4)."
+  },
+  {
+   "n": 4,
+   "month": 5,
+   "title": "A token you didn't buy",
+   "rung": "Wallet safety",
+   "show": [
+    {
+     "v": [
+      "eth",
+      "none"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}"
+      ]
+     ]
+    }
+   ],
+   "situation": "An unfamiliar token appears in your wallet with a link: \"Claim your reward.\" You never asked for it.",
+   "options": {
+    "a": {
+     "t": "Ignore it. Don't open the link or sign anything."
+    },
+    "b": {
+     "t": "Open the link and sign to claim."
+    },
+    "c": {
+     "t": "Sign, and pay a $60 \"gas\" fee the site asks for."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You ignored it. Nothing changed. It earns 100 because an unexpected token with a link is a common phishing method, and you cannot tell from the token that it is safe. Next: your wallet and cash are unchanged.",
+      "ref": "You ignored it. Nothing changed. It earns 100 because an unexpected token with a link is a common phishing method, and you cannot tell from the token that it is safe. Next: your wallet and cash are unchanged.",
+      "rp": "",
+      "dk": "Q4|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='eth'",
+      "text": "You signed and the wallet was drained: {pre.ETH} of ETH is gone. It scores 0 because signing an unsolicited request can give someone control of your funds. An offline recovery-phrase backup does not stop this. Next: you have no ETH left.",
+      "ref": "You signed and the wallet was drained: $156.71 of ETH is gone. It scores 0 because signing an unsolicited request can give someone control of your funds. An offline recovery-phrase backup does not stop this. Next: you have no ETH left.",
+      "rp": "AAA",
+      "dk": "Q4|B (ETH owned)",
+      "assert": "d.ETH == -pre.ETH"
+     },
+     {
+      "when": "v=='none'",
+      "text": "You signed. Nothing was taken only because the wallet was empty; that was luck, not safety. It scores 0. Next: nothing changes in your balances, and the habit is what to fix.",
+      "ref": "You signed. Nothing was taken only because the wallet was empty; that was luck, not safety. It scores 0. Next: nothing changes in your balances, and the habit is what to fix.",
+      "rp": "AAB",
+      "dk": "Q4|B (no ETH)"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='eth'",
+      "text": "You signed and paid $60. ETH of {pre.ETH} was drained. It scores 0 because paying a fee to a stranger to receive a reward is a scam pattern. Next: $60 less cash and no ETH.",
+      "ref": "You signed and paid $60. ETH of $156.71 was drained. It scores 0 because paying a fee to a stranger to receive a reward is a scam pattern. Next: $60 less cash and no ETH.",
+      "rp": "AAA",
+      "dk": "Q4|C, ETH",
+      "assert": "d.ETH == -pre.ETH and -d.cash == 60"
+     },
+     {
+      "when": "v=='none'",
+      "text": "You signed and paid $60. It scores 0 because paying a fee to a stranger to receive a reward is a scam pattern. Next: $60 less cash.",
+      "ref": "You signed and paid $60. It scores 0 because paying a fee to a stranger to receive a reward is a scam pattern. Next: $60 less cash.",
+      "rp": "AAB",
+      "dk": "Q4|C, none",
+      "assert": "-d.cash == 60"
+     }
+    ]
+   },
+   "takeaway": "Never sign for an unsolicited link or token. Ignore it, and verify through official channels you find yourself."
+  },
+  {
+   "n": 5,
+   "month": 8,
+   "title": "The stablecoin slips to $0.92",
+   "rung": "Reserve (protect a known goal)",
+   "lead": "A dollar stablecoin is trading at $0.92. No recovery has been announced. Your $900 laptop is due next month. A stablecoin aims to hold $1.00, but nothing guarantees it. Its price depends on what backs it, whether it can be redeemed, and confidence in the issuer. It may recover, stay low or fall further. A vault adds its own risks on top (smart-contract problems, withdrawal limits, the protocol itself), and it is not an insured bank account.",
+   "show": [
+    {
+     "v": [
+      "vault"
+     ],
+     "items": [
+      [
+       "Harbor Vault",
+       "{pre.VAULT} at $1.00 → {pre.VAULT*D(\"0.92\")} at $0.92"
+      ],
+      [
+       "Cash",
+       "{pre.cash}, which covers the $900 laptop"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "no_vault"
+     ],
+     "items": [
+      [
+       "Cash",
+       "{pre.cash}"
+      ],
+      [
+       "Harbor Vault",
+       "none (the stablecoin is in the news; you own none)"
+      ]
+     ]
+    }
+   ],
+   "situation": "A dollar stablecoin is trading at $0.92. No recovery has been announced. Your $900 laptop is due next month. In this story the ledger shows only the price move to $0.92; the other risks are described, not modeled.",
+   "options": {
+    "a": {
+     "t": "Pay the laptop from cash next month.",
+     "tv": [
+      {
+       "v": [
+        "vault"
+       ],
+       "t": "Keep the vault and pay the laptop from cash next month."
+      }
+     ]
+    },
+    "b": {
+     "t": "Sell the vault now at $0.92. This locks in the drop.",
+     "unavail": {
+      "when": "v=='no_vault'",
+      "label": "Unavailable: you hold no vault, so there is nothing to sell."
+     }
+    },
+    "c": {
+     "t": "Put the laptop on your credit card."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='vault'",
+      "text": "You kept the vault and paid for the laptop from cash. Keeping it is not a prediction of recovery; it may recover, stay low or fall further, and the vault has risks beyond the coin's price. It scores 100 because your cash covered the laptop, so you were not forced to sell or borrow. Next: the laptop leaves your cash around {pre.cash-900}.",
+      "ref": "You kept the vault and paid for the laptop from cash. Keeping it is not a prediction of recovery; it may recover, stay low or fall further, and the vault has risks beyond the coin's price. It scores 100 because your cash covered the laptop, so you were not forced to sell or borrow. Next: the laptop leaves your cash around $2,145.60.",
+      "rp": "BAAA",
+      "dk": "Q5|A (vault held)",
+      "dev": "locked text shows $[x]; the product value is the decision-time cash minus the $900 laptop (example figure shown)"
+     },
+     {
+      "when": "v=='no_vault'",
+      "text": "You paid the laptop from cash. It earns 100 because you had the cash, so there was no need to borrow. Next: the laptop leaves your cash around {pre.cash-900}. The news is a reminder to check what you hold and how it is backed.",
+      "ref": "You paid the laptop from cash. It earns 100 because you had the cash, so there was no need to borrow. Next: the laptop leaves your cash around $2,445.60. The news is a reminder to check what you hold and how it is backed.",
+      "rp": "AAAA",
+      "dk": "Q5|A (no vault)",
+      "dev": "locked text shows $[x]; the product value is the decision-time cash minus the $900 laptop (example figure shown)"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='vault'",
+      "text": "You sold at $0.92 and received {d.cash} after the fee. Selling a depegged asset can be reasonable, for example when you need the cash or no longer trust the coin or vault, and it makes the loss real. It scores 0 here only because your cash already covered the laptop, so the sale was not needed to reach your goal. Next: you hold no vault.",
+      "ref": "You sold at $0.92 and received $281.55 after the fee. Selling a depegged asset can be reasonable, for example when you need the cash or no longer trust the coin or vault, and it makes the loss real. It scores 0 here only because your cash already covered the laptop, so the sale was not needed to reach your goal. Next: you hold no vault.",
+      "rp": "BAAA",
+      "dk": "Q5|B (vault)"
+     },
+     {
+      "when": "v=='no_vault'",
+      "text": "Nothing to sell, nothing changed. It scores 0.",
+      "ref": "Nothing to sell, nothing changed. It scores 0.",
+      "rp": "AAAA",
+      "dk": "Q5|B (no vault, only if selectable)",
+      "assert": "declined"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You put the laptop on your card. The $900 cost an extra {eom(9).CARD-900} in month 9 before you repaid it in month 10. It scores 0 because cash covered the laptop. Next: a month of card interest and a thinner cushion.",
+      "ref": "You put the laptop on your card. The $900 cost an extra $18 in month 9 before you repaid it in month 10. It scores 0 because cash covered the laptop. Next: a month of card interest and a thinner cushion.",
+      "rp": "",
+      "dk": "Q5|C"
+     }
+    ]
+   },
+   "takeaway": "A stablecoin is not guaranteed to hold a dollar. Check what backs it and whether you can redeem it. Don't borrow to solve a problem your cash already solves, and decide to sell or hold on your needs and your trust in the asset, not on hope of a rebound."
+  },
+  {
+   "n": 6,
+   "month": 11,
+   "title": "A gated experiment",
+   "rung": "Optional experiments (inside your plan)",
+   "show": [
+    {
+     "v": [
+      "within_plan",
+      "over_allowance",
+      "blocked"
+     ],
+     "items": [
+      [
+       "Available cash (checking + savings)",
+       "{pre.cash}"
+      ],
+      [
+       "Starter-reserve line",
+       "$3,300"
+      ],
+      [
+       "Cushion line",
+       "$4,700"
+      ],
+      [
+       "Cash remaining after a $200 purchase",
+       "{pre.cash-200}"
+      ],
+      [
+       "Crypto bought so far",
+       "{pre.cumETH} of your $200 allowance (counts purchases after fees, even if that ETH was later lost to a scam)"
+      ],
+      [
+       "Plan check 1: cash after at least $3,300?",
+       "{cond(pre.cash-200>=3300,\"yes\",\"no\")}"
+      ],
+      [
+       "Plan check 2: bought so far + $200 within $200, or cash after at least $4,700?",
+       "{cond(pre.cumETH+200<=200 or pre.cash-200>=4700,\"yes\",\"no\")}"
+      ]
+     ]
+    }
+   ],
+   "situation": "A small experiment is possible, but only inside your own plan. The checks below use the cash that would remain after the purchase.",
+   "options": {
+    "a": {
+     "t": "Skip. Keep building."
+    },
+    "b": {
+     "t": "Buy $200 of ETH. Both checks pass.",
+     "tv": [
+      {
+       "v": [
+        "over_allowance"
+       ],
+       "t": "Buy $200 of ETH. Cash stays at or above $3,300, but you have already bought {pre.cumETH}, which breaks your allowance."
+      },
+      {
+       "v": [
+        "blocked"
+       ],
+       "t": "Buy $200 of ETH. Blocked by your plan: it would leave you at {pre.cash-200}, below $3,300. Nothing is bought and nothing changes."
+      }
+     ]
+    },
+    "c": {
+     "t": "Buy $500 of ETH and ignore your plan's limits."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You skipped. Nothing changed. It earns 100 because skipping never breaks your plan. Next: your cash keeps rebuilding toward $4,700.",
+      "ref": "You skipped. Nothing changed. It earns 100 because skipping never breaks your plan. Next: your cash keeps rebuilding toward $4,700.",
+      "rp": "",
+      "dk": "Q6|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='within_plan'",
+      "text": "You bought $200 of ETH ({d.ETH} after the fee). It scores 100 because both checks passed: you stayed at or above $3,300, and within your $200 allowance. The score does not depend on the ETH price afterward. Next: your allowance is used up for Q7.",
+      "ref": "You bought $200 of ETH ($199 after the fee). It scores 100 because both checks passed: you stayed at or above $3,300, and within your $200 allowance. The score does not depend on the ETH price afterward. Next: your allowance is used up for Q7.",
+      "rp": "AABAA",
+      "dk": "Q6|B-1",
+      "assert": "post.cash>=3300"
+     },
+     {
+      "when": "v=='over_allowance'",
+      "text": "You bought $200. It went through, but it scores 0 because you had already bought {pre.cumETH}, so this passes your $200 total, and your cash is under the $4,700 cushion that would lift the limit. Next: more crypto exposed in Q7 and no allowance left.",
+      "ref": "You bought $200. It went through, but it scores 0 because you had already bought $149.25, so this passes your $200 total, and your cash is under the $4,700 cushion that would lift the limit. Next: more crypto exposed in Q7 and no allowance left.",
+      "rp": "AAAAA",
+      "dk": "Q6|B-2",
+      "assert": "post.cash>=3300"
+     },
+     {
+      "when": "v=='blocked'",
+      "text": "You chose a purchase your plan blocks. Nothing was bought and nothing changed. It scores 0 because it would have left you at {pre.cash-200}, below $3,300. Next: the same cash in Q7.",
+      "ref": "You chose a purchase your plan blocks. Nothing was bought and nothing changed. It scores 0 because it would have left you at $3,158, below $3,300. Next: the same cash in Q7.",
+      "rp": "AACAA",
+      "dk": "Q6|B-3",
+      "assert": "declined"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You bought $500 ({d.ETH} after the fee). It scores 0 because it ignores your plan and uses money below your starter-reserve line. Next: $500 less cash and more crypto exposed in Q7.",
+      "ref": "You bought $500 ($497.50 after the fee). It scores 0 because it ignores your plan and uses money below your starter-reserve line. Next: $500 less cash and more crypto exposed in Q7.",
+      "rp": "",
+      "dk": "Q6|C"
+     }
+    ]
+   },
+   "takeaway": "A written limit only helps if you follow it when you are tempted. DeFi and crypto can fit some people's plans; they come after the reserve is built."
+  },
+  {
+   "n": 7,
+   "month": 13,
+   "title": "Crypto is down 30%",
+   "rung": "Reserve (rebuilding)",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Available cash (checking + savings)",
+       "{pre.cash}"
+      ],
+      [
+       "Cushion line",
+       "$4,700"
+      ],
+      [
+       "Starter-reserve line",
+       "$3,300"
+      ],
+      [
+       "Crypto bought so far (after fees, counts even if lost)",
+       "{pre.cumETH} of your $200 allowance"
+      ],
+      [
+       "Cash remaining after a $200 purchase",
+       "{pre.cash-200}"
+      ],
+      [
+       "Cash remaining after a $400 purchase",
+       "{pre.cash-400}"
+      ],
+      [
+       "$200 check",
+       "Full credit if (nothing bought so far and cash after at least $3,300) or cash after at least $4,700. In dollars: nothing bought so far and cash of $3,500 or more, or cash of $4,900 or more."
+      ],
+      [
+       "$400 check",
+       "Full credit only if cash after at least $4,700. In dollars: cash of $5,100 or more. (A $400 purchase always exceeds the $200 allowance.)"
+      ]
+     ]
+    }
+   ],
+   "situation": "Crypto fell 30% this month. Maya's cushion is still rebuilding. She is tempted to buy while prices are low. No recovery has been announced.",
+   "options": {
+    "a": {
+     "t": "Keep rebuilding your cushion. Buy nothing."
+    },
+    "b": {
+     "t": "Buy $200 of ETH."
+    },
+    "c": {
+     "t": "Buy $400 of ETH."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You kept rebuilding. Nothing changed. It earns 100 because a price drop is not, by itself, a reason to buy; your cushion comes first. Next: the story ends with your cash closer to $4,700.",
+      "ref": "You kept rebuilding. Nothing changed. It earns 100 because a price drop is not, by itself, a reason to buy; your cushion comes first. Next: the story ends with your cash closer to $4,700.",
+      "rp": "",
+      "dk": "Q7|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "(pre.cumETH+200<=200 and pre.cash-200>=3300) or pre.cash-200>=4700",
+      "text": "You bought $200 ({d.ETH} after the fee). It scores 100 because the purchase passed your plan check. A lower price is not a promise of a rebound, and the score does not depend on one. Next: your allowance is used.",
+      "ref": "You bought $200 ($199 after the fee). It scores 100 because the purchase passed your plan check. A lower price is not a promise of a rebound, and the score does not depend on one. Next: your allowance is used.",
+      "rp": "AABAAA",
+      "dk": "Q7|B, 100",
+      "assert": "(pre.cumETH+200<=200 and pre.cash-200>=3300) or pre.cash-200>=4700"
+     },
+     {
+      "when": "not ((pre.cumETH+200<=200 and pre.cash-200>=3300) or pre.cash-200>=4700)",
+      "text": "You bought $200. It scores 0 because it broke your plan: {cond(pre.cumETH>0,\"you had already bought \"+m(pre.cumETH)+\" so the total passes $200, and your cash after is under $4,700\",\"your cash after is under $3,300\")}{cond(pre.cumETH>0 and pre.cash-200<3300,\" (and it is also under $3,300)\",\"\")}. Next: your cushion is $200 lower.",
+      "ref": "You bought $200. It scores 0 because it broke your plan: you had already bought $149.25 so the total passes $200, and your cash after is under $4,700. Next: your cushion is $200 lower.",
+      "rp": "AAAAAA",
+      "dk": "Q7|B, 0",
+      "assert": "not ((pre.cumETH+200<=200 and pre.cash-200>=3300) or pre.cash-200>=4700)",
+      "dev": "locked text has two bracketed alternatives. Over all 729 Q7 states every B-0 state has something already bought, so the first alternative always applies; 28 of them also show the second as \"(and it is also under $3,300)\". The cash-only alternative (nothing bought) has no reachable state; its text is kept for completeness."
+     }
+    ],
+    "c": [
+     {
+      "when": "pre.cash-400>=4700",
+      "text": "You bought $400 ({d.ETH} after the fee). It scores 100 because your cash after the purchase is still $4,700 or more, where your plan stops limiting crypto. Next: your allowance no longer limits you.",
+      "ref": "You bought $400 ($398 after the fee). It scores 100 because your cash after the purchase is still $4,700 or more, where your plan stops limiting crypto. Next: your allowance no longer limits you.",
+      "rp": "ABAAAA",
+      "dk": "Q7|C, 100",
+      "assert": "pre.cash-400>=4700"
+     },
+     {
+      "when": "pre.cash-400<4700",
+      "text": "You bought $400. It scores 0 because it is over your $200 allowance and leaves your cash under $4,700. Next: your cushion is $400 lower.",
+      "ref": "You bought $400. It scores 0 because it is over your $200 allowance and leaves your cash under $4,700. Next: your cushion is $400 lower.",
+      "rp": "AAAAAA",
+      "dk": "Q7|C, 0",
+      "assert": "pre.cash-400<4700"
+     }
+    ]
+   },
+   "takeaway": "Rebuild the reserve before buying a dip. A big drop is information about price, not a reason to break your plan."
+  }
+ ]
+}

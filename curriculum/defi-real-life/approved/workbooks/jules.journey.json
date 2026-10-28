@@ -1,0 +1,1050 @@
+{
+ "schema": "flq.defi-rl.journey.v1",
+ "slug": "jules",
+ "id": "defi.jules",
+ "display": {
+  "name": "Jules Park",
+  "blurb": "A 31-year-old investor with a written rulebook: position caps, a borrowing line, a premium to pay, an approval trap, an exploit and a rebalancing day."
+ },
+ "logic_ver": "0.3",
+ "text_ver": "0.3.2",
+ "status": "APPROVED & LOCKED (curriculum design only)",
+ "source_doc": "batch1-jules-journey-v0.3-APPROVED-LOCKED.md",
+ "pending_wording": [],
+ "intro": "Jules Park, 31, a professional who is curious about crypto and already invests. Take-home pay $3,700 a month. Living costs $2,800 a month. Opening: checking $1,200, emergency reserve $5,600, index fund $20,000, retirement account $30,000, so the investment base starts at $50,000. No DeFi, no debt. All figures in this scenario are assumptions for the exercise.",
+ "plan": [
+  "5% per position: no single DeFi position above 5% of the investment base.",
+  "10% in total: all DeFi positions together stay at or under 10% of the base.",
+  "Caps are tested before each purchase, against the base as it stands when he decides, counting the full purchase amount (fee included). Exactly at a cap is allowed. A position can drift above 5% as prices rise; that is not a purchase breach, but he cannot add to it.",
+  "Borrowing: loan-to-value of 48% or less.",
+  "Rebalancing trigger: 8% of the base, measured on total DeFi (Harbor Vault + Surge Pool + ETH).",
+  "Cash for bills, not borrowing or selling, when checking already covers the bill. The $5,600 reserve is the last resort.",
+  "Investment base = index fund + retirement account + DeFi positions, at market value. Checking, the reserve and loans are not in it."
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "month": 1,
+   "title": "Three sizes, one rulebook",
+   "rung": "Check: SIZE (one position)",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Index fund",
+       "{pre.IDX}"
+      ],
+      [
+       "Retirement",
+       "{pre.RET}"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Surge Pool",
+       "{pre.POOL}",
+       "pre.POOL>0"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "Keystone loan",
+       "{pre.KLP}",
+       "pre.KLP>0"
+      ],
+      [
+       "Investment base",
+       "{pre.base}"
+      ],
+      [
+       "DeFi total",
+       "{pre.dig} ({pre.dig/pre.base*100|p2} of the base)"
+      ],
+      [
+       "5% position cap",
+       "{pre.base*D(\"0.05\")}"
+      ],
+      [
+       "10% total cap",
+       "{pre.base*D(\"0.10\")}"
+      ],
+      [
+       "DeFi room left",
+       "{pre.base*D(\"0.10\")-pre.dig}"
+      ]
+     ],
+     "note": "Policy check: $1,000 ≤ {pre.base*D(\"0.05\")} {cond(pre.VAULT+1000<=pre.base*D(\"0.05\"),\"✓\",\"✗\")} · $2,500 ≤ {pre.base*D(\"0.05\")} {cond(pre.VAULT+2500<=pre.base*D(\"0.05\"),\"✓\",\"✗\")} ({pre.base*D(\"0.05\")-2500} under the cap) · total DeFi ≤ {pre.base*D(\"0.10\")} {cond(pre.dig+2500<=pre.base*D(\"0.10\"),\"✓\",\"✗\")}"
+    }
+   ],
+   "situation": "A coworker shows you Harbor Vault (a fictional vault), which advertises \"about 5% a year.\" The rate is variable, not guaranteed, and a vault deposit is not insured. DeFi vaults can fail through bugs, hacks or bad governance, which is why you cap every position.",
+   "options": {
+    "a": {
+     "t": "Research only. Read about it and deposit nothing."
+    },
+    "b": {
+     "t": "Deposit $1,000."
+    },
+    "c": {
+     "t": "Deposit $2,500."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You deposited nothing. Nothing moved. It earns 100 because staying out never breaks your rules. It does not say that entering is wrong. Next: all {nx.base*D(\"0.10\")} of DeFi room is open at Q2.",
+      "ref": "You deposited nothing. Nothing moved. It earns 100 because staying out never breaks your rules. It does not say that entering is wrong. Next: all $[room] of DeFi room is open at Q2.",
+      "rp": "",
+      "dk": "Q1|A",
+      "refre": "You\\ deposited\\ nothing\\.\\ Nothing\\ moved\\.\\ It\\ earns\\ 100\\ because\\ staying\\ out\\ never\\ breaks\\ your\\ rules\\.\\ It\\ does\\ not\\ say\\ that\\ entering\\ is\\ wrong\\.\\ Next:\\ all\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ of\\ DeFi\\ room\\ is\\ open\\ at\\ Q2\\.",
+      "dev": "locked text prints the Q1 room ($5,025) as the room at Q2; the ledger value at Q2 is used (the locked document says every number is read from the ledger)"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You deposited {d.VAULT+fee} and the vault was credited {d.VAULT} after the {fee} fee. It earns 100 because {d.VAULT+fee} is within the {pre.base*D(\"0.05\")} position cap and the {pre.base*D(\"0.10\")} total cap. The score does not say the vault is safe or that its yield will last. Next: DeFi is about {nx.dig|r} at Q2, with about {nx.base*D(\"0.10\")-nx.dig|r} of room.",
+      "ref": "You deposited $1,000 and the vault was credited $995 after the $5 fee. It earns 100 because $1,000 is within the $2,512.50 position cap and the $5,025 total cap. The score does not say the vault is safe or that its yield will last. Next: DeFi is about $1,003 at Q2, with about $4,173 of room.",
+      "rp": "",
+      "dk": "Q1|B",
+      "assert": "d.VAULT+fee == 1000"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You deposited {d.VAULT+fee} (funded by all of checking plus {-d.IDX} from the index fund) and the vault was credited {d.VAULT}. It earns 100 because {d.VAULT+fee} is within the {pre.base*D(\"0.05\")} cap, only {pre.base*D(\"0.05\")-(d.VAULT+fee)} under it. A rule that allows something is not a reason to use all of it. Next: checking is {post.CHK} until pay arrives, and at Q2 only about {nx.base*D(\"0.10\")-nx.dig|r} of DeFi room remains, which changes what fits.",
+      "ref": "You deposited $2,500 (funded by all of checking plus $400 from the index fund) and the vault was credited $2,487.50. It earns 100 because $2,500 is within the $2,512.50 cap, only $12.50 under it. A rule that allows something is not a reason to use all of it. Next: checking is $0 until pay arrives, and at Q2 only about $2,778 of DeFi room remains, which changes what fits.",
+      "rp": "",
+      "dk": "Q1|C",
+      "assert": "d.VAULT+fee == 2500 and post.CHK == 0"
+     }
+    ]
+   },
+   "takeaway": "A position cap limits what a single failure can cost. \"Allowed by your rules\" and \"advisable\" are different tests. Advertised yields vary, and a vault deposit is not an insured bank balance."
+  },
+  {
+   "n": 2,
+   "month": 3,
+   "title": "The pool, the ETH and the ten percent",
+   "rung": "Check: SIZE (cumulative)",
+   "show": [
+    {
+     "v": [
+      "fit"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Index fund",
+       "{pre.IDX}"
+      ],
+      [
+       "Retirement",
+       "{pre.RET}"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Surge Pool",
+       "{pre.POOL}",
+       "pre.POOL>0"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "Keystone loan",
+       "{pre.KLP}",
+       "pre.KLP>0"
+      ],
+      [
+       "Investment base",
+       "{pre.base}"
+      ],
+      [
+       "DeFi total",
+       "{pre.dig} ({pre.dig/pre.base*100|p2} of the base)"
+      ],
+      [
+       "5% position cap",
+       "{pre.base*D(\"0.05\")}"
+      ],
+      [
+       "10% total cap",
+       "{pre.base*D(\"0.10\")}"
+      ],
+      [
+       "DeFi room left",
+       "{pre.base*D(\"0.10\")-pre.dig}"
+      ]
+     ],
+     "note": "Policy check: pool $1,000 ✓ · ETH $2,500 = {2500/pre.base*100|p2} of the base, within 5% ✓ · DeFi after both {pre.dig+3500} ≤ {pre.base*D(\"0.10\")} {cond(pre.dig+3500<=pre.base*D(\"0.10\"),\"✓\",\"✗\")}"
+    },
+    {
+     "v": [
+      "over"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Index fund",
+       "{pre.IDX}"
+      ],
+      [
+       "Retirement",
+       "{pre.RET}"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Surge Pool",
+       "{pre.POOL}",
+       "pre.POOL>0"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "Keystone loan",
+       "{pre.KLP}",
+       "pre.KLP>0"
+      ],
+      [
+       "Investment base",
+       "{pre.base}"
+      ],
+      [
+       "DeFi total",
+       "{pre.dig} ({pre.dig/pre.base*100|p2} of the base)"
+      ],
+      [
+       "5% position cap",
+       "{pre.base*D(\"0.05\")}"
+      ],
+      [
+       "10% total cap",
+       "{pre.base*D(\"0.10\")}"
+      ],
+      [
+       "DeFi room left",
+       "{pre.base*D(\"0.10\")-pre.dig}"
+      ]
+     ],
+     "note": "Policy check: pool $1,000 ✓. ETH $2,500 ✓ for the 5% position cap. DeFi after both would be {pre.dig+3500} > {pre.base*D(\"0.10\")} ✗. The pool deposit goes through. The ETH purchase is blocked by your 10% cap and nothing is bought."
+    }
+   ],
+   "situation": "Two ideas: a Surge Pool deposit (variable fees; pool tokens give you a vote) and $2,500 of ETH. You can take neither, the pool, or both together.",
+   "options": {
+    "a": {
+     "t": "Skip both."
+    },
+    "b": {
+     "t": "Deposit $1,000 in Surge Pool."
+    },
+    "c": {
+     "t": "Deposit $1,000 in Surge Pool and buy $2,500 of ETH."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You skipped both. Nothing changed. It earns 100 because staying within your rules never needs a purchase. Next: full room for later.",
+      "ref": "You skipped both. Nothing changed. It earns 100 because staying within your rules never needs a purchase. Next: full room for later.",
+      "rp": "",
+      "dk": "Q2|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You deposited $1,000 (credited {d.POOL}). It earns 100 because it fits both caps. Pool tokens now give you a vote you will use at Q5. The pool's fees are variable and not guaranteed. Next: DeFi is about $1,000 higher at Q3.",
+      "ref": "You deposited $1,000 (credited $995). It earns 100 because it fits both caps. Pool tokens now give you a vote you will use at Q5. The pool's fees are variable and not guaranteed. Next: DeFi is about $1,000 higher at Q3.",
+      "rp": "",
+      "dk": "Q2|B",
+      "assert": "d.POOL+fee == 1000"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='fit'",
+      "text": "You bought both. It earns 100 because each fits its cap and the {d.POOL+d.ETH+fee} total stays under {pre.base*D(\"0.10\")}. Next: DeFi is about {nx.dig/nx.base*100|p1} of the base at Q3, and you enter Q3 with {nx.CHK} in checking.",
+      "ref": "You bought both. It earns 100 because each fits its cap and the $3,500 total stays under $5,175.93. Next: DeFi is about 6.3% of the base at Q3, and you enter Q3 with $1,800 in checking.",
+      "rp": "A",
+      "dk": "Q2|C, 2-fit",
+      "assert": "d.POOL+d.ETH+fee == 3500"
+     },
+     {
+      "when": "v=='over'",
+      "text": "The pool deposit executed; the ETH purchase was blocked, so you hold the pool but no ETH. It scores 0 because the combined plan would put DeFi at {pre.dig+3500} against a {pre.base*D(\"0.10\")} cap. The pool deposit alone would have fit. Next: you hold a pool position and $2,500 of unused cash, with {nx.base*D(\"0.10\")-nx.dig|r} of DeFi room left.",
+      "ref": "The pool deposit executed; the ETH purchase was blocked, so you hold the pool but no ETH. It scores 0 because the combined plan would put DeFi at $6,007.44 against a $5,285.72 cap. The pool deposit alone would have fit. Next: you hold a pool position and $2,500 of unused cash, with less DeFi room than a player who skipped Q1 C.",
+      "rp": "C",
+      "dk": "Q2|C, 2-over",
+      "assert": "d.ETH == 0 and d.POOL+fee == 1000",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged",
+      "approved": "jules.q2.c.over.letter-reference (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ]
+   },
+   "takeaway": "Caps work on the whole portfolio, not one trade at a time. Check the running total before you add a second position."
+  },
+  {
+   "n": 3,
+   "month": 5,
+   "title": "The premium is due",
+   "rung": "Check: FUNDING (cash vs borrowing vs selling)",
+   "show": [
+    {
+     "v": [
+      "bo_co",
+      "bo_cb",
+      "bb_co",
+      "bb_cb"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Emergency reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Index fund",
+       "{pre.IDX}"
+      ],
+      [
+       "Retirement",
+       "{pre.RET}"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Surge Pool",
+       "{pre.POOL}",
+       "pre.POOL>0"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ],
+      [
+       "Keystone loan",
+       "{pre.KLP}",
+       "pre.KLP>0"
+      ],
+      [
+       "Investment base",
+       "{pre.base}"
+      ],
+      [
+       "DeFi total",
+       "{pre.dig} ({pre.dig/pre.base*100|p2} of the base)"
+      ],
+      [
+       "5% position cap",
+       "{pre.base*D(\"0.05\")}"
+      ],
+      [
+       "10% total cap",
+       "{pre.base*D(\"0.10\")}"
+      ],
+      [
+       "DeFi room left",
+       "{pre.base*D(\"0.10\")-pre.dig}"
+      ],
+      [
+       "Premium due",
+       "$1,100"
+      ],
+      [
+       "Checking covers the premium",
+       "{cond(pre.CHK>=1100,\"yes (\"+m(pre.CHK)+\" ≥ $1,100)\",\"no\")}. The reserve is not touched."
+      ]
+     ]
+    }
+   ],
+   "situation": "Your annual insurance premium of $1,100 is due. Cash covers it. You can pay cash, borrow against ETH, or sell crypto. Your index fund and retirement account are investments, not cash for this bill.",
+   "options": {
+    "a": {
+     "t": "Pay the $1,100 from checking."
+    },
+    "b": {
+     "t": "Borrow $1,000 from Keystone (a fictional lender) against your ETH, then pay the premium. Loan $1,000 means an LTV of {1000/max(pre.ETH,1)*100|p1} (your rule: 48% or less). Interest 0.75% a month.",
+     "unavail": {
+      "when": "v in ['bb_co','bb_cb']",
+      "label": "Unavailable: Keystone's 50% opening limit needs at least $2,000 of ETH as collateral for a $1,000 loan."
+     }
+    },
+    "c": {
+     "t": "Sell crypto to help pay the premium. This sells ETH first, then Harbor Vault if more is needed; Surge Pool tokens are not sold. Each sale costs 0.5%.",
+     "unavail": {
+      "when": "v in ['bo_cb','bb_cb']",
+      "label": "Unavailable: only Surge Pool tokens or nothing are held, and there is nothing to sell."
+     }
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You paid $1,100 from checking: {pre.CHK} → {pre.CHK-1100}. It earns 100 because cash covers a known bill, so you avoid interest, fees and forced-sale risk, and your {pre.RES} reserve and your ETH stay as they are. Next: you hold your crypto unchanged at Q4.",
+      "ref": "You paid $1,100 from checking: $1,800 → $700. It earns 100 because cash covers a known bill, so you avoid interest, fees and forced-sale risk, and your $5,600 reserve and your ETH stay as they are. Next: you hold your crypto unchanged at Q4.",
+      "rp": "AC",
+      "dk": "Q3|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "v in ['bo_co','bo_cb']",
+      "text": "You borrowed {d.KLP} against {pre.ETH} of ETH and then paid the premium. It scores 0 because cash already covered the bill, so the loan only added interest (about {row(5,\"Keystone interest\",\"KLP\")} in the first month) and a pledge of your ETH. Your LTV of {d.KLP/pre.ETH*100|p1} meets your rule; a loan can follow your policy and still be unneeded. Next: the loan stays open into Q4, and its LTV moves with ETH's price.",
+      "ref": "You borrowed $1,000 against $2,487.50 of ETH and then paid the premium. It scores 0 because cash already covered the bill, so the loan only added interest (about $7.50 in the first month) and a pledge of your ETH. Your LTV of 40.2% meets your rule; a loan can follow your policy and still be unneeded. Next: the loan stays open into Q4, and its LTV moves with ETH's price.",
+      "rp": "AC",
+      "dk": "Q3|B (loan opened)",
+      "assert": "d.KLP == 1000 and d.KLP/pre.ETH <= 0.48"
+     },
+     {
+      "when": "v in ['bb_co','bb_cb']",
+      "text": "You asked for a loan you could not get. Nothing changed. It scores 0 because the collateral is under Keystone's $2,000 minimum, and cash covered the bill anyway.",
+      "ref": "You asked for a loan you could not get. Nothing changed. It scores 0 because the collateral is under Keystone's $2,000 minimum, and cash covered the bill anyway.",
+      "rp": "AA",
+      "dk": "Q3|B (blocked)",
+      "assert": "declined and pre.ETH < 2000"
+     }
+    ],
+    "c": [
+     {
+      "when": "v in ['bo_co','bb_co'] and d.VAULT == 0",
+      "text": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of Harbor Vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less ETH at Q4.",
+      "ref": "You sold $1,094.50 of ETH (fee $5.47) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less ETH at Q4.",
+      "rp": "AC",
+      "dk": "Q3|C (sold)",
+      "assert": "d.ETH < 0 and post.CHK >= 0"
+     },
+     {
+      "when": "v in ['bo_co','bb_co'] and d.VAULT < 0",
+      "text": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of Harbor Vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less crypto at Q4.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q3|C (sold, Harbor Vault involved)",
+      "assert": "d.VAULT < 0 and pre.CHK >= 1100",
+      "approved": "jules.q3.c.vault-sold (D-5 consolidated correction pass 2026-10-28)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+     },
+     {
+      "when": "v in ['bo_cb','bb_cb']",
+      "text": "You tried to sell something you do not hold. Nothing changed. It scores 0.",
+      "ref": "You tried to sell something you do not hold. Nothing changed. It scores 0.",
+      "rp": "AA",
+      "dk": "Q3|C (blocked)",
+      "assert": "declined"
+     }
+    ]
+   },
+   "takeaway": "Pay known bills from cash you already have. Borrowing against crypto adds interest and a forced-sale risk, and selling adds fees and, in real life, possible tax. Use them when cash is actually short, and compare the costs."
+  },
+  {
+   "n": 4,
+   "month": 7,
+   "title": "ETH is down 40%",
+   "rung": "Check: LEVERAGE",
+   "show": [
+    {
+     "v": [
+      "loan"
+     ],
+     "items": [
+      [
+       "ETH collateral",
+       "{pre.ETH}"
+      ],
+      [
+       "Loan owed (including interest)",
+       "{pre.KLP}"
+      ],
+      [
+       "LTV",
+       "{pre.KLP/pre.ETH*100|p1}"
+      ],
+      [
+       "Your rule",
+       "48%"
+      ],
+      [
+       "Keystone forced sale at",
+       "80% (ETH would need to fall about {(1-pre.KLP/D(\"0.8\")/pre.ETH)*100|p1} from here)"
+      ],
+      [
+       "Checking",
+       "{pre.CHK}"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "free_eth",
+      "free_noeth"
+     ],
+     "items": [
+      [
+       "ETH",
+       "{pre.ETH} ({pre.ETH/pre.base*100|p2} of the base)",
+       "pre.ETH>0"
+      ],
+      [
+       "DeFi",
+       "{pre.dig}"
+      ],
+      [
+       "5% position cap",
+       "{pre.base*D(\"0.05\")}"
+      ],
+      [
+       "10% total cap",
+       "{pre.base*D(\"0.10\")}"
+      ],
+      [
+       "Checking",
+       "{pre.CHK}"
+      ]
+     ]
+    }
+   ],
+   "situation": "ETH is 40% below where it was at month 5. If you have a loan, the same fall hits it.",
+   "options": {
+    "a": {
+     "t": "Hold everything. Do nothing.",
+     "tv": [
+      {
+       "v": [
+        "loan"
+       ],
+       "t": "Repay the {pre.KLP} loan from checking."
+      }
+     ]
+    },
+    "b": {
+     "t": "Trim half of your ETH. This sells {pre.ETH/2} of ETH.",
+     "tv": [
+      {
+       "v": [
+        "loan"
+       ],
+       "t": "Add $500 of ETH as collateral. $500 leaves checking; ETH is credited $497.50 (fee $2.50). Collateral becomes {pre.ETH+D(\"497.5\")}; LTV {pre.KLP/(pre.ETH+D(\"497.5\"))*100|p1}."
+      }
+     ],
+     "unavail": {
+      "when": "v=='free_noeth'",
+      "label": "Unavailable: you hold no ETH, so there is nothing to trim."
+     }
+    },
+    "c": {
+     "t": "Buy $1,000 more ETH. $1,000 leaves checking and ETH is credited $995.",
+     "tv": [
+      {
+       "v": [
+        "loan"
+       ],
+       "t": "Leave the loan as it is. LTV stays {pre.KLP/pre.ETH*100|p1}; interest keeps accruing."
+      }
+     ]
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='loan'",
+      "text": "You repaid {-d.KLP} from checking. It earns 100 because it ends the loan and the leverage risk, and cash covers it. Repaying costs liquidity, so it only works because you hold enough cash. Next: you hold your ETH with nothing pledged.",
+      "ref": "You repaid $1,015.06 from checking. It earns 100 because it ends the loan and the leverage risk, and cash covers it. Repaying costs liquidity, so it only works because you hold enough cash. Next: you hold your ETH with nothing pledged.",
+      "rp": "ACB",
+      "dk": "Q4|A",
+      "assert": "d.KLP == -pre.KLP and post.KLP == 0"
+     },
+     {
+      "when": "v!='loan'",
+      "text": "You held. It earns 100 because without a loan, a price fall is a paper loss and breaks no rule of yours. Next: unchanged.",
+      "ref": "You held. It earns 100 because without a loan, a price fall is a paper loss and breaks no rule of yours. Next: unchanged.",
+      "rp": "ACA",
+      "dk": "Q4|A, no loan"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='loan'",
+      "text": "You added $500 of ETH. LTV fell from {pre.KLP/pre.ETH*100|p1} to {post.KLP/post.ETH*100|p1}. It scores 0 because {post.KLP/post.ETH*100|p1} is still above your 48% rule. The extra {d.ETH} also puts more of your money behind the lender if the lender fails. Next: a smaller risk of forced sale, but the loan is still above your line.",
+      "ref": "You added $500 of ETH. LTV fell from 68.0% to 51.0%. It scores 0 because 51.0% is still above your 48% rule. The extra $497.50 also puts more of your money behind the lender if the lender fails. Next: a smaller risk of forced sale, but the loan is still above your line.",
+      "rp": "ACB",
+      "dk": "Q4|B, loan",
+      "assert": "d.ETH == 497.5 and post.KLP/post.ETH > 0.48"
+     },
+     {
+      "when": "v=='free_eth'",
+      "text": "You trimmed half of your ETH, selling {-d.ETH} for {-d.ETH-fee} after the fee. It earns 100 because reducing a position you hold keeps you within your rules. It is not a prediction that ETH will fall further. Next: less ETH and more cash.",
+      "ref": "You trimmed half of your ETH, selling $746.25 for $742.52 after the fee. It earns 100 because reducing a position you hold keeps you within your rules. It is not a prediction that ETH will fall further. Next: less ETH and more cash.",
+      "rp": "ACA",
+      "dk": "Q4|B, trimmed",
+      "assert": "d.ETH < 0 and -d.ETH*2 == pre.ETH"
+     },
+     {
+      "when": "v=='free_noeth'",
+      "text": "There was nothing to trim. It scores 0.",
+      "ref": "There was nothing to trim. It scores 0.",
+      "rp": "AAA",
+      "dk": "Q4|B (no ETH)",
+      "assert": "declined"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='loan'",
+      "text": "You changed nothing. It scores 0 because {pre.KLP/pre.ETH*100|p1} is far above your 48% rule, and only about {(1-pre.KLP/D(\"0.8\")/pre.ETH)*100|p0} of further decline from the 80% forced-sale line. Next: the loan carries into Q5 with LTV still above your rule.",
+      "ref": "You changed nothing. It scores 0 because 68.0% is far above your 48% rule, and only about 15% of further decline from the 80% forced-sale line. Next: the loan carries into Q5 with LTV still above your rule.",
+      "rp": "ACB",
+      "dk": "Q4|C, loan"
+     },
+     {
+      "when": "v!='loan'",
+      "text": "You added $1,000 of ETH after the drop. It earns 100 because the purchase fits your caps; the score is a rule check. It does not say buying a dip is wise, and it does not depend on where ETH goes next. Next: a larger ETH position, {post.ETH/pre.base*100|p2} of the base in the example.",
+      "ref": "You added $1,000 of ETH after the drop. It earns 100 because the purchase fits your caps; the score is a rule check. It does not say buying a dip is wise, and it does not depend on where ETH goes next. Next: a larger ETH position, 4.55% of the base in the example.",
+      "rp": "ACA",
+      "dk": "Q4|C, added",
+      "assert": "d.ETH == 995 and post.ETH <= pre.base*D(\"0.05\")",
+      "dev": "locked text ends \"of the base in the example\"; the figure is read from the ledger"
+     }
+    ]
+   },
+   "takeaway": "Leverage turns a price drop into a deadline; without leverage it is only a mark-to-market loss. Compare your loan-to-value with your own line, not with the lender's. More collateral is not automatically enough."
+  },
+  {
+   "n": 5,
+   "month": 9,
+   "title": "The vote, and the permission",
+   "rung": "Check: PERMISSION",
+   "show": [
+    {
+     "v": [
+      "pool"
+     ],
+     "items": [
+      [
+       "Pool position (your voting power)",
+       "{pre.POOL}"
+      ],
+      [
+       "Checking",
+       "{pre.CHK}"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "no_pool"
+     ],
+     "items": [
+      [
+       "Pool position",
+       "none (you hold no pool tokens)"
+      ],
+      [
+       "Checking",
+       "{pre.CHK}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Surge Pool has a governance proposal: \"Proposal 14: change how the pool's treasury is held.\" A dashboard offers two ways to take part. Voting costs about $8 in network gas and uses a one-time signature for this vote only. A convenience button asks you to approve unlimited spending of your pool tokens \"so future votes and claims are one click.\" No financial effect from the vote is modeled.",
+   "options": {
+    "a": {
+     "t": "Abstain. Do not vote."
+    },
+    "b": {
+     "t": "Read the proposal and vote with a one-time signature. $8 gas from checking. No spending permission is granted.",
+     "unavail": {
+      "when": "v=='no_pool'",
+      "label": "Unavailable: you hold no pool tokens, so you have no vote."
+     }
+    },
+    "c": {
+     "t": "Click \"approve unlimited spending\" to make future voting easier."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You abstained. Nothing changed. It earns 100 because choosing not to vote on something you have not studied is a legitimate decision. Next: unchanged.",
+      "ref": "You abstained. Nothing changed. It earns 100 because choosing not to vote on something you have not studied is a legitimate decision. Next: unchanged.",
+      "rp": "",
+      "dk": "Q5|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='pool'",
+      "text": "You read the proposal and voted; $8 gas was charged. It earns 100 because you used your voting power with a single, limited signature and granted no spending permission. Voting is optional. Next: checking is $8 lower.",
+      "ref": "You read the proposal and voted; $8 gas was charged. It earns 100 because you used your voting power with a single, limited signature and granted no spending permission. Voting is optional. Next: checking is $8 lower.",
+      "rp": "ACAC",
+      "dk": "Q5|B (5a)",
+      "assert": "d.CHK == -8"
+     },
+     {
+      "when": "v=='no_pool'",
+      "text": "You had no tokens, so nothing happened. It scores 0.",
+      "ref": "You had no tokens, so nothing happened. It scores 0.",
+      "rp": "AAAA",
+      "dk": "Q5|B (5b)",
+      "assert": "declined"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='pool'",
+      "text": "You approved unlimited spending. It scores 0 because the approval lets a contract move all of your current and future pool tokens with no limit or expiry, and you cannot tell in advance whether that contract will always behave. In this story, a month later the approved spender was abused and 25% of your pool position ({-lt.d.POOL}) was drained. The drain shows the risk; it is not the reason for the score. Next: a smaller pool position, and the approval is still open until you revoke it.",
+      "ref": "You approved unlimited spending. It scores 0 because the approval lets a contract move all of your current and future pool tokens with no limit or expiry, and you cannot tell in advance whether that contract will always behave. In this story, a month later the approved spender was abused and **25% of your pool position ($263.02) was drained**. The drain shows the risk; it is not the reason for the score. Next: a smaller pool position, and the approval is still open until you revoke it.",
+      "rp": "ACAC",
+      "dk": "Q5|C (5a)",
+      "assert": "lt.d.POOL < 0"
+     },
+     {
+      "when": "v=='no_pool'",
+      "text": "You approved unlimited spending although you hold no tokens. Nothing was lost now. It scores 0 because the approval stays open and applies to any pool tokens you receive later. Next: revoke it before you deposit again.",
+      "ref": "You approved unlimited spending although you hold no tokens. Nothing was lost now. It scores 0 because the approval stays open and applies to any pool tokens you receive later. Next: revoke it before you deposit again.",
+      "rp": "AAAA",
+      "dk": "Q5|C (5b)"
+     }
+    ]
+   },
+   "takeaway": "Approving a spender is a permission, not a vote. Prefer one-time signatures and exact amounts. Review and revoke approvals you no longer need. Governance power is worth using only if you have read what you are voting on."
+  },
+  {
+   "n": 6,
+   "month": 11,
+   "title": "Harbor Vault has been exploited",
+   "rung": "Check: PROTOCOL RISK",
+   "show": [
+    {
+     "v": [
+      "vault"
+     ],
+     "items": [
+      [
+       "Your vault position",
+       "fell 35%, from {pre.VAULT-row(11,\"EXPLOIT\",\"VAULT\")} to {pre.VAULT}"
+      ],
+      [
+       "Checking",
+       "{pre.CHK}"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "no_vault"
+     ],
+     "items": [
+      [
+       "Harbor Vault",
+       "You hold no position in Harbor Vault."
+      ],
+      [
+       "Checking",
+       "{pre.CHK}"
+      ]
+     ]
+    }
+   ],
+   "situation": "Harbor Vault reports an exploit. Its team says it is investigating. No recovery or repayment plan has been announced.",
+   "options": {
+    "a": {
+     "t": "Withdraw what is left. The whole remaining {pre.VAULT} is withdrawn; fee 0.5% ({fee}); net {d.CHK} to checking.",
+     "unavail": {
+      "when": "v=='no_vault'",
+      "label": "Unavailable: you hold no position, so there is nothing to withdraw."
+     }
+    },
+    "b": {
+     "t": "Hold and wait for the team's update.",
+     "tv": [
+      {
+       "v": [
+        "no_vault"
+       ],
+       "t": "Take no action."
+      }
+     ]
+    },
+    "c": {
+     "t": "Deposit $500 more \"to average down.\"",
+     "tv": [
+      {
+       "v": [
+        "no_vault"
+       ],
+       "t": "Deposit $500 \"while it is cheap.\""
+      }
+     ]
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='vault'",
+      "text": "You withdrew {-d.VAULT} (net {d.CHK}). It earns 100 because, with an exploit under way and no recovery announced, you acted on what you know and ended exposure to the unresolved problem. Withdrawing locks in the 35% loss, and selling a loss can be reasonable; it is not a prediction about later prices. Next: you hold no Harbor Vault.",
+      "ref": "You withdrew $673.09 (net $669.72). It earns 100 because, with an exploit under way and no recovery announced, you acted on what you know and ended exposure to the unresolved problem. Withdrawing locks in the 35% loss, and selling a loss can be reasonable; it is not a prediction about later prices. Next: you hold no Harbor Vault.",
+      "rp": "BAAAA",
+      "dk": "Q6|A (6a)",
+      "assert": "post.VAULT == 0"
+     },
+     {
+      "when": "v=='no_vault'",
+      "text": "There was nothing to withdraw. It scores 0.",
+      "ref": "There was nothing to withdraw. It scores 0.",
+      "rp": "AAAAA",
+      "dk": "Q6|A (6b)",
+      "assert": "declined"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='vault'",
+      "text": "You held {pre.VAULT} in the vault. It scores 0 because the decision rests on a recovery nobody has announced: waiting kept your full exposure to a protocol with a known unresolved loss. Waiting is not irrational, but the score is based on what is known now. It does not depend on what the vault does next. Next: you still carry the exposure at Q7.",
+      "ref": "You held $673.09 in the vault. It scores 0 because the decision rests on a recovery nobody has announced: waiting kept your full exposure to a protocol with a known unresolved loss. Waiting is not irrational, but the score is based on what is known now. It does not depend on what the vault does next. Next: you still carry the exposure at Q7.",
+      "rp": "BAAAA",
+      "dk": "Q6|B (6a)"
+     },
+     {
+      "when": "v=='no_vault'",
+      "text": "You took no action. It earns 100 because you hold no exposure, so no action was needed. Use the moment to check which other protocols you rely on.",
+      "ref": "You took no action. It earns 100 because you hold no exposure, so no action was needed. Use the moment to check which other protocols you rely on.",
+      "rp": "AAAAA",
+      "dk": "Q6|B (6b)"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You deposited $500; the vault was credited {d.VAULT}. It scores 0 because adding money to a protocol with a known loss and no recovery plan is not a decision your rules support, and \"averaging down\" is not a plan. Next: $500 less cash and more money in the exploited vault.",
+      "ref": "You deposited $500; the vault was credited $497.50. It scores 0 because adding money to a protocol with a known loss and no recovery plan is not a decision your rules support, and \"averaging down\" is not a plan. Next: $500 less cash and more money in the exploited vault.",
+      "rp": "",
+      "dk": "Q6|C (6a and 6b)",
+      "assert": "d.VAULT == 497.5"
+     }
+    ]
+   },
+   "takeaway": "When a protocol is exploited, decide on what is known: how much is at risk, what has been announced, and what you can still control. Never add to a position in an unresolved incident because the price looks lower."
+  },
+  {
+   "n": 7,
+   "month": 13,
+   "title": "Rebalance day",
+   "rung": "Check: DRIFT. Two different kinds of rule apply",
+   "show": [
+    {
+     "v": [
+      "sale",
+      "within_exec",
+      "within_blocked"
+     ],
+     "items": [
+      [
+       "Investment base",
+       "{pre.base}"
+      ],
+      [
+       "DeFi total",
+       "{pre.dig} = {pre.dig/pre.base*100|p2}"
+      ],
+      [
+       "8% line",
+       "{pre.base*D(\"0.08\")}"
+      ],
+      [
+       "Amount above the line",
+       "{max(0,pre.dig-pre.base*D(\"0.08\"))}"
+      ],
+      [
+       "10% cap",
+       "{pre.base*D(\"0.10\")}"
+      ],
+      [
+       "ETH",
+       "{pre.ETH} = {pre.ETH/pre.base*100|p2}{cond(pre.ETH>pre.base*D(\"0.05\"),\" (above the 5% purchase limit of \"+m(pre.base*D(\"0.05\"))+\" by drift; you cannot add to it)\",\"\")}",
+       "pre.ETH>0"
+      ],
+      [
+       "Surge Pool",
+       "{pre.POOL} = {pre.POOL/pre.base*100|p2}",
+       "pre.POOL>0"
+      ],
+      [
+       "Harbor Vault",
+       "{pre.VAULT} = {pre.VAULT/pre.base*100|p2}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Checklist",
+       "total DeFi ≤ 10% {cond(pre.dig<=pre.base*D(\"0.10\"),\"✓\",\"✗\")} · total DeFi ≤ 8% {cond(pre.dig<=pre.base*D(\"0.08\"),\"✓\",\"✗\")} (rebalancing trigger) · every position ≤ 5% {cond(max(pre.ETH,pre.POOL,pre.VAULT)<=pre.base*D(\"0.05\"),\"✓\",\"✗\")}"
+      ]
+     ]
+    }
+   ],
+   "situation": "ETH has risen about 27% since month 12. Prices have moved your holdings. Two kinds of rule apply, and they are not the same. Purchase-time limits (tested when you buy): 5% per position and 10% of the base in total. Rebalancing trigger: 8% of the base, total DeFi (Harbor Vault + Surge Pool + ETH together). Above it, you may sell back toward it. It measures total DeFi, not any single position.",
+   "options": {
+    "a": {
+     "t": "Sell DeFi down to the 8% line.",
+     "tv": [
+      {
+       "v": [
+        "sale"
+       ],
+       "t": "Sell DeFi down to the 8% line: sell {-d.ETH} of ETH (0.5% fee {fee}); the cash goes to checking."
+      }
+     ],
+     "unavail": {
+      "when": "v!='sale'",
+      "label": "Unavailable: nothing is above the 8% line, so there is nothing to sell."
+     }
+    },
+    "b": {
+     "t": "Leave everything as it is."
+    },
+    "c": {
+     "t": "Buy $2,000 more ETH.",
+     "tv": [
+      {
+       "v": [
+        "sale",
+        "within_blocked"
+       ],
+       "t": "Buy $2,000 more ETH. Blocked by your 5% position limit: ETH would be {pre.ETH+2000} against the {pre.base*D(\"0.05\")} limit. Nothing is bought."
+      }
+     ]
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='sale'",
+      "text": "You sold {-d.ETH} of ETH (fee {fee}; {-d.ETH-fee} to checking). Total DeFi moved from {pre.dig/pre.base*100|p2} to {(pre.dig+d.ETH)/pre.base*100|p2} of the base you measured when you decided. It earns 100 because total DeFi was above your 8% trigger and the sale brings it back to the line. This is a rule check, not a market call. The sale did not bring ETH under 5%: ETH is still {(pre.ETH+d.ETH)/pre.base*100|p2}, {pre.ETH+d.ETH-pre.base*D(\"0.05\")} over the purchase limit. The 5% limit applies when you buy, so this is not a breach, but you cannot add to ETH until it falls below. Next: the story ends with lower DeFi and an ETH position still above 5%.",
+      "ref": "You sold $490.08 of ETH (fee $2.45; $487.63 to checking). Total DeFi moved from 8.78% to 8.00% of the base you measured when you decided. It earns 100 because total DeFi was above your 8% trigger and the sale brings it back to the line. This is a rule check, not a market call. The sale **did not bring ETH under 5%**: ETH is still 5.49%, $306.29 over the purchase limit. The 5% limit applies when you buy, so this is not a breach, but you cannot add to ETH until it falls below. Next: the story ends with lower DeFi and an ETH position still above 5%.",
+      "rp": "ACACAC",
+      "dk": "Q7|A (executes)",
+      "assert": "pre.ETH+d.ETH > pre.base*D(\"0.05\") and d.ETH < 0",
+      "dev": "the locked bullet carries an editorial note about its last sentence; the note is not player text and is not shown. The sentence is shown because ETH stays above 5% after the sale in all 11 states (asserted)"
+     },
+     {
+      "when": "v!='sale'",
+      "text": "There was nothing above the 8% line to sell. It scores 0.",
+      "ref": "There was nothing above the 8% line to sell. It scores 0.",
+      "rp": "",
+      "dk": "Q7|A, 7-within",
+      "assert": "declined"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You left everything as it is. It earns 100 because total DeFi is {pre.dig/pre.base*100|p2} of the base, under your 10% hard cap, so no hard limit is broken. ETH is {pre.ETH/pre.base*100|p2} of the base. {cond(pre.dig>pre.base*D(\"0.08\"),\"Total DeFi stayed above your 8% trigger. \",\"Total DeFi is at or under your 8% trigger. \")|t}{cond(pre.ETH>pre.base*D(\"0.05\"),\"ETH stayed above the 5% position limit. \",\"ETH is at or under the 5% position limit. \")|t}The scoring accepts this because the 8% trigger and the 5% position limit are not enforced on drift. Next: unchanged.",
+      "ref": "You left everything as it is. It earns 100 because total DeFi is under your 10% hard cap, so no hard limit is broken. If you were above 8%, you stayed above your trigger (your total DeFi is P[x] of the base); if ETH was above 5%, you stayed above that too. The scoring accepts this because the 8% trigger and the 5% position limit are not enforced on drift. Next: unchanged.",
+      "rp": "",
+      "dk": "Q7|B",
+      "assert": "pre.dig <= pre.base*D(\"0.10\")",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged",
+      "approved": "jules.q7.b.example-figure (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='within_exec'",
+      "text": "You bought $2,000 of ETH ({d.ETH} after the fee). It earns 100 because the purchase fits your limits. The score does not say buying after a rally is wise, and it does not depend on later prices. Next: higher DeFi at the end of the story.",
+      "ref": "You bought $2,000 of ETH ($1,990 after the fee). It earns 100 because the purchase fits your limits. The score does not say buying after a rally is wise, and it does not depend on later prices. Next: higher DeFi at the end of the story.",
+      "rp": "",
+      "dk": "Q7|C, executes",
+      "assert": "d.ETH == 1990 and post.ETH <= pre.base*D(\"0.05\")"
+     },
+     {
+      "when": "v!='within_exec'",
+      "text": "The purchase would have put ETH above your 5% limit, so it was blocked and nothing was bought. It scores 0.",
+      "ref": "The purchase would have put ETH above your 5% limit, so it was blocked and nothing was bought. It scores 0.",
+      "rp": "",
+      "dk": "Q7|C, blocked",
+      "assert": "declined and d.ETH == 0"
+     }
+    ]
+   },
+   "takeaway": "A purchase limit stops what you buy; a rebalancing trigger tells you when to sell back toward a total. Positions drift with prices, so check total exposure and each position, and never describe a trade as restoring a limit it did not restore."
+  }
+ ],
+ "wording_fixes": [
+  {
+   "id": "jules.v0.3.1.q2.c.over",
+   "from": "The pool deposit executed; the ETH purchase was blocked, so you hold the pool but no ETH. It scores 0 because the combined plan would put DeFi at {pre.dig+3500} against a {pre.base*D(\"0.10\")} cap. The pool deposit alone would have fit. Next: you hold a pool position and $2,500 of unused cash, with less DeFi room than a player who skipped Q1 C.",
+   "to": "The pool deposit executed; the ETH purchase was blocked, so you hold the pool but no ETH. It scores 0 because the combined plan would put DeFi at {pre.dig+3500} against a {pre.base*D(\"0.10\")} cap. The pool deposit alone would have fit. Next: you hold a pool position and $2,500 of unused cash, with {nx.base*D(\"0.10\")-nx.dig|r} of DeFi room left.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "jules.v0.3.1.q3.c.vault-sold",
+   "from": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of Harbor Vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less crypto at Q4.",
+   "to": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of Harbor Vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less crypto at Q4.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "jules.v0.3.1.q7.b",
+   "from": "You left everything as it is. It earns 100 because total DeFi is under your 10% hard cap, so no hard limit is broken. If you were above 8%, you stayed above your trigger (your total DeFi is {pre.dig/pre.base*100|p2} of the base); if ETH was above 5%, you stayed above that too. The scoring accepts this because the 8% trigger and the 5% position limit are not enforced on drift. Next: unchanged.",
+   "to": "You left everything as it is. It earns 100 because total DeFi is {pre.dig/pre.base*100|p2} of the base, under your 10% hard cap, so no hard limit is broken. ETH is {pre.ETH/pre.base*100|p2} of the base. {cond(pre.dig>pre.base*D(\"0.08\"),\"Total DeFi stayed above your 8% trigger. \",\"Total DeFi is at or under your 8% trigger. \")|t}{cond(pre.ETH>pre.base*D(\"0.05\"),\"ETH stayed above the 5% position limit. \",\"ETH is at or under the 5% position limit. \")|t}The scoring accepts this because the 8% trigger and the 5% position limit are not enforced on drift. Next: unchanged.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "jules.v0.3.2.labels",
+   "from": "Harbor Vault / Keystone unlabeled; figures unlabeled",
+   "to": "Harbor Vault (a fictional vault); Keystone (a fictional lender); intro states figures are scenario assumptions"
+  }
+ ]
+}

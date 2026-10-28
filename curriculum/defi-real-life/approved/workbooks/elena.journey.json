@@ -1,0 +1,681 @@
+{
+ "schema": "flq.defi-rl.journey.v1",
+ "slug": "elena",
+ "id": "defi.elena",
+ "display": {
+  "name": "Elena Torres",
+  "blurb": "A new parent, 40, salaried: leave gap, a medical bill, a gift of ETH and a childcare deposit."
+ },
+ "logic_ver": "0.1",
+ "text_ver": "0.1.2",
+ "status": "APPROVED & LOCKED (curriculum design only)",
+ "source_doc": "batch1-elena-journey-v0.1-APPROVED-LOCKED.md",
+ "pending_wording": [],
+ "intro": "Elena Torres, 40, salaried, new parent. Checking $1,000, emergency reserve $6,300, no debt, no crypto. A credit card (limit $3,000, 2% a month) is unused. Take-home pay is $5,100 a month ($3,825 in months 2 and 3 on parental leave). Household costs are $4,200. Pay, leave pay and costs are assumptions in this story.",
+ "plan": [
+  "Cash first. The leave gap, the medical bill and the childcare deposit come before any crypto.",
+  "Reserve target $6,300. She adds to crypto only if the reserve stays at or above the target afterwards and she owes nothing on a card.",
+  "Cash cushion $4,350. Below it she does not hold a position whose value she cannot count on.",
+  "Recovery phrase offline only.",
+  "No borrowing against crypto for essentials. A 0% plan comes before a card.",
+  "Gated exploration: a $50 position only when cash is at least $6,350 and no card balance is owed."
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "month": 1,
+   "title": "Covering the leave gap",
+   "rung": "Leave gap",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Reserve",
+       "{pre.RES} (target $6,300)"
+      ],
+      [
+       "Cash total",
+       "{pre.cash}"
+      ],
+      [
+       "Stablecoin vault",
+       "{pre.VAULT}"
+      ],
+      [
+       "Card",
+       "{pre.CARD}"
+      ]
+     ],
+     "note": "Months 2 and 3 pay is 75%: a $2,550 gap is coming."
+    }
+   ],
+   "situation": "You have a baby coming and two months at 75% pay. A friend says a stablecoin vault pays about 0.4% a month, variable and never guaranteed. Your plan covers known gaps with cash first.",
+   "options": {
+    "a": {
+     "t": "Keep the reserve in cash."
+    },
+    "b": {
+     "t": "Move $1,500 of the reserve into the vault."
+    },
+    "c": {
+     "t": "Move $3,000 of the reserve into the vault."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You kept {pre.cash} in cash. It earns 100 because the leave gap is known and the reserve already sits at its target. Next: months 2 and 3 draw it down, and every later choice starts from cash.",
+      "ref": "You kept $8,200 in cash. It earns 100 because the leave gap is known and the reserve already sits at its target. Next: months 2 and 3 draw it down, and every later choice starts from cash.",
+      "rp": "",
+      "dk": "Q1|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You moved $1,500 (fee {fee}). Cash is {post.cash} and the reserve {post.RES}. It scores 0 because {post.cash} is less than the $8,850 needed to cover the target and the leave gap. The vault is credited about 0.4% a month (variable; it did not decide the score). Next: less cash for the medical bill in Q2.",
+      "ref": "You moved $1,500 (fee $7.50). Cash is $6,700 and the reserve $4,800. It scores 0 because $6,700 is less than the $8,850 needed to cover the target and the leave gap. The vault is credited about 0.4% a month (variable; it did not decide the score). Next: less cash for the medical bill in Q2.",
+      "rp": "",
+      "dk": "Q1|B",
+      "assert": "post.cash < 8850"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You moved $3,000 (fee {fee}). Cash is {post.cash} and the reserve {post.RES}. It scores 0 for the same reason, at a larger size. Next: a tight Q2, where paying the bill in cash would leave you below your cushion.",
+      "ref": "You moved $3,000 (fee $15). Cash is $5,200 and the reserve $3,300. It scores 0 for the same reason, at a larger size. Next: a tight Q2, where paying the bill in cash would leave you below your cushion.",
+      "rp": "",
+      "dk": "Q1|C",
+      "assert": "post.cash < 8850"
+     }
+    ]
+   },
+   "takeaway": "Cover known income gaps with dependable cash before anything that can move against you."
+  },
+  {
+   "n": 2,
+   "month": 2,
+   "title": "The $2,700 medical bill",
+   "rung": "Bills",
+   "show": [
+    {
+     "v": [
+      "afford"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Cash total",
+       "{pre.cash}"
+      ]
+     ],
+     "note": "Paying in cash leaves {pre.cash-2700}, above your $4,350 cushion."
+    },
+    {
+     "v": [
+      "tight"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "Cash total",
+       "{pre.cash}"
+      ]
+     ],
+     "note": "Paying in cash would leave {pre.cash-2700}, below your $4,350 cushion."
+    }
+   ],
+   "situation": "The hospital bills you $2,700. It offers a 0% payment plan of $225 a month (an assumption in this story). Your card charges 2% a month.",
+   "options": {
+    "a": {
+     "t": "Pay it in cash."
+    },
+    "b": {
+     "t": "Use the 0% payment plan."
+    },
+    "c": {
+     "t": "Put it on the credit card."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='afford'",
+      "text": "You paid $2,700 (checking {-d.CHK}, reserve {-d.RES}). Cash is {post.cash}. It earns 100 because it leaves more than one month of costs. Next: the leave months now draw on a thinner reserve.",
+      "ref": "You paid $2,700 (checking $975, reserve $1,725). Cash is $4,975. It earns 100 because it leaves more than one month of costs. Next: the leave months now draw on a thinner reserve.",
+      "rp": "A",
+      "dk": "Q2|A, 2-afford",
+      "assert": "post.cash >= 4350"
+     },
+     {
+      "when": "v=='tight'",
+      "text": "You paid $2,700. Cash is {post.cash}. It scores 0 because it leaves less than the $4,350 cushion when a 0% plan was offered. Next: months 2 and 3 are lean.",
+      "ref": "You paid $2,700. Cash is $3,475. It scores 0 because it leaves less than the $4,350 cushion when a 0% plan was offered. Next: months 2 and 3 are lean.",
+      "rp": "B",
+      "dk": "Q2|A, 2-tight",
+      "assert": "post.cash < 4350"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You chose the plan. $225 comes out each month from month 3 and $450 is still owed after month 12. It earns 100 because it costs nothing and keeps cash. Next: a $225 monthly obligation until the plan ends.",
+      "ref": "You chose the plan. $225 comes out each month from month 3 and $450 is still owed after month 12. It earns 100 because it costs nothing and keeps cash. Next: a $225 monthly obligation until the plan ends.",
+      "rp": "",
+      "dk": "Q2|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You put $2,700 on the card. It scores 0 because the card charges 2% a month when a 0% plan was available. Next: a card balance you pay down from checking, and interest on the rest.",
+      "ref": "You put $2,700 on the card. It scores 0 because the card charges 2% a month when a 0% plan was available. Next: a card balance you pay down from checking, and interest on the rest.",
+      "rp": "",
+      "dk": "Q2|C"
+     }
+    ]
+   },
+   "takeaway": "Use a 0% plan when it is offered; pay cash only if it leaves a month of costs."
+  },
+  {
+   "n": 3,
+   "month": 3,
+   "title": "The baby's $100 of ETH",
+   "rung": "Gift & wallet",
+   "show": [
+    {
+     "v": [
+      "c_ok",
+      "c_not_ok"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Cash",
+       "{pre.cash}"
+      ],
+      [
+       "Plan balance owed",
+       "{pre.MED}",
+       "pre.MED>0"
+      ],
+      [
+       "Card",
+       "{pre.CARD}"
+      ],
+      [
+       "Gift ETH",
+       "{pre.ETH}"
+      ]
+     ],
+     "note": "Adding $400 would leave {pre.cash-400}, {\"above\" if pre.cash-400>=6300 else \"below\"} the $6,300 target."
+    }
+   ],
+   "situation": "A relative gives the baby $100 of ETH. It is not emergency cash. You can keep it, sell it, or add to it.",
+   "options": {
+    "a": {
+     "t": "Keep the gift."
+    },
+    "b": {
+     "t": "Sell it and put the money in savings."
+    },
+    "c": {
+     "t": "Add $400 of ETH."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You kept the $100. It earns 100 because a small gift can be held. Next: the ETH is exposed to your wallet security in Q4.",
+      "ref": "You kept the $100. It earns 100 because a small gift can be held. Next: the ETH is exposed to your wallet security in Q4.",
+      "rp": "",
+      "dk": "Q3|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You sold it (fee {fee}; reserve +{d.RES}). It earns 100 because the gift is not emergency cash and selling removes the exposure. Next: nothing in the wallet to protect in Q4.",
+      "ref": "You sold it (fee $0.50; reserve +$99.50). It earns 100 because the gift is not emergency cash and selling removes the exposure. Next: nothing in the wallet to protect in Q4.",
+      "rp": "",
+      "dk": "Q3|B"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='c_not_ok' and pre.CARD>0 and post.cash>=6300",
+      "text": "You added $400 (fee {fee}). Cash is now {post.cash}, but you owe {pre.CARD} on a card. It scores 0 because adding to crypto needs the reserve to stay at target and no card balance owed. Next: a bigger wallet balance in Q4.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q3|C, 3-C-not-ok (card)",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged",
+      "assert": "pre.CARD > 0 and post.cash >= 6300",
+      "approved": "elena.q3.c.card-block (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "v=='c_ok'",
+      "text": "You added $400 (fee about $2). Cash is still above the target, so it earns 100. Next: more at stake in Q4. (Note: a {pre.MED} plan balance is still owed; the rule reads cash and cards, not that plan.)",
+      "ref": "You added $400 (fee about $2). Cash is still above the target, so it earns 100. Next: more at stake in Q4. (Note: a $2,700 plan balance is still owed; the rule reads cash and cards, not that plan.)",
+      "rp": "AB",
+      "dk": "Q3|C, 3-C-ok",
+      "assert": "post.cash >= 6300 and pre.CARD == 0"
+     },
+     {
+      "when": "v=='c_not_ok'",
+      "text": "You added $400 (fee {fee}). Cash is now {post.cash}, below your $6,300 target. It scores 0 because adding to crypto needs the reserve to stay at target. Next: a bigger wallet balance in Q4.",
+      "ref": "You added $400 (fee $2). Cash is now $4,050, below your $6,300 target. It scores 0 because adding to crypto needs the reserve to stay at target. Next: a bigger wallet balance in Q4.",
+      "rp": "AA",
+      "dk": "Q3|C, 3-C-not-ok",
+      "assert": "post.cash < 6300"
+     }
+    ]
+   },
+   "takeaway": "A small gift can be held or sold. Adding money to crypto needs a reserve already at target."
+  },
+  {
+   "n": 4,
+   "month": 4,
+   "title": "The recovery phrase in the shared album",
+   "rung": "Gift & wallet",
+   "show": [
+    {
+     "v": [
+      "eth",
+      "none"
+     ],
+     "items": [
+      [
+       "ETH",
+       "{pre.ETH}"
+      ],
+      [
+       "Cash",
+       "{pre.cash}"
+      ]
+     ]
+    }
+   ],
+   "situation": "You photographed your wallet's recovery phrase and the photo synced to a shared family album. You cannot tell who has seen it, so the phrase may already be compromised.",
+   "options": {
+    "a": {
+     "t": "Store the phrase offline and remove the photo from every synced album and device."
+    },
+    "b": {
+     "t": "Leave it where it is."
+    },
+    "c": {
+     "t": "Add $300 of ETH and leave it synced."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You stored the phrase offline and removed the photo. It earns 100 because a phrase should never live in synced storage, and offline storage is a reasonable protective step if nobody has seen it. **But the photo already synced to a shared album, so the phrase may already be compromised, and removing the photo does not make it safe.** In that case, moving your assets to a newly created wallet with a new phrase may be necessary; offline storage alone is not enough. **This scenario does not simulate that transfer: no funds move, and the score does not depend on it.** Next: the wallet's balance is unchanged in this scenario.",
+      "ref": "You stored the phrase offline and removed the photo. It earns 100 because a phrase should never live in synced storage, and offline storage is a reasonable protective step if nobody has seen it. **But the photo already synced to a shared album, so the phrase may already be compromised, and removing the photo does not make it safe.** In that case, moving your assets to a newly created wallet with a new phrase may be necessary; offline storage alone is not enough. **This scenario does not simulate that transfer: no funds move, and the score does not depend on it.** Next: the wallet's balance is unchanged in this scenario.",
+      "rp": "",
+      "dk": "Q4|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='eth'",
+      "text": "You left it synced. In this scenario the wallet is drained in month 5 and the {pre.ETH} of ETH is lost. It scores 0 because a synced phrase is exposed, not because of the drain. Next: no ETH.",
+      "ref": "You left it synced. In this scenario the wallet is drained in month 5 and the $100 of ETH is lost. It scores 0 because a synced phrase is exposed, not because of the drain. Next: no ETH.",
+      "rp": "AAA",
+      "dk": "Q4|B, 4-eth"
+     },
+     {
+      "when": "v=='none'",
+      "text": "You left it synced. The wallet is empty, so **nothing was drained this time**. It still scores 0 because the rule is about the phrase, not the balance. Next: nothing changes.",
+      "ref": "You left it synced. The wallet is empty, so **nothing was drained this time**. It still scores 0 because the rule is about the phrase, not the balance. Next: nothing changes.",
+      "rp": "ABA",
+      "dk": "Q4|B, 4-none"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You added $300 (fee {fee}) and left it synced. In this scenario the wallet is drained in month 5 and all of the ETH is lost ({post.ETH}). It scores 0 because adding money to a wallet with an exposed phrase makes the exposure larger; the drain did not decide the score. Next: less cash and no ETH.",
+      "ref": "You added $300 (fee $1.50) and left it synced. In this scenario the wallet is drained in month 5 and all of the ETH is lost ($398.50). It scores 0 because adding money to a wallet with an exposed phrase makes the exposure larger; the drain did not decide the score. Next: less cash and no ETH.",
+      "rp": "AAA",
+      "dk": "Q4|C",
+      "dev": "variant-conditional dollar pair in the locked text is rendered as the single value that applies to this state"
+     }
+    ]
+   },
+   "takeaway": "Keep the recovery phrase offline. If it may have been seen, offline storage does not undo that: moving assets to a newly secured wallet may be necessary, and you should not add to the old one."
+  },
+  {
+   "n": 5,
+   "month": 6,
+   "title": "The $1,800 childcare deposit",
+   "rung": "Deposit",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Cash",
+       "{pre.cash}"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}"
+      ],
+      [
+       "Card",
+       "{pre.CARD}"
+      ]
+     ],
+     "note": "Tuition rises $700 a month from month 7. The deposit is refundable and held as an asset."
+    }
+   ],
+   "situation": "The childcare centre needs a $1,800 deposit now. A crypto lender, Keystone Loans, offers a $1,000 loan against ETH, but in this story it requires at least **$2,000** of ETH as collateral. You hold about $100 to $500.",
+   "options": {
+    "a": {
+     "t": "Pay the deposit from cash."
+    },
+    "b": {
+     "t": "Ask Keystone for the $1,000 loan first."
+    },
+    "c": {
+     "t": "Put the deposit on the credit card."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You paid $1,800 from cash. It earns 100 because cash covers an essential cost and borrowing would only add cost. Next: the deposit is held as an asset; tuition starts next month.",
+      "ref": "You paid $1,800 from cash. It earns 100 because cash covers an essential cost and borrowing would only add cost. Next: the deposit is held as an asset; tuition starts next month.",
+      "rp": "",
+      "dk": "Q5|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** Keystone declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
+      "ref": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** Keystone declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
+      "rp": "",
+      "dk": "Q5|B",
+      "dev": "approved text-only correction (D-5): letter reference replaced; meaning, scoring and finances unchanged",
+      "approved": "elena.q5.b (D-5 consolidated correction pass 2026-10-28)",
+      "assert": "declined and pre.ETH < 2000 and d.cash == -1800"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You put the deposit on the card. It scores 0 because cash covers it and the card charges 2% a month. Next: a card balance you pay down from checking, plus interest.",
+      "ref": "You put the deposit on the card. It scores 0 because cash covers it and the card charges 2% a month. Next: a card balance you pay down from checking, plus interest.",
+      "rp": "",
+      "dk": "Q5|C"
+     }
+    ]
+   },
+   "takeaway": "Do not fund essentials with speculative borrowing. Use cash if it covers the cost."
+  },
+  {
+   "n": 6,
+   "month": 8,
+   "title": "The stablecoin trades at $0.85",
+   "rung": "Stablecoin",
+   "lead": "The stablecoin is trading at $0.85. No repeg has been announced, and nothing guarantees one.",
+   "show": [
+    {
+     "v": [
+      "none",
+      "low",
+      "ok"
+     ],
+     "items": [
+      [
+       "Vault",
+       "{pre.VAULT}"
+      ],
+      [
+       "Cash",
+       "{pre.cash}"
+      ]
+     ]
+    }
+   ],
+   "situation": "",
+   "options": {
+    "a": {
+     "t": "Hold, do nothing."
+    },
+    "b": {
+     "t": "Sell the vault at $0.85."
+    },
+    "c": {
+     "t": "Add $500 at $0.85."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='none'",
+      "text": "You did nothing and hold none. It earns 100. Next: nothing changes.",
+      "ref": "You did nothing and hold none. It earns 100. Next: nothing changes.",
+      "rp": "AAAAA",
+      "dk": "Q6|A, 6-none"
+     },
+     {
+      "when": "v=='ok'",
+      "text": "You held. Cash is above one month of costs, so you can wait. It earns 100. Next: the vault stays exposed to the price.",
+      "ref": "You held. Cash is above one month of costs, so you can wait. It earns 100. Next: the vault stays exposed to the price.",
+      "rp": "BBAAA",
+      "dk": "Q6|A, 6-ok",
+      "assert": "pre.cash >= 4350"
+     },
+     {
+      "when": "v=='low'",
+      "text": "You held a vault worth {pre.VAULT} with cash at {pre.cash}. It scores 0 because with under one month of cash, holding relies on a repeg you cannot count on. In this scenario the price later reaches $0.88, still below $1; that did not decide the score. Next: the vault stays exposed.",
+      "ref": "You held a vault worth $1,299.38 with cash at $3,500. It scores 0 because with under one month of cash, holding relies on a repeg you cannot count on. In this scenario the price later reaches $0.88, still below $1; that did not decide the score. Next: the vault stays exposed.",
+      "rp": "BAAAA",
+      "dk": "Q6|A, 6-low",
+      "assert": "pre.cash < 4350"
+     }
+    ],
+    "b": [
+     {
+      "when": "v!='none'",
+      "text": "You sold {pre.VAULT} (fee {fee}). It earns 100 because it ends exposure to a depegged asset. The loss from $1 to $0.85 is real; selling realizes it. Next: more cash.",
+      "ref": "You sold $1,299.38 (fee $6.50). It earns 100 because it ends exposure to a depegged asset. The loss from $1 to $0.85 is real; selling realizes it. Next: more cash.",
+      "rp": "BAAAA",
+      "dk": "Q6|B, with a vault"
+     },
+     {
+      "when": "v=='none'",
+      "text": "There is no vault to sell, so the sale was **declined and nothing happened**. It scores 0 because there was nothing to sell. Next: nothing changes.",
+      "ref": "There is no vault to sell, so the sale was **declined and nothing happened**. It scores 0 because there was nothing to sell. Next: nothing changes.",
+      "rp": "AAAAA",
+      "dk": "Q6|B, 6-none"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You added $500 (fee {fee}). It scores 0 because adding to an asset that has already depegged adds known risk. Next: a bigger position.",
+      "ref": "You added $500 (fee $2.50). It scores 0 because adding to an asset that has already depegged adds known risk. Next: a bigger position.",
+      "rp": "",
+      "dk": "Q6|C"
+     }
+    ]
+   },
+   "takeaway": "A stablecoin can lose value. Know your cash before you decide whether to wait."
+  },
+  {
+   "n": 7,
+   "month": 11,
+   "title": "The $50 gate",
+   "rung": "Gated exploration",
+   "show": [
+    {
+     "v": [
+      "cash_short",
+      "card_owed"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Reserve",
+       "{pre.RES}"
+      ],
+      [
+       "Cash",
+       "{pre.cash}"
+      ],
+      [
+       "Card",
+       "{pre.CARD}"
+      ]
+     ],
+     "note": "Your gate needs cash of **$6,350** and no card balance. The gate is **closed**."
+    }
+   ],
+   "situation": "You have been curious about DeFi. Your plan allows a $50 position only when the gate is open.",
+   "options": {
+    "a": {
+     "t": "Skip it."
+    },
+    "b": {
+     "t": "Buy $50 of ETH."
+    },
+    "c": {
+     "t": "Buy $300 of ETH, ignoring the gate."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You skipped it. It earns 100 because your gate is closed. Next: no DeFi at all, and that is a complete, sound ending.",
+      "ref": "You skipped it. It earns 100 because your gate is closed. Next: no DeFi at all, and that is a complete, sound ending.",
+      "rp": "",
+      "dk": "Q7|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='cash_short'",
+      "text": "**Attempted decision:** you tried to open a $50 position. **Actual outcome:** your gate was closed, so the purchase was declined and nothing happened. **Why it scored 0:** choosing to open a position while your own gate is closed breaks your plan, even though nothing was bought. Next: nothing changes.",
+      "ref": "**Attempted decision:** you tried to open a $50 position. **Actual outcome:** your gate was closed, so the purchase was declined and nothing happened. **Why it scored 0:** choosing to open a position while your own gate is closed breaks your plan, even though nothing was bought. Next: nothing changes.",
+      "rp": "AAAAAA",
+      "dk": "Q7|B, cash short"
+     },
+     {
+      "when": "v=='card_owed'",
+      "text": "**Attempted decision:** you opened a $50 position. **Actual outcome:** cash was enough, so it went through ($50 bought, fee {fee}). **Why it scored 0:** your gate also requires no card balance, and one is owed. Next: $50 of ETH.",
+      "ref": "**Attempted decision:** you opened a $50 position. **Actual outcome:** cash was enough, so it went through ($50 bought, fee $0.25). **Why it scored 0:** your gate also requires no card balance, and one is owed. Next: $50 of ETH.",
+      "rp": "",
+      "dk": "Q7|B, card owed"
+     }
+    ],
+    "c": [
+     {
+      "when": "pre.RES>=6300",
+      "text": "You bought $300 (fee {fee}), ignoring the gate. It scores 0 because the gate also keeps you from buying while a card balance is owed. Next: less cash.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q7|C",
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged",
+      "assert": "pre.CARD > 0",
+      "approved": "elena.q7.c.reserve-at-target (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "True",
+      "text": "You bought $300 (fee {fee}), ignoring the gate. It scores 0 because the gate exists to protect a reserve that is still below target. Next: less cash.",
+      "ref": "You bought $300 (fee $1.50), ignoring the gate. It scores 0 because the gate exists to protect a reserve that is still below target. Next: less cash.",
+      "rp": "",
+      "dk": "Q7|C",
+      "assert": "pre.RES < 6300"
+     }
+    ]
+   },
+   "takeaway": "Exploration comes last, only when the reserve and your debts allow it. Skipping is a full-credit answer."
+  }
+ ],
+ "wording_fixes": [
+  {
+   "id": "elena.v0.1.1.q3.c.card-block",
+   "from": "You added $400 (fee {fee}). Cash is now {post.cash}, but you owe {pre.CARD} on a card. It scores 0 because adding to crypto needs the reserve to stay at target and no card balance owed. Next: a bigger wallet balance in Q4.",
+   "to": "You added $400 (fee {fee}). Cash is now {post.cash}, but you owe {pre.CARD} on a card. It scores 0 because adding to crypto needs the reserve to stay at target and no card balance owed. Next: a bigger wallet balance in Q4.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "elena.v0.1.1.q5.b",
+   "from": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** Keystone declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
+   "to": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** Keystone declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "elena.v0.1.1.q7.c.reserve-at-target",
+   "from": "You bought $300 (fee {fee}), ignoring the gate. It scores 0 because the gate also keeps you from buying while a card balance is owed. Next: less cash.",
+   "to": "You bought $300 (fee {fee}), ignoring the gate. It scores 0 because the gate also keeps you from buying while a card balance is owed. Next: less cash.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "elena.v0.1.2.labels",
+   "from": "leave pay unlabeled",
+   "to": "pay, leave pay and costs labeled as story assumptions"
+  }
+ ]
+}

@@ -1,0 +1,976 @@
+{
+ "schema": "flq.defi-rl.journey.v1",
+ "slug": "zoe",
+ "id": "defi.zoe",
+ "display": {
+  "name": "Zoe Williams",
+  "blurb": "A 19-year-old student with a part-time job: tight months, a housing deposit, a tuition payment plan and three scam-or-yield pitches."
+ },
+ "logic_ver": "0.3",
+ "text_ver": "0.3.4",
+ "status": "APPROVED & LOCKED (curriculum design only)",
+ "source_doc": "batch1-zoe-journey-v0.3-APPROVED-LOCKED.md",
+ "pending_wording": [],
+ "wording_fixes": [
+  {
+   "id": "zoe.v0.3.1.q6.b2.warning",
+   "from": "paid the way Option A is paid at your balance",
+   "to": "paid the same way as a straight $1,500 payment at your balance"
+  },
+  {
+   "id": "zoe.v0.3.1.q6.b2.feedback",
+   "from": "the way Option A is paid",
+   "to": "paid the same way as a straight $1,500 payment at your balance"
+  },
+  {
+   "id": "zoe.v0.3.1.q6.c3.warning",
+   "from": "paid the way Option A is paid at your balance",
+   "to": "paid the same way as a straight $1,500 payment at your balance"
+  },
+  {
+   "id": "zoe.v0.3.1.q6.c3.feedback",
+   "from": "the way Option A is paid",
+   "to": "paid the same way as a straight $1,500 payment at your balance"
+  },
+  {
+   "id": "zoe.v0.3.2.q5.b.cannot-fund",
+   "from": "You tried to buy $30 of ETH, but your checking and savings could not cover it, so nothing was bought and nothing changed. It scores 0 because even a small learning amount should come from money you can lose, and you have none to spare. Next: the same cash in Q6.",
+   "to": "You tried to buy $30 of ETH, but your checking and savings could not cover it, so nothing was bought and nothing changed. It scores 0 because even a small learning amount should come from money you can lose, and you have none to spare. Next: the same cash in Q6.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.q5.c.cannot-fund",
+   "from": "You tried to buy $150 of ETH, but your checking and savings could not cover it, so nothing was bought and nothing changed. It scores 0 for the same reason, at a larger size. Next: the same cash in Q6.",
+   "to": "You tried to buy $150 of ETH, but your checking and savings could not cover it, so nothing was bought and nothing changed. It scores 0 for the same reason, at a larger size. Next: the same cash in Q6.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.q7.a",
+   "from": "You paid the credit card ({pre.CARD} → $0) and kept the rest as cash. Your housing balances had already been settled from the paycheck, which is separate from the card. It earns 100 because debts and the next known payment come before anything optional. Next: you enter month 12 with cash for the $1,545, and $3,000 of tuition still ahead.",
+   "to": "You paid the credit card ({pre.CARD} → $0) and kept the rest as cash. Your housing balances had already been settled from the paycheck, which is separate from the card. It earns 100 because debts and the next known payment come before anything optional. Next: month 12 begins with {eom(11).cash} in accessible cash. The payment then due is $1,545 ($1,500 plus the $45 plan fee), and $3,000 of tuition is still ahead.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.q7.a.no-card-balance",
+   "from": "You had no credit-card balance, so there was nothing to pay, and you kept the cash. Your housing balances had already been settled from the paycheck. It earns 100 because debts and the next known payment come before anything optional, and you had no card debt. Next: you enter month 12 with cash for the $1,545, and $3,000 of tuition still ahead.",
+   "to": "You had no credit-card balance, so there was nothing to pay, and you kept the cash. Your housing balances had already been settled from the paycheck. It earns 100 because debts and the next known payment come before anything optional, and you had no card debt. Next: month 12 begins with {eom(11).cash} in accessible cash. The payment then due is $1,545 ($1,500 plus the $45 plan fee), and $3,000 of tuition is still ahead.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.zoe.q7.b100.card",
+   "from": "You paid the credit card and put $400 into the vault; $2 went to the fee and $398 reached the vault. You had {max(0,pre.cash-pre.CARD-1445)} of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+   "to": "You paid the credit card and put $400 into the vault; $2 went to the fee and $398 reached the vault. You had {max(0,pre.cash-pre.CARD-1445)} of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.zoe.q7.b100.no-card-balance",
+   "from": "You put $400 into the vault; $2 went to the fee and $398 reached the vault. You had {max(0,pre.cash-pre.CARD-1445)} of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+   "to": "You put $400 into the vault; $2 went to the fee and $398 reached the vault. You had {max(0,pre.cash-pre.CARD-1445)} of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.zoe.q7.b0.card",
+   "from": "You paid the card, then put $400 in the vault. It scores 0 because truly optional cash was only {max(0,pre.cash-pre.CARD-1445)}, less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $400 you may need.",
+   "to": "You paid the card, then put $400 toward the vault ($2 fee; $398 reached the vault). It scores 0 because truly optional cash was only {max(0,pre.cash-pre.CARD-1445)}, less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $398 you may need.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.zoe.q7.b0.no-card-balance",
+   "from": "You put $400 in the vault. It scores 0 because truly optional cash was only {max(0,pre.cash-pre.CARD-1445)}, less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $400 you may need.",
+   "to": "You put $400 toward the vault ($2 fee; $398 reached the vault). It scores 0 because truly optional cash was only {max(0,pre.cash-pre.CARD-1445)}, less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $398 you may need.",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.zoe.q7.c.card",
+   "from": "You put $1,000 in ETH and did not pay the credit card, so {pre.CARD} of card debt keeps growing. It scores 0 because you did not have $1,000 of optional cash, and borrowed money comes first. Next: you enter month 12 with less cash. If it is short, the unpaid part of the $1,500 goes onto the plan balance with a $75 late fee (for example, if cash covers $1,400, the other $100 plus $75 is added to the $3,000 still owed).",
+   "to": "You put $1,000 toward ETH ({fee} fee; {d.ETH} of ETH) and did not pay the credit card, so {pre.CARD} of card debt keeps growing. It scores 0 because you did not have $1,000 of optional cash, and borrowed money comes first. Next: month 12 begins with {eom(11).cash}. {cond(row(12,\"tuition left on school plan\",\"PLAN\")-3000>0,\"The $1,500 payment then came up \"+m(row(12,\"tuition left on school plan\",\"PLAN\")-3000)+\" short, so that amount plus a \"+m(row(12,\"late fee\",\"PLAN\"))+\" late fee was added to the plan balance, now \"+m(eom(12).PLAN)+\".\",\"The month-12 payment was still covered.\")|t}",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.2.zoe.q7.c.no-card-balance",
+   "from": "You put $1,000 in ETH. You had no credit-card balance. It scores 0 because you did not have $1,000 of optional cash. Next: you enter month 12 with less cash. If it is short, the unpaid part of the $1,500 goes onto the plan balance with a $75 late fee (for example, if cash covers $1,400, the other $100 plus $75 is added to the $3,000 still owed).",
+   "to": "You put $1,000 toward ETH ({fee} fee; {d.ETH} of ETH). You had no credit-card balance. It scores 0 because you did not have $1,000 of optional cash. Next: month 12 begins with {eom(11).cash}. {cond(row(12,\"tuition left on school plan\",\"PLAN\")-3000>0,\"The $1,500 payment then came up \"+m(row(12,\"tuition left on school plan\",\"PLAN\")-3000)+\" short, so that amount plus a \"+m(row(12,\"late fee\",\"PLAN\"))+\" late fee was added to the plan balance, now \"+m(eom(12).PLAN)+\".\",\"The month-12 payment was still covered.\")|t}",
+   "approval": "D-5 consolidated correction pass 2026-10-28"
+  },
+  {
+   "id": "zoe.v0.3.3.claims.card-advance",
+   "from": "A card advance is borrowing, not cash.",
+   "to": "A card advance is borrowing, not cash. Real card advances usually add a fee and a higher rate; this story uses one simple rate of about 2% a month."
+  },
+  {
+   "id": "zoe.v0.3.3.claims.sale-fee-label",
+   "from": "Buying or selling costs 0.5%; ...",
+   "to": "In this story, buying or selling costs 0.5%; ... (also: \"in this story, moving $25 on-chain can cost $19\")"
+  },
+  {
+   "id": "zoe.v0.3.4.labels",
+   "from": "plan fee and settlement unlabeled",
+   "to": "plan fee, amounts and in-month settlement labeled as story assumptions"
+  }
+ ],
+ "intro": "Zoe, 19, student with a part-time job. Opening: checking $600, savings $700, tuition fund $300. No debt, no crypto. Months 1 to 4: income $1,600, bills $1,500. Months 5 to 10: hours cut, income $1,300, bills $1,400. Month 8: $1,500 for the housing deposit and books. Month 12: first tuition payment of $1,500 plus a $45 plan fee; the other $3,000 is still owed afterward. The $45 plan fee and all other amounts are assumptions in this story.",
+ "plan": [
+  "\"Accessible bank balances\" means checking + savings + tuition fund. They are accessible, not all free to spend: the tuition fund is earmarked for the month-12 payment.",
+  "Card: $800 limit, about 2% a month. If a bill is bigger than the room left on the card, the whole bill goes unpaid and a $35 late fee is added.",
+  "Harbor Vault is a fictional yield vault, not an insured account. In this story, buying or selling costs 0.5%; sales of crypto also cost a $19 on-chain fee per holding. In this story, a sale settles within the month.",
+  "Every purchase amount includes the 0.5% fee: the full amount leaves your cash and the asset receives the amount minus the fee."
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "month": 1,
+   "title": "Up to 18%",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Tuition fund",
+       "{pre.TUI}"
+      ]
+     ]
+    }
+   ],
+   "situation": "A classmate shows you Harbor Vault. The app says \"up to 18% a year.\" You already know two bills are coming: $1,500 for the housing deposit in month 8, and your first tuition payment of $1,500 (plus a $45 plan fee) in month 12. The other $3,000 of tuition will still be owed after that. Your hours may also get tighter.",
+   "options": {
+    "a": {
+     "t": "Keep your money in insured savings for now."
+    },
+    "b": {
+     "t": "Move $300 from savings into Harbor Vault."
+    },
+    "c": {
+     "t": "Put $400 in Harbor Vault and $300 in ETH, from savings."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You chose to keep your money in savings. Nothing changed. It earns 100 because money with a due date should stay where you can reach it on that date. \"Up to 18%\" is an advertised top rate, not a promise. Next: your savings stay available for the month-8 deposit.",
+      "ref": "You chose to keep your money in savings. Nothing changed. It earns 100 because money with a due date should stay where you can reach it on that date. \"Up to 18%\" is an advertised top rate, not a promise. Next: your savings stay available for the month-8 deposit.",
+      "rp": "",
+      "dk": "Q1|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You moved $300 to the vault. Savings is $300 lower and the vault holds $300 minus a small fee, with a variable yield. It scores 0 because your cash did not have $300 of room above what you will owe. Next: you have $300 less bank cash for month 8, and getting it back costs a fee.",
+      "ref": "You moved $300 to the vault. Savings is $300 lower and the vault holds $300 minus a small fee, with a variable yield. It scores 0 because your cash did not have $300 of room above what you will owe. Next: you have $300 less bank cash for month 8, and getting it back costs a fee.",
+      "rp": "",
+      "dk": "Q1|B",
+      "assert": "d.SAV == -300 and d.VAULT > 298"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You put $700 into the vault and ETH, which empties your savings. It scores 0 because that is more than your cash could spare, and half of it sits in a price that can swing. Next: the ETH shows up in Q2, and your month-8 cash is $700 lower.",
+      "ref": "You put $700 into the vault and ETH, which empties your savings. It scores 0 because that is more than your cash could spare, and half of it sits in a price that can swing. Next: the ETH shows up in Q2, and your month-8 cash is $700 lower.",
+      "rp": "",
+      "dk": "Q1|C",
+      "assert": "d.SAV == -700 and post.SAV == 0"
+     }
+    ]
+   },
+   "takeaway": "Match money to its deadline. DeFi can suit some people with spare money they can leave alone for a long time. Your tuition and deposit money is not that."
+  },
+  {
+   "n": 2,
+   "month": 2,
+   "title": "ETH is down 35%",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "no_eth"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Tuition fund",
+       "{pre.TUI}"
+      ],
+      [
+       "ETH",
+       "$0"
+      ]
+     ]
+    },
+    {
+     "v": [
+      "eth"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Tuition fund",
+       "{pre.TUI}"
+      ],
+      [
+       "Vault",
+       "about {pre.VAULT|r}"
+      ],
+      [
+       "ETH",
+       "about {pre.ETH|r}"
+      ]
+     ],
+     "note": "Month-8 and month-9/10 needs unchanged."
+    }
+   ],
+   "situation": "Bills for this month are already paid. The question is whether you are ready for the bigger bills ahead: $1,500 in month 8 and two $100 gaps in months 9 and 10.",
+   "options": {
+    "a": {
+     "t": "Don't trade. Keep your cash.",
+     "tv": [
+      {
+       "v": [
+        "eth"
+       ],
+       "t": "Hold the ETH and wait."
+      }
+     ]
+    },
+    "b": {
+     "t": "Sell your ETH.",
+     "unavail": {
+      "when": "v=='no_eth'",
+      "label": "Unavailable: you own no ETH, so there is nothing to sell."
+     }
+    },
+    "c": {
+     "t": "Buy $100 of ETH at the lower price, from checking.",
+     "tv": [
+      {
+       "v": [
+        "eth"
+       ],
+       "t": "Buy $100 more ETH from checking."
+      }
+     ]
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "v=='no_eth'",
+      "text": "You made no trade. Nothing changed. It earns 100 because there was no ETH to sell, and buying would use money you will need. Next: your cash is unchanged for the month-8 deposit.",
+      "ref": "You made no trade. Nothing changed. It earns 100 because there was no ETH to sell, and buying would use money you will need. Next: your cash is unchanged for the month-8 deposit.",
+      "rp": "A",
+      "dk": "Q2|A, 2a"
+     },
+     {
+      "when": "v=='eth'",
+      "text": "You held the ETH. It stays in your wallet and can change in value either way. It scores 0 because your cash alone is short of the bills ahead and you chose to wait on a price instead. We do not say the price will fall; we say plans for fixed bills should not depend on it. Next: your ETH stays exposed in Q3.",
+      "ref": "You held the ETH. It stays in your wallet and can change in value either way. It scores 0 because your cash alone is short of the bills ahead and you chose to wait on a price instead. We do not say the price will fall; we say plans for fixed bills should not depend on it. Next: your ETH stays exposed in Q3.",
+      "rp": "C",
+      "dk": "Q2|A, 2b"
+     }
+    ],
+    "b": [
+     {
+      "when": "v=='no_eth'",
+      "text": "You picked an action that could not happen. Nothing was sold and nothing changed. It scores 0 because there was no sale to make. Next: your cash is unchanged, and the answer is used.",
+      "ref": "You picked an action that could not happen. Nothing was sold and nothing changed. It scores 0 because there was no sale to make. Next: your cash is unchanged, and the answer is used.",
+      "rp": "A",
+      "dk": "Q2|B, 2a (only if selectable)",
+      "assert": "declined"
+     },
+     {
+      "when": "v=='eth'",
+      "text": "You sold the ETH, about {pre.ETH|r} minus a small fee, into savings. It scores 100 because you were short for known bills and had something sellable. Selling covers the gap without borrowing. Next: your savings are higher, and Q3's wallet scam has nothing in your wallet to take.",
+      "ref": "You sold the ETH, about $194 minus a small fee, into savings. It scores 100 because you were short for known bills and had something sellable. Selling covers the gap without borrowing. Next: your savings are higher, and Q3's wallet scam has nothing in your wallet to take.",
+      "rp": "C",
+      "dk": "Q2|B, 2b",
+      "assert": "d.ETH == -pre.ETH and d.SAV > 190"
+     }
+    ],
+    "c": [
+     {
+      "when": "v=='no_eth'",
+      "text": "You bought $100 of ETH from checking. Checking is $100 lower, with a small fee. It scores 0 because a lower price is not extra room in your budget. Next: you now own ETH, which matters in Q3, and you have $100 less for month 8.",
+      "ref": "You bought $100 of ETH from checking. Checking is $100 lower, with a small fee. It scores 0 because a lower price is not extra room in your budget. Next: you now own ETH, which matters in Q3, and you have $100 less for month 8.",
+      "rp": "A",
+      "dk": "Q2|C, 2a",
+      "assert": "d.CHK == -100"
+     },
+     {
+      "when": "v=='eth'",
+      "text": "You bought $100 more ETH from checking. It scores 0 because you used the room you do not have. Next: more ETH is exposed in Q3.",
+      "ref": "You bought $100 more ETH from checking. It scores 0 because you used the room you do not have. Next: more ETH is exposed in Q3.",
+      "rp": "C",
+      "dk": "Q2|C, 2b",
+      "assert": "d.CHK == -100"
+     }
+    ]
+   },
+   "takeaway": "Pay essentials from cash. Do not buy more, or borrow, because a price dropped."
+  },
+  {
+   "n": 3,
+   "month": 3,
+   "title": "An unexpected message about aid",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Tuition fund",
+       "{pre.TUI}"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ]
+     ]
+    }
+   ],
+   "situation": "You get an email that says it is from your school. It says you may be selected for a $1,000 award, asks you to connect your crypto wallet to \"claim\" it, and mentions a $40 processing fee. You did not apply for anything like this.",
+   "options": {
+    "a": {
+     "t": "Don't pay or connect anything. Look up the school's financial aid office yourself and ask them."
+    },
+    "b": {
+     "t": "Pay the $40 fee."
+    },
+    "c": {
+     "t": "Connect your wallet to see what it asks."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You checked through the school's own office instead of the message. Nothing was lost. It earns 100 because you cannot tell from the message whether it is real, and the safe move is to confirm through a source you found yourself. If an award is real, the aid office can tell you the proper way to receive it. Next: your cash and wallet are unchanged.",
+      "ref": "You checked through the school's own office instead of the message. Nothing was lost. It earns 100 because you cannot tell from the message whether it is real, and the safe move is to confirm through a source you found yourself. If an award is real, the aid office can tell you the proper way to receive it. Next: your cash and wallet are unchanged.",
+      "rp": "",
+      "dk": "Q3|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You paid $40. It is gone and no award appeared. It scores 0 because you paid an unverified stranger for a promise. Next: you have $40 less for month 8.",
+      "ref": "You paid $40. It is gone and no award appeared. It scores 0 because you paid an unverified stranger for a promise. Next: you have $40 less for month 8.",
+      "rp": "",
+      "dk": "Q3|B",
+      "assert": "d.CHK == -40"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You connected your wallet and approved a request. The wallet was emptied: all your ETH, or $120 of cash if you had none. It scores 0 because connecting and approving can let someone else move your funds. Next: you have less to work with in month 8.",
+      "ref": "You connected your wallet and approved a request. The wallet was emptied: all your ETH, or $120 of cash if you had none. It scores 0 because connecting and approving can let someone else move your funds. Next: you have less to work with in month 8.",
+      "rp": "",
+      "dk": "Q3|C",
+      "assert": "(pre.ETH > 0 and d.ETH == -pre.ETH) or (pre.ETH == 0 and d.CHK == -120)"
+     }
+    ]
+   },
+   "takeaway": "Verify unexpected requests independently before paying, signing or connecting anything. Never share a recovery phrase. This does not mean real aid asks for these things; the point is that you cannot tell from the message."
+  },
+  {
+   "n": 4,
+   "month": 5,
+   "title": "Hours cut, plus a pitch",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Tuition fund",
+       "{pre.TUI}"
+      ]
+     ],
+     "note": "Income now $1,300 against bills of $1,400. Month-8 deposit: $1,500."
+    }
+   ],
+   "situation": "Your shifts dropped. You are $100 short each month. A friend says: \"Lock $600 for four months and earn staking rewards,\" or \"Put $200 in Harbor Vault.\"",
+   "options": {
+    "a": {
+     "t": "Decline. Keep your money available."
+    },
+    "b": {
+     "t": "Put $200 in Harbor Vault."
+    },
+    "c": {
+     "t": "Lock $600 until month 9."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You declined. Nothing changed. It earns 100 because your income fell and the deposit is still due in month 8. Next: your cash is intact for Q5 and Q6.",
+      "ref": "You declined. Nothing changed. It earns 100 because your income fell and the deposit is still due in month 8. Next: your cash is intact for Q5 and Q6.",
+      "rp": "",
+      "dk": "Q4|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "True",
+      "text": "You put $200 in the vault. It scores 0 because even $200 is more than a budget with a $100 monthly gap can spare right now. Next: $200 less for the deposit.",
+      "ref": "You put $200 in the vault. It scores 0 because even $200 is more than a budget with a $100 monthly gap can spare right now. Next: $200 less for the deposit.",
+      "rp": "",
+      "dk": "Q4|B",
+      "assert": "d.VAULT > 198"
+     }
+    ],
+    "c": [
+     {
+      "when": "True",
+      "text": "You locked $600. It cannot be sold or used before month 9, so it cannot help in month 8. It scores 0 because a lock that ends after a known deadline is the wrong tool. Next: in Q6 your bank cash is $600 lower, which can force a borrowing or unpaid-bill outcome.",
+      "ref": "You locked $600. It cannot be sold or used before month 9, so it cannot help in month 8. It scores 0 because a lock that ends after a known deadline is the wrong tool. Next: in Q6 your bank cash is $600 lower, which can force a borrowing or unpaid-bill outcome.",
+      "rp": "",
+      "dk": "Q4|C",
+      "assert": "d.STK > 596"
+     }
+    ]
+   },
+   "takeaway": "DeFi, staking and vaults can fit some people's long-term money. They are not for money you have already committed to bills. Staking is not emergency savings."
+  },
+  {
+   "n": 5,
+   "month": 7,
+   "title": "$30 to learn",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Checking",
+       "{pre.CHK}"
+      ],
+      [
+       "Savings",
+       "{pre.SAV}"
+      ],
+      [
+       "Tuition fund",
+       "{pre.TUI}"
+      ]
+     ],
+     "note": "The deposit is due next month."
+    }
+   ],
+   "situation": "You want to learn how crypto works by trying it.",
+   "options": {
+    "a": {
+     "t": "Skip buying for now. Learn by reading and practicing without real money."
+    },
+    "b": {
+     "t": "Buy $30 of ETH from checking."
+    },
+    "c": {
+     "t": "Buy $150 of ETH (checking, then savings)."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "True",
+      "text": "You skipped. Nothing changed. It earns 100 because you can learn the same ideas without risking money you owe next month. Next: all your cash reaches Q6.",
+      "ref": "You skipped. Nothing changed. It earns 100 because you can learn the same ideas without risking money you owe next month. Next: all your cash reaches Q6.",
+      "rp": "",
+      "dk": "Q5|A"
+     }
+    ],
+    "b": [
+     {
+      "when": "not declined",
+      "text": "You bought $30 of ETH. It scores 0 because even a small learning amount should come from money you can lose, and you have none to spare. Next: $30 less in Q6, and ETH you could sell there.",
+      "ref": "You bought $30 of ETH. It scores 0 because even a small learning amount should come from money you can lose, and you have none to spare. Next: $30 less in Q6, and ETH you could sell there.",
+      "rp": "",
+      "dk": "Q5|B",
+      "assert": "d.ETH > 29"
+     },
+     {
+      "when": "declined",
+      "text": "You tried to buy $30 of ETH, but your checking and savings could not cover it, so nothing was bought and nothing changed. It scores 0 because even a small learning amount should come from money you can lose, and you have none to spare. Next: the same cash in Q6.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q5|B, cannot fund",
+      "assert": "declined and d.ETH == 0 and post.cash == pre.cash",
+      "approved": "zoe.q5.b.cannot-fund (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ],
+    "c": [
+     {
+      "when": "not declined",
+      "text": "You bought $150. It scores 0 for the same reason, at a larger size. Next: $150 less in Q6, and ETH you could sell there.",
+      "ref": "You bought $150. It scores 0 for the same reason, at a larger size. Next: $150 less in Q6, and ETH you could sell there.",
+      "rp": "",
+      "dk": "Q5|C",
+      "assert": "d.ETH > 149"
+     },
+     {
+      "when": "declined",
+      "text": "You tried to buy $150 of ETH, but your checking and savings could not cover it, so nothing was bought and nothing changed. It scores 0 for the same reason, at a larger size. Next: the same cash in Q6.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q5|C, cannot fund",
+      "assert": "declined and d.ETH == 0 and post.cash == pre.cash",
+      "approved": "zoe.q5.c.cannot-fund (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ]
+   },
+   "takeaway": "A learning amount is for money you can afford to lose. Once your obligations are covered, a small capped amount can be reasonable."
+  },
+  {
+   "n": 6,
+   "month": 8,
+   "title": "The deposit is due",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "a2_b1_c1",
+      "a3_b2_c1",
+      "a2_b2_c1",
+      "a2_b1_c3",
+      "a1_b1_c3",
+      "a1_b1_c2"
+     ],
+     "items": [
+      [
+       "Due today",
+       "$1,500 for the housing deposit and books."
+      ],
+      [
+       "Accessible bank balances",
+       "Checking {pre.CHK} + Savings {pre.SAV} + Tuition fund {pre.TUI} = {pre.cash}. Not all of this is free to spend."
+      ],
+      [
+       "Earmarked for tuition",
+       "The tuition fund, {pre.TUI}. Your month-12 tuition payment is $1,500 plus a $45 plan fee, and $3,000 of tuition is still owed afterward (outside this story)."
+      ],
+      [
+       "What spending tuition money on housing does",
+       "Housing is paid from checking, then savings, then the tuition fund. Each dollar of tuition fund you spend now is a dollar missing in month 12. Your month-11 paycheck rebuilds cash, but if cash is short in month 12, the unpaid part of the $1,500 is added to the plan balance and a $75 late fee applies. Each option below shows how much tuition fund it uses."
+      ],
+      [
+       "Sellable crypto",
+       "{cond(pre.VAULT+pre.ETH>0,lst(cond(pre.VAULT>0,\"Vault \"+m(pre.VAULT)),cond(pre.ETH>0,\"ETH \"+m(pre.ETH))),\"You own nothing you can sell.\")}{cond(pre.STK>0,\" A locked stake (\"+m(pre.STK)+\") cannot be sold.\",\"\")}"
+      ],
+      [
+       "Card",
+       "Limit $800, balance {pre.CARD}, room left {800-pre.CARD}. About 2% a month, roughly $6 for every $100 borrowed by your month-11 paycheck."
+      ],
+      [
+       "Landlord (this story's rule, not a general rule)",
+       "Accepts a split if you pay at least $750 now; the other $750 is due in month 10; $25 fee. Under $750 now, the landlord refuses."
+      ],
+      [
+       "Selling",
+       "Each holding costs 0.5% plus a $19 on-chain fee."
+      ],
+      [
+       "Known gaps ahead",
+       "$100 short in month 9 and $100 short in month 10, paid from the same accounts and then the card. Your month-11 pay arrives after both: $1,300 regular plus a $2,400 summer paycheck, with $1,400 in bills."
+      ]
+     ]
+    }
+   ],
+   "situation": "The housing deposit and books are due now. Every option below shows what is paid now, what goes on the card, what stays unpaid, the late fee if any, and the tuition fund used.",
+   "options": {
+    "a": {
+     "t": "Pay $1,500 from your bank accounts. Uses {-d.TUI} of your tuition fund.",
+     "tv": [
+      {
+       "v": [
+        "a2_b1_c1",
+        "a2_b2_c1",
+        "a2_b1_c3"
+       ],
+       "t": "Pay what you have and borrow the rest ({1500-pre.cash}) on your card. This is a card advance, not a bank payment. It uses {1500-pre.cash} of your $800 limit and costs about 2% a month. Uses all {pre.TUI} of your tuition fund."
+      },
+      {
+       "v": [
+        "a3_b2_c1"
+       ],
+       "t": "Pay what you have. The rest ({1500-pre.cash}) is more than your card can hold, so it stays unpaid and a $35 late fee is added. It is not borrowed and it is not paid. Uses all {pre.TUI} of your tuition fund."
+      }
+     ]
+    },
+    "b": {
+     "t": "Ask the landlord to split: pay $750 now plus a $25 fee, and $750 by month 10. (If your cash is under $775, the $25 fee goes on your card.) In month 10, the second $750 comes from your accounts; if short, it goes on your card only if all of it fits, otherwise it is unpaid with a $35 late fee. Uses {-d.TUI} of your tuition fund now, and possibly more in month 10.",
+     "tv": [
+      {
+       "v": [
+        "a3_b2_c1",
+        "a2_b2_c1"
+       ],
+       "t": "Ask the landlord to split. You can't pay $750 now, so this landlord says no. No $25 fee is charged and nothing is split. Your $1,500 is then paid the same way as a straight $1,500 payment at your balance: {cond(va==\"a2\",\"you pay what you have and \"+m(1500-pre.cash)+\" goes on your card\",\"you pay what you have and \"+m(1500-pre.cash)+\" stays unpaid, with a $35 late fee\")}. Uses all {pre.TUI} of your tuition fund."
+      }
+     ]
+    },
+    "c": {
+     "t": "Sell all your sellable crypto ({lst(cond(pre.VAULT>0,\"Vault \"+m(pre.VAULT)),cond(pre.ETH>0,\"ETH \"+m(pre.ETH)))}), paying 0.5% plus $19 on each. The proceeds go toward the $1,500. Whatever is still missing goes on your card if all of it fits, otherwise it is unpaid with a $35 late fee. Uses {-d.TUI} of your tuition fund.",
+     "tv": [
+      {
+       "v": [
+        "a1_b1_c2"
+       ],
+       "t": "Sell your crypto anyway, paying fees you don't need to pay, then pay the $1,500."
+      },
+      {
+       "v": [
+        "a2_b1_c3",
+        "a1_b1_c3"
+       ],
+       "t": "Sell crypto."
+      }
+     ],
+     "unavail": {
+      "when": "vc=='c3'",
+      "label": "Unavailable: you own nothing you can sell (a locked stake cannot be sold). No sale happens. The $1,500 is then paid the same way as a straight $1,500 payment at your balance: {cond(va==\"a1\",\"$1,500 from your accounts\",cond(va==\"a2\",\"you pay what you have and \"+m(1500-pre.cash)+\" goes on your card\",\"you pay what you have and \"+m(1500-pre.cash)+\" stays unpaid, with a $35 late fee\"))}."
+     }
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "va=='a1'",
+      "text": "You paid $1,500 from your bank accounts, using {-d.TUI} of your tuition fund. Cash is now close to zero, and the $100 gaps in months 9 and 10 will go on your card (about $100 to $200 by month 11). It scores 100 because paying a deadline from cash you already have is the cheapest option here. Next: you start Q7 with a small card balance and a month-12 payment to protect, with {post.TUI} left in the tuition fund.",
+      "ref": "You paid $1,500 from your bank accounts, using $[x] of your tuition fund. Cash is now close to zero, and the $100 gaps in months 9 and 10 will go on your card (about $100 to $200 by month 11). It scores 100 because paying a deadline from cash you already have is the cheapest option here. Next: you start Q7 with a small card balance and a month-12 payment to protect, with $[T − x] left in the tuition fund.",
+      "rp": "",
+      "dk": "Q6|A-1, 100",
+      "refre": "You\\ paid\\ \\$1,500\\ from\\ your\\ bank\\ accounts,\\ using\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ of\\ your\\ tuition\\ fund\\.\\ Cash\\ is\\ now\\ close\\ to\\ zero,\\ and\\ the\\ \\$100\\ gaps\\ in\\ months\\ 9\\ and\\ 10\\ will\\ go\\ on\\ your\\ card\\ \\(about\\ \\$100\\ to\\ \\$200\\ by\\ month\\ 11\\)\\.\\ It\\ scores\\ 100\\ because\\ paying\\ a\\ deadline\\ from\\ cash\\ you\\ already\\ have\\ is\\ the\\ cheapest\\ option\\ here\\.\\ Next:\\ you\\ start\\ Q7\\ with\\ a\\ small\\ card\\ balance\\ and\\ a\\ month\\-12\\ payment\\ to\\ protect,\\ with\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ left\\ in\\ the\\ tuition\\ fund\\.",
+      "assert": "d.UNPAID == 0 and d.CARD == 0 and post.cash <= 400"
+     },
+     {
+      "when": "va=='a2' and pts==100",
+      "text": "You paid what you had (all {pre.TUI} of the tuition fund included) and borrowed {d.CARD} on your card at about 2% a month. This was a card advance, not a bank payment. It scores 100 because it fit your limit, nothing was left unpaid through month 10, and it cost less than the split's $25 fee plus interest. Borrowing is not wrong by itself; it has to be affordable. Next: you start Q7 with a card balance of about {eom(10).CARD} to repay first.",
+      "ref": "You paid what you had (all $[T] of the tuition fund included) and borrowed $[x] on your card at about 2% a month. This was a card advance, not a bank payment. It scores 100 because it fit your limit, nothing was left unpaid through month 10, and it cost less than the split's $25 fee plus interest. Borrowing is not wrong by itself; it has to be affordable. Next: you start Q7 with a card balance of about $[x + gaps] to repay first.",
+      "rp": "",
+      "dk": "Q6|A-2, 100",
+      "refre": "You\\ paid\\ what\\ you\\ had\\ \\(all\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ of\\ the\\ tuition\\ fund\\ included\\)\\ and\\ borrowed\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ on\\ your\\ card\\ at\\ about\\ 2%\\ a\\ month\\.\\ This\\ was\\ a\\ card\\ advance,\\ not\\ a\\ bank\\ payment\\.\\ It\\ scores\\ 100\\ because\\ it\\ fit\\ your\\ limit,\\ nothing\\ was\\ left\\ unpaid\\ through\\ month\\ 10,\\ and\\ it\\ cost\\ less\\ than\\ the\\ split's\\ \\$25\\ fee\\ plus\\ interest\\.\\ Borrowing\\ is\\ not\\ wrong\\ by\\ itself;\\ it\\ has\\ to\\ be\\ affordable\\.\\ Next:\\ you\\ start\\ Q7\\ with\\ a\\ card\\ balance\\ of\\ about\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ to\\ repay\\ first\\.",
+      "assert": "d.CARD == 1500 - pre.cash and post.TUI == 0 and eom(10).UNPAID == 0"
+     },
+     {
+      "when": "va=='a2' and pts==0",
+      "text": "You borrowed {d.CARD} on your card. It scores 0 because the landlord's split would have cost less overall, or the borrowing used too much of your $800 limit. Next: more card interest to repay in Q7, and your tuition fund is gone.",
+      "ref": "You borrowed $[x] on your card. It scores 0 because the landlord's split would have cost less overall, or the borrowing used too much of your $800 limit. Next: more card interest to repay in Q7, and your tuition fund is gone.",
+      "rp": "",
+      "dk": "Q6|A-2, 0",
+      "refre": "You\\ borrowed\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ on\\ your\\ card\\.\\ It\\ scores\\ 0\\ because\\ the\\ landlord's\\ split\\ would\\ have\\ cost\\ less\\ overall,\\ or\\ the\\ borrowing\\ used\\ too\\ much\\ of\\ your\\ \\$800\\ limit\\.\\ Next:\\ more\\ card\\ interest\\ to\\ repay\\ in\\ Q7,\\ and\\ your\\ tuition\\ fund\\ is\\ gone\\.",
+      "assert": "d.CARD == 1500 - pre.cash and post.TUI == 0"
+     },
+     {
+      "when": "va=='a3'",
+      "text": "You paid what you had (all {pre.TUI} of the tuition fund included). The remaining {d.UNPAID-35} was too big for your card and stayed unpaid, with a $35 late fee. It scores 0 because the bill was not paid and a better option existed. Next: the unpaid {d.UNPAID} is taken from your month-11 paycheck before Q7 begins.",
+      "ref": "You paid what you had (all $[T] of the tuition fund included). The remaining $[x] was too big for your card and stayed unpaid, with a $35 late fee. It scores 0 because the bill was not paid and a better option existed. Next: the unpaid $[x + 35] is taken from your month-11 paycheck before Q7 begins.",
+      "rp": "",
+      "dk": "Q6|A-3, 0",
+      "refre": "You\\ paid\\ what\\ you\\ had\\ \\(all\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ of\\ the\\ tuition\\ fund\\ included\\)\\.\\ The\\ remaining\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ was\\ too\\ big\\ for\\ your\\ card\\ and\\ stayed\\ unpaid,\\ with\\ a\\ \\$35\\ late\\ fee\\.\\ It\\ scores\\ 0\\ because\\ the\\ bill\\ was\\ not\\ paid\\ and\\ a\\ better\\ option\\ existed\\.\\ Next:\\ the\\ unpaid\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ is\\ taken\\ from\\ your\\ month\\-11\\ paycheck\\ before\\ Q7\\ begins\\.",
+      "assert": "d.UNPAID - 35 == 1500 - pre.cash and post.TUI == 0"
+     }
+    ],
+    "b": [
+     {
+      "when": "vb=='b1' and pts==100",
+      "text": "You paid $750 plus $25 now, and $750 is due in month 10. It scores 100 because the split was needed, and nothing ends up unpaid. This is this landlord's rule, not a promise from every landlord. Next: the second $750 comes out of your accounts in month 10, and any part you can't cover goes on your card (or is unpaid with a $35 late fee if it doesn't fit); Q7 begins with that card balance.",
+      "ref": "You paid $750 plus $25 now, and $750 is due in month 10. It scores 100 because the split was needed, and nothing ends up unpaid. This is this landlord's rule, not a promise from every landlord. Next: the second $750 comes out of your accounts in month 10, and any part you can't cover goes on your card (or is unpaid with a $35 late fee if it doesn't fit); Q7 begins with that card balance.",
+      "rp": "",
+      "dk": "Q6|B-1, 100",
+      "assert": "d.DEPOWED == 750"
+     },
+     {
+      "when": "vb=='b1' and pts==0",
+      "text": "You paid the $25 fee to split. It scores 0 because you could pay in full, so the fee bought nothing, or the second payment would leave month 10 short. Next: a $750 payment due in month 10 and a card balance in Q7.",
+      "ref": "You paid the $25 fee to split. It scores 0 because you could pay in full, so the fee bought nothing, or the second payment would leave month 10 short. Next: a $750 payment due in month 10 and a card balance in Q7.",
+      "rp": "",
+      "dk": "Q6|B-1, 0",
+      "assert": "d.DEPOWED == 750"
+     },
+     {
+      "when": "vb=='b2' and va=='a2'",
+      "text": "You asked for a split. The landlord said no because you had under $750, so nothing was split and no $25 fee was charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: you paid {pre.cash} from your accounts (all {pre.TUI} of the tuition fund included), and {1500-pre.cash} went on your card as a card advance. It scores 0 because the request could not work at your balance. Next: a card balance of about {eom(10).CARD} to repay shows in Q7.",
+      "ref": "You asked for a split. The landlord said no because you had under $750, so nothing was split and no $25 fee was charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: you paid $[L] from your accounts (all $[T] of the tuition fund included), and $[1,500 − L] went on your card as a card advance. It scores 0 because the request could not work at your balance. Next: a card balance of about $[…] to repay shows in Q7.",
+      "rp": "",
+      "dk": "Q6|B-2, 0, card",
+      "refre": "You\\ asked\\ for\\ a\\ split\\.\\ The\\ landlord\\ said\\ no\\ because\\ you\\ had\\ under\\ \\$750,\\ so\\ nothing\\ was\\ split\\ and\\ no\\ \\$25\\ fee\\ was\\ charged\\.\\ Your\\ \\$1,500\\ was\\ then\\ paid\\ the\\ same\\ way\\ as\\ a\\ straight\\ \\$1,500\\ payment\\ at\\ your\\ balance:\\ you\\ paid\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ from\\ your\\ accounts\\ \\(all\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ of\\ the\\ tuition\\ fund\\ included\\),\\ and\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ went\\ on\\ your\\ card\\ as\\ a\\ card\\ advance\\.\\ It\\ scores\\ 0\\ because\\ the\\ request\\ could\\ not\\ work\\ at\\ your\\ balance\\.\\ Next:\\ a\\ card\\ balance\\ of\\ about\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ to\\ repay\\ shows\\ in\\ Q7\\.",
+      "assert": "d.CARD == 1500 - pre.cash and d.DEPOWED == 0 and declined",
+      "dev": "approved wording fix Zoe v0.3.1: letter reference replaced (meaning, scoring and finances unchanged); the two bracketed alternatives of the locked text are shown as two cases"
+     },
+     {
+      "when": "vb=='b2' and va=='a3'",
+      "text": "You asked for a split. The landlord said no because you had under $750, so nothing was split and no $25 fee was charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: you paid {pre.cash} from your accounts (all {pre.TUI} of the tuition fund included), and {1500-pre.cash} stayed unpaid and a $35 late fee was added. It scores 0 because the request could not work at your balance. Next: an unpaid balance that your month-11 paycheck settles first shows in Q7.",
+      "ref": "You asked for a split. The landlord said no because you had under $750, so nothing was split and no $25 fee was charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: you paid $[L] from your accounts (all $[T] of the tuition fund included), and $[1,500 − L] stayed unpaid and a $35 late fee was added. It scores 0 because the request could not work at your balance. Next: an unpaid balance that your month-11 paycheck settles first shows in Q7.",
+      "rp": "",
+      "dk": "Q6|B-2, 0, unpaid",
+      "refre": "You\\ asked\\ for\\ a\\ split\\.\\ The\\ landlord\\ said\\ no\\ because\\ you\\ had\\ under\\ \\$750,\\ so\\ nothing\\ was\\ split\\ and\\ no\\ \\$25\\ fee\\ was\\ charged\\.\\ Your\\ \\$1,500\\ was\\ then\\ paid\\ the\\ same\\ way\\ as\\ a\\ straight\\ \\$1,500\\ payment\\ at\\ your\\ balance:\\ you\\ paid\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ from\\ your\\ accounts\\ \\(all\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ of\\ the\\ tuition\\ fund\\ included\\),\\ and\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ stayed\\ unpaid\\ and\\ a\\ \\$35\\ late\\ fee\\ was\\ added\\.\\ It\\ scores\\ 0\\ because\\ the\\ request\\ could\\ not\\ work\\ at\\ your\\ balance\\.\\ Next:\\ an\\ unpaid\\ balance\\ that\\ your\\ month\\-11\\ paycheck\\ settles\\ first\\ shows\\ in\\ Q7\\.",
+      "assert": "d.UNPAID - 35 == 1500 - pre.cash and declined",
+      "dev": "approved wording fix Zoe v0.3.1: letter reference replaced (meaning, scoring and finances unchanged); the two bracketed alternatives of the locked text are shown as two cases"
+     }
+    ],
+    "c": [
+     {
+      "when": "vc=='c1' and pts==100 and not lh",
+      "text": "You sold your crypto, net about {-d.VAULT-d.ETH-fee} after fees of {fee}, and put it toward the deposit. It scores 100 because the sale lowered the uncovered amount. Selling costs money, and tax effects are not modeled here. Next: you no longer hold that crypto, and Q7 starts with the remaining card balance.",
+      "ref": "You sold your crypto, net about $[x] after fees of $[f], and put it toward the deposit. It scores 100 because the sale lowered the uncovered amount. Selling costs money, and tax effects are not modeled here. Next: you no longer hold that crypto, and Q7 starts with the remaining card balance.",
+      "rp": "",
+      "dk": "Q6|C-1, 100 (normal)",
+      "refre": "You\\ sold\\ your\\ crypto,\\ net\\ about\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ after\\ fees\\ of\\ \\$-?[\\d,]+(?:\\.\\d\\d)?,\\ and\\ put\\ it\\ toward\\ the\\ deposit\\.\\ It\\ scores\\ 100\\ because\\ the\\ sale\\ lowered\\ the\\ uncovered\\ amount\\.\\ Selling\\ costs\\ money,\\ and\\ tax\\ effects\\ are\\ not\\ modeled\\ here\\.\\ Next:\\ you\\ no\\ longer\\ hold\\ that\\ crypto,\\ and\\ Q7\\ starts\\ with\\ the\\ remaining\\ card\\ balance\\.",
+      "assert": "post.VAULT == 0 and post.ETH == 0 and fee >= 19"
+     },
+     {
+      "when": "vc=='c1' and lh",
+      "text": "You sold your crypto and used everything you had. This was the least harmful choice available, but the deposit is not fully paid. Unpaid: {d.UNPAID-35}. A $35 late fee was added. It is settled from your month-11 paycheck; your month-12 tuition payment is still due in full. Next step: contact the landlord before the due date, pay the unpaid balance first from the paycheck, and rebuild a buffer before buying more crypto. A score of 100 means best available choice, not a paid bill.",
+      "ref": "You sold your crypto and used everything you had. This was the least harmful choice available, **but the deposit is not fully paid. Unpaid: $[x]. A $35 late fee was added.** It is settled from your month-11 paycheck; your month-12 tuition payment is still due in full. **Next step:** contact the landlord before the due date, pay the unpaid balance first from the paycheck, and rebuild a buffer before buying more crypto. A score of 100 means best available choice, not a paid bill.",
+      "rp": "",
+      "dk": "Q6|C-1, 100 as LEAST-HARM (never \"paid\")",
+      "refre": "You\\ sold\\ your\\ crypto\\ and\\ used\\ everything\\ you\\ had\\.\\ This\\ was\\ the\\ least\\ harmful\\ choice\\ available,\\ but\\ the\\ deposit\\ is\\ not\\ fully\\ paid\\.\\ Unpaid:\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\.\\ A\\ \\$35\\ late\\ fee\\ was\\ added\\.\\ It\\ is\\ settled\\ from\\ your\\ month\\-11\\ paycheck;\\ your\\ month\\-12\\ tuition\\ payment\\ is\\ still\\ due\\ in\\ full\\.\\ Next\\ step:\\ contact\\ the\\ landlord\\ before\\ the\\ due\\ date,\\ pay\\ the\\ unpaid\\ balance\\ first\\ from\\ the\\ paycheck,\\ and\\ rebuild\\ a\\ buffer\\ before\\ buying\\ more\\ crypto\\.\\ A\\ score\\ of\\ 100\\ means\\ best\\ available\\ choice,\\ not\\ a\\ paid\\ bill\\.",
+      "assert": "d.UNPAID > 35 and post.cash == 0"
+     },
+     {
+      "when": "vc=='c1' and pts==0",
+      "text": "You sold crypto for about {-d.VAULT-d.ETH-fee} after fees of {fee}, then paid the $1,500 as above; any missing part went on your card or stayed unpaid, with a $35 fee. It scores 0 because the sale fees were larger than the help it gave, or another option covered more. Next: you hold less crypto in Q7.",
+      "ref": "You sold crypto for about $[x] after fees of $[f], then paid the $1,500 as above; any missing part went on your card or stayed unpaid, with a $35 fee. It scores 0 because the sale fees were larger than the help it gave, or another option covered more. Next: you hold less crypto in Q7.",
+      "rp": "",
+      "dk": "Q6|C-1, 0",
+      "refre": "You\\ sold\\ crypto\\ for\\ about\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ after\\ fees\\ of\\ \\$-?[\\d,]+(?:\\.\\d\\d)?,\\ then\\ paid\\ the\\ \\$1,500\\ as\\ above;\\ any\\ missing\\ part\\ went\\ on\\ your\\ card\\ or\\ stayed\\ unpaid,\\ with\\ a\\ \\$35\\ fee\\.\\ It\\ scores\\ 0\\ because\\ the\\ sale\\ fees\\ were\\ larger\\ than\\ the\\ help\\ it\\ gave,\\ or\\ another\\ option\\ covered\\ more\\.\\ Next:\\ you\\ hold\\ less\\ crypto\\ in\\ Q7\\.",
+      "assert": "post.VAULT == 0 and post.ETH == 0"
+     },
+     {
+      "when": "vc=='c2'",
+      "text": "You sold crypto you didn't need to sell and paid fees. Next: lower balances in Q7.",
+      "ref": "You sold crypto you didn't need to sell and paid fees. Next: lower balances in Q7.",
+      "rp": "",
+      "dk": "Q6|C-2, 0",
+      "assert": "fee >= 19"
+     },
+     {
+      "when": "vc=='c3' and va=='a1'",
+      "text": "You chose to sell, but you owned nothing sellable, so no sale happened and no fees were charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: $1,500 from your accounts. It scores 0 because there was nothing to sell. Next: the same balances show in Q7.",
+      "ref": "You chose to sell, but you owned nothing sellable, so no sale happened and no fees were charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: $1,500 from your accounts. It scores 0 because there was nothing to sell. Next: the same balances show in Q7.",
+      "rp": "",
+      "dk": "Q6|C-3, 0, bank",
+      "assert": "declined and fee == 0",
+      "dev": "approved wording fix Zoe v0.3.1: letter reference replaced (meaning, scoring and finances unchanged); the three bracketed alternatives of the locked text are shown as separate cases"
+     },
+     {
+      "when": "vc=='c3' and va=='a2'",
+      "text": "You chose to sell, but you owned nothing sellable, so no sale happened and no fees were charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: you paid {pre.cash} and {1500-pre.cash} went on your card as a card advance. It scores 0 because there was nothing to sell. Next: the same balances show in Q7.",
+      "ref": "You chose to sell, but you owned nothing sellable, so no sale happened and no fees were charged. Your $1,500 was then paid the same way as a straight $1,500 payment at your balance: you paid $[L] and $[1,500 − L] went on your card as a card advance. It scores 0 because there was nothing to sell. Next: the same balances show in Q7.",
+      "rp": "",
+      "dk": "Q6|C-3, 0, card",
+      "refre": "You\\ chose\\ to\\ sell,\\ but\\ you\\ owned\\ nothing\\ sellable,\\ so\\ no\\ sale\\ happened\\ and\\ no\\ fees\\ were\\ charged\\.\\ Your\\ \\$1,500\\ was\\ then\\ paid\\ the\\ same\\ way\\ as\\ a\\ straight\\ \\$1,500\\ payment\\ at\\ your\\ balance:\\ you\\ paid\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ and\\ \\$-?[\\d,]+(?:\\.\\d\\d)?\\ went\\ on\\ your\\ card\\ as\\ a\\ card\\ advance\\.\\ It\\ scores\\ 0\\ because\\ there\\ was\\ nothing\\ to\\ sell\\.\\ Next:\\ the\\ same\\ balances\\ show\\ in\\ Q7\\.",
+      "assert": "declined and fee == 0 and d.CARD == 1500 - pre.cash",
+      "dev": "approved wording fix Zoe v0.3.1: letter reference replaced (meaning, scoring and finances unchanged); the three bracketed alternatives of the locked text are shown as separate cases"
+     }
+    ]
+   },
+   "takeaway": "A 100 means the best choice at that moment, not that every bill was paid. Compare the full cost: fees, interest and what is left unpaid. Fees can swamp small transfers: in this story, moving $25 on-chain can cost $19. A card advance is borrowing, not cash. Real card advances usually add a fee and a higher rate; this story uses one simple rate of about 2% a month. Never describe an unpaid bill as paid."
+  },
+  {
+   "n": 7,
+   "month": 11,
+   "title": "Summer paycheck: $2,400 extra",
+   "rung": "",
+   "show": [
+    {
+     "v": [
+      "all"
+     ],
+     "items": [
+      [
+       "Cash at the start of month 11 (checking + savings + tuition fund)",
+       "{eom(10).cash}"
+      ],
+      [
+       "Plus $1,300 regular pay (hours are still reduced) plus $2,400 summer paycheck",
+       "$3,700 income"
+      ],
+      [
+       "Minus $1,400 in bills",
+       "Net added to cash: +$2,300"
+      ],
+      [
+       "Minus housing balances settled (bucket 1 below)",
+       "{-row(11,\"settle UNPAID\",\"CHK\")}"
+      ],
+      [
+       "Cash now, before any card payment",
+       "{pre.cash}"
+      ],
+      [
+       "1. Housing balances already settled from this paycheck",
+       "{-row(11,\"settle UNPAID\",\"CHK\")}. This pays any unpaid housing balance and its $35 late fee, and any part of the $750 still owed to the landlord. This does not pay your credit card."
+      ],
+      [
+       "2. Credit-card debt still outstanding",
+       "{pre.CARD}. It includes any card advance for the deposit, the $100 gaps in months 9 and 10, any month-10 split shortfall, and interest. It keeps growing at about 2% a month until you pay it."
+      ],
+      [
+       "3. Tuition money still required",
+       "Month 12: $1,500 plus a $45 plan fee ($1,545), paid from cash. Month 12's own income minus bills leaves about $100, so plan to hold $1,445 of today's cash. $3,000 of tuition is still owed afterward (outside this story)."
+      ],
+      [
+       "4. Truly optional cash",
+       "{max(0,pre.cash-pre.CARD-1445)} = cash now - card debt - $1,445. Only this amount is optional. If it is under $400, nothing here is optional yet."
+      ],
+      [
+       "Vault",
+       "{pre.VAULT}",
+       "pre.VAULT>0"
+      ],
+      [
+       "ETH",
+       "{pre.ETH}",
+       "pre.ETH>0"
+      ]
+     ]
+    }
+   ],
+   "situation": "A summer paycheck arrives. Four separate buckets show what it has to cover before anything is optional.",
+   "options": {
+    "a": {
+     "t": "Pay off the credit card in full and keep the rest as cash."
+    },
+    "b": {
+     "t": "Pay off the credit card, then also put $400 into Harbor Vault. The $2 fee (0.5%) is part of the $400: $400 leaves your cash and $398 reaches the vault."
+    },
+    "c": {
+     "t": "Put $1,000 into ETH. The $5 fee is part of the $1,000 ($995 reaches ETH). The credit card is not paid, and interest continues at about 2% a month."
+    }
+   },
+   "feedback": {
+    "a": [
+     {
+      "when": "pre.CARD>0",
+      "text": "You paid the credit card ({pre.CARD} → $0) and kept the rest as cash. Your housing balances had already been settled from the paycheck, which is separate from the card. It earns 100 because debts and the next known payment come before anything optional. Next: month 12 begins with {eom(11).cash} in accessible cash. The payment then due is $1,545 ($1,500 plus the $45 plan fee), and $3,000 of tuition is still ahead.",
+      "ref": "You paid the credit card ($[c] → $0) and kept the rest as cash. Your housing balances had already been settled from the paycheck, which is separate from the card. It earns 100 because debts and the next known payment come before anything optional. Next: you enter month 12 with cash for the $1,545, and $3,000 of tuition still ahead.",
+      "rp": "",
+      "dk": "Q7|A",
+      "assert": "row(11,\"repay credit card\",\"CARD\") == -pre.CARD and eom(10).cash + 2300 + row(11,\"settle UNPAID\",\"CHK\") == pre.cash and eom(11).cash == pre.cash - pre.CARD",
+      "approved": "zoe.q7.a.month12-claim (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "pre.CARD==0",
+      "text": "You had no credit-card balance, so there was nothing to pay, and you kept the cash. Your housing balances had already been settled from the paycheck. It earns 100 because debts and the next known payment come before anything optional, and you had no card debt. Next: month 12 begins with {eom(11).cash} in accessible cash. The payment then due is $1,545 ($1,500 plus the $45 plan fee), and $3,000 of tuition is still ahead.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q7|A, no card balance",
+      "assert": "eom(10).cash + 2300 + row(11,\"settle UNPAID\",\"CHK\") == pre.cash and eom(11).cash == pre.cash",
+      "approved": "zoe.q7.a.no-card-balance (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ],
+    "b": [
+     {
+      "when": "pts==100 and pre.CARD>0",
+      "text": "You paid the credit card and put $400 into the vault; $2 went to the fee and $398 reached the vault. You had {max(0,pre.cash-pre.CARD-1445)} of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+      "ref": "You paid the credit card and put $400 into the vault; $2 went to the fee and $398 reached the vault. You had $[o] of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+      "rp": "",
+      "dk": "Q7|B, 100",
+      "assert": "d.VAULT == 398 and fee == 2 and pre.cash-pre.CARD-1445 >= 400 and row(12,\"late fee\",\"PLAN\") == 0",
+      "approved": "zoe.q7.b100.card (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "pts==100 and pre.CARD==0",
+      "text": "You put $400 into the vault; $2 went to the fee and $398 reached the vault. You had {max(0,pre.cash-pre.CARD-1445)} of truly optional cash, so the $400 fit with the fee already inside it. The vault is optional, with no guaranteed yield. Next: the vault holds $398 and month 12 is still covered.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q7|B, 100, no card balance",
+      "assert": "d.VAULT == 398 and fee == 2 and pre.cash-1445 >= 400 and row(12,\"late fee\",\"PLAN\") == 0",
+      "approved": "zoe.q7.b100.no-card-balance (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "pts==0 and pre.CARD>0",
+      "text": "You paid the card, then put $400 toward the vault ($2 fee; $398 reached the vault). It scores 0 because truly optional cash was only {max(0,pre.cash-pre.CARD-1445)}, less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $398 you may need.",
+      "ref": "You paid the card, then put $400 in the vault. It scores 0 because truly optional cash was only $[o], less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $400 you may need.",
+      "rp": "",
+      "dk": "Q7|B, 0",
+      "assert": "d.VAULT == 398 and pre.cash-pre.CARD-1445 < 400",
+      "approved": "zoe.q7.b0.card (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "pts==0 and pre.CARD==0",
+      "text": "You put $400 toward the vault ($2 fee; $398 reached the vault). It scores 0 because truly optional cash was only {max(0,pre.cash-pre.CARD-1445)}, less than $400, so the $400 (fee included) came out of the cushion for your month-12 tuition payment. Next: your month-12 margin is thinner; the vault holds $398 you may need.",
+      "ref": null,
+      "rp": "",
+      "dk": "Q7|B, 0, no card balance",
+      "assert": "d.VAULT == 398 and pre.cash-1445 < 400",
+      "approved": "zoe.q7.b0.no-card-balance (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ],
+    "c": [
+     {
+      "when": "pre.CARD>0",
+      "text": "You put $1,000 toward ETH ({fee} fee; {d.ETH} of ETH) and did not pay the credit card, so {pre.CARD} of card debt keeps growing. It scores 0 because you did not have $1,000 of optional cash, and borrowed money comes first. Next: month 12 begins with {eom(11).cash}. {cond(row(12,\"tuition left on school plan\",\"PLAN\")-3000>0,\"After that month's pay and bills, the $1,500 payment came up \"+m(row(12,\"tuition left on school plan\",\"PLAN\")-3000)+\" short, so that amount plus a \"+m(row(12,\"late fee\",\"PLAN\"))+\" late fee was added to the plan balance, now \"+m(eom(12).PLAN)+\".\",\"The month-12 payment was still covered.\")|t}",
+      "ref": "You put $1,000 in ETH and did not pay the credit card, so $[c] of card debt keeps growing. It scores 0 because you did not have $1,000 of optional cash, and borrowed money comes first. Next: you enter month 12 with less cash. If it is short, the unpaid part of the $1,500 goes onto the plan balance with a $75 late fee (for example, if cash covers $1,400, the other $100 plus $75 is added to the $3,000 still owed).",
+      "rp": "",
+      "dk": "Q7|C",
+      "assert": "d.ETH == 995 and row(11,\"repay credit card\",\"CARD\") == 0 and pre.cash-pre.CARD-1445 < 1000",
+      "approved": "zoe.q7.c.card (D-5 consolidated correction pass 2026-10-28)"
+     },
+     {
+      "when": "pre.CARD==0",
+      "text": "You put $1,000 toward ETH ({fee} fee; {d.ETH} of ETH). You had no credit-card balance. It scores 0 because you did not have $1,000 of optional cash. Next: month 12 begins with {eom(11).cash}. {cond(row(12,\"tuition left on school plan\",\"PLAN\")-3000>0,\"After that month's pay and bills, the $1,500 payment came up \"+m(row(12,\"tuition left on school plan\",\"PLAN\")-3000)+\" short, so that amount plus a \"+m(row(12,\"late fee\",\"PLAN\"))+\" late fee was added to the plan balance, now \"+m(eom(12).PLAN)+\".\",\"The month-12 payment was still covered.\")|t}",
+      "ref": null,
+      "rp": "",
+      "dk": "Q7|C, no card balance",
+      "assert": "d.ETH == 995 and pre.cash-1445 < 1000",
+      "approved": "zoe.q7.c.no-card-balance (D-5 consolidated correction pass 2026-10-28)"
+     }
+    ]
+   },
+   "takeaway": "A paycheck pays what is overdue, then card debt, then the next known tuition payment. Only what is left is optional. Settling a housing bill does not pay the card. Keep experiments separate from protected money."
+  }
+ ]
+}
