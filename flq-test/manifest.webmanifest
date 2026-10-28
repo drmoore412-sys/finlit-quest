@@ -1,0 +1,16 @@
+{
+  "name": "FinLit Quest",
+  "short_name": "FinLit Quest",
+  "description": "Play. Learn. Master your financial future.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0a1120",
+  "background_color": "#0a1120",
+  "icons": [
+    { "src": "assets/brand/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/brand/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/brand/icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

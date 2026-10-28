@@ -1,0 +1,13 @@
+window.FINLIT_WORLD = {
+  schemaVersion:1,id:"crypto",name:"Crypto & DeFi",eyebrow:"Crypto foundations",termsSource:"../content/crypto-terms.json",
+  reward:{label:"YLD",name:"session yield",multiplier:2.1,bonus:2.5},
+  levels:[
+    {id:"crypto-1",difficulty:"beginner",title:"First deposit",letters:"TOKENCDIM",words:["TOKEN","NODE","COIN","MINT"]},
+    {id:"crypto-2",difficulty:"beginner",title:"Shared liquidity",letters:"POOLCKBFR",words:["POOL","LOCK","BLOCK","FORK"]},
+    {id:"crypto-3",difficulty:"intermediate",title:"Network signals",letters:"HHASGCIN",words:["HASH","GAS","CHAIN"]},
+    {id:"crypto-4",difficulty:"intermediate",title:"Read the records",letters:"YIELDGERP",words:["YIELD","LEDGER","PEER"]},
+    {id:"crypto-5",difficulty:"advanced",title:"Put assets to work",letters:"STAKWPEG",words:["STAKE","SWAP","GAS"]}
+  ],
+  bonusWords:["VAULT","WALLET","MINER","BURN"],
+  terms: window.DEFI_TERMS
+};

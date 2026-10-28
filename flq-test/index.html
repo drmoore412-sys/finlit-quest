@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<script src="flq-test-shim.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinLit Quest</title>
+  <meta name="description" content="Play. Learn. Master your financial future. FinLit Quest teaches real financial literacy through 13 playable word-puzzle worlds.">
+  <meta name="theme-color" content="#0a1120">
+
+  <link rel="icon" href="assets/brand/favicon/favicon.ico?v=1793048275610" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon/favicon-16.png?v=1793048275610">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon/favicon-32.png?v=1793048275610">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/icons/apple-touch-icon-180.png?v=1793048275610">
+  <link rel="manifest" href="manifest.webmanifest?v=1793048275610">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FinLit Quest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="FinLit Quest">
+  <meta property="og:title" content="FinLit Quest — Play. Learn. Master your financial future.">
+  <meta property="og:description" content="A word-puzzle game that teaches real financial literacy through 13 playable learning worlds.">
+  <meta property="og:image" content="https://finlitquest.com/assets/brand/web/og-image-1200x630.png">
+  <meta property="og:url" content="https://finlitquest.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FinLit Quest — Play. Learn. Master your financial future.">
+  <meta name="twitter:description" content="A word-puzzle game that teaches real financial literacy through 13 playable learning worlds.">
+  <meta name="twitter:image" content="https://finlitquest.com/assets/brand/web/og-image-1200x630.png">
+
+  <link rel="stylesheet" href="design-tokens.css?v=1793048275610">
+  <link rel="stylesheet" href="styles.css?v=1793048275610">
+  <link rel="stylesheet" href="hints.css?v=1793048275610">
+  <link rel="stylesheet" href="premium.css?v=1793048275610">
+  <link rel="stylesheet" href="learning-engine.css?v=1793048275610">
+  <link rel="stylesheet" href="micro-lessons.css?v=1793048275610">
+  <link rel="stylesheet" href="journey.css?v=1793048275610">
+  <link rel="stylesheet" href="workbook-engine.css?v=1793048275610">
+  <link rel="stylesheet" href="word-game.css?v=1793048275610">
+  <link rel="stylesheet" href="currency-rush.css?v=1793048275610">
+</head>
+<body>
+  <main class="app" id="app">
+    <section class="wg-screen welcome-screen hidden" id="welcomeScreen">
+      <div class="welcome-card">
+        <div class="wg-logo welcome-logo"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></div>
+        <h1>Your Financial Journey Starts Here</h1>
+        <p class="welcome-tagline">Build real-world money skills through puzzles, challenges, and guided learning.</p>
+        <div class="welcome-path">
+          <div class="welcome-step">
+            <span class="welcome-step-icon" aria-hidden="true">🧩</span>
+            <span class="welcome-step-copy"><b>PLAY</b><em>Solve financial word puzzles</em></span>
+          </div>
+          <div class="welcome-step">
+            <span class="welcome-step-icon" aria-hidden="true">📖</span>
+            <span class="welcome-step-copy"><b>LEARN</b><em>Understand real-life money concepts</em></span>
+          </div>
+          <div class="welcome-step">
+            <span class="welcome-step-icon" aria-hidden="true">⭐</span>
+            <span class="welcome-step-copy"><b>GROW</b><em>Earn rewards and track your progress</em></span>
+          </div>
+        </div>
+        <button class="welcome-cta" id="welcomeStartButton">Begin Your Quest</button>
+        <p class="welcome-subtext">Start with Money Basics. Explore at your own pace.</p>
+        <p class="welcome-legal-links"><a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> · <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a></p>
+      </div>
+    </section>
+
+    <section class="dashboard journey-dashboard world-map-screen hidden" id="worldSelectScreen">
+      <header class="journey-topbar">
+        <div class="journey-brand"><span class="journey-logo journey-logo-img"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
+        <div class="journey-currencies" aria-label="Player resources">
+          <div><span class="currency-icon coin">$</span><strong id="worldMapCoins">0</strong><small>COINS</small></div>
+          <div><span class="currency-icon xp">★</span><strong id="worldMapXp">0</strong><small>XP</small></div>
+          <div><span class="currency-icon gem">◆</span><strong id="worldMapGems">0</strong><small>GEMS</small></div>
+        </div>
+        <button class="music-toggle" id="worldMapMusicToggle" type="button" aria-pressed="false" aria-label="Mute background music" title="Mute background music">🔊</button>
+        <button class="theme-toggle" id="worldMapThemeToggle" aria-label="Toggle dark mode">☾</button>
+      </header>
+
+      <div class="journey-tabs" role="tablist" aria-label="Quest type">
+        <button class="journey-tab active" id="journeyTabQuest" role="tab" aria-selected="true"><span class="journey-tab-icon" aria-hidden="true">🧭</span>Word Quests</button>
+        <button class="journey-tab" id="journeyTabGames" role="tab" aria-selected="false"><span class="journey-tab-icon" aria-hidden="true">🎮</span>Bonus Games</button>
+        <button class="journey-tab" id="journeyTabLearning" role="tab" aria-selected="false"><span class="journey-tab-icon" aria-hidden="true">📖</span>Learning Quests</button>
+      </div>
+
+      <div class="daily-reward" id="dailyReward" role="region" aria-labelledby="dailyRewardTitle">
+        <div class="daily-reward-head">
+          <div class="daily-reward-copy">
+            <h2 id="dailyRewardTitle">Daily reward</h2>
+            <p class="daily-reward-summary" id="dailyRewardSummary"></p>
+          </div>
+          <button type="button" class="daily-reward-claim" id="dailyRewardClaim"></button>
+        </div>
+        <ol class="daily-reward-days" id="dailyRewardDays" aria-label="Seven-day coin reward schedule"></ol>
+        <p class="daily-reward-status" id="dailyRewardStatus" role="status" aria-live="polite" tabindex="-1"></p>
+      </div>
+
+      <section class="bonus-games-hub hidden" id="bonusGamesHub" aria-labelledby="bonusGamesTitle">
+        <div class="bonus-games-heading"><span>BONUS ARCADE</span><h1 id="bonusGamesTitle">Play. Practice. Explore.</h1><p>Short financial games for skill-building between Word Quests.</p></div>
+        <div class="bonus-games-grid">
+          <button class="bonus-game-card currency" id="journeyCurrencyRush" type="button">
+            <span class="bonus-game-art" aria-hidden="true">🌍</span>
+            <span class="bonus-game-copy"><small>SPEED ROUND · PRACTICE</small><strong>Currency Rush</strong><em>Learn international currency codes through guided study and memory challenges.</em><b>Play now <span aria-hidden="true">→</span></b></span>
+          </button>
+          <a class="bonus-game-card city" id="journeyFinancialCityLink" href="financial-city.html?open=decision">
+            <span class="bonus-game-art" aria-hidden="true">🏙️</span>
+            <span class="bonus-game-copy"><small>DECISION GAME · EDUCATIONAL DRAFT</small><strong>Where Should My Money Go?</strong><em>Explore spending choices and see how everyday decisions shape your financial city.</em><b>Explore <span aria-hidden="true">→</span></b></span>
+          </a>
+          <a class="bonus-game-card citymap" id="journeyCityMapLink" href="financial-city.html">
+            <span class="bonus-game-art" aria-hidden="true">🏛️</span>
+            <span class="bonus-game-copy"><small>CITY EXPLORER · EDUCATIONAL DRAFT</small><strong>Financial City</strong><em>Visit the city map, explore eight places money can live, and learn what each one is for.</em><b>Enter the city <span aria-hidden="true">→</span></b></span>
+          </a>
+          <a class="bonus-game-card tower" id="journeyDefiTowerLink" href="financial-city.html?open=tower">
+            <span class="bonus-game-art" aria-hidden="true">🗼</span>
+            <span class="bonus-game-copy"><small>SCENARIO CHALLENGE · EDUCATIONAL DRAFT</small><strong>DeFi Tower</strong><em>Climb eight floors of crypto and DeFi decisions. Crypto is not insured like a bank deposit, and no outcome is guaranteed.</em><b>Climb the tower <span aria-hidden="true">→</span></b></span>
+          </a>
+          <article class="bonus-game-card future" aria-label="More bonus games are coming">
+            <span class="bonus-game-art" aria-hidden="true">✨</span>
+            <span class="bonus-game-copy"><small>ARCADE EXPANSION</small><strong>More adventures ahead</strong><em>Future practice games will appear here instead of being scattered across the journey.</em><b>Coming soon</b></span>
+          </article>
+        </div>
+      </section>
+
+      <div class="journey-layout journey-layout-solo" id="journeyWorldMap">
+        <section class="journey-map" aria-labelledby="worldMapTitle">
+          <div class="map-heading"><span id="worldMapKicker">WORD QUESTS</span><h1 id="worldMapTitle">Your Word Quest Journey</h1><p>Travel through the worlds and master money one puzzle at a time.</p></div>
+          <div class="journey-cloud cloud-one" aria-hidden="true"></div><div class="journey-cloud cloud-two" aria-hidden="true"></div>
+          <div class="river-shimmer" aria-hidden="true"></div>
+          <svg class="journey-path" viewBox="0 0 600 1800" preserveAspectRatio="none" aria-hidden="true"><path class="path-shadow" d="M118 128 C430 180 450 285 255 335 S80 480 330 535 S500 680 260 740 S75 885 330 940 S500 1080 255 1140 S78 1280 330 1340 S500 1490 265 1550 S115 1690 315 1745"/><path class="path-main" d="M118 128 C430 180 450 285 255 335 S80 480 330 535 S500 680 260 740 S75 885 330 940 S500 1080 255 1140 S78 1280 330 1340 S500 1490 265 1550 S115 1690 315 1745"/></svg>
+          <span class="path-spark spark-one" aria-hidden="true"></span>
+
+          <button class="journey-node node-1" id="selectMoneyBasicsWorld" data-world="moneybasics" aria-label="Money Basics">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">💵</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Money Basics</strong><em>Cash · Budget · Saving</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-2" id="selectCreditWorld" data-world="credit" aria-label="Credit">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🏦</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Credit</strong><em>Borrow · Repay · Build</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-3" id="selectCryptoWorld" data-world="crypto" aria-label="Crypto">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🪙</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Crypto</strong><em>Wallet · Token · Chain</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-4" id="selectBankingBasicsWorld" data-world="banking" aria-label="Banking Basics">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🏛️</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Banking Basics</strong><em>Accounts · Payments · Security</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-5" id="selectInvestingBasicsWorld" data-world="investing" aria-label="Investing Basics">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">📈</span></span>
+            <span class="node-copy"><small class="node-kicker"></small><strong>Investing Basics</strong><em>Stocks · Bonds · Markets</em><span class="node-progress"></span></span>
+            <span class="node-state"></span>
+          </button>
+          <button class="journey-node node-6" id="selectCoinsWorld" data-world="coins" aria-label="Coins &amp; Currency">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🪙</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Coins &amp; Currency</strong><em>Coins · Value · Currency</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-7" id="selectAiTechnologyWorld" data-world="ai_technology" aria-label="AI &amp; Technology">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🤖</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>AI &amp; Technology</strong><em>Tools · Risk · Automation</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-8" id="selectRealEstateWorld" data-world="real_estate" aria-label="Real Estate">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🏠</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Real Estate</strong><em>Rent · Mortgage · Property</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-9" id="selectTaxesWorld" data-world="taxes" aria-label="Taxes">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🧾</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Taxes</strong><em>Income · Credits · Filing</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-10" id="selectInsuranceWorld" data-world="insurance" aria-label="Insurance &amp; Protection">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🛡️</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Insurance &amp; Protection</strong><em>Coverage · Risk · Protection</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-11" id="selectBusinessWorld" data-world="business" aria-label="Business &amp; Entrepreneurship">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">💼</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Business &amp; Entrepreneurship</strong><em>Build · Sell · Grow</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-12" id="selectSocialMediaWorld" data-world="social_media" aria-label="Social Media &amp; Digital Income">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">📱</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Social Media &amp; Digital Income</strong><em>Content · Income · Platforms</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+          <button class="journey-node node-13" id="selectRetirementWorld" data-world="retirement" aria-label="Retirement &amp; Wealth Planning">
+            <span class="world-landmark"><span class="world-emoji" aria-hidden="true">🌅</span></span>
+            <span class="node-copy"><small class="node-kicker">NEW WORLD</small><strong>Retirement &amp; Wealth Planning</strong><em>Plan · Invest · Retire</em><span class="node-progress"></span></span>
+            <span class="node-state">Start</span>
+          </button>
+        </section>
+      </div>
+
+    </section>
+
+    <section class="wg-screen" id="worldGameScreen">
+      <header class="wg-topbar">
+        <div class="wg-brand"><button class="wg-logo" id="wgBrandLogo" aria-label="FinLit Quest home"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></button><div><b>FINLIT</b><b>QUEST</b></div></div>
+        <div class="wg-currencies">
+          <div class="wg-currency"><span>💰</span><div><b id="wgCoins">0</b><small>COINS</small></div></div>
+          <div class="wg-currency"><span>⭐</span><div><b id="wgXp">0</b><small>XP</small></div></div>
+          <div class="wg-currency"><span>💎</span><div><b id="wgGems">0</b><small>GEMS</small></div></div>
+        </div>
+        <div class="wg-level">
+          <div class="wg-level-row"><span id="wgLevelLabel">LEVEL 1</span><span class="wg-level-tools"><button class="wg-icon-btn" id="wgSoundButton" aria-pressed="true" aria-label="Sound on" title="Sound on or off">🔊</button><button class="wg-icon-btn" id="wgSettingsButton" aria-label="Toggle theme">⚙</button></span></div>
+          <div class="wg-level-track"><span id="wgLevelBar"></span></div>
+          <small id="wgLevelXpText">0 / 250 XP</small>
+          <div class="wg-audio-mix" aria-label="Audio mix">
+            <label class="wg-volume-control" for="wgVolumeSlider"><span>Effects</span><input id="wgVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"><output id="wgVolumeValue" for="wgVolumeSlider">90%</output></label>
+            <label class="wg-volume-control" for="wgMusicVolumeSlider"><span>Music</span><input id="wgMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"><output id="wgMusicVolumeValue" for="wgMusicVolumeSlider">28%</output></label>
+          </div>
+        </div>
+        <button class="music-toggle wg-music-toggle" id="wgMusicToggle" type="button" aria-pressed="false" aria-label="Mute background music" title="Mute background music">🔊</button>
+      </header>
+
+      <div class="wg-world-header">
+        <button class="wg-back" id="wgBack" aria-label="Back to journey">←</button>
+        <div class="wg-world-icon" id="wgWorldIcon">🪙</div>
+        <div class="wg-world-copy">
+          <p class="wg-eyebrow" id="wgWorldName">CRYPTO FOUNDATIONS</p>
+          <h1 id="wgPuzzleTitle">Word Puzzle</h1>
+        </div>
+        <div class="wg-words-solved">
+          <span>PUZZLES COMPLETE</span>
+          <b><span id="wgWordsSolved">0</span> / <span id="wgWordsTotal">0</span></b>
+          <div class="wg-words-track"><span id="wgWordsBar"></span></div>
+        </div>
+      </div>
+
+      <section class="wg-level-select" id="wgLevelSelect" aria-labelledby="wgLevelSelectTitle">
+        <div class="wg-level-select-intro">
+          <p>WORLD PATH</p>
+          <h2 id="wgLevelSelectTitle">Choose a Level</h2>
+          <span>Three levels · five crossword games each</span>
+        </div>
+        <div class="wg-level-list" id="wgLevelList"></div>
+      </section>
+
+      <div class="wg-puzzle-experience hidden" id="wgPuzzleExperience">
+
+      <div class="wg-board" aria-label="Crossword puzzle">
+        <div class="crossword" id="wgCrossword" role="grid"></div>
+      </div>
+
+      <div class="wg-word-readout" id="wgWordReadout" role="status" aria-live="polite">Swipe to make a word</div>
+      <div class="wg-wheel-row">
+        <div class="wheel-wrap wg-wheel-wrap">
+          <div class="wheel" id="wgWheel" role="group" aria-label="Letter wheel. Swipe across letters, or use Tab and Enter to build a word." aria-describedby="wgWheelInstructions"></div>
+          <svg class="trace" id="wgTrace" aria-hidden="true">
+            <polyline class="wg-trace-shadow" id="wgTraceShadow"></polyline>
+            <polyline id="wgTraceLine"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <p class="wg-hint-text" id="wgWheelInstructions">Swipe across letters, or tap letters and press Submit. Drag back to undo.</p>
+      <div class="wg-wheel-actions" aria-label="Puzzle tools">
+        <button id="wgDefinitionsButton"><span aria-hidden="true">▤</span><small>Definitions</small></button>
+        <button class="wg-action-primary" id="wgNavShuffle"><span aria-hidden="true">⇄</span><small>Shuffle</small></button>
+        <button id="wgHintButton"><span aria-hidden="true">✦</span><small>Hint <b id="wgHintCost">100</b></small></button>
+        <button class="wg-action-submit" id="wgSubmitSelection" disabled><span aria-hidden="true">✓</span><small>Submit</small></button>
+        <button class="wg-clear-selection" id="wgClearSelection"><span aria-hidden="true">×</span><small>Clear</small></button>
+      </div>
+      <p class="wg-practice-notice hidden" id="wgPracticeNotice">Level 1 tutorial: hints are unlimited and free for every game in this level.</p>
+
+      <div class="wg-mission-card" id="wgMissionCard" aria-live="polite">
+        <div class="wg-mission-heading"><span>🎯 MISSION</span><span id="wgMissionCount"></span></div>
+        <h2 id="wgMissionWord">—</h2>
+        <p id="wgMissionDefinition">Find a word on the wheel to see its mission.</p>
+        <div class="wg-mission-reward" id="wgMissionReward">
+          <span id="wgMissionRewardLabel">REWARD</span>
+          <div><span>💰</span><b id="wgMissionCoins">+0</b><small>Coins</small></div>
+          <div><span>⭐</span><b id="wgMissionXp">+0</b><small>XP</small></div>
+        </div>
+      </div>
+
+      <div class="wg-status-bar">
+        <div class="wg-streak">🔥 <b id="wgStreak">0</b> DAY STREAK</div>
+        <div class="wg-daily">
+          <span>TODAY'S PROGRESS</span>
+          <b id="wgDailyProgress">0 / 5</b>
+          <div class="wg-daily-dots" id="wgDailyDots"></div>
+        </div>
+      </div>
+
+      <nav class="wg-bottom-nav">
+        <button id="wgNavHint"><span>💡</span><small>Reveal (<span id="wgRevealCost">300</span>)</small></button>
+        <button id="wgNavJourney"><span>🗺</span><small>Levels</small></button>
+        <button id="wgNavPause"><span>🚪</span><small>Exit</small></button>
+      </nav>
+      </div>
+
+      <section class="wg-definitions-panel hidden" id="wgDefinitionsPanel">
+        <div class="wg-definitions-card">
+          <div class="wg-definitions-header"><h2>Definitions</h2><button id="wgDefinitionsClose" aria-label="Close">×</button></div>
+          <div class="clue-list" id="wgDefinitionsList"></div>
+        </div>
+      </section>
+
+      <section class="wg-complete-panel hidden" id="wgCompletePanel" role="dialog" aria-modal="true" aria-labelledby="wgCompleteTitle">
+        <div class="wg-complete-card" tabindex="-1">
+          <div class="wg-complete-icon">🏆</div>
+          <h2 id="wgCompleteTitle">Puzzle Solved!</h2>
+          <p class="vc-sr" id="wgCompleteAnnouncement" role="status" aria-live="polite"></p>
+          <section class="wg-complete-learning" aria-labelledby="wgCompleteLearningTitle">
+            <h3 id="wgCompleteLearningTitle">Financial Terms You Learned</h3>
+            <div id="wgCompleteTerms"></div>
+            <div class="wg-complete-reference-warning hidden" id="wgCompleteReferenceWarning" role="alert">
+              <strong>Curriculum reference needs review</strong>
+              <ul id="wgCompleteReferenceIssues"></ul>
+            </div>
+          </section>
+          <p class="wg-complete-label wg-rewards-label">Rewards</p>
+          <div class="wg-complete-rewards">
+            <div><span>💰</span><b id="wgCompleteCoins">+0</b><small>Coins</small></div>
+            <div><span>⭐</span><b id="wgCompleteXp">+0</b><small>XP</small></div>
+          </div>
+          <div class="wg-celebrate-controls">
+            <button type="button" class="wg-btn-ghost" id="wgCelebrateSkip" hidden>Skip animation</button>
+            <button type="button" class="wg-btn-ghost" id="wgSoundToggle" aria-pressed="true">🔊 Sound on</button>
+          </div>
+          <div class="wg-audio-mix wg-complete-volume" aria-label="Audio mix">
+            <label class="wg-volume-control" for="wgCompleteVolumeSlider"><span>Effects</span><input id="wgCompleteVolumeSlider" type="range" min="0" max="100" step="10" value="90" aria-label="Effects volume"><output id="wgCompleteVolumeValue" for="wgCompleteVolumeSlider">90%</output></label>
+            <label class="wg-volume-control" for="wgCompleteMusicVolumeSlider"><span>Music</span><input id="wgCompleteMusicVolumeSlider" type="range" min="0" max="100" step="1" value="28" aria-label="Music volume"><output id="wgCompleteMusicVolumeValue" for="wgCompleteMusicVolumeSlider">28%</output></label>
+          </div>
+          <div class="wg-complete-actions"><button class="wg-btn-ghost" id="wgCompleteCurrencyRush">🌍 Currency Rush Bonus</button><button class="wg-btn-primary" id="wgCompleteContinue">Next Puzzle →</button></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="dashboard journey-dashboard hidden" id="dashboardScreen">
+      <svg class="journey-symbols" aria-hidden="true">
+        <symbol id="icon-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4 5.4-2.2Z"/></symbol>
+        <symbol id="icon-bank" viewBox="0 0 24 24"><path d="m3 9 9-5 9 5M5 10h14M6 10v7m4-7v7m4-7v7m4-7v7M4 18h16v2H4z"/></symbol>
+        <symbol id="icon-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 15h4"/></symbol>
+        <symbol id="icon-percent" viewBox="0 0 24 24"><path d="m6 18 12-12"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+        <symbol id="icon-report" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 11h6M9 15h6"/></symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7M5 10v10h14V10M9 20v-6h6v6"/></symbol>
+        <symbol id="icon-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 6h8v4H8zM8 14h1m3 0h1m3 0h1M8 17h1m3 0h1m3 0h1"/></symbol>
+        <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.8 8.2 7 10 4.2-1.8 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+        <symbol id="icon-keys" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9m-3 0v3m-3-3v2"/></symbol>
+        <symbol id="icon-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></symbol>
+      </svg>
+
+      <header class="journey-topbar">
+        <button class="journey-brand" id="journeyBrandLogo" aria-label="FinLit Quest — choose a world"><span class="journey-logo"><svg><use href="#icon-compass"/></svg></span><span><strong>FINLIT</strong><b>QUEST</b></span></button>
+        <div class="journey-currencies" aria-label="Player resources">
+          <div><span class="currency-icon coin">$</span><strong id="journeyCoins">0</strong><small>COINS</small></div>
+          <div><span class="currency-icon xp">★</span><strong id="dashboardXp">0</strong><small>XP</small></div>
+          <div><span class="currency-icon gem">◆</span><strong id="journeyGems">0</strong><small>GEMS</small></div>
+        </div>
+        <div class="journey-level"><small>CURRENT LEVEL</small><strong id="journeyLevel">1</strong><span><i id="journeyLevelProgress"></i></span></div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☾</button>
+      </header>
+
+      <div class="journey-layout">
+        <section class="journey-map" aria-labelledby="journeyTitle">
+          <div class="map-heading"><span>CREDIT WORLD</span><h1 id="journeyTitle">Your financial journey</h1><p>Build practical skills and watch your world thrive.</p></div>
+          <div class="journey-cloud cloud-one" aria-hidden="true"></div><div class="journey-cloud cloud-two" aria-hidden="true"></div>
+          <div class="river-shimmer" aria-hidden="true"></div>
+          <svg class="journey-path" viewBox="0 0 600 1050" preserveAspectRatio="none" aria-hidden="true"><path class="path-shadow" d="M118 128 C410 160 470 270 257 332 S82 480 325 527 S510 665 270 715 S90 840 350 930"/><path class="path-main" id="journeyPath" d="M118 128 C410 160 470 270 257 332 S82 480 325 527 S510 665 270 715 S90 840 350 930"/></svg>
+          <span class="path-spark spark-one" aria-hidden="true"></span><span class="path-spark spark-two" aria-hidden="true"></span>
+          <span class="life-marker marker-job">First job</span><span class="life-marker marker-bank">Bank account</span><span class="life-marker marker-card">First card</span><span class="life-marker marker-car">Buy a car</span><span class="life-marker marker-rent">Rent a home</span><span class="life-marker marker-home">Buy a home</span>
+
+          <button class="journey-node node-1 active" data-journey-index="0" aria-label="Credit Foundations, current destination">
+            <span class="world-landmark"><svg><use href="#icon-bank"/></svg><i></i><i></i></span><span class="node-copy"><small>START HERE</small><strong>Credit Foundations</strong><em>Bank · Vault · Trust</em></span><span class="node-state">Current</span>
+          </button>
+          <button class="journey-node node-2 locked" data-journey-index="1"><span class="world-landmark"><svg><use href="#icon-card"/></svg></span><span class="node-copy"><strong>Credit Cards</strong><em>Card · APR · Rewards</em></span><span class="node-state">Locked</span></button>
+          <button class="journey-node node-3 locked" data-journey-index="2"><span class="world-landmark"><svg><use href="#icon-percent"/></svg></span><span class="node-copy"><strong>Interest &amp; Borrowing</strong><em>Percent · Calculator · Graph</em></span><span class="node-state">Locked</span></button>
+          <button class="journey-node node-4 locked" data-journey-index="3"><span class="world-landmark"><svg><use href="#icon-report"/></svg></span><span class="node-copy"><strong>Credit Reports</strong><em>Records · Score · Analytics</em></span><span class="node-state">Locked</span></button>
+          <button class="journey-node node-5 locked" data-journey-index="4"><span class="world-landmark"><svg><use href="#icon-home"/></svg></span><span class="node-copy"><strong>Building Credit</strong><em>Home · Growth · Community</em></span><span class="node-state">Locked</span></button>
+          <button class="journey-node node-6 locked" data-journey-index="5"><span class="world-landmark"><svg><use href="#icon-calc"/></svg></span><span class="node-copy"><strong>Debt Management</strong><em>Budget · Plan · Progress</em></span><span class="node-state">Locked</span></button>
+          <button class="journey-node node-7 locked" data-journey-index="6"><span class="world-landmark"><svg><use href="#icon-shield"/></svg></span><span class="node-copy"><strong>Identity Protection</strong><em>Fortress · Shield · Security</em></span><span class="node-state">Locked</span></button>
+          <button class="journey-node node-8 locked" data-journey-index="7"><span class="world-landmark"><svg><use href="#icon-keys"/></svg></span><span class="node-copy"><strong>Loans &amp; Offers</strong><em>Car · Mortgage · Keys</em></span><span class="node-state">Locked</span></button>
+
+          <button class="continent-button" id="continentPreview" aria-label="Preview future financial worlds"><svg><use href="#icon-compass"/></svg><span><small>THE JOURNEY CONTINUES</small><strong>Explore the continent</strong></span></button>
+        </section>
+
+        <aside class="journey-panel" aria-label="Journey progress">
+          <div class="journey-panel-title"><span>Journey progress</span><b id="regionState">Region awakening</b></div>
+          <div class="current-world"><div><small>CURRENT DESTINATION</small><h2 id="currentJourneyWorld">Credit Foundations</h2><p id="worldEvolutionCopy">Restore the bank and build a foundation for your financial future.</p></div><div class="mastery-ring" id="masteryRing"><strong id="masteryValue">0%</strong><span>mastery</span></div></div>
+          <div class="world-completion"><div><span>World completion</span><b id="dashboardProgressText">0%</b></div><div class="world-progress"><span id="dashboardProgress"></span></div><small><span id="wordsLearned">0</span> words learned</small></div>
+          <button class="journey-mini-card" id="dashboardReview"><span class="mini-icon">⌁</span><span><small>DAILY REVIEW</small><strong id="dailyReviewStatus">No reviews due</strong></span><b id="reviewDueBadge">0 due</b></button>
+          <div class="journey-mini-card"><span class="mini-icon fire">♨</span><span><small>STREAK</small><strong id="streakLabel">No streak yet</strong></span><b><span id="streakValue">0</span> days</b></div>
+          <div class="journey-mini-card reward-card"><span class="mini-icon reward-chest">▣</span><span><small>UPCOMING REWARD</small><strong>50 coins at the next milestone</strong></span></div>
+          <div class="journey-mini-card"><span class="mini-icon"><svg><use href="#icon-star"/></svg></span><span><small>RECENT ACHIEVEMENT</small><strong id="achievementTitle">No achievements unlocked</strong><em id="achievementDescription">Complete your first applied challenge.</em></span><b id="achievementReward"></b></div>
+          <button class="view-levels-button" id="viewLevels">View available quests</button>
+        </aside>
+      </div>
+
+      <footer class="journey-footer">
+        <div class="footer-metrics">
+          <div><small>DAILY QUEST</small><strong><span id="weeklyGoalValue">0</span><span id="weeklyGoalLabel"> / 5 learning days</span></strong><em id="weeklyGoalMessage">Start your first learning day.</em></div>
+          <div><small>STREAK</small><strong id="footerStreak">0 days</strong><em>Keep it going</em></div>
+          <div><small>BADGES</small><strong id="badgeCount">0 / 2</strong><em>Earn more</em></div>
+          <div><small>XP TO NEXT LEVEL</small><strong id="xpToNext">0 / 100</strong><span class="footer-progress"><i id="footerProgressFill"></i></span></div>
+        </div>
+        <button class="continue-adventure" id="continueLearning"><span class="cta-compass"><svg><use href="#icon-compass"/></svg></span><span><small id="continueKicker">CURRENT QUEST</small>Continue Adventure</span><b>→</b></button>
+      </footer>
+    </section>
+
+    <section class="currency-rush-screen hidden" id="currencyRushScreen" aria-label="Currency Rush international currency challenge">
+      <div class="cr-stars" aria-hidden="true"></div>
+      <header class="cr-topbar">
+        <button class="cr-back" id="crExit" type="button" aria-label="Return to World Quest Journey">←</button>
+        <div class="cr-heading"><small id="crRoundLabel">ROUND 1 OF 7</small><strong id="crRoundTitle">Currency Wheel 1</strong></div>
+        <button class="cr-music" id="crMusicToggle" type="button" aria-pressed="false" aria-label="Mute background music">🔊</button>
+      </header>
+      <div class="cr-layout">
+        <aside class="cr-card cr-stats" aria-label="Round status">
+          <div class="cr-timer-ring" id="crTimerRing"><span><strong id="crTime">60</strong><small>SECONDS</small></span></div>
+          <div class="cr-stat"><small>KNOWLEDGE POINTS</small><strong id="crScore">0</strong></div>
+          <div class="cr-stat"><small id="crCountLabel">CURRENCIES FOUND</small><strong id="crFoundCount">0 / 0</strong></div>
+          <div class="cr-stat"><small>GOAL</small><strong>Find them all</strong></div>
+        </aside>
+        <section class="cr-card cr-arena" aria-label="Nine-letter currency wheel">
+          <div class="cr-globe" aria-hidden="true"></div><div class="cr-symbols" aria-hidden="true"><span>$</span><span>€</span><span>¥</span><span>£</span></div>
+          <div class="cr-wheel-shell"><div class="cr-wheel" id="crWheel"><svg class="cr-trace" viewBox="0 0 420 420" preserveAspectRatio="none" aria-hidden="true"><polyline id="crTrace" points=""></polyline></svg></div></div>
+          <div class="cr-current" id="crCurrentWord" aria-live="polite">—</div><p class="cr-message" id="crMessage" role="status" aria-live="polite">Connect three letters to discover a currency</p>
+          <button class="cr-control" id="crClear" type="button">Clear selection</button>
+        </section>
+        <aside class="cr-card cr-collection-panel" id="crReferencePanel"><h2 id="crReferenceTitle">Currency Reference</h2><p class="cr-reference-note" id="crReferenceNote">Study the country, currency, and code while you play.</p><ol class="cr-found-list" id="crFoundList"></ol></aside>
+      </div>
+      <section class="cr-reveal hidden" id="crReveal" role="status" aria-live="assertive"><span class="cr-reveal-flag" id="crRevealFlag">🌐</span><h2 id="crRevealCode">USD FOUND!</h2><h3 id="crRevealName">US Dollar</h3><p id="crRevealCountry">United States</p><strong id="crRevealPoints">+100 KNOWLEDGE POINTS</strong></section>
+      <div class="cr-coin-rain" id="crCoinRain" aria-hidden="true"></div>
+      <section class="cr-results hidden" id="crResults" aria-labelledby="crResultHeadline"><div class="cr-results-card"><span class="cr-results-kicker">ROUND RESULTS</span><h2 id="crResultHeadline">Time's Up!</h2><div class="cr-final-score" id="crResultScore">0</div><div class="cr-final-score"><small>KNOWLEDGE POINTS · PRACTICE ONLY</small></div><div class="cr-result-stats"><div><span>CURRENCIES</span><strong id="crResultFound">0 / 0</strong></div><div><span>ACCURACY</span><strong id="crResultAccuracy">0%</strong></div><div><span>STREAK BONUS</span><strong id="crResultStreak">+0</strong></div></div><p class="cr-result-bonuses" id="crResultBonuses"></p><section class="cr-result-section"><h3>Your currency collection</h3><div class="cr-result-collection" id="crCollection"></div></section><section class="cr-result-section"><h3>Codes to review</h3><div class="cr-result-collection" id="crMissed"></div></section><small class="currency-rush-source">Codes validated against ISO 4217 List One, published 2026-09-17 by the official SIX Maintenance Agency.</small><div class="cr-results-actions"><button id="crResultsExit" type="button">Return</button><button id="crReplay" type="button">Replay</button><button class="primary" id="crNextRound" type="button">Next Round →</button></div></div></section>
+    </section>
+
+    <section class="wb-screen hidden" id="workbookScreen">
+      <header class="wb-topbar">
+        <button class="wb-icon-btn" id="workbookBackHome" aria-label="Back">←</button>
+        <div class="wb-topbar-title"><p class="wb-eyebrow">Credit Foundations</p><h1>Learn how credit works</h1></div>
+        <span class="wb-topbar-xp"><b id="workbookHeaderXp">0</b> XP</span>
+      </header>
+
+      <section id="workbookMapView">
+        <div class="wb-progress-row"><span>World completion</span><b id="workbookWorldProgressText">0%</b></div>
+        <div class="wb-progress-track"><span id="workbookWorldProgressBar"></span></div>
+        <button class="wb-btn-primary" id="workbookPlayGameButton" style="margin-bottom:16px">🎮 Play the credit word game</button>
+        <div class="wb-list" id="workbookList"></div>
+      </section>
+
+      <section class="hidden" id="workbookLessonView">
+        <div class="wb-step-row"><span id="workbookLessonEyebrow">CRF-001</span><b id="workbookLessonStepLabel">1 / 5</b></div>
+        <div class="wb-progress-track"><span id="workbookLessonProgressBar"></span></div>
+        <div class="wb-card">
+          <h2 id="workbookLessonHeading"></h2>
+          <div class="wb-card-body" id="workbookLessonBody"></div>
+        </div>
+        <div class="wb-actions">
+          <button class="wb-btn-secondary hidden" id="workbookLessonPrev">Back</button>
+          <button class="wb-btn-primary" id="workbookLessonNext">Continue →</button>
+        </div>
+      </section>
+
+      <section class="hidden" id="workbookFlashcardView">
+        <div class="wb-step-row"><span>Flashcards</span><b id="workbookFlashcardCount">1 / 5</b></div>
+        <div class="wb-progress-track"><span id="workbookFlashcardProgressBar"></span></div>
+        <button class="wb-flashcard" id="workbookFlashcard" aria-label="Tap to flip the card">
+          <div class="wb-flashcard-inner" id="workbookFlashcardInner">
+            <div class="wb-flashcard-face wb-flashcard-front" id="workbookFlashcardFront"></div>
+            <div class="wb-flashcard-face wb-flashcard-back" id="workbookFlashcardBack"></div>
+          </div>
+        </button>
+        <p class="wb-hint">Tap the card to flip it.</p>
+        <div class="wb-actions">
+          <button class="wb-btn-secondary" id="workbookFlashcardPrev">Back</button>
+          <button class="wb-btn-primary" id="workbookFlashcardNext">Next →</button>
+        </div>
+      </section>
+
+      <section class="hidden" id="workbookMatchingView">
+        <div class="wb-step-row"><span>Practice</span><b id="workbookMatchingCount">0 / 4 matched</b></div>
+        <p class="wb-hint">Tap a term, then tap its matching definition.</p>
+        <div class="wb-matching-grid">
+          <div class="wb-matching-col" id="workbookMatchingLeft"></div>
+          <div class="wb-matching-col" id="workbookMatchingRight"></div>
+        </div>
+        <button class="wb-btn-primary hidden" id="workbookMatchingContinue">Continue to quiz →</button>
+      </section>
+
+      <section class="hidden" id="workbookQuizView">
+        <div class="wb-step-row"><span>Assessment</span><b>Question <span id="workbookQuizIndex">1</span> of <span id="workbookQuizTotal">8</span></b></div>
+        <div class="wb-progress-track"><span id="workbookQuizProgressBar"></span></div>
+        <div class="wb-card"><p class="wb-quiz-prompt" id="workbookQuizPrompt"></p></div>
+        <div class="wb-quiz-options" id="workbookQuizOptions"></div>
+        <div class="wb-feedback hidden" id="workbookQuizFeedback"></div>
+        <button class="wb-btn-primary hidden" id="workbookQuizNext">Next →</button>
+      </section>
+
+      <section class="hidden" id="workbookResultsView">
+        <div class="wb-card wb-results-card">
+          <div class="wb-xp-burst hidden" id="workbookResultsXpBurst">+<span id="workbookResultsXp">0</span><small> XP</small></div>
+          <h2 id="workbookResultsHeadline">Nice work</h2>
+          <p id="workbookResultsScore"></p>
+          <div class="wb-results-list" id="workbookResultsBreakdown"></div>
+          <div class="wb-actions">
+            <button class="wb-btn-secondary hidden" id="workbookResultsRetry">Retry quiz</button>
+            <button class="wb-btn-primary" id="workbookResultsContinue">Continue</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <script src="content/crypto-terms.js?v=1793048275610"></script>
+  <script src="worlds/crypto.js?v=1793048275610"></script>
+  <script src="src/content-validator.js?v=1793048275610"></script>
+  <script src="src/world-loader.js?v=1793048275610"></script>
+  <script src="src/game-engine.js?v=1793048275610"></script>
+  <script src="src/wheel-interaction.js?v=1793048275610"></script>
+  <script src="learning-engine.js?v=1793048275610"></script>
+  <script src="content/world-definitions-2027.js?v=1793048275610"></script>
+  <script src="content/2027-new-world-terms.js?v=1793048275610"></script>
+  <script src="content/2027-new-world-puzzle-banks.js?v=1793048275610"></script>
+  <script src="content/shared-puzzle-library-2027.js?v=1793048275610"></script>
+  <script src="app.js?v=1793048275610"></script>
+  <script src="curriculum/credit/approved/runtime/credit-foundations.js?v=1793048275610"></script>
+  <script src="worlds/credit-foundations.js?v=1793048275610"></script>
+  <script src="src/workbook-engine.js?v=1793048275610"></script>
+  <script src="workbook-app.js?v=1793048275610"></script>
+  <script src="content/credit-game-terms.js?v=1793048275610"></script>
+  <script src="content/credit-term-identities.js?v=1793048275610"></script>
+  <script src="content/money-basics-terms.js?v=1793048275610"></script>
+  <script src="content/money-basics-puzzle-bank.js?v=1793048275610"></script>
+  <script src="content/banking-basics-terms.js?v=1793048275610"></script>
+  <script src="content/banking-basics-puzzle-bank.js?v=1793048275610"></script>
+  <script src="content/investing-basics-terms.js?v=1793048275610"></script>
+  <script src="content/investing-basics-puzzle-bank.js?v=1793048275610"></script>
+  <script src="src/puzzle-bank-engine.js?v=1793048275610"></script>
+  <script src="content/v3-supplemental-terms.js?v=1793048275610"></script>
+  <script src="src/v3-puzzle-slate.js?v=1793048275610"></script>
+  <script src="content/audio-config.js?v=1793048275610"></script>
+  <script src="content/world-backgrounds.js?v=1793048275610"></script>
+  <script src="content/currency-rush-data.js?v=1793048275610"></script>
+  <script src="src/game-audio.js?v=1793048275610"></script>
+  <script src="src/victory-celebration.js?v=1793048275610"></script>
+  <script src="word-game-app.js?v=1793048275610"></script>
+  <script src="src/currency-rush.js?v=1793048275610"></script>
+</body>
+</html>

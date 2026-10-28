@@ -1,0 +1,77 @@
+.wb-screen{width:min(100%,480px);min-height:100vh;margin:auto;padding:22px 18px 40px;color:var(--app-text);font-family:var(--font-body)}
+.wb-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.wb-icon-btn{border:1px solid var(--app-border);background:var(--app-card-solid);color:var(--app-text);border-radius:50%;width:42px;height:42px;font-size:18px}
+.wb-topbar-title{text-align:center;flex:1}
+.wb-topbar-title h1{font-size:17px;margin:0}
+.wb-eyebrow{margin:0 0 2px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;font-size:10px;color:var(--app-accent)}
+.wb-topbar-xp{font-size:12px;font-weight:800;color:var(--app-muted);white-space:nowrap}
+.wb-topbar-xp b{color:var(--app-text);font-size:14px}
+
+.wb-progress-row{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--app-muted);margin-bottom:6px}
+.wb-progress-track{height:8px;border-radius:9px;background:var(--app-primary-soft);overflow:hidden;margin-bottom:18px}
+.wb-progress-track span{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--app-accent),#5ed8ad);transition:width .4s ease}
+
+.wb-list{display:grid;gap:10px}
+.wb-item{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--app-border);border-radius:var(--radius-lg);background:var(--app-card-solid);text-align:left;width:100%;color:var(--app-text);transition:transform var(--transition-fast)}
+.wb-item:not(:disabled):active{transform:scale(.98)}
+.wb-item:disabled{opacity:.55}
+.wb-item-index{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--app-primary-soft);color:var(--app-muted)}
+.wb-item.completed .wb-item-index{background:var(--app-accent-soft);color:var(--app-accent)}
+.wb-item.available .wb-item-index,.wb-item.in_progress .wb-item-index{background:var(--app-gold);color:#805100}
+.wb-item-body{flex:1;min-width:0}
+.wb-item-body strong{display:block;font-size:14px}
+.wb-item-body span{display:block;font-size:11px;color:var(--app-muted);margin-top:2px}
+.wb-item-status{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--app-muted);white-space:nowrap}
+.wb-item.completed .wb-item-status{color:var(--app-accent)}
+.wb-item.available .wb-item-status,.wb-item.in_progress .wb-item-status{color:#b8860b}
+
+.wb-step-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:800;color:var(--app-muted);margin-bottom:8px}
+.wb-step-row b{color:var(--app-text)}
+
+.wb-card{background:var(--app-card-solid);border:1px solid var(--app-border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--app-shadow-soft)}
+.wb-card h2{font-size:20px;margin:0 0 12px}
+.wb-card-body{font-size:14px;line-height:1.6;color:var(--app-text)}
+.wb-card-body p{margin:0 0 12px}
+.wb-card-body p:last-child{margin-bottom:0}
+.wb-card-body .wb-label{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--app-accent);margin-bottom:6px}
+
+.wb-actions{display:flex;gap:10px;margin-top:16px}
+.wb-btn-primary,.wb-btn-secondary{flex:1;border:0;border-radius:14px;padding:13px 16px;font-weight:800;font-size:14px}
+.wb-btn-primary{background:var(--app-accent);color:#fff}
+.wb-btn-secondary{background:var(--app-primary-soft);color:var(--app-text)}
+.wb-hint{text-align:center;color:var(--app-muted);font-size:12px;margin:10px 0 0}
+
+.wb-flashcard{display:block;width:100%;aspect-ratio:3/2;border:0;background:none;perspective:1200px;padding:0}
+.wb-flashcard-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.wb-flashcard-inner.flipped{transform:rotateY(180deg)}
+.wb-flashcard-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;border-radius:var(--radius-lg);background:var(--app-card-solid);border:1px solid var(--app-border);box-shadow:var(--app-shadow-soft);backface-visibility:hidden;font-size:16px;line-height:1.5}
+.wb-flashcard-front{font-size:24px;font-weight:800;color:var(--app-accent)}
+.wb-flashcard-back{transform:rotateY(180deg)}
+
+.wb-matching-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.wb-matching-col{display:grid;gap:8px;align-content:start}
+.wb-match-tile{border:1px solid var(--app-border);background:var(--app-card-solid);color:var(--app-text);border-radius:12px;padding:10px 11px;font-size:12px;line-height:1.35;text-align:left}
+.wb-match-tile.selected{border-color:var(--app-accent);box-shadow:0 0 0 2px var(--app-accent-soft)}
+.wb-match-tile.matched{background:var(--app-accent-soft);border-color:var(--app-accent);color:var(--app-accent);opacity:.8}
+.wb-match-tile.wrong{border-color:var(--app-error);animation:wbShake .3s}
+.wb-match-tile:disabled{cursor:default}
+@keyframes wbShake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.wb-quiz-prompt{margin:0;font-size:15px;font-weight:700;line-height:1.5}
+.wb-quiz-options{display:grid;gap:8px;margin-top:12px}
+.wb-quiz-options button{text-align:left;border:1px solid var(--app-border);border-radius:13px;padding:12px 14px;background:var(--app-card-solid);color:var(--app-text);font-size:13px;line-height:1.4}
+.wb-quiz-options button.correct{border-color:var(--app-accent);background:var(--app-accent-soft);color:var(--app-accent)}
+.wb-quiz-options button.incorrect{border-color:var(--app-error);color:var(--app-error)}
+.wb-quiz-options button:disabled{opacity:.85}
+.wb-feedback{margin-top:10px;padding:10px 12px;border-radius:11px;background:var(--app-accent-soft);color:var(--app-accent);font-size:12px;font-weight:700}
+.wb-feedback.wrong{background:#f9dede;color:var(--app-error)}
+[data-theme="dark"] .wb-feedback.wrong{background:#3a2020}
+
+.wb-results-card{text-align:center}
+.wb-xp-burst{width:96px;height:96px;margin:0 auto 16px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle,#fff4bd,#f5ba47);color:#805100;font:800 26px "Manrope",sans-serif;box-shadow:0 0 0 10px #f6c4531c}
+.wb-results-list{text-align:left;display:grid;gap:8px;margin:16px 0}
+.wb-result-row{padding:10px 12px;border-radius:11px;border:1px solid var(--app-border);font-size:12px;line-height:1.4}
+.wb-result-row.miss{border-color:var(--app-error);background:#f9dede}
+[data-theme="dark"] .wb-result-row.miss{background:#3a2020}
+
+@media(max-width:390px){.wb-screen{padding:16px 14px 30px}.wb-card{padding:16px}}

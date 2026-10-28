@@ -1,0 +1,12 @@
+:root {
+  color-scheme: light;
+  --app-bg:#f5f7fb;--app-card:rgba(255,255,255,.92);--app-card-solid:#fff;--app-primary:#13233f;--app-primary-soft:#e9eef8;--app-accent:#13a875;--app-accent-soft:#dcf8ed;--app-gold:#f2b84b;--app-success:#19a66f;--app-warning:#e9a23b;--app-error:#df5c5c;--app-text:#152238;--app-muted:#778398;--app-border:#e5eaf1;
+  --font-body:Inter,ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif;--font-display:ui-rounded,"SF Pro Rounded",Inter,system-ui,sans-serif;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;
+  --radius-sm:10px;--radius-md:14px;--radius-lg:20px;--radius-xl:26px;--radius-2xl:30px;
+  --app-shadow:0 16px 45px rgba(38,56,86,.10);--app-shadow-soft:0 8px 24px rgba(38,56,86,.07);
+  --transition-fast:180ms ease;--transition-normal:300ms ease;
+  --layer-panel:8;--layer-modal:10;--layer-toast:20;--layer-celebration:50;
+}
+[data-theme="dark"]{color-scheme:dark;--app-bg:#111827;--app-card:rgba(31,41,55,.92);--app-card-solid:#1f2937;--app-primary:#7ca7ff;--app-primary-soft:#273650;--app-accent:#34d399;--app-accent-soft:#163d35;--app-gold:#f6c453;--app-text:#f8fafc;--app-muted:#9ca3af;--app-border:#344154;--app-shadow:0 18px 50px rgba(0,0,0,.28);--app-shadow-soft:0 8px 25px rgba(0,0,0,.18)}
+@media(prefers-reduced-motion:reduce){:root{--transition-fast:0ms;--transition-normal:0ms}}

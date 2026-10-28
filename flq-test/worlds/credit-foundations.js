@@ -1,0 +1,26 @@
+// Generated from credit-foundations.json world manifest. Do not edit by hand.
+window.CREDIT_FOUNDATIONS_WORLD = {
+  "schemaVersion": 1,
+  "id": "credit-foundations",
+  "worldType": "workbook",
+  "name": "Credit Foundations",
+  "eyebrow": "Learn how credit actually works",
+  "sequential": true,
+  "workbookIds": [
+    "CRF-001",
+    "CRF-002",
+    "CRF-003",
+    "CRF-004",
+    "CRF-005",
+    "CRF-006",
+    "CRF-007",
+    "CRF-008",
+    "CRF-009",
+    "CRF-010",
+    "CRF-011",
+    "CRF-012",
+    "CRF-013",
+    "CRF-014",
+    "CRF-015"
+  ]
+};
