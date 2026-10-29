@@ -18,9 +18,14 @@ const [sections,objectives,approvalRows,controlledRows]=await Promise.all([datas
 const stableHash=value=>crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const output={schemaVersion:1,curriculumVersion:mapping.curriculumVersion,world:mapping.world,generatedAt:new Date().toISOString(),source:{workbooks:[...sources.values()],approvalLogHash:stableHash(approvalRows),controlledValuesHash:stableHash(controlledRows)},sections,objectives};
 const validation=validator.validateCurriculum(output,{termIds:mapping.termIds||[]}),report=buildImportReport(output,validation),outputPath=locations.runtimeFile,reportDir=locations.reportsDir;
+// Educational Terminology Standard (all worlds): known invented provider/product names block the import; suspected ones are reported for review.
+const terminology=require("../src/terminology-standard.js"),termFindings=terminology.scanValue({sections,objectives},`${output.world} import`,terminology.compile(terminology.loadStandard()));
+for(const finding of termFindings)console.warn(`[terminology ${finding.kind}] ${finding.location}: "${finding.term}" (${finding.rule}) ${finding.snippet||""}`);
+const termBlocked=termFindings.some(finding=>finding.kind==="prohibited");
 await fs.mkdir(reportDir,{recursive:true});
 await Promise.all([fs.writeFile(path.join(reportDir,`${output.world}-world-import-report.json`),`${JSON.stringify(report,null,2)}\n`),fs.writeFile(path.join(reportDir,`${output.world}-world-import-report.md`),toMarkdown(report)),fs.writeFile(path.join(reportDir,`${output.world}-world-validation-report.json`),`${JSON.stringify(report.validation,null,2)}\n`)]);
 if(!validation.valid)throw new Error(`Curriculum validation failed. Runtime JSON was not generated. See ${output.world}-world-import-report.md.`);
+if(termBlocked)throw new Error("Educational Terminology Standard failed: a prohibited invented provider or product name is present. Runtime JSON was not generated.");
 await fs.mkdir(path.dirname(outputPath),{recursive:true});
 await fs.writeFile(outputPath,`${JSON.stringify(output,null,2)}\n`);
 console.log(`Validated ${sections.length} sections and ${objectives.length} objectives for ${output.world} curriculum ${output.curriculumVersion}. Import report: ${path.join(reportDir,`${output.world}-world-import-report.md`)}`);

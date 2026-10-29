@@ -7,7 +7,7 @@
   "blurb": "A 29-year-old saving 24 months for her first home: a vault offer, a wallet scam, a repair bill, a price crash, a bonus, a paper trail and the final numbers."
  },
  "logic_ver": "0.6.1",
- "text_ver": "0.6.1-w5",
+ "text_ver": "0.6.1-w6",
  "status": "APPROVED (D-1 to D-3); curriculum design only",
  "source_doc": "dana-v0.6.1-FINAL-CANDIDATE.md",
  "pending_wording": [],
@@ -127,12 +127,17 @@
    "id": "dana.v0.6.1-w5.plan.conventions",
    "from": "(no note on student-loan convention or emergency target)",
    "to": "Plan line states monthly student-loan interest is a model simplification and the three-month emergency target is the scenario's choice."
+  },
+  {
+   "id": "dana.terminology-standard.2026-10-28",
+   "from": "invented provider/product names (Harbor Vault, Keystone, Apex Yield, Surge Pool) and their short forms",
+   "to": "generic DeFi terminology with a short definition at first use; fictional rates, fees and limits identified as story assumptions"
   }
  ],
- "intro": "Dana Okafor, 29, wants to buy her first home in 24 months. Take-home pay $4,600 a month. Essentials $2,900 (rent 1,500, utilities and phone 260, groceries 520, transport 260, insurance 110, student-loan payment 250). Flexible budget $700 ($250 floor plus $450 discretionary, set for this scenario). $1,000 a month goes to home savings. Opening (scenario assumptions): checking $1,800, emergency savings $8,700 (3 months of essentials), home savings $21,000 (insured), ETH $2,400 ($2,000 hardware wallet, $400 browser wallet), student loan $12,000 at 6.00% APR.",
+ "intro": "Dana Okafor, 29, wants to buy her first home in 24 months. Take-home pay $4,600 a month. Essentials $2,900 (rent 1,500, utilities and phone 260, groceries 520, transport 260, insurance 110, student-loan payment 250). Flexible budget $700 ($250 floor plus $450 discretionary, set for this scenario). $1,000 a month goes to home savings. Opening (scenario assumptions): checking $1,800, emergency savings $8,700 (3 months of essentials), home savings $21,000 (insured), ETH (Ether, the main crypto asset of the Ethereum network) $2,400 ($2,000 in a hardware wallet, a physical device that keeps your crypto keys offline, and $400 in a browser wallet, a software wallet that runs in your web browser and stays connected to the internet), student loan $12,000 at 6.00% APR.",
  "plan": [
-  "Harbor Vault, Keystone Loans, Apex Yield and Surge Pool are fictional. Their terms are story rules, not market data. ETH price moves are scenario events, and insured savings are modeled at 0% interest, which is lower than a real account would pay. Student-loan interest is modeled monthly, while real loans usually accrue interest daily. The three-month emergency target is this scenario's choice; official guidance varies and some suggests six months.",
-  "Available purchase cash is insured home savings only. Vault funds, Apex Yield and Surge Pool balances, ETH and emergency savings do not count until they are moved. Other available cash counts only after Dana moves it.",
+  "The stablecoin yield vault, crypto-backed lending protocol, high-yield DeFi platform and DeFi liquidity pool in this story are simulated examples. Their rates, fees, limits and terms are story rules, not market data, and real protocols differ. ETH price moves are scenario events, and insured savings are modeled at 0% interest, which is lower than a real account would pay. Student-loan interest is modeled monthly, while real loans usually accrue interest daily. The three-month emergency target is this scenario's choice; official guidance varies and some suggests six months.",
+  "Available purchase cash is insured home savings only. Vault funds, high-yield platform and liquidity pool balances, ETH and emergency savings do not count until they are moved. Other available cash counts only after Dana moves it.",
   "The $450 records-reconstruction cost, the $450 rate-lock extension fee per delay month and the 3-month delay cap are scenario assumptions, not market data. Real fees and lock terms vary by lender.",
   "Good decisions do not guarantee outcomes. A perfect score is possible on a path where the purchase is still delayed."
  ],
@@ -166,12 +171,12 @@
        "pre.OTHER>0"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Apex Yield",
+       "High-yield DeFi platform",
        "{pre.APEX}",
        "pre.APEX>0"
       ],
@@ -181,12 +186,12 @@
        "pre.ETH>0"
       ],
       [
-       "ETH pledged to Keystone",
+       "ETH pledged as collateral",
        "{pre.PLEDGED}",
        "pre.PLEDGED>0"
       ],
       [
-       "Keystone loan owed",
+       "Crypto-backed loan owed",
        "{pre.KLOAN}",
        "pre.KLOAN>0"
       ],
@@ -197,16 +202,16 @@
      ]
     }
    ],
-   "situation": "Dana, 29, wants to buy her first home in 24 months. She needs $45,000 total purchase cash: a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move (an assumption in this story). Her insured home savings hold {pre.HOME} and she adds $1,000 a month, which reaches $45,000 on the last day of month 24; this scenario assumes closing on that day, after the transfer. She also keeps {pre.RES} in emergency savings, {pre.CHK} in checking, {pre.ETH} in ETH from an old purchase and a {pre.STU} student loan at 6%.\n\nA coworker shows her Harbor Vault. It advertises 8.30% APY (8.00% APR, variable, credited monthly). It lends dollar-pegged tokens through smart contracts. It is not a bank and its balances are not FDIC-insured.\n\nWhat should Dana do with her home savings?",
+   "situation": "Dana, 29, wants to buy her first home in 24 months. She needs $45,000 total purchase cash: a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move (an assumption in this story). Her insured home savings hold {pre.HOME} and she adds $1,000 a month, which reaches $45,000 on the last day of month 24; this scenario assumes closing on that day, after the transfer. She also keeps {pre.RES} in emergency savings, {pre.CHK} in checking, {pre.ETH} in ETH from an old purchase and a {pre.STU} student loan at 6%.\n\nA coworker shows her a stablecoin yield vault, a DeFi service that advertises 8.30% APY (8.00% APR, variable, credited monthly). It lends dollar-pegged tokens (stablecoins) through smart contracts, which are programs that run on a blockchain. It is not a bank and its balances are not FDIC-insured.\n\nWhat should Dana do with her home savings?",
    "options": {
     "a": {
-     "t": "Move all $21,000 into Harbor Vault to earn more before she buys."
+     "t": "Move all $21,000 into the vault to earn more before she buys."
     },
     "b": {
      "t": "Keep the home savings in the insured account. Revisit DeFi only with money she does not need for the purchase."
     },
     "c": {
-     "t": "Move $6,000 into Harbor Vault after reading its terms, and keep $15,000 insured."
+     "t": "Move $6,000 into the vault after reading its terms, and keep $15,000 insured."
     }
    },
    "feedback": {
@@ -273,12 +278,12 @@
        "pre.OTHER>0"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Apex Yield",
+       "High-yield DeFi platform",
        "{pre.APEX}",
        "pre.APEX>0"
       ],
@@ -288,12 +293,12 @@
        "pre.ETH>0"
       ],
       [
-       "ETH pledged to Keystone",
+       "ETH pledged as collateral",
        "{pre.PLEDGED}",
        "pre.PLEDGED>0"
       ],
       [
-       "Keystone loan owed",
+       "Crypto-backed loan owed",
        "{pre.KLOAN}",
        "pre.KLOAN>0"
       ],
@@ -380,12 +385,12 @@
        "pre.OTHER>0"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Apex Yield",
+       "High-yield DeFi platform",
        "{pre.APEX}",
        "pre.APEX>0"
       ],
@@ -395,12 +400,12 @@
        "pre.ETH>0"
       ],
       [
-       "ETH pledged to Keystone",
+       "ETH pledged as collateral",
        "{pre.PLEDGED}",
        "pre.PLEDGED>0"
       ],
       [
-       "Keystone loan owed",
+       "Crypto-backed loan owed",
        "{pre.KLOAN}",
        "pre.KLOAN>0"
       ],
@@ -411,13 +416,13 @@
      ]
     }
    ],
-   "situation": "Dana's car needs a $900 repair this week. Checking holds {pre.CHK}. Her home savings hold {pre.HOME}, emergency savings {pre.RES}, and her ETH is worth {pre.ETH}.\n\nKeystone Loans would lend $900 against her ETH at 9%. If the loan reaches 80% of the ETH's value it forces a sale, and her ETH stays locked until it is repaid.\n\nHow should Dana pay?",
+   "situation": "Dana's car needs a $900 repair this week. Checking holds {pre.CHK}. Her home savings hold {pre.HOME}, emergency savings {pre.RES}, and her ETH is worth {pre.ETH}.\n\nA crypto-backed lending protocol would lend $900 against her ETH at 9% in this story. The ETH is pledged as collateral, the asset that backs the loan. If the loan reaches 80% of the ETH's value it forces a sale (liquidation), and her ETH stays locked until it is repaid.\n\nHow should Dana pay?",
    "options": {
     "a": {
      "t": "Pay from emergency savings, then rebuild it with $200 a month from her flexible budget."
     },
     "b": {
-     "t": "Borrow $900 from Keystone Loans against her ETH."
+     "t": "Borrow $900 from the lending protocol against her ETH."
     },
     "c": {
      "t": "Withdraw $900 from home savings."
@@ -490,12 +495,12 @@
        "pre.OTHER>0"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Apex Yield",
+       "High-yield DeFi platform",
        "{pre.APEX}",
        "pre.APEX>0"
       ],
@@ -505,12 +510,12 @@
        "pre.ETH>0"
       ],
       [
-       "ETH pledged to Keystone",
+       "ETH pledged as collateral",
        "{pre.PLEDGED}",
        "pre.PLEDGED>0"
       ],
       [
-       "Keystone loan owed",
+       "Crypto-backed loan owed",
        "{pre.KLOAN}",
        "pre.KLOAN>0"
       ],
@@ -523,7 +528,7 @@
    ],
    "situation": {
     "noloan": "ETH has fallen 40% since month 1, so Dana's {pre.ETH/D(\"0.6\")} is now worth {pre.ETH}. She has no debt on it. Home savings hold {pre.HOME} and emergency savings {pre.RES}{cond(pre.RES<8700,\" (rebuilding)\",\"\")}. The purchase is 15 months away. Her plan reaches $45,000 without any ETH.\n\nWhat should Dana do?",
-    "loan": "ETH has fallen 40%. Dana owes Keystone Loans {pre.KLOAN} ($900 plus {pre.INT} interest). Her pledged ETH is worth {pre.ETH}, so the loan is {pre.ltv|p1} of its value. A forced sale happens at 80%. Her emergency savings are intact at {pre.RES} and home savings hold {pre.HOME}. The purchase is 15 months away.\n\nHer pledged ETH cannot be sold or withdrawn while any balance is owed. Keystone offers Repay with collateral: one transaction that sells just enough pledged ETH at today's price (0.5% swap fee) to clear the interest and then the principal, and releases the rest. Dana can also repay from cash, then withdraw the ETH.\n\nWhat should Dana do?"
+    "loan": "ETH has fallen 40%. Dana owes the lending protocol {pre.KLOAN} ($900 plus {pre.INT} interest). Her pledged ETH is worth {pre.ETH}, so the loan is {pre.ltv|p1} of its value. A forced sale happens at 80%. Her emergency savings are intact at {pre.RES} and home savings hold {pre.HOME}. The purchase is 15 months away.\n\nHer pledged ETH cannot be sold or withdrawn while any balance is owed. The protocol offers Repay with collateral: one transaction that sells just enough pledged ETH at today's price (0.5% swap fee) to clear the interest and then the principal, and releases the rest. Dana can also repay from cash, then withdraw the ETH.\n\nWhat should Dana do?"
    },
    "options": {
     "a": {
@@ -572,11 +577,13 @@
      },
      {
       "when": "v=='loan'",
-      "text": "Dana is close to forced liquidation. If ETH falls further (month 11) Keystone takes {-row(11,\"LIQUIDATION\",\"ETH\")} of ETH: {-(row(11,\"LIQUIDATION\",\"KLP\")+row(11,\"LIQUIDATION\",\"KLI\"))} to clear the debt and a {-row(11,\"LIQUIDATION\",\"ETH\")+(row(11,\"LIQUIDATION\",\"KLP\")+row(11,\"LIQUIDATION\",\"KLI\"))} penalty. She keeps {nx.ETH}. Her realized loss against month 1 is {nx.LOSS}.",
+      "text": "Dana is close to forced liquidation. If ETH falls further (month 11) the protocol takes {-row(11,\"LIQUIDATION\",\"ETH\")} of ETH: {-(row(11,\"LIQUIDATION\",\"KLP\")+row(11,\"LIQUIDATION\",\"KLI\"))} to clear the debt and a {-row(11,\"LIQUIDATION\",\"ETH\")+(row(11,\"LIQUIDATION\",\"KLP\")+row(11,\"LIQUIDATION\",\"KLI\"))} penalty. She keeps {nx.ETH}. Her realized loss against month 1 is {nx.LOSS}.",
       "ref": "Dana is close to forced liquidation. If ETH falls further (month 11) Keystone takes $980.44 of ETH: $933.75 to clear the debt and a $46.69 penalty. She keeps $161.28. Her realized loss against month 1 is $1,035.57.",
       "rp": "BCB",
       "dk": "D4|A (0)|v2",
-      "assert": "nx.KLOAN==0 and d.KLOAN==0"
+      "assert": "nx.KLOAN==0 and d.KLOAN==0",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      }
     ],
     "b": [
@@ -657,12 +664,12 @@
        "pre.OTHER>0"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Apex Yield",
+       "High-yield DeFi platform",
        "{pre.APEX}",
        "pre.APEX>0"
       ],
@@ -672,12 +679,12 @@
        "pre.ETH>0"
       ],
       [
-       "ETH pledged to Keystone",
+       "ETH pledged as collateral",
        "{pre.PLEDGED}",
        "pre.PLEDGED>0"
       ],
       [
-       "Keystone loan owed",
+       "Crypto-backed loan owed",
        "{pre.KLOAN}",
        "pre.KLOAN>0"
       ],
@@ -690,7 +697,7 @@
        "Yes"
       ],
       [
-       "Keystone loan open?",
+       "Crypto-backed loan open?",
        "{cond(pre.KLOAN>0,\"Yes\",\"No\")|t}"
       ],
       [
@@ -698,7 +705,7 @@
        "{cond(t.t3,\"Yes\",\"No\")|t}"
       ],
       [
-       "Loan within Keystone's 50% lending limit (\"manageable\" in this game)?",
+       "Loan within the lending protocol's 50% limit (\"manageable\" in this game)?",
        "{cond(t.t4,\"Yes\",\"No\")|t}",
        "pre.KLOAN>0"
       ],
@@ -726,10 +733,10 @@
     }
    ],
    "situation": {
-    "nl_on": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nWhat should Dana do with the bonus?",
-    "nl_behind": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nWhat should Dana do with the bonus?",
-    "l_manage": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nDana still owes Keystone Loans {pre.KLOAN}. Her pledged ETH is worth {pre.ETH}, so her loan is {pre.ltv|p1} of its value.\n\nKeystone's rules (fictional): Lending limit 50%: the most Keystone will lend against ETH when a loan is made. Forced-sale line 80%: if the loan reaches 80% of the ETH's value, Keystone sells the ETH. For Dana, that happens if her ETH falls from {pre.ETH} to about {pre.KLOAN/D(\"0.8\")|r}, a drop of about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price. (The loan grows a little each month, so that line moves up slowly.)\n\nWhat should Dana do with the bonus?",
-    "l_not": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new vault, Apex Yield, advertises 12% with the note \"audit pending.\"\n\nDana still owes Keystone Loans {pre.KLOAN}. Her pledged ETH is worth {pre.ETH}, so her loan is {pre.ltv|p1} of its value.\n\nKeystone's rules (fictional): Lending limit 50%: the most Keystone will lend against ETH when a loan is made. Forced-sale line 80%: if the loan reaches 80% of the ETH's value, Keystone sells the ETH. For Dana, that happens if her ETH falls from {pre.ETH} to about {pre.KLOAN/D(\"0.8\")|r}, a drop of about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price. (The loan grows a little each month, so that line moves up slowly.)\n\nWhat should Dana do with the bonus?"
+    "nl_on": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new high-yield DeFi platform advertises 12% with the note \"audit pending\" (no independent security review yet).\n\nWhat should Dana do with the bonus?",
+    "nl_behind": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new high-yield DeFi platform advertises 12% with the note \"audit pending\" (no independent security review yet).\n\nWhat should Dana do with the bonus?",
+    "l_manage": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new high-yield DeFi platform advertises 12% with the note \"audit pending\" (no independent security review yet).\n\nDana still owes the lending protocol {pre.KLOAN}. Her pledged ETH is worth {pre.ETH}, so her loan is {pre.ltv|p1} of its value.\n\nThe lending protocol's rules in this simulation: Lending limit 50%: the most it will lend against ETH when a loan is made. Forced-sale line 80%: if the loan reaches 80% of the ETH's value, the protocol sells the ETH. For Dana, that happens if her ETH falls from {pre.ETH} to about {pre.KLOAN/D(\"0.8\")|r}, a drop of about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price. (The loan grows a little each month, so that line moves up slowly.)\n\nWhat should Dana do with the bonus?",
+    "l_not": "Dana receives a $2,000 after-tax bonus in checking. Home savings hold {pre.HOME}, emergency savings {pre.RES} (three months, fully funded), and the student loan is {pre.STU} at 6%. Twelve more monthly transfers remain. A new high-yield DeFi platform advertises 12% with the note \"audit pending\" (no independent security review yet).\n\nDana still owes the lending protocol {pre.KLOAN}. Her pledged ETH is worth {pre.ETH}, so her loan is {pre.ltv|p1} of its value.\n\nThe lending protocol's rules in this simulation: Lending limit 50%: the most it will lend against ETH when a loan is made. Forced-sale line 80%: if the loan reaches 80% of the ETH's value, the protocol sells the ETH. For Dana, that happens if her ETH falls from {pre.ETH} to about {pre.KLOAN/D(\"0.8\")|r}, a drop of about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} from today's price. (The loan grows a little each month, so that line moves up slowly.)\n\nWhat should Dana do with the bonus?"
    },
    "options": {
     "a": {
@@ -740,7 +747,7 @@
         "l_manage",
         "l_not"
        ],
-       "t": "Repay the outstanding Keystone crypto-backed loan, then put the remaining bonus into home savings."
+       "t": "Repay the outstanding crypto-backed loan, then put the remaining bonus into home savings."
       }
      ]
     },
@@ -752,12 +759,12 @@
         "l_manage",
         "l_not"
        ],
-       "t": "Add the whole bonus to home savings and keep the Keystone loan open."
+       "t": "Add the whole bonus to home savings and keep the crypto-backed loan open."
       }
      ]
     },
     "c": {
-     "t": "Deposit it in Apex Yield."
+     "t": "Deposit it in the high-yield DeFi platform."
     }
    },
    "feedback": {
@@ -782,21 +789,25 @@
     "b": [
      {
       "when": "v=='l_manage'",
-      "text": "You kept every dollar of the bonus working toward the deadline and left a 9% loan open. The loan is smaller than Keystone would lend today and ETH would have to fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} more before a forced sale. That is a real risk, only a small one right now. Watch it if the price drops, and remember the interest keeps building.",
+      "text": "You kept every dollar of the bonus working toward the deadline and left a 9% loan open. The loan is smaller than the lending protocol would lend today and ETH would have to fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} more before a forced sale. That is a real risk, only a small one right now. Watch it if the price drops, and remember the interest keeps building.",
       "ref": "You kept every dollar of the bonus working toward the deadline and left a 9% loan open. The loan is smaller than Keystone would lend today and ETH would have to fall about ⟨46%⟩ more before a forced sale. That is a real risk, only a small one right now. Watch it if the price drops, and remember the interest keeps building.",
       "rp": "BCBC",
       "dk": "D5|B, Keystone loan open, manageable",
       "refre": "You\\ kept\\ every\\ dollar\\ of\\ the\\ bonus\\ working\\ toward\\ the\\ deadline\\ and\\ left\\ a\\ 9%\\ loan\\ open\\.\\ The\\ loan\\ is\\ smaller\\ than\\ Keystone\\ would\\ lend\\ today\\ and\\ ETH\\ would\\ have\\ to\\ fall\\ about\\ -?\\$?[\\d,]+(?:\\.\\d+)?%?\\ more\\ before\\ a\\ forced\\ sale\\.\\ That\\ is\\ a\\ real\\ risk,\\ only\\ a\\ small\\ one\\ right\\ now\\.\\ Watch\\ it\\ if\\ the\\ price\\ drops,\\ and\\ remember\\ the\\ interest\\ keeps\\ building\\.",
-      "assert": "d.HOME==2000 and d.KLOAN==0"
+      "assert": "d.HOME==2000 and d.KLOAN==0",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      },
      {
       "when": "v=='l_not'",
-      "text": "Your loan is above the 50% Keystone would lend today. In this game that counts as a loan to clear first, so keeping it open does not earn credit. It is not a prediction that a sale was coming: ETH would still have to fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} more. It is a game rule for scoring. Real lenders and protocols set their own limits.",
+      "text": "Your loan is above the 50% the lending protocol would lend today. In this game that counts as a loan to clear first, so keeping it open does not earn credit. It is not a prediction that a sale was coming: ETH would still have to fall about {(1-pre.KLOAN/D(\"0.8\")/pre.ETH)*100|p0} more. It is a game rule for scoring. Real lenders and protocols set their own limits.",
       "ref": "Your loan is above the 50% Keystone would lend today. In this game that counts as a loan to clear first, so keeping it open does not earn credit. It is not a prediction that a sale was coming: ETH would still have to fall about ⟨36%⟩ more. It is a game rule for scoring. Real lenders and protocols set their own limits.",
       "rp": "BBBC",
       "dk": "D5|B, Keystone loan open, not manageable",
       "refre": "Your\\ loan\\ is\\ above\\ the\\ 50%\\ Keystone\\ would\\ lend\\ today\\.\\ In\\ this\\ game\\ that\\ counts\\ as\\ a\\ loan\\ to\\ clear\\ first,\\ so\\ keeping\\ it\\ open\\ does\\ not\\ earn\\ credit\\.\\ It\\ is\\ not\\ a\\ prediction\\ that\\ a\\ sale\\ was\\ coming:\\ ETH\\ would\\ still\\ have\\ to\\ fall\\ about\\ -?\\$?[\\d,]+(?:\\.\\d+)?%?\\ more\\.\\ It\\ is\\ a\\ game\\ rule\\ for\\ scoring\\.\\ Real\\ lenders\\ and\\ protocols\\ set\\ their\\ own\\ limits\\.",
-      "assert": "d.HOME==2000 and d.KLOAN==0"
+      "assert": "d.HOME==2000 and d.KLOAN==0",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      },
      {
       "when": "v in ['nl_on','nl_behind']",
@@ -810,22 +821,24 @@
     "c": [
      {
       "when": "True",
-      "text": "\"Audit pending\" means no independent review yet. In month 16 Apex Yield is exploited. A recovery plan in month 20 returns 55%: {row(20,\"Apex recovery\",\"HOME\")} comes back and {2000-row(20,\"Apex recovery\",\"HOME\")} is lost.",
+      "text": "\"Audit pending\" means no independent review yet. In month 16 the platform is exploited. A recovery plan in month 20 returns 55%: {row(20,\"Apex recovery\",\"HOME\")} comes back and {2000-row(20,\"Apex recovery\",\"HOME\")} is lost.",
       "ref": "\"Audit pending\" means no independent review yet. In month 16 Apex Yield is exploited. A recovery plan in month 20 returns 55%: $1,100 comes back and $900 is lost.",
       "rp": "BCAC",
       "dk": "D5|C (0)",
-      "assert": "d.APEX==2000 and row(20,\"Apex recovery\",\"HOME\")==1100"
+      "assert": "d.APEX==2000 and row(20,\"Apex recovery\",\"HOME\")==1100",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      }
     ]
    },
    "after": {
-    "l_manage": "In this game, a Keystone loan counts as 'manageable' if it is at or below Keystone's 50% lending limit. That line is a simplification for scoring, not a safe level in real life and not financial advice. A loan below it can still be sold if the price falls far enough, and a loan above it may take a large fall to be sold. Check your own lender's terms.",
-    "l_not": "In this game, a Keystone loan counts as 'manageable' if it is at or below Keystone's 50% lending limit. That line is a simplification for scoring, not a safe level in real life and not financial advice. A loan below it can still be sold if the price falls far enough, and a loan above it may take a large fall to be sold. Check your own lender's terms."
+    "l_manage": "In this game, a crypto-backed loan counts as 'manageable' if it is at or below the lending protocol's 50% limit. That line is a simplification for scoring, not a safe level in real life and not financial advice. A loan below it can still be sold if the price falls far enough, and a loan above it may take a large fall to be sold. Check your own lender's terms.",
+    "l_not": "In this game, a crypto-backed loan counts as 'manageable' if it is at or below the lending protocol's 50% limit. That line is a simplification for scoring, not a safe level in real life and not financial advice. A loan below it can still be sold if the price falls far enough, and a loan above it may take a large fall to be sold. Check your own lender's terms."
    },
    "cmp": {
     "l_manage": {
      "h": [
-      "Repay Keystone, rest to home savings",
+      "Repay the loan, rest to home savings",
       "All to home savings, keep the loan"
      ],
      "rows": [
@@ -883,12 +896,12 @@
        "pre.OTHER>0"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Apex Yield",
+       "High-yield DeFi platform",
        "{pre.APEX}",
        "pre.APEX>0"
       ],
@@ -898,12 +911,12 @@
        "pre.ETH>0"
       ],
       [
-       "ETH pledged to Keystone",
+       "ETH pledged as collateral",
        "{pre.PLEDGED}",
        "pre.PLEDGED>0"
       ],
       [
-       "Keystone loan owed",
+       "Crypto-backed loan owed",
        "{pre.KLOAN}",
        "pre.KLOAN>0"
       ],
@@ -914,7 +927,7 @@
      ]
     }
    ],
-   "situation": "Dana's lender is moving toward closing. The underwriter wants large deposits explained and the source of her funds documented. Her loan officer reminds her that the figures on her Loan Estimate are estimates and that the Closing Disclosure will give the final numbers at least three business days before closing. Meanwhile Harbor Vault announces a $2,000-per-week withdrawal limit.\n\nHer DeFi holdings: Harbor Vault {pre.VAULT}, ETH {pre.ETH} (index 55), Keystone loan {pre.KLOAN}. Home savings {pre.HOME}.\n\nWhat should Dana do?",
+   "situation": "Dana's lender is moving toward closing. The underwriter wants large deposits explained and the source of her funds documented. Her loan officer reminds her that the figures on her Loan Estimate are estimates and that the Closing Disclosure will give the final numbers at least three business days before closing. Meanwhile the stablecoin yield vault announces a $2,000-per-week withdrawal limit (a cap on how much can leave each week).\n\nHer DeFi holdings: stablecoin yield vault {pre.VAULT}, ETH {pre.ETH} (index 55), crypto-backed loan {pre.KLOAN}. Home savings {pre.HOME}.\n\nWhat should Dana do?",
    "options": {
     "a": {
      "t": "Start moving all DeFi holdings into her bank accounts now (repaying any crypto loan first), and save the statements and transaction history."
@@ -938,13 +951,13 @@
      },
      {
       "when": "True",
-      "text": "{cond(pre.VAULT>0,\"The vault clears in \"+str(ceil(pre.VAULT/2000))+\" weeks (\"+m(pre.VAULT)+\" to home savings). \",\"\")|t}{cond(pre.KLOAN>0,\"The Keystone loan (\"+m(pre.KLOAN)+\") is repaid first with Repay with collateral. \",\"\")|t}{cond(pre.ETH>0,\"Selling the ETH (\"+m(pre.ETH)+\") costs a \"+m(d.FEES)+\" fee. \"+cond(pre.KLOAN>0,\"After the loan is repaid, \",\"\")+m(d.OTHER)+\" reaches Other available cash. \",\"\")|t}The paper trail is ready.",
+      "text": "{cond(pre.VAULT>0,\"The vault clears in \"+str(ceil(pre.VAULT/2000))+\" weeks (\"+m(pre.VAULT)+\" to home savings). \",\"\")|t}{cond(pre.KLOAN>0,\"The crypto-backed loan (\"+m(pre.KLOAN)+\") is repaid first with Repay with collateral. \",\"\")|t}{cond(pre.ETH>0,\"Selling the ETH (\"+m(pre.ETH)+\") costs a \"+m(d.FEES)+\" fee. \"+cond(pre.KLOAN>0,\"After the loan is repaid, \",\"\")+m(d.OTHER)+\" reaches Other available cash. \",\"\")|t}The paper trail is ready.",
       "ref": null,
       "rp": "",
       "dk": "D6|A (100)",
       "assert": "post.VAULT==0 and post.ETH==0 and post.KLOAN==0 and (pre.ETH==0 or d.OTHER == pre.ETH - d.FEES - pre.KLOAN)",
       "approved": "dana.q6.a.other-holdings (D-5 consolidated correction pass 2026-10-28)",
-      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      }
     ],
     "b": [
@@ -1032,7 +1045,7 @@
        "{pre.RES}"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ]
@@ -1046,7 +1059,7 @@
    },
    "options": {
     "a": {
-     "t": "Put $5,000 of home savings into Surge Pool, advertising 14%, for the last 30 days to earn the difference."
+     "t": "Put $5,000 of home savings into a DeFi liquidity pool (a shared pot of crypto that traders swap against; depositors earn variable fees), advertising 14%, for the last 30 days to earn the difference."
     },
     "b": {
      "t": "Cover any gap from emergency savings at closing, only if that covers the whole gap."
@@ -1055,7 +1068,7 @@
      "t": "Cover any gap with savings from her flexible budget first, up to $450 at the end of month 23 and up to $450 at the end of month 24. If still short, delay closing one month at a time, up to three months. No new debt, no yield bets, no emergency savings."
     }
    },
-   "closing_note": "{cond(ans[4]==\"A\" and d5.KLOAN>0 and run.delay==1,\"Clearing the Keystone loan used \"+m(d5.KLOAN)+\" of your purchase fund. At month 24 you were \"+m(run.need-m24.HOME)+\" short of the requirement and the budget could not cover it, so closing moved to month 25. That was the price of removing a loan that could have forced a sale of your ETH. Your score reflects the quality of the decision, not the closing month.\",\"\")|t}",
+   "closing_note": "{cond(ans[4]==\"A\" and d5.KLOAN>0 and run.delay==1,\"Clearing the crypto-backed loan used \"+m(d5.KLOAN)+\" of your purchase fund. At month 24 you were \"+m(run.need-m24.HOME)+\" short of the requirement and the budget could not cover it, so closing moved to month 25. That was the price of removing a loan that could have forced a sale of your ETH. Your score reflects the quality of the decision, not the closing month.\",\"\")|t}",
    "feedback": {
     "a": [
      {

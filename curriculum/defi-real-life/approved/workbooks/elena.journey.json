@@ -7,7 +7,7 @@
   "blurb": "A new parent, 40, salaried: leave gap, a medical bill, a gift of ETH and a childcare deposit."
  },
  "logic_ver": "0.1",
- "text_ver": "0.1.2",
+ "text_ver": "0.1.3",
  "status": "APPROVED & LOCKED (curriculum design only)",
  "source_doc": "batch1-elena-journey-v0.1-APPROVED-LOCKED.md",
  "pending_wording": [],
@@ -56,7 +56,7 @@
      "note": "Months 2 and 3 pay is 75%: a $2,550 gap is coming."
     }
    ],
-   "situation": "You have a baby coming and two months at 75% pay. A friend says a stablecoin vault pays about 0.4% a month, variable and never guaranteed. Your plan covers known gaps with cash first.",
+   "situation": "You have a baby coming and two months at 75% pay. A friend says a stablecoin yield vault pays about 0.4% a month, variable and never guaranteed. A stablecoin is a crypto token designed to stay worth $1, and a yield vault is a crypto service that pays a rate on deposits; it is not an insured bank account. Your plan covers known gaps with cash first.",
    "options": {
     "a": {
      "t": "Keep the reserve in cash."
@@ -251,7 +251,7 @@
      "note": "Adding $400 would leave {pre.cash-400}, {\"above\" if pre.cash-400>=6300 else \"below\"} the $6,300 target."
     }
    ],
-   "situation": "A relative gives the baby $100 of ETH. It is not emergency cash. You can keep it, sell it, or add to it.",
+   "situation": "A relative gives the baby $100 of ETH (Ether, the main crypto asset of the Ethereum network). It is not emergency cash. You can keep it, sell it, or add to it.",
    "options": {
     "a": {
      "t": "Keep the gift."
@@ -422,13 +422,13 @@
      "note": "Tuition rises $700 a month from month 7. The deposit is refundable and held as an asset."
     }
    ],
-   "situation": "The childcare centre needs a $1,800 deposit now. A crypto lender, Keystone Loans, offers a $1,000 loan against ETH, but in this story it requires at least **$2,000** of ETH as collateral. You hold about $100 to $500.",
+   "situation": "The childcare centre needs a $1,800 deposit now. A crypto-backed lending protocol (a lender that accepts crypto as collateral, the asset you pledge to back a loan) offers a $1,000 loan against ETH, but in this story it requires at least **$2,000** of ETH as collateral. You hold about $100 to $500.",
    "options": {
     "a": {
      "t": "Pay the deposit from cash."
     },
     "b": {
-     "t": "Ask Keystone for the $1,000 loan first."
+     "t": "Ask the lending protocol for the $1,000 loan first."
     },
     "c": {
      "t": "Put the deposit on the credit card."
@@ -447,11 +447,11 @@
     "b": [
      {
       "when": "True",
-      "text": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** Keystone declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
+      "text": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** the lending protocol declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
       "ref": "**Attempted decision:** you asked to borrow against crypto to fund the deposit. **Actual outcome:** Keystone declined it because your ETH is under the $2,000 collateral, so no loan was made and the deposit was paid from cash, the same cash result as paying the deposit from cash outright. **Why it scored 0:** the decision you made, borrowing against crypto for an essential, is not in your plan, even though it had no effect. Next: nothing changes in your cash.",
       "rp": "",
       "dk": "Q5|B",
-      "dev": "approved text-only correction (D-5): letter reference replaced; meaning, scoring and finances unchanged",
+      "dev": "approved text-only correction (D-5): letter reference replaced; meaning, scoring and finances unchanged Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed.",
       "approved": "elena.q5.b (D-5 consolidated correction pass 2026-10-28)",
       "assert": "declined and pre.ETH < 2000 and d.cash == -1800"
      }
@@ -591,7 +591,7 @@
      "note": "Your gate needs cash of **$6,350** and no card balance. The gate is **closed**."
     }
    ],
-   "situation": "You have been curious about DeFi. Your plan allows a $50 position only when the gate is open.",
+   "situation": "You have been curious about DeFi (decentralized finance: financial services run by software on a blockchain rather than by a bank). Your plan allows a $50 position only when the gate is open.",
    "options": {
     "a": {
      "t": "Skip it."
@@ -676,6 +676,11 @@
    "id": "elena.v0.1.2.labels",
    "from": "leave pay unlabeled",
    "to": "pay, leave pay and costs labeled as story assumptions"
+  },
+  {
+   "id": "elena.terminology-standard.2026-10-28",
+   "from": "invented provider/product names (Harbor Vault, Keystone, Apex Yield, Surge Pool) and their short forms",
+   "to": "generic DeFi terminology with a short definition at first use; fictional rates, fees and limits identified as story assumptions"
   }
  ]
 }

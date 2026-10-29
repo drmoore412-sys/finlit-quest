@@ -20,10 +20,10 @@ How to close an item: find a primary source, record URL, publisher, retrieval da
 | 11 | dana.open09 | Dana | Re-underwriting after a loan or other new debt | Lender guidance |
 
 ## Tier 2 — real-world prices, practices and plausibility assumptions (13)
-b1.claim01 (Zoe: on-chain sale settlement time) · b1.claim03 (Zoe: sale cost, 0.5% + $19) · b1.claim04 (Zoe: landlord split and fee) · b1.claim06 (Marcus: recordkeeping need) · b1.claim10 (Zoe: school payment plan) · b1.claim11 (Maya: pay, tax saving, match, reserve target) · b1.claim12 (Jules: illustrative growth, premium) · b1.claim14 (Elena: leave pay, medical plan, childcare, gift tax) · dana.open03 (moving costs outside Cash to Close) · dana.open06 (student-loan interest convention) · dana.open08 (typical down payment, closing and moving costs) · dana.open10 (three-months-of-essentials emergency target) · dana.m7 (fictional names: collision check against real products).
+b1.claim01 (Zoe: on-chain sale settlement time) · b1.claim03 (Zoe: sale cost, 0.5% + $19) · b1.claim04 (Zoe: landlord split and fee) · b1.claim06 (Marcus: recordkeeping need) · b1.claim10 (Zoe: school payment plan) · b1.claim11 (Maya: pay, tax saving, match, reserve target) · b1.claim12 (Jules: illustrative growth, premium) · b1.claim14 (Elena: leave pay, medical plan, childcare, gift tax) · dana.open03 (moving costs outside Cash to Close) · dana.open06 (student-loan interest convention) · dana.open08 (typical down payment, closing and moving costs) · dana.open10 (three-months-of-essentials emergency target) · dana.m7 (WAIVED 2026-10-28: invented provider names removed under the Educational Terminology Standard, so no collision check applies).
 
 ## Tier 3 — fictional or modeling choices: no outside fact to verify, needs an owner decision (12)
-- Fictional, must stay labeled fictional (6): b1.claim08 (Keystone terms as a comparison), dana.f1 to dana.f5.
+- Fictional, must stay labeled fictional (6): b1.claim08 (lending protocol terms as a comparison), dana.f1 to dana.f5.
 - Model choices awaiting confirmation (6): dana.m1 (0% on insured savings, understates D1 B), m2 ($250 floor), m3 (closing on the last day of month 24), m4 (21,000 vault takes about 12 weeks), m5 (ETH baseline $2,400), m6 (50% "manageable" line is a scoring simplification, not a safety level).
 
 ## Already VERIFIED (4, CFPB, checked in the Dana v0.4 research and not re-run since)

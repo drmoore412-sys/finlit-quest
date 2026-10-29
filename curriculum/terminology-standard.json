@@ -1,0 +1,192 @@
+{
+  "schema": "flq.terminology-standard.v1",
+  "standard": "FINLIT QUEST EDUCATIONAL TERMINOLOGY STANDARD (see CLAUDE.md). Invented financial provider, platform, protocol or product names may not stand in for real financial concepts without explicit project-owner authorization.",
+  "honesty_note": "This is a review aid, not proof. A word list and a few pattern heuristics cannot detect every invented name. Passing this check does not replace the educational review; failing it means a person must look at the flagged text.",
+  "prohibited": [
+    {
+      "term": "Harbor Vault",
+      "replacement": "stablecoin yield vault / yield vault",
+      "added": "2026-10-28"
+    },
+    {
+      "term": "Keystone Loans",
+      "replacement": "crypto-backed lending protocol",
+      "added": "2026-10-28"
+    },
+    {
+      "term": "Keystone",
+      "replacement": "the lending protocol",
+      "added": "2026-10-28",
+      "note": "capitalized form; the lowercase metaphor 'keystone habit' is not matched"
+    },
+    {
+      "term": "Apex Yield",
+      "replacement": "high-yield DeFi platform",
+      "added": "2026-10-28"
+    },
+    {
+      "term": "Surge Pool",
+      "replacement": "DeFi liquidity pool",
+      "added": "2026-10-28"
+    },
+    {
+      "term": "Ostrel Vault",
+      "replacement": "yield vault",
+      "added": "2026-10-28",
+      "note": "proposed replacement name that was rejected"
+    },
+    {
+      "term": "Varnwick",
+      "replacement": "lending protocol",
+      "added": "2026-10-28",
+      "note": "proposed replacement name that was rejected"
+    },
+    {
+      "term": "Kelvane",
+      "replacement": "high-yield DeFi platform",
+      "added": "2026-10-28",
+      "note": "proposed replacement name that was rejected"
+    },
+    {
+      "term": "Mirrowl",
+      "replacement": "liquidity pool",
+      "added": "2026-10-28",
+      "note": "proposed replacement name that was rejected"
+    }
+  ],
+  "authorized": [],
+  "authorized_note": "Add {term, scope, owner_decision, date} here ONLY with explicit project-owner authorization. An authorized term is not reported.",
+  "provider_nouns": [
+    "Vault",
+    "Vaults",
+    "Loan",
+    "Loans",
+    "Lending",
+    "Pool",
+    "Pools",
+    "Yield",
+    "Protocol",
+    "Exchange",
+    "Wallet",
+    "Swap",
+    "Capital",
+    "Finance",
+    "Financial",
+    "Bank",
+    "Banking",
+    "Trust",
+    "Fund",
+    "Funds",
+    "Labs",
+    "Network",
+    "DAO",
+    "Staking",
+    "Savings",
+    "Credit",
+    "Pay",
+    "Money",
+    "Cash",
+    "Coin",
+    "Invest",
+    "Investments",
+    "Mortgage",
+    "Insurance",
+    "Card",
+    "Cards"
+  ],
+  "label_words": [
+    "fictional",
+    "made-up",
+    "imaginary",
+    "invented",
+    "simulation",
+    "simulated",
+    "this story",
+    "in this game",
+    "story rule",
+    "hypothetical",
+    "sample",
+    "for example",
+    "for illustration",
+    "illustrative",
+    "assumption"
+  ],
+  "excluded_keys": [
+    "ref",
+    "refre",
+    "dk",
+    "assert",
+    "when",
+    "dev",
+    "approved",
+    "approval",
+    "wording_fixes",
+    "pending_wording",
+    "source_doc",
+    "rp",
+    "schema",
+    "slug",
+    "id",
+    "status",
+    "logic_ver",
+    "text_ver",
+    "hash",
+    "provenance",
+    "sha256",
+    "file",
+    "termId",
+    "worldId",
+    "category",
+    "pron",
+    "pronunciation",
+    "ids",
+    "related",
+    "relatedTerms",
+    "objectiveIds",
+    "termIds",
+    "v",
+    "vars",
+    "opts",
+    "tk",
+    "n",
+    "month",
+    "lead",
+    "rung",
+    "disc"
+  ],
+  "character_names": [
+    "Zoe",
+    "Maya",
+    "Jules",
+    "Marcus",
+    "Elena",
+    "Dana",
+    "Zoe Williams",
+    "Maya Chen"
+  ],
+  "reviewed": [
+    {
+      "term": "Federal Reserve Bank",
+      "reason": "real central-bank institution",
+      "added": "2026-10-28"
+    },
+    {
+      "term": "Annual Percentage Yield",
+      "reason": "standard consumer-finance term (APY), not a provider",
+      "added": "2026-10-28"
+    },
+    {
+      "term": "Federal Deposit Insurance",
+      "reason": "start of 'Federal Deposit Insurance Corporation', the real FDIC",
+      "added": "2026-10-28"
+    }
+  ],
+  "reviewed_note": "A suspect phrase listed here has been looked at by a person and accepted (real institution, generic term, or a phrase that is not a provider name). Each entry needs a reason.",
+  "ignore_patterns": [
+    {
+      "regex": "row\\(\\s*\\d+\\s*,\\s*\"[^\"]*\"",
+      "reason": "ledger lookup row(month, \"internal label\", ...) in a calculation expression: the label is an internal key (pinned engine file) and never displayed; only the number is rendered",
+      "added": "2026-10-28"
+    }
+  ]
+}

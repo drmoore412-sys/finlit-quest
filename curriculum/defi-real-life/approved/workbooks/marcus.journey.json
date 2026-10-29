@@ -7,13 +7,13 @@
   "blurb": "A freelance designer, 38, with lumpy income: paid in USDC, a late client, a scam message and an exploited vault."
  },
  "logic_ver": "0.2",
- "text_ver": "0.2.2",
+ "text_ver": "0.2.3",
  "status": "APPROVED & LOCKED (curriculum design only)",
  "source_doc": "batch1-marcus-journey-v0.2-APPROVED-LOCKED.md",
  "pending_wording": [],
  "intro": "Marcus Rivera, 38, freelance designer. His income is lumpy, so he keeps three ring-fenced pools: runway (emergency savings), tax, and optional (experiments). Business cash $2,400, personal checking $900, emergency savings $2,600, no crypto, no debt. A business credit card (limit $1,500, 2% a month) is unused.",
  "plan": [
-  "Stablecoin limit: hold no more than $1,500 in USDC at a time.",
+  "Stablecoin limit (a stablecoin is a crypto token designed to stay worth $1, such as USDC): hold no more than $1,500 in USDC at a time.",
   "Runway: emergency savings target $6,000 (two months of personal spending). He has $2,600. Runway money is not for yield.",
   "Tax reserve is committed money. It is for the next estimated payment, not for experiments. Real estimated-tax dates are April 15, June 15, September 15 and January 15; this story uses a simplified schedule and an assumed set-aside rate.",
   "Operating buffer: about $1,500 stays in business cash. Cash above it is surplus that can be moved.",
@@ -134,16 +134,16 @@
      ]
     }
    ],
-   "situation": "A friend shows you Apex Yield. It advertises about 0.4% a month on a dollar balance. It is unaudited, not insured, and the rate varies and is never guaranteed. You would fund it from emergency savings.",
+   "situation": "A friend shows you a high-yield DeFi vault: a crypto service that advertises about 0.4% a month on a dollar balance. It is unaudited (no independent security review), not insured, and the rate varies and is never guaranteed. You would fund it from emergency savings.",
    "options": {
     "a": {
      "t": "Leave the emergency savings alone."
     },
     "b": {
-     "t": "Move $1,000 into Apex Yield."
+     "t": "Move $1,000 into the high-yield vault."
     },
     "c": {
-     "t": "Move $2,000 into Apex Yield."
+     "t": "Move $2,000 into the high-yield vault."
     }
    },
    "feedback": {
@@ -218,10 +218,10 @@
      "t": "Keep the reserve in cash."
     },
     "b": {
-     "t": "Park $1,000 of it in Apex Yield until month 7."
+     "t": "Park $1,000 of it in the high-yield vault until month 7."
     },
     "c": {
-     "t": "Park $1,500 of it in ETH until month 7."
+     "t": "Park $1,500 of it in ETH (Ether, the main crypto asset of the Ethereum network) until month 7."
     }
    },
    "feedback": {
@@ -409,7 +409,7 @@
        "pre.USDC>0"
       ],
       [
-       "Apex Yield",
+       "High-yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ]
@@ -473,10 +473,12 @@
     "c": [
      {
       "when": "v=='held'",
-      "text": "You signed. The {lst(cond(pre.USDC>0,\"USDC (\"+m(pre.USDC)+\")\"),cond(pre.VAULT>0,\"Apex Yield (\"+m(pre.VAULT)+\")\"))} {cond(pre.USDC>0 and pre.VAULT>0,\"were\",\"was\")} drained: {pre.USDC+pre.VAULT+pre.ETH+pre.TAXV} gone. It scores 0 because a signature can authorize a transaction you did not intend. Next: those positions no longer exist, which changes Q6 and Q7.",
+      "text": "You signed. The {lst(cond(pre.USDC>0,\"USDC (\"+m(pre.USDC)+\")\"),cond(pre.VAULT>0,\"high-yield vault (\"+m(pre.VAULT)+\")\"))} {cond(pre.USDC>0 and pre.VAULT>0,\"were\",\"was\")} drained: {pre.USDC+pre.VAULT+pre.ETH+pre.TAXV} gone. It scores 0 because a signature can authorize a transaction you did not intend. Next: those positions no longer exist, which changes Q6 and Q7.",
       "ref": "You signed. The USDC ($1,250) and Apex Yield ($1,015.06) were drained: $2,265.06 gone. It scores 0 because a signature can authorize a transaction you did not intend. Next: those positions no longer exist, which changes Q6 and Q7.",
       "rp": "BBAA",
-      "dk": "Q5|C, wallet holds something (example)"
+      "dk": "Q5|C, wallet holds something (example)",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      },
      {
       "when": "v=='empty'",
@@ -600,7 +602,7 @@
      ],
      "items": [
       [
-       "Apex Yield",
+       "High-yield vault",
        "{pre.VAULT} (after losing half)"
       ],
       [
@@ -624,7 +626,7 @@
      ],
      "items": [
       [
-       "Apex Yield",
+       "High-yield vault",
        "{pre.VAULT}"
       ],
       [
@@ -642,7 +644,7 @@
      ]
     }
    ],
-   "situation": "Apex Yield reports an exploit. Any balance you hold there has lost half its value. **No recovery or compensation has been announced**, and nothing guarantees one. Your emergency savings are below your $6,000 target, and your business cash is above your $1,500 operating buffer.",
+   "situation": "The vault reports an exploit. Any balance you hold there has lost half its value. **No recovery or compensation has been announced**, and nothing guarantees one. Your emergency savings are below your $6,000 target, and your business cash is above your $1,500 operating buffer.",
    "options": {
     "a": {
      "t": "Withdraw what is left (if any) and rebuild emergency savings with business cash above $1,500."
@@ -651,7 +653,7 @@
      "t": "Wait and do nothing."
     },
     "c": {
-     "t": "Add $500 to Apex Yield to recoup."
+     "t": "Add $500 to the high-yield vault to recoup."
     }
    },
    "feedback": {
@@ -703,6 +705,11 @@
    "id": "marcus.v0.2.2.q1.label",
    "from": "(a scenario assumption; UNVERIFIED)",
    "to": "(a simplifying assumption in this scenario)"
+  },
+  {
+   "id": "marcus.terminology-standard.2026-10-28",
+   "from": "invented provider/product names (Harbor Vault, Keystone, Apex Yield, Surge Pool) and their short forms",
+   "to": "generic DeFi terminology with a short definition at first use; fictional rates, fees and limits identified as story assumptions"
   }
  ]
 }

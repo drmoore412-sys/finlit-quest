@@ -81,6 +81,20 @@ Stable term IDs are permanent lowercase `<world>.<concept>` identifiers. Do not 
 
 Every target word must be formable from its wheel, including repeated letters. Avoid trivia, tricks, double negatives, unexplained jargon, and choices that depend on unstated assumptions.
 
+## FINLIT QUEST EDUCATIONAL TERMINOLOGY STANDARD
+
+FinLit Quest must teach accurate, recognizable real-world financial terminology. Never invent financial provider, platform, protocol, or product names as substitutes for real financial concepts without explicit project-owner authorization.
+
+Use authentic terminology in every world's questions, answer choices, feedback, explanations, consequences, and educational takeaways.
+
+Define unfamiliar terms at their first meaningful appearance. Clearly distinguish factual financial mechanisms from simulated rates, balances, conditions, and outcomes.
+
+Do not imply endorsement of a specific company or product.
+
+This rule applies to all existing and future FinLit Quest curriculum.
+
+Enforcement (a review aid, not proof): `node scripts/check-terminology.js --strict` scans player-facing content across all worlds against `curriculum/terminology-standard.json` (known prohibited names plus heuristics for suspected invented names; reviewed and owner-authorized names are recorded in that file with a reason). It reports the file, location, and term. It runs as gate G10 in the DeFi exporter, inside `scripts/import-curriculum.mjs` for every world, and in `tests/terminology-standard.test.js`. A keyword list cannot detect every invented name, so the educational review of new wording is still required.
+
 ## Engineering and UX rules
 
 Preserve existing behavior unless the task explicitly changes it. Keep pure rules out of DOM code, immutable curriculum out of saves, and stable IDs at every system boundary. Prefer small testable modules and injected dependencies. Never create competing sources of truth for progress or mastery.

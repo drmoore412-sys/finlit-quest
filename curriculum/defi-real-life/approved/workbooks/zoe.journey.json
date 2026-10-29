@@ -7,7 +7,7 @@
   "blurb": "A 19-year-old student with a part-time job: tight months, a housing deposit, a tuition payment plan and three scam-or-yield pitches."
  },
  "logic_ver": "0.3",
- "text_ver": "0.3.4",
+ "text_ver": "0.3.5",
  "status": "APPROVED & LOCKED (curriculum design only)",
  "source_doc": "batch1-zoe-journey-v0.3-APPROVED-LOCKED.md",
  "pending_wording": [],
@@ -106,13 +106,18 @@
    "id": "zoe.v0.3.4.labels",
    "from": "plan fee and settlement unlabeled",
    "to": "plan fee, amounts and in-month settlement labeled as story assumptions"
+  },
+  {
+   "id": "zoe.terminology-standard.2026-10-28",
+   "from": "invented provider/product names (Harbor Vault, Keystone, Apex Yield, Surge Pool) and their short forms",
+   "to": "generic DeFi terminology with a short definition at first use; fictional rates, fees and limits identified as story assumptions"
   }
  ],
  "intro": "Zoe, 19, student with a part-time job. Opening: checking $600, savings $700, tuition fund $300. No debt, no crypto. Months 1 to 4: income $1,600, bills $1,500. Months 5 to 10: hours cut, income $1,300, bills $1,400. Month 8: $1,500 for the housing deposit and books. Month 12: first tuition payment of $1,500 plus a $45 plan fee; the other $3,000 is still owed afterward. The $45 plan fee and all other amounts are assumptions in this story.",
  "plan": [
   "\"Accessible bank balances\" means checking + savings + tuition fund. They are accessible, not all free to spend: the tuition fund is earmarked for the month-12 payment.",
   "Card: $800 limit, about 2% a month. If a bill is bigger than the room left on the card, the whole bill goes unpaid and a $35 late fee is added.",
-  "Harbor Vault is a fictional yield vault, not an insured account. In this story, buying or selling costs 0.5%; sales of crypto also cost a $19 on-chain fee per holding. In this story, a sale settles within the month.",
+  "A DeFi yield vault is a crypto service that pays a variable rate on deposits. It is not an insured bank account, and its rate and terms here are story assumptions; real vaults differ. In this story, buying or selling costs 0.5%; sales of crypto also cost a $19 on-chain fee per holding. In this story, a sale settles within the month.",
   "Every purchase amount includes the 0.5% fee: the full amount leaves your cash and the asset receives the amount minus the fee."
  ],
  "questions": [
@@ -142,16 +147,16 @@
      ]
     }
    ],
-   "situation": "A classmate shows you Harbor Vault. The app says \"up to 18% a year.\" You already know two bills are coming: $1,500 for the housing deposit in month 8, and your first tuition payment of $1,500 (plus a $45 plan fee) in month 12. The other $3,000 of tuition will still be owed after that. Your hours may also get tighter.",
+   "situation": "A classmate shows you a DeFi yield vault: a crypto service that says it pays \"up to 18% a year\" on money you deposit. Unlike an insured bank savings account, a vault deposit is not FDIC-insured, and an advertised top rate is not a promise. In this story, moving money in or out costs a 0.5% fee. You already know two bills are coming: $1,500 for the housing deposit in month 8, and your first tuition payment of $1,500 (plus a $45 plan fee) in month 12. The other $3,000 of tuition will still be owed after that. Your hours may also get tighter.",
    "options": {
     "a": {
      "t": "Keep your money in insured savings for now."
     },
     "b": {
-     "t": "Move $300 from savings into Harbor Vault."
+     "t": "Move $300 from savings into the yield vault."
     },
     "c": {
-     "t": "Put $400 in Harbor Vault and $300 in ETH, from savings."
+     "t": "Put $400 in the yield vault and $300 in ETH (Ether, the main crypto asset of the Ethereum network), from savings."
     }
    },
    "feedback": {
@@ -436,13 +441,13 @@
      "note": "Income now $1,300 against bills of $1,400. Month-8 deposit: $1,500."
     }
    ],
-   "situation": "Your shifts dropped. You are $100 short each month. A friend says: \"Lock $600 for four months and earn staking rewards,\" or \"Put $200 in Harbor Vault.\"",
+   "situation": "Your shifts dropped. You are $100 short each month. A friend says: \"Lock $600 for four months and earn staking rewards\" (staking means locking up crypto for a set time in return for rewards), or \"Put $200 in a DeFi yield vault\" (a crypto service that pays a variable rate on deposits).",
    "options": {
     "a": {
      "t": "Decline. Keep your money available."
     },
     "b": {
-     "t": "Put $200 in Harbor Vault."
+     "t": "Put $200 in a DeFi yield vault."
     },
     "c": {
      "t": "Lock $600 until month 9."
@@ -884,7 +889,7 @@
      "t": "Pay off the credit card in full and keep the rest as cash."
     },
     "b": {
-     "t": "Pay off the credit card, then also put $400 into Harbor Vault. The $2 fee (0.5%) is part of the $400: $400 leaves your cash and $398 reaches the vault."
+     "t": "Pay off the credit card, then also put $400 into a DeFi yield vault. The $2 fee (0.5%) is part of the $400: $400 leaves your cash and $398 reaches the vault."
     },
     "c": {
      "t": "Put $1,000 into ETH. The $5 fee is part of the $1,000 ($995 reaches ETH). The credit card is not paid, and interest continues at about 2% a month."

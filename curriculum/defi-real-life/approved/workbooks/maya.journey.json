@@ -7,7 +7,7 @@
   "blurb": "A 24-year-old in her first full-time job: a thin cushion, an employer match, a depegged stablecoin and a self-imposed crypto allowance."
  },
  "logic_ver": "0.2",
- "text_ver": "0.2",
+ "text_ver": "0.2.1",
  "status": "APPROVED & LOCKED (curriculum design only)",
  "source_doc": "batch1-maya-journey-v0.2-APPROVED-LOCKED.md",
  "pending_wording": [],
@@ -50,16 +50,16 @@
      ]
     }
    ],
-   "situation": "A coworker shows you Harbor Vault, which advertises \"up to 12% a year\" on a dollar stablecoin. You are saving toward a starter fund and your first laptop replacement.",
+   "situation": "A coworker shows you a stablecoin yield vault: a crypto service that advertises \"up to 12% a year\" on a dollar stablecoin (a crypto token designed to stay worth $1). Unlike an insured savings account, a vault deposit is not FDIC-insured. You are saving toward a starter fund and your first laptop replacement.",
    "options": {
     "a": {
      "t": "Keep your savings where they are."
     },
     "b": {
-     "t": "Put $300 of savings into Harbor Vault."
+     "t": "Put $300 of savings into the yield vault."
     },
     "c": {
-     "t": "Put $1,000 of savings into Harbor Vault."
+     "t": "Put $1,000 of savings into the yield vault."
     }
    },
    "feedback": {
@@ -213,7 +213,7 @@
    "situation": "Maya wants to try a small crypto purchase while she is still building her starter reserve. A purchase can go through and still break her own plan.",
    "options": {
     "a": {
-     "t": "Buy $150 of ETH and keep the recovery phrase backed up offline. This breaks your plan: it will go through, but it leaves you at {pre.cash-150}, below your own $3,300 line.",
+     "t": "Buy $150 of ETH (Ether, the main crypto asset of the Ethereum network) and keep the recovery phrase backed up offline. This breaks your plan: it will go through, but it leaves you at {pre.cash-150}, below your own $3,300 line.",
      "tv": [
       {
        "v": [
@@ -370,7 +370,7 @@
      ],
      "items": [
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "{pre.VAULT} at $1.00 → {pre.VAULT*D(\"0.92\")} at $0.92"
       ],
       [
@@ -389,7 +389,7 @@
        "{pre.cash}"
       ],
       [
-       "Harbor Vault",
+       "Stablecoin yield vault",
        "none (the stablecoin is in the news; you own none)"
       ]
      ]
@@ -692,6 +692,13 @@
     ]
    },
    "takeaway": "Rebuild the reserve before buying a dip. A big drop is information about price, not a reason to break your plan."
+  }
+ ],
+ "wording_fixes": [
+  {
+   "id": "maya.terminology-standard.2026-10-28",
+   "from": "invented provider/product names (Harbor Vault, Keystone, Apex Yield, Surge Pool) and their short forms",
+   "to": "generic DeFi terminology with a short definition at first use; fictional rates, fees and limits identified as story assumptions"
   }
  ]
 }

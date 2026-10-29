@@ -1,18 +1,11 @@
 # DeFi in Real Life: claims verification evidence (DRAFT, updated 2026-10-28, release-blocker cleanup)
 
-Status counts (40 entries): VERIFIED 19 · REWORD 0 · SIMULATION ASSUMPTION 20 · UNVERIFIED 1. SIMULATION ASSUMPTION means the player-facing text itself says the item is fictional or simplified (basis recorded per entry); it is not VERIFIED and not a waiver of any real-world claim. No claim was waived. The release gate treats a SIMULATION ASSUMPTION with a recorded basis as not requiring verification.
+Status counts (40 entries): VERIFIED 19 · REWORD 0 · SIMULATION ASSUMPTION 20 · WAIVED 1 (dana.m7, naming review superseded by the Educational Terminology Standard, 2026-10-28). SIMULATION ASSUMPTION means the player-facing text itself says the item is fictional or simplified (basis recorded per entry); it is not VERIFIED and not a waiver of any real-world claim. No claim was waived. The release gate treats a SIMULATION ASSUMPTION with a recorded basis as not requiring verification.
 
-Text versions: Zoe 0.3.4, Maya 0.2, Jules 0.3.2, Marcus 0.2.2, Elena 0.1.2, Dana 0.6.1-w5. Logic versions unchanged. Do not cite the $8 card late-fee cap (vacated April 2025).
+Text versions: Zoe 0.3.5, Maya 0.2.1, Jules 0.3.3, Marcus 0.2.3, Elena 0.1.3, Dana 0.6.1-w6 (Educational Terminology Standard correction, 2026-10-28). Logic versions unchanged. Do not cite the $8 card late-fee cap (vacated April 2025).
 
-## Proposed fictional name replacements (approval required; display names only, IDs and mechanics unchanged)
-Search finding (web search, not a trademark search, 2026-10-28): all four current names overlap real DeFi names: Apex Yield (ApexYield on Solana; ApeX protocol), Surge (Surge protocol; SURGE tokens), Keystone (Keystone Finance, a DeFi entity), Harbor (Harbor Protocol). Common-word alternatives also collide (Lantern Finance and Granite are real crypto lenders; Cobalt Finance and Pebble exist), so invented words are proposed.
-| Current | Proposed | Search result for the exact proposed phrase |
-|---|---|---|
-| Harbor Vault | Ostrel Vault | no match found |
-| Keystone Loans | Varnwick Loans | no match found |
-| Apex Yield | Kelvane Yield | no match found |
-| Surge Pool | Mirrowl Pool | no match found |
-Run a trademark search before adoption; replacement touches text only (names appear in many strings and the manifest), so it needs a text-version bump and a re-export.
+## Fictional provider names: resolved by the Educational Terminology Standard (2026-10-28)
+The earlier proposal to rename the four invented providers to other invented names is **withdrawn**. Under the FinLit Quest Educational Terminology Standard, invented provider, platform, protocol and product names may not stand in for real financial concepts. All player-facing text now uses generic, recognizable DeFi terminology (yield vault, crypto-backed lending protocol, high-yield DeFi platform, DeFi liquidity pool), each defined at first meaningful use, and fictional rates, fees and limits are labeled as story assumptions. Text only changed: logic versions, answer IDs, scoring and ledgers are unchanged (G1-G9 PASS, logic baseline unchanged).
 
 ## Mac/cloud equivalence note
 Runtime trees, manifest and workbooks are generated deterministically and the exporter is the only writer. After each sync the SHA-256 of every runtime JSON and workbook on the Mac was compared with the cloud copy and matched, and the Mac suite pins the manifest hash and the Tower files. The cloud export (which runs the engines, the regression hashes and 15,309-path parity) therefore covers identical inputs and outputs. The Mac re-export did not complete (the background process stopped before writing output), so it adds no independent evidence beyond a hash match.
@@ -107,14 +100,14 @@ Runtime trees, manifest and workbooks are generated deterministically and the ex
 - Jurisdiction: n/a
 - Finding: Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. (confidence: medium)
 - Source: none (no outside fact asserted)
-- Fictional basis in player text: Player text: "Harbor Vault, Keystone Loans, Apex Yield and Surge Pool are fictional. Their terms are story rules, not market data." (Dana plan)
+- Fictional basis in player text: Player text: "The stablecoin yield vault, crypto-backed lending protocol, high-yield DeFi platform and DeFi liquidity pool in this story are simulated examples. Their rates, fees, limits and terms are story rules, not market data, and real protocols differ." (Dana plan)
 
 ### dana.f2: SIMULATION ASSUMPTION
-- Statement and location: Fictional or model item: Keystone terms (see register claim text).
+- Statement and location: Fictional or model item: lending protocol terms (see register claim text).
 - Jurisdiction: n/a
 - Finding: Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. (confidence: medium)
 - Source: none (no outside fact asserted)
-- Fictional basis in player text: Player text: "Keystone's rules (fictional): Lending limit 50% ..." (Dana D5 and plan)
+- Fictional basis in player text: Player text: "The lending protocol's rules in this simulation: Lending limit 50% ..." (Dana D5 and plan)
 
 ### dana.f3: SIMULATION ASSUMPTION
 - Statement and location: Fictional or model item: vault cap and exploit (see register claim text).
@@ -179,7 +172,7 @@ Runtime trees, manifest and workbooks are generated deterministically and the ex
 - Source: none (no outside fact asserted)
 - Fictional basis in player text: Player text: the 50% line "is a simplification for scoring, not a safe level in real life".
 
-### dana.m7: UNVERIFIED
+### dana.m7: WAIVED (naming review superseded 2026-10-28; original record below)
 - Statement and location: Fictional names: Harbor Vault, Keystone Loans, Apex Yield, Surge Pool
 - Jurisdiction: n/a
 - Finding: Web name search run 2026-10-28 (not a trademark search). Possible collisions: "ApexYield"/Apex Yield (existing Solana yield project and ApeX protocol); Keystone Finance (a DeFi entity; "Keystone Loans" not found exactly); Surge (existing "Surge" DeFi protocol and SURGE tokens; "Surge Pool" generic); Harbor Protocol (exists; "Harbor Vault" not found exactly). Collision risk is not cleared. (confidence: medium)
@@ -233,11 +226,11 @@ Runtime trees, manifest and workbooks are generated deterministically and the ex
 - Source: [IRS](https://www.irs.gov/filing/digital-assets) · dated 2026-09-02 · Disposing of a digital asset (sale, exchange, spending) is reportable; gain or loss depends on basis.
 
 ### b1.claim08: SIMULATION ASSUMPTION
-- Statement and location: Fictional or model item: Keystone terms (see register claim text).
+- Statement and location: Fictional or model item: lending protocol terms (see register claim text).
 - Jurisdiction: n/a
-- Finding: Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: Jules text names "Keystone's 50% opening limit" with no fictional label (Elena says "in this story"). Proposed label: "Keystone (a fictional lender)". (confidence: medium)
+- Finding: Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Resolved 2026-10-28: the invented lender name was removed; Jules and Elena now describe a generic crypto-backed lending protocol and label its terms as story assumptions. (confidence: medium)
 - Source: none (no outside fact asserted)
-- Fictional basis in player text: Jules text: "Keystone (a fictional lender)" (Jules 0.3.2); Elena: "in this story it requires at least $2,000".
+- Fictional basis in player text: Jules text: "In this story the lending protocol's 50% opening limit needs ..." (Jules 0.3.3); Elena: "in this story it requires at least $2,000".
 
 ### b1.claim09: VERIFIED
 - Statement and location: All journeys: "Card: $800 limit, about 2% a month." / "A credit card (limit $3,000, 2% a month)." / Zoe: "a $35 late fee is added."
@@ -265,7 +258,7 @@ Runtime trees, manifest and workbooks are generated deterministically and the ex
 - Jurisdiction: United States (federal)
 - Finding: Illustrative figures; no outside fact asserted. (confidence: medium)
 - Source: none (no outside fact asserted)
-- Fictional basis in player text: Jules: "Harbor Vault (a fictional vault)" and intro "All figures in this scenario are assumptions for the exercise." (0.3.2).
+- Fictional basis in player text: Jules: "In this story its terms are assumptions; real vaults differ." and intro "All figures in this scenario are assumptions for the exercise." (0.3.3).
 
 ### b1.claim13: VERIFIED
 - Statement and location: Marcus: "Another estimated tax payment ($3,100) is due this month, paid from the tax reserve." / "(the month-4 payment of $2,460 is due next month)" / tax set-aside of $820 a month; "Tax money is not optional capital."

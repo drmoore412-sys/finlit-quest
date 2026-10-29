@@ -7,17 +7,17 @@
   "blurb": "A 31-year-old investor with a written rulebook: position caps, a borrowing line, a premium to pay, an approval trap, an exploit and a rebalancing day."
  },
  "logic_ver": "0.3",
- "text_ver": "0.3.2",
+ "text_ver": "0.3.3",
  "status": "APPROVED & LOCKED (curriculum design only)",
  "source_doc": "batch1-jules-journey-v0.3-APPROVED-LOCKED.md",
  "pending_wording": [],
- "intro": "Jules Park, 31, a professional who is curious about crypto and already invests. Take-home pay $3,700 a month. Living costs $2,800 a month. Opening: checking $1,200, emergency reserve $5,600, index fund $20,000, retirement account $30,000, so the investment base starts at $50,000. No DeFi, no debt. All figures in this scenario are assumptions for the exercise.",
+ "intro": "Jules Park, 31, a professional who is curious about crypto and already invests. Take-home pay $3,700 a month. Living costs $2,800 a month. Opening: checking $1,200, emergency reserve $5,600, index fund $20,000, retirement account $30,000, so the investment base starts at $50,000. No DeFi (decentralized finance: crypto services run by software rather than by a bank), no debt. All figures in this scenario are assumptions for the exercise.",
  "plan": [
   "5% per position: no single DeFi position above 5% of the investment base.",
   "10% in total: all DeFi positions together stay at or under 10% of the base.",
   "Caps are tested before each purchase, against the base as it stands when he decides, counting the full purchase amount (fee included). Exactly at a cap is allowed. A position can drift above 5% as prices rise; that is not a purchase breach, but he cannot add to it.",
   "Borrowing: loan-to-value of 48% or less.",
-  "Rebalancing trigger: 8% of the base, measured on total DeFi (Harbor Vault + Surge Pool + ETH).",
+  "Rebalancing trigger: 8% of the base, measured on total DeFi (yield vault + liquidity pool + ETH). ETH is Ether, the main crypto asset of the Ethereum network.",
   "Cash for bills, not borrowing or selling, when checking already covers the bill. The $5,600 reserve is the last resort.",
   "Investment base = index fund + retirement account + DeFi positions, at market value. Checking, the reserve and loans are not in it."
  ],
@@ -50,12 +50,12 @@
        "{pre.RET}"
       ],
       [
-       "Harbor Vault",
+       "Yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Surge Pool",
+       "Liquidity pool",
        "{pre.POOL}",
        "pre.POOL>0"
       ],
@@ -65,7 +65,7 @@
        "pre.ETH>0"
       ],
       [
-       "Keystone loan",
+       "Crypto-backed loan",
        "{pre.KLP}",
        "pre.KLP>0"
       ],
@@ -93,7 +93,7 @@
      "note": "Policy check: $1,000 ≤ {pre.base*D(\"0.05\")} {cond(pre.VAULT+1000<=pre.base*D(\"0.05\"),\"✓\",\"✗\")} · $2,500 ≤ {pre.base*D(\"0.05\")} {cond(pre.VAULT+2500<=pre.base*D(\"0.05\"),\"✓\",\"✗\")} ({pre.base*D(\"0.05\")-2500} under the cap) · total DeFi ≤ {pre.base*D(\"0.10\")} {cond(pre.dig+2500<=pre.base*D(\"0.10\"),\"✓\",\"✗\")}"
     }
    ],
-   "situation": "A coworker shows you Harbor Vault (a fictional vault), which advertises \"about 5% a year.\" The rate is variable, not guaranteed, and a vault deposit is not insured. DeFi vaults can fail through bugs, hacks or bad governance, which is why you cap every position.",
+   "situation": "A coworker shows you a DeFi yield vault, a crypto service that pays a variable rate on deposits, which advertises \"about 5% a year.\" In this story its terms are assumptions; real vaults differ. The rate is variable, not guaranteed, and a vault deposit is not insured. DeFi vaults can fail through bugs, hacks or bad governance, which is why you cap every position.",
    "options": {
     "a": {
      "t": "Research only. Read about it and deposit nothing."
@@ -168,12 +168,12 @@
        "{pre.RET}"
       ],
       [
-       "Harbor Vault",
+       "Yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Surge Pool",
+       "Liquidity pool",
        "{pre.POOL}",
        "pre.POOL>0"
       ],
@@ -183,7 +183,7 @@
        "pre.ETH>0"
       ],
       [
-       "Keystone loan",
+       "Crypto-backed loan",
        "{pre.KLP}",
        "pre.KLP>0"
       ],
@@ -232,12 +232,12 @@
        "{pre.RET}"
       ],
       [
-       "Harbor Vault",
+       "Yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Surge Pool",
+       "Liquidity pool",
        "{pre.POOL}",
        "pre.POOL>0"
       ],
@@ -247,7 +247,7 @@
        "pre.ETH>0"
       ],
       [
-       "Keystone loan",
+       "Crypto-backed loan",
        "{pre.KLP}",
        "pre.KLP>0"
       ],
@@ -275,16 +275,16 @@
      "note": "Policy check: pool $1,000 ✓. ETH $2,500 ✓ for the 5% position cap. DeFi after both would be {pre.dig+3500} > {pre.base*D(\"0.10\")} ✗. The pool deposit goes through. The ETH purchase is blocked by your 10% cap and nothing is bought."
     }
    ],
-   "situation": "Two ideas: a Surge Pool deposit (variable fees; pool tokens give you a vote) and $2,500 of ETH. You can take neither, the pool, or both together.",
+   "situation": "Two ideas: a deposit in a DeFi liquidity pool (a shared pot of crypto that traders swap against; depositors earn variable trading fees, and pool tokens give you a vote) and $2,500 of ETH. You can take neither, the pool, or both together.",
    "options": {
     "a": {
      "t": "Skip both."
     },
     "b": {
-     "t": "Deposit $1,000 in Surge Pool."
+     "t": "Deposit $1,000 in the liquidity pool."
     },
     "c": {
-     "t": "Deposit $1,000 in Surge Pool and buy $2,500 of ETH."
+     "t": "Deposit $1,000 in the liquidity pool and buy $2,500 of ETH."
     }
    },
    "feedback": {
@@ -361,12 +361,12 @@
        "{pre.RET}"
       ],
       [
-       "Harbor Vault",
+       "Yield vault",
        "{pre.VAULT}",
        "pre.VAULT>0"
       ],
       [
-       "Surge Pool",
+       "Liquidity pool",
        "{pre.POOL}",
        "pre.POOL>0"
       ],
@@ -376,7 +376,7 @@
        "pre.ETH>0"
       ],
       [
-       "Keystone loan",
+       "Crypto-backed loan",
        "{pre.KLP}",
        "pre.KLP>0"
       ],
@@ -417,17 +417,17 @@
      "t": "Pay the $1,100 from checking."
     },
     "b": {
-     "t": "Borrow $1,000 from Keystone (a fictional lender) against your ETH, then pay the premium. Loan $1,000 means an LTV of {1000/max(pre.ETH,1)*100|p1} (your rule: 48% or less). Interest 0.75% a month.",
+     "t": "Borrow $1,000 from a crypto-backed lending protocol, pledging your ETH as collateral (the asset that backs the loan), then pay the premium. Loan $1,000 means an LTV of {1000/max(pre.ETH,1)*100|p1} (your rule: 48% or less). Interest 0.75% a month.",
      "unavail": {
       "when": "v in ['bb_co','bb_cb']",
-      "label": "Unavailable: Keystone's 50% opening limit needs at least $2,000 of ETH as collateral for a $1,000 loan."
+      "label": "Unavailable: in this story the lending protocol's 50% opening limit needs at least $2,000 of ETH as collateral for a $1,000 loan."
      }
     },
     "c": {
-     "t": "Sell crypto to help pay the premium. This sells ETH first, then Harbor Vault if more is needed; Surge Pool tokens are not sold. Each sale costs 0.5%.",
+     "t": "Sell crypto to help pay the premium. This sells ETH first, then the yield vault if more is needed; liquidity pool tokens are not sold. Each sale costs 0.5%.",
      "unavail": {
       "when": "v in ['bo_cb','bb_cb']",
-      "label": "Unavailable: only Surge Pool tokens or nothing are held, and there is nothing to sell."
+      "label": "Unavailable: only liquidity pool tokens or nothing are held, and there is nothing to sell."
      }
     }
    },
@@ -452,31 +452,35 @@
      },
      {
       "when": "v in ['bb_co','bb_cb']",
-      "text": "You asked for a loan you could not get. Nothing changed. It scores 0 because the collateral is under Keystone's $2,000 minimum, and cash covered the bill anyway.",
+      "text": "You asked for a loan you could not get. Nothing changed. It scores 0 because the collateral is under the lending protocol's $2,000 minimum, and cash covered the bill anyway.",
       "ref": "You asked for a loan you could not get. Nothing changed. It scores 0 because the collateral is under Keystone's $2,000 minimum, and cash covered the bill anyway.",
       "rp": "AA",
       "dk": "Q3|B (blocked)",
-      "assert": "declined and pre.ETH < 2000"
+      "assert": "declined and pre.ETH < 2000",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      }
     ],
     "c": [
      {
       "when": "v in ['bo_co','bb_co'] and d.VAULT == 0",
-      "text": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of Harbor Vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less ETH at Q4.",
+      "text": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of the yield vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less ETH at Q4.",
       "ref": "You sold $1,094.50 of ETH (fee $5.47) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less ETH at Q4.",
       "rp": "AC",
       "dk": "Q3|C (sold)",
-      "assert": "d.ETH < 0 and post.CHK >= 0"
+      "assert": "d.ETH < 0 and post.CHK >= 0",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      },
      {
       "when": "v in ['bo_co','bb_co'] and d.VAULT < 0",
-      "text": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of Harbor Vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less crypto at Q4.",
+      "text": "You sold {lst(cond(d.ETH<0,m(-d.ETH)+\" of ETH\"),cond(d.VAULT<0,m(-d.VAULT)+\" of the yield vault\"))} (fee {fee}) and then paid the premium from checking. It scores 0 because cash covered the bill, so the sale only cost fees and gave up exposure you would have kept. Next: less crypto at Q4.",
       "ref": null,
       "rp": "",
       "dk": "Q3|C (sold, Harbor Vault involved)",
       "assert": "d.VAULT < 0 and pre.CHK >= 1100",
       "approved": "jules.q3.c.vault-sold (D-5 consolidated correction pass 2026-10-28)",
-      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged"
+      "dev": "approved text-only correction (D-5): wording matches the executed ledger; meaning, scoring and finances unchanged Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      },
      {
       "when": "v in ['bo_cb','bb_cb']",
@@ -518,7 +522,7 @@
        "48%"
       ],
       [
-       "Keystone forced sale at",
+       "Forced sale (liquidation) at",
        "80% (ETH would need to fall about {(1-pre.KLP/D(\"0.8\")/pre.ETH)*100|p1} from here)"
       ],
       [
@@ -699,7 +703,7 @@
      ]
     }
    ],
-   "situation": "Surge Pool has a governance proposal: \"Proposal 14: change how the pool's treasury is held.\" A dashboard offers two ways to take part. Voting costs about $8 in network gas and uses a one-time signature for this vote only. A convenience button asks you to approve unlimited spending of your pool tokens \"so future votes and claims are one click.\" No financial effect from the vote is modeled.",
+   "situation": "The DeFi liquidity pool has a governance proposal (a vote by holders of its pool tokens on how it is run): \"Proposal 14: change how the pool's treasury is held.\" A dashboard offers two ways to take part. Voting costs about $8 in network gas and uses a one-time signature for this vote only. A convenience button asks you to approve unlimited spending of your pool tokens \"so future votes and claims are one click.\" No financial effect from the vote is modeled.",
    "options": {
     "a": {
      "t": "Abstain. Do not vote."
@@ -766,7 +770,7 @@
   {
    "n": 6,
    "month": 11,
-   "title": "Harbor Vault has been exploited",
+   "title": "The yield vault has been exploited",
    "rung": "Check: PROTOCOL RISK",
    "show": [
     {
@@ -790,8 +794,8 @@
      ],
      "items": [
       [
-       "Harbor Vault",
-       "You hold no position in Harbor Vault."
+       "Yield vault",
+       "You hold no position in the yield vault."
       ],
       [
        "Checking",
@@ -800,7 +804,7 @@
      ]
     }
    ],
-   "situation": "Harbor Vault reports an exploit. Its team says it is investigating. No recovery or repayment plan has been announced.",
+   "situation": "The yield vault reports an exploit (an attack that drains funds through a flaw in its code). Its team says it is investigating. No recovery or repayment plan has been announced.",
    "options": {
     "a": {
      "t": "Withdraw what is left. The whole remaining {pre.VAULT} is withdrawn; fee 0.5% ({fee}); net {d.CHK} to checking.",
@@ -836,11 +840,13 @@
     "a": [
      {
       "when": "v=='vault'",
-      "text": "You withdrew {-d.VAULT} (net {d.CHK}). It earns 100 because, with an exploit under way and no recovery announced, you acted on what you know and ended exposure to the unresolved problem. Withdrawing locks in the 35% loss, and selling a loss can be reasonable; it is not a prediction about later prices. Next: you hold no Harbor Vault.",
+      "text": "You withdrew {-d.VAULT} (net {d.CHK}). It earns 100 because, with an exploit under way and no recovery announced, you acted on what you know and ended exposure to the unresolved problem. Withdrawing locks in the 35% loss, and selling a loss can be reasonable; it is not a prediction about later prices. Next: you hold no yield vault position.",
       "ref": "You withdrew $673.09 (net $669.72). It earns 100 because, with an exploit under way and no recovery announced, you acted on what you know and ended exposure to the unresolved problem. Withdrawing locks in the 35% loss, and selling a loss can be reasonable; it is not a prediction about later prices. Next: you hold no Harbor Vault.",
       "rp": "BAAAA",
       "dk": "Q6|A (6a)",
-      "assert": "post.VAULT == 0"
+      "assert": "post.VAULT == 0",
+      "approved": "Educational Terminology Standard (2026-10-28)",
+      "dev": "Fictional provider name replaced with generic DeFi terminology and a short definition; no figure, rule, score or consequence changed."
      },
      {
       "when": "v=='no_vault'",
@@ -919,12 +925,12 @@
        "pre.ETH>0"
       ],
       [
-       "Surge Pool",
+       "Liquidity pool",
        "{pre.POOL} = {pre.POOL/pre.base*100|p2}",
        "pre.POOL>0"
       ],
       [
-       "Harbor Vault",
+       "Yield vault",
        "{pre.VAULT} = {pre.VAULT/pre.base*100|p2}",
        "pre.VAULT>0"
       ],
@@ -935,7 +941,7 @@
      ]
     }
    ],
-   "situation": "ETH has risen about 27% since month 12. Prices have moved your holdings. Two kinds of rule apply, and they are not the same. Purchase-time limits (tested when you buy): 5% per position and 10% of the base in total. Rebalancing trigger: 8% of the base, total DeFi (Harbor Vault + Surge Pool + ETH together). Above it, you may sell back toward it. It measures total DeFi, not any single position.",
+   "situation": "ETH has risen about 27% since month 12. Prices have moved your holdings. Two kinds of rule apply, and they are not the same. Purchase-time limits (tested when you buy): 5% per position and 10% of the base in total. Rebalancing trigger: 8% of the base, total DeFi (yield vault + liquidity pool + ETH together). Above it, you may sell back toward it. It measures total DeFi, not any single position.",
    "options": {
     "a": {
      "t": "Sell DeFi down to the 8% line.",
@@ -1045,6 +1051,11 @@
    "id": "jules.v0.3.2.labels",
    "from": "Harbor Vault / Keystone unlabeled; figures unlabeled",
    "to": "Harbor Vault (a fictional vault); Keystone (a fictional lender); intro states figures are scenario assumptions"
+  },
+  {
+   "id": "jules.terminology-standard.2026-10-28",
+   "from": "invented provider/product names (Harbor Vault, Keystone, Apex Yield, Surge Pool) and their short forms",
+   "to": "generic DeFi terminology with a short definition at first use; fictional rates, fees and limits identified as story assumptions"
   }
  ]
 }

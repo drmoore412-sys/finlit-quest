@@ -12,6 +12,7 @@ Nothing is written unless EVERY gate passes:
   G2  Batch 1 regression hash: 10,935 score lines (5 characters x 2,187 paths)  9803dce5...92c8
   G3  Dana regression hash: 4,374 canonical lines                               29054a01...1b7
   G4  tree scores == engine scores on every path, for every character (parity)
+  G10 Educational Terminology Standard (no invented provider/product names in player-facing text)
 This script never edits the locked models, scoring or text sources.
 """
 import hashlib, itertools, json, os, sys
@@ -513,6 +514,15 @@ def main(argv):
         rep['gates']['G9 claims register'] = 'PASS (release-ready)' if not open_claims else 'OPEN (draft only): %r' % open_claims
         if release and open_claims:
             raise GateFailure('RELEASE blocked: unverified financial claims remain: %r' % open_claims)
+        # G10 Educational Terminology Standard: no invented provider/product names in player-facing workbook text (strict: unreviewed suspects also fail)
+        import shutil, subprocess
+        node = shutil.which('node')
+        if not node:
+            raise GateFailure('G10 terminology check could not run: node was not found (the gate is never skipped silently)')
+        pr = subprocess.run([node, os.path.join(HERE, 'check-terminology.js'), '--strict', '--only', 'defi-real-life/approved/workbooks'], capture_output=True, text=True, cwd=ROOT)
+        if pr.returncode != 0:
+            raise GateFailure('G10 Educational Terminology Standard failed:\n' + pr.stdout[-3000:])
+        rep['gates']['G10 terminology standard'] = 'PASS (no prohibited or unreviewed suspect names in player-facing workbook text; review aid, not proof)'
         if allpend:
             rep['warnings'].append('%d wording items are pending approval; the build is marked DRAFT and --release is blocked' % allpend)
         # write runtime
