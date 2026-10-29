@@ -1,972 +1,978 @@
 {
-  "schema": "flq.defi-rl.claims.v1",
-  "source": "Dana v0.6.1 section 6; Batch 1 financial models v0.6.1/v0.6.2 section 12. No status was upgraded; nothing is waived.",
-  "rule": "A journey may be released only when every entry for it (and for \"all\") is VERIFIED or WAIVED by an approval record.",
-  "entries": [
-    {
-      "id": "dana.v1",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "The Closing Disclosure must be provided at least three business days before closing",
-      "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
-    },
-    {
-      "id": "dana.v2",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Cash to Close is down payment plus closing costs, minus deposits and credits",
-      "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
-    },
-    {
-      "id": "dana.v3",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "The Loan Estimate shows an *estimated* Cash to Close",
-      "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
-    },
-    {
-      "id": "dana.v4",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Lenders need documentation of fund sources",
-      "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
-    },
-    {
-      "id": "dana.open01",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Revised Loan Estimate rules; changes that restart the three-day Closing Disclosure wait; whether the story's cause for the cost increase is permitted",
-      "where": "D7 text",
-      "suggested_source": "CFPB TRID guidance, Regulation Z",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Dana Q7: \"Her lender sends a revised Loan Estimate. Estimated closing costs rose from $11,500 to $13,100 (updated property-tax and insurance deposits and prepaid items), so Cash to Close is now $43,100 ($30,000 down + $13,100).\" / \"The Closing Disclosure will arrive at least three business days before closing and can still differ.\"",
-        "sources": [
-          {
-            "url": "https://www.law.cornell.edu/cfr/text/12/1026.19",
-            "publisher": "12 CFR 1026.19 (Cornell LII copy of the CFR)",
-            "source_date": "current version, date not shown",
-            "supports": "Closing Disclosure no later than three business days before consummation; minor changes corrected at or before consummation; new waiting period only for APR, loan product or prepayment penalty changes; revised Loan Estimates only for listed reasons."
-          },
-          {
-            "url": "https://www.consumerfinance.gov/compliance/compliance-resources/mortgage-resources/tila-respa-integrated-disclosures/tila-respa-integrated-disclosure-faqs/",
-            "publisher": "CFPB TRID FAQs",
-            "source_date": "2024-03-15",
-            "supports": "Same three triggers for a new waiting period."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Player text no longer says a revised Loan Estimate was issued (\"Her lender updates its cost estimates\"). The retained claim, that the Closing Disclosure arrives at least three business days before closing and can still differ, matches 12 CFR 1026.19(f)(1)(ii)(A) and (f)(2)(i). Reg Z also limits revised Loan Estimates to listed reasons and bars one on or after the Closing Disclosure date, which is why the revised-estimate claim was removed. Regulation text read via Cornell LII; eCFR/CFPB pages were not retrievable.",
-        "proposed_correction": null,
-        "confidence": "high",
-        "checked": "2026-10-28",
-        "applied": "Dana text 0.6.1-w5"
-      }
-    },
-    {
-      "id": "dana.open02",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Lender source-of-funds and seasoning rules for crypto and large deposits",
-      "where": "D6",
-      "suggested_source": "Fannie Mae and Freddie Mac selling guides, CFPB",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Dana D6/Q6: \"The underwriter wants large deposits explained and the source of her funds documented.\" / \"Start moving all DeFi holdings into her bank accounts now (repaying any crypto loan first), and save the statements and transaction history.\"",
-        "sources": [
-          {
-            "url": "https://selling-guide.fanniemae.com/sel/b3-4.2-02/depository-accounts",
-            "publisher": "Fannie Mae Selling Guide B3-4.2-02",
-            "source_date": "2022-12-14 (SEL-2022-10)",
-            "supports": "Large deposits used for down payment or closing costs must be documented from an acceptable source; undocumented amounts are excluded."
-          },
-          {
-            "url": "https://selling-guide.fanniemae.com/sel/b3-4.1-04/virtual-currency",
-            "publisher": "Fannie Mae Selling Guide B3-4.1-04",
-            "source_date": "2022-05-04 (SEL-2022-04)",
-            "supports": "Virtual currency counts only if exchanged into U.S. dollars, documented, and verified in USD before closing."
-          }
-        ],
-        "jurisdiction": "United States, Fannie Mae conventional loans (other loan programs differ)",
-        "finding": "Supported for conventional loans. The player text does not state a seasoning period. Selling Guide revisions are frequent; re-check at release.",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "dana.open03",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Moving costs sit outside Cash to Close; earnest money not modeled",
-      "where": "Section 1",
-      "suggested_source": "CFPB",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 2,
-        "statement": "Dana: \"She needs $45,000 total purchase cash: a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move.\"",
-        "sources": [
-          {
-            "url": "https://www.consumerfinance.gov/archive/blog/know-before-you-owe-youll-get-3-days-to-review-your-mortgage-closing-documents/",
-            "publisher": "CFPB (with dana.v2)",
-            "source_date": "2015-06-03",
-            "supports": "Cash to Close is a Closing Disclosure figure covering down payment and closing costs, so moving costs fall outside it."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "The text separates moving cost from closing costs and Cash to Close. Earnest money is not mentioned.",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "dana.open04",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "FDIC limit ($250,000); vault and stablecoin balances are not insured",
-      "where": "D1",
-      "suggested_source": "FDIC",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "\"It is not a bank and its balances are not FDIC-insured.\" / \"Dana puts her whole purchase fund outside deposit insurance, and the rate is variable.\" / Jules: \"a vault deposit is not an insured bank balance.\" / Marcus: \"USDC is a dollar stablecoin, not an insured deposit.\" (Dana D1; Jules Q-vault; Marcus Q-USDC; Maya, Zoe disclaimers)",
-        "sources": [
-          {
-            "url": "https://www.fdic.gov/resources/deposit-insurance/understanding-deposit-insurance",
-            "publisher": "FDIC",
-            "source_date": "page updated 2024-04-01",
-            "supports": "Standard maximum $250,000 per depositor, per insured bank, per ownership category; crypto assets and non-deposit investments are not covered."
-          },
-          {
-            "url": "https://www.fdic.gov/news/financial-institution-letters/2022/fil22035b.pdf",
-            "publisher": "FDIC (FIL-22-035)",
-            "source_date": "2022 (date not shown in fetch)",
-            "supports": "Crypto assets are not FDIC-insured products; insurance does not cover insolvency of non-bank custodians, exchanges or wallet providers."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Statements say only that these balances are not insured; they do not state the $250,000 figure, so no number needs checking. The player text is consistent with FDIC.",
-        "proposed_correction": null,
-        "confidence": "high",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "dana.open05",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Taxes on ETH sales, deductibility of losses, stablecoin yield, loan interest",
-      "where": "D4, D5",
-      "suggested_source": "IRS digital-asset guidance",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Dana: \"Dana receives a $2,000 after-tax bonus in checking.\" (D5). No other player-facing statement about tax on ETH sales, loss deductibility, stablecoin yield or loan interest was found in the Dana workbook.",
-        "sources": [
-          {
-            "url": "https://www.irs.gov/filing/digital-assets",
-            "publisher": "IRS",
-            "source_date": "2026-09-02",
-            "supports": "If a tax statement is added later, sales and exchanges are reportable; staking and similar rewards are ordinary income."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Text scan found no tax assertion beyond \"after-tax bonus\", so there is nothing inaccurate to correct. Any future tax sentence needs its own check.",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "dana.open06",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Student-loan interest convention (monthly 0.5% vs daily); no prepayment penalty",
-      "where": "D5 A (no loan)",
-      "suggested_source": "Loan servicer terms, federal student-aid rules",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 2,
-        "statement": "Dana: \"student loan $12,000 at 6.00% APR.\" / \"Use it to prepay the 6% student loan.\"",
-        "sources": [
-          {
-            "url": "https://www.consumerfinance.gov/ask-cfpb/can-i-pay-off-my-student-loan-in-full-at-any-time-en-609/",
-            "publisher": "CFPB",
-            "source_date": "last reviewed 2024-04-15",
-            "supports": "Generally no prepayment penalties on student loans."
-          },
-          {
-            "url": "https://aidvantage.studentaid.gov/components/interest-and-taxes.html",
-            "publisher": "Aidvantage (federal loan servicer, studentaid.gov)",
-            "source_date": "undated",
-            "supports": "Daily simple interest: unpaid principal x interest rate / 365."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "No-prepayment-penalty: CFPB says \"Generally, there are no penalties involved in paying off your student loans early\" (reviewed 2024-04-15). Daily accrual: loan servicer page gives daily simple interest (principal x rate / 365). Dana models monthly interest; the plan line now says so (0.6.1-w5).",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28",
-        "applied": "Dana text 0.6.1-w5"
-      }
-    },
-    {
-      "id": "dana.open07",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Wallet-security statements in D2 and the four-action ladder",
-      "where": "D2",
-      "suggested_source": "Wallet-vendor and security-agency guidance",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Dana D2: \"A recovery phrase is the master key.\" / \"Verify through channels you open yourself, and never share a recovery phrase.\" / \"Signing a message or transaction authorizes what it says.\" / \"Connecting a wallet shares your public address and balances.\" / \"Control of a wallet is control of the money.\"",
-        "sources": [
-          {
-            "url": "https://support.metamask.io/start/user-guide-secret-recovery-phrase-password-and-private-keys/",
-            "publisher": "MetaMask Support (Consensys)",
-            "source_date": "page undated; site copyright 2026",
-            "supports": "Recovery phrase is the master key; anyone with it controls the funds; never share it."
-          },
-          {
-            "url": "https://support.metamask.io/stay-safe/safety-in-web3/what-are-metamasks-official-support-channels/",
-            "publisher": "MetaMask Support",
-            "source_date": "undated",
-            "supports": "Support never asks for the recovery phrase; verify through official channels you open."
-          },
-          {
-            "url": "https://support.metamask.io/stay-safe/safety-in-web3/basic-safety-and-security-tips-for-metamask/",
-            "publisher": "MetaMask Support",
-            "source_date": "undated (copyright 2026)",
-            "supports": "Check what a dapp is requesting before approving."
-          },
-          {
-            "url": "https://www.ic3.gov/PSA/2025/PSA250515",
-            "publisher": "FBI IC3 PSA I-051525",
-            "source_date": "2025-05-15",
-            "supports": "Verify via independent contact; do not click unverified links; never share two-factor codes."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Hedged wording in 0.6.1-w5. Supported by wallet-maker primary documentation (MetaMask Support: the recovery phrase is the \"master key\"; \"Never share your SRP or private keys with anyone\"; support \"will never ask\"; \"Always check what a dapp is actually requesting before clicking approve\"; verify support through the official channels you open yourself) and by FBI IC3 guidance (verify through independently found contacts; do not click unverified links; never give a two-factor code). No regulator publishes wallet-specific guidance on recovery phrases, so this is vendor documentation for one wallet maker plus general government guidance. Statements about connecting and allowances were hedged (\"usually\", \"can\") because no fetched source states them directly.",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28",
-        "applied": "Dana text 0.6.1-w5"
-      }
-    },
-    {
-      "id": "dana.open08",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Typical US down payment, closing-cost range and moving cost",
-      "where": "Section 1",
-      "suggested_source": "CFPB, industry surveys",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 2,
-        "statement": "Dana: \"a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move.\"",
-        "sources": [
-          {
-            "url": "https://www.consumerfinance.gov/owning-a-home/prepare/determine-your-down-payment/",
-            "publisher": "CFPB",
-            "source_date": "last modified 2026-02-18",
-            "supports": "Conventional loans can need as little as 3% down; closing costs typically run 2% to 5% of the purchase price."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Down payment and closing figures sit inside the CFPB ranges for the implied price. The $3,500 moving cost has no official source.",
-        "proposed_correction": "Mark the moving figure as a story assumption: \"about $3,500 to move (an assumption).\" (text-only; not applied)",
-        "confidence": "medium",
-        "checked": "2026-10-28",
-        "applied": "Moving figure labeled \"(an assumption in this story)\" in Dana text 0.6.1-w4; down payment and closing ranges verified against CFPB."
-      }
-    },
-    {
-      "id": "dana.open09",
-      "journey": "dana",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Re-underwriting after a loan or other new debt",
-      "where": "D3 B",
-      "suggested_source": "Lender guidance",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "No player-facing re-underwriting statement was found. Related Dana text: \"Dana's lender is moving toward closing.\" and \"Check your own lender's terms.\"",
-        "sources": [
-          {
-            "url": "https://singlefamily.fanniemae.com/applications-technology/desktop-underwriter-desktop-originator/undisclosed-liabilities",
-            "publisher": "Fannie Mae Desktop Underwriter",
-            "source_date": "effective 2025-11-15",
-            "supports": "New debt found during origination: lender recalculates DTI and resubmits to DU; new subordinate financing on the property requires re-underwriting."
-          },
-          {
-            "url": "https://consumerfinance.gov/ask-cfpb/when-will-my-lender-run-or-obtain-a-copy-of-my-credit-report-en-322",
-            "publisher": "CFPB",
-            "source_date": "last modified 2025-01-14",
-            "supports": "A lender may check credit just before closing."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "There is no assertion to correct; the general principle that new debt before closing can trigger a re-check is supported.",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "dana.open10",
-      "journey": "dana",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Three months of essentials as the emergency target; one month as the warning line",
-      "where": "D3, D7",
-      "suggested_source": "CFPB and personal-finance sources",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Dana: \"emergency savings $8,700 (3 months of essentials)\" / \"above the 1-month line\"",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "Three months of expenses is common guidance, but no official source was retrieved in this pass.",
-        "proposed_correction": "Find a CFPB or government emergency-savings page, or label as a rule of thumb.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Dana plan line: \"The three-month emergency target is this scenario's choice; official guidance varies and some suggests six months.\" (0.6.1-w5). FDIC (2025-01-03) recommends at least six months.",
-      "waived": false
-    },
-    {
-      "id": "dana.f1",
-      "journey": "dana",
-      "kind": "fictional",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Harbor Vault, Keystone Loans, Apex Yield, Surge Pool, and their rates and terms",
-      "note": "story rule; must be labeled fictional to the player",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: names and rates (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Player text: \"Harbor Vault, Keystone Loans, Apex Yield and Surge Pool are fictional. Their terms are story rules, not market data.\" (Dana plan)",
-      "waived": false
-    },
-    {
-      "id": "dana.f2",
-      "journey": "dana",
-      "kind": "fictional",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Keystone terms: 50% maximum LTV, 80% liquidation, 5% penalty, 0.5% swap fee, simple interest, repay with collateral, collateral lock, no deficiency",
-      "note": "story rule; must be labeled fictional to the player",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: Keystone terms (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Player text: \"Keystone's rules (fictional): Lending limit 50% ...\" (Dana D5 and plan)",
-      "waived": false
-    },
-    {
-      "id": "dana.f3",
-      "journey": "dana",
-      "kind": "fictional",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Vault withdrawal cap ($2,000 a week), Apex exploit and 55% recovery, pool at −4%, Apex's 12% is not credited",
-      "note": "story rule; must be labeled fictional to the player",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: vault cap and exploit (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Covered by the Dana plan line that product terms are story rules, and \"In this story the pool returns −4.0%\".",
-      "waived": false
-    },
-    {
-      "id": "dana.f4",
-      "journey": "dana",
-      "kind": "fictional",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "$450 records-reconstruction cost (Dana's own), $450 rate-lock extension fee per delay month, 3-month delay cap",
-      "note": "story rule; must be labeled fictional to the player",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: fictional fees (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Player text: \"$450 records-reconstruction cost (fictional, her own expense)\"; rate-lock fee and delay cap \"are scenario assumptions, not market data. Real fees and lock terms vary by lender.\"",
-      "waived": false
-    },
-    {
-      "id": "dana.f5",
-      "journey": "dana",
-      "kind": "fictional",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "ETH index events (−40%, −30%, later partial recovery)",
-      "note": "story rule; must be labeled fictional to the player",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: ETH index events (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: ETH falls of 40% and 30% are stated without \"in this story\". Proposed: \"In this scenario, ETH has fallen 40%.\"",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Dana plan line: \"ETH price moves are scenario events\" (0.6.1-w5). Note: the Q-level sentences \"ETH has fallen 40% since month 1\" carry no inline label; the label is the plan line only.",
-      "waived": false
-    },
-    {
-      "id": "dana.m1",
-      "journey": "dana",
-      "kind": "model",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Insured home savings earn **0%** in the model (real accounts pay interest, which understates D1 B)",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: 0% insured savings (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: No player text says insured savings earn 0% in the model. Proposed: \"Insured savings are modeled at 0% interest.\"",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Dana plan line: \"insured savings are modeled at 0% interest, which is lower than a real account would pay\" (0.6.1-w5).",
-      "waived": false
-    },
-    {
-      "id": "dana.m2",
-      "journey": "dana",
-      "kind": "model",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "$250 flexible-spending floor",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: $250 floor (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: $250 floor is stated as Dana's budget, not labeled as a model choice.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Dana intro: \"$250 floor plus $450 discretionary, set for this scenario\" (0.6.1-w5).",
-      "waived": false
-    },
-    {
-      "id": "dana.m3",
-      "journey": "dana",
-      "kind": "model",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Closing on the last day of month 24, after the month-24 transfer",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: closing date convention (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: Closing on the last day of month 24 is stated without a model label.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Dana situation: \"this scenario assumes closing on that day, after the transfer\" (0.6.1-w5).",
-      "waived": false
-    },
-    {
-      "id": "dana.m4",
-      "journey": "dana",
-      "kind": "model",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "D6: a $21,000 vault takes about 12 weeks to move, with no interest credited during the transfer",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: vault transfer time (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Derived from the labeled fictional $2,000-a-week vault cap (dana.f3); no separate real-world claim in the text.",
-      "waived": false
-    },
-    {
-      "id": "dana.m5",
-      "journey": "dana",
-      "kind": "model",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "ETH baseline $2,400; realized loss measured against the month-1 value",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: ETH baseline (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: ETH baseline $2,400 is stated as Dana's holding, not labeled.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Dana intro: \"Opening (scenario assumptions): ... ETH $2,400 ...\" (0.6.1-w5).",
-      "waived": false
-    },
-    {
-      "id": "dana.m6",
-      "journey": "dana",
-      "kind": "model",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "The 50% \"manageable\" threshold in D5 is Keystone's own fictional lending limit, used as a **scoring simplification**. It is not a real-world standard, not a safety level, and not financial advice. The 80% forced-sale line is a separate fictional rule",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: 50% line (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Player text: the 50% line \"is a simplification for scoring, not a safe level in real life\".",
-      "waived": false
-    },
-    {
-      "id": "dana.m7",
-      "journey": "dana",
-      "kind": "model",
-      "status": "NAMING REVIEW — UNASSESSED",
-      "claim": "Fictional names need a collision check against real products",
-      "note": "modeling choice awaiting confirmation",
-      "verification": {
-        "result": "UNVERIFIED",
-        "tier": 2,
-        "statement": "Fictional names: Harbor Vault, Keystone Loans, Apex Yield, Surge Pool",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Web name search run 2026-10-28 (not a trademark search). Possible collisions: \"ApexYield\"/Apex Yield (existing Solana yield project and ApeX protocol); Keystone Finance (a DeFi entity; \"Keystone Loans\" not found exactly); Surge (existing \"Surge\" DeFi protocol and SURGE tokens; \"Surge Pool\" generic); Harbor Protocol (exists; \"Harbor Vault\" not found exactly). Collision risk is not cleared.",
-        "proposed_correction": "Owner decision: rename Apex Yield and Surge Pool (highest overlap) or accept the risk after a trademark search; display names only, IDs unaffected.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "track": "naming review (outside financial-claims verification)",
-      "naming_review": {
-        "decision": "Owner retained Harbor Vault, Keystone Loans, Apex Yield and Surge Pool unchanged (2026-10-28). Rename proposal rejected.",
-        "finding": "General web searches found name similarities (ApexYield / ApeX protocol; Surge protocol and SURGE tokens; Keystone Finance; Harbor Protocol) but no documented legal conflict.",
-        "not_done": "No formal trademark clearance or registry search was performed.",
-        "status_note": "Not an automatic financial-claims release blocker."
-      }
-    },
-    {
-      "id": "b1.claim01",
-      "journey": "zoe",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Settlement time of an on-chain crypto sale",
-      "current_value": "Proceeds available the same month, before the due date",
-      "suggested_source": "Real exchange and wallet withdrawal times; the lease due date",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Zoe: sale of crypto and on-chain transfer timing (no explicit minutes or hours found in the text).",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "No authoritative public source for settlement times; vendor and network dependent.",
-        "proposed_correction": "Treat as a labeled story assumption or add \"timing varies\" wording; owner may WAIVE as fictional.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Zoe plan line: \"In this story, a sale settles within the month.\" (Zoe 0.3.4).",
-      "waived": false
-    },
-    {
-      "id": "b1.claim02",
-      "journey": "zoe",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Tax effect of selling ETH or a vault position",
-      "current_value": "None modeled",
-      "suggested_source": "IRS treatment of digital-asset sales for a student with small positions",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Zoe: \"Selling costs money, and tax effects are not modeled here.\"",
-        "sources": [
-          {
-            "url": "https://www.irs.gov/filing/digital-assets",
-            "publisher": "IRS",
-            "source_date": "last reviewed 2026-09-02 (tax year 2025 forms)",
-            "supports": "Sales and exchanges of digital assets must be reported; gain or loss is reported on Form 8949."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "The sentence does not claim sales are tax-free; it says tax is not modeled. Accurate as worded.",
-        "proposed_correction": null,
-        "confidence": "high",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "b1.claim03",
-      "journey": "zoe",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Sale cost",
-      "current_value": "0.5% plus a $19 on-chain fee per position",
-      "suggested_source": "Typical exchange and network fees",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Zoe: \"Buying or selling costs 0.5%; sales of crypto also cost a $19 on-chain fee per holding.\" / \"Fees can swamp small transfers: moving $25 on-chain can cost $19.\"",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "Fees vary by platform and network; no official source applies. The principle (small transfers can be dominated by fixed fees) is accurate.",
-        "proposed_correction": "Add \"In this story,\" before the fee statement. (text-only; not applied)",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "After v0.3.3 (Zoe): \"In this story, buying or selling costs 0.5%; ...\" and \"in this story, moving $25 on-chain can cost $19.\"",
-      "waived": false
-    },
-    {
-      "id": "b1.claim04",
-      "journey": "zoe",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Landlord split",
-      "current_value": "Fictional acceptance rule and $25 fee",
-      "suggested_source": "Landlord-tenant practice; lease terms; state limits on fees",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Zoe: \"Landlord (this story's rule, not a general rule)\" / \"This is this landlord's rule, not a promise from every landlord.\"",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "Already labeled as the story's rule; no outside fact to verify.",
-        "proposed_correction": "Owner decision: WAIVE as a labeled fictional rule.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Zoe: \"Landlord (this story's rule, not a general rule)\" / \"This is this landlord's rule, not a promise from every landlord.\"",
-      "waived": false
-    },
-    {
-      "id": "b1.claim05",
-      "journey": "zoe",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Card advance and late-fee mechanics",
-      "current_value": "2% a month, $800 limit, $35 late fee; a shortfall goes on the card only if all of it fits",
-      "suggested_source": "Whether a card can fund a deposit by bank transfer; cash-advance fees; card late-fee rules in force",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Zoe: \"This is a card advance, not a bank payment.\" / \"A card advance is borrowing, not cash.\" / \"Card: $800 limit, about 2% a month.\" / \"If a bill is bigger than the room left on the card, the whole bill goes unpaid and a $35 late fee is added.\"",
-        "sources": [
-          {
-            "url": "https://www.consumerfinance.gov/ask-cfpb/can-i-withdraw-money-from-my-credit-card-at-an-atm-en-34/",
-            "publisher": "CFPB",
-            "source_date": "last reviewed 2026-09-02",
-            "supports": "Cash advances usually carry a fee and a higher APR, and interest starts the day of the advance with no grace period."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Borrowing nature and immediate interest are accurate. The story prices a card advance at the same 2% a month with no fee, which understates real cost.",
-        "proposed_correction": "Add: \"Real card advances usually add a fee and a higher rate; this story uses one simple rate of about 2% a month.\" (text-only; not applied)",
-        "confidence": "medium",
-        "checked": "2026-10-28",
-        "applied": "Applied in Zoe text 0.3.3."
-      }
-    },
-    {
-      "id": "b1.claim06",
-      "journey": "marcus",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Recordkeeping need and benefit",
-      "current_value": "Not modeled; free invoice-terms action",
-      "suggested_source": "Real recordkeeping rules for crypto receipts",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 2,
-        "statement": "Marcus: \"Your tax adviser asks, as in Marcus's own plan, for a record of every crypto receipt and every conversion.\" / \"...a log is the foundation for every later tax conversation.\"",
-        "sources": [
-          {
-            "url": "https://www.irs.gov/filing/digital-assets",
-            "publisher": "IRS",
-            "source_date": "2026-09-02",
-            "supports": "Taxpayers must keep records supporting their positions: date, time, units and U.S. dollar fair market value of each transaction."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Supported.",
-        "proposed_correction": null,
-        "confidence": "high",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "b1.claim07",
-      "journey": "jules",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Taxes on selling or lending against ETH",
-      "current_value": "None at M5",
-      "suggested_source": "IRS treatment of digital-asset sales and loans",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Jules: \"Borrowing against crypto adds interest and a forced-sale risk, and selling adds fees and, in real life, possible tax.\"",
-        "sources": [
-          {
-            "url": "https://www.irs.gov/filing/digital-assets",
-            "publisher": "IRS",
-            "source_date": "2026-09-02",
-            "supports": "Disposing of a digital asset (sale, exchange, spending) is reportable; gain or loss depends on basis."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "\"Possible tax\" on selling is accurate. The IRS page does not address borrowing against digital assets, and the sentence makes no tax claim about borrowing.",
-        "proposed_correction": null,
-        "confidence": "high",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "b1.claim08",
-      "journey": "jules",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Keystone terms",
-      "current_value": "50% max LTV, forced sale above 80%, 0.75% a month, 5% penalty (fictional)",
-      "suggested_source": "Real lender terms if used as a comparison",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 3,
-        "statement": "Fictional or model item: Keystone terms (see register claim text).",
-        "sources": [],
-        "jurisdiction": "n/a",
-        "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: Jules text names \"Keystone's 50% opening limit\" with no fictional label (Elena says \"in this story\"). Proposed label: \"Keystone (a fictional lender)\".",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Jules text: \"Keystone (a fictional lender)\" (Jules 0.3.2); Elena: \"in this story it requires at least $2,000\".",
-      "waived": false
-    },
-    {
-      "id": "b1.claim09",
-      "journey": "all",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Credit-card cost",
-      "current_value": "2% a month (about 26.8% APR)",
-      "suggested_source": "Typical card terms; current late-fee rules",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "All journeys: \"Card: $800 limit, about 2% a month.\" / \"A credit card (limit $3,000, 2% a month).\" / Zoe: \"a $35 late fee is added.\"",
-        "sources": [
-          {
-            "url": "https://fred.stlouisfed.org/series/TERMCBCCINTNS",
-            "publisher": "Federal Reserve G.19 via FRED",
-            "source_date": "Aug 2026, updated 2026-10-07",
-            "supports": "Average credit card interest rate on accounts assessed interest: 22.36% APR (about 1.9% a month)."
-          },
-          {
-            "url": "https://www.consumerfinancemonitor.com/2025/04/16/federal-judge-voids-cfpb-credit-card-late-fee-rule/",
-            "publisher": "Consumer Finance Monitor (law-firm report of the court order)",
-            "source_date": "2025-04-16",
-            "supports": "CFPB $8 late-fee rule vacated; the old safe-harbor amounts ($30/$41, inflation-adjusted $32/$43) continue to frame typical fees. Secondary source only."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "2% a month is about 26.8% APR, above but near the 22.36% average, so it is a realistic story assumption; the text says \"about\". The $35 late fee is a story amount inside the usual range. Do not cite an $8 cap; it was vacated.",
-        "proposed_correction": null,
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      }
-    },
-    {
-      "id": "b1.claim10",
-      "journey": "zoe",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "School payment plan",
-      "current_value": "$1,500 at M12, $3,000 in three installments, $45 fee, $75 late fee",
-      "suggested_source": "A real institutional plan",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Zoe: \"first tuition payment of $1,500 (plus a $45 plan fee)\"; Elena: \"a 0% payment plan of $225 a month (an assumption in this story).\"",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "School payment-plan fees vary; no official source. Elena's plan is labeled an assumption; Zoe's fee is not labeled.",
-        "proposed_correction": "Label Zoe's $45 plan fee \"(an assumption in this story)\", or WAIVE as fictional.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Zoe intro: \"The $45 plan fee and all other amounts are assumptions in this story.\" (0.3.4); Elena: \"a 0% payment plan ... (an assumption in this story)\".",
-      "waived": false
-    },
-    {
-      "id": "b1.claim11",
-      "journey": "maya",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Gross pay, tax saving, match, reserve target",
-      "current_value": "$3,800 a month, 15%, 100% to 4%, 2 months",
-      "suggested_source": "Plausible wage; brackets; plan formulas; emergency-fund guidance",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Maya: \"Under this fictional plan the company matches 100% of her contribution, up to 4% of her pay before tax ($3,800 a month).\" / \"Real employer plans vary: match formulas, eligibility waits and vesting schedules differ, so check the actual plan.\"",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "Labeled fictional with a real-world caveat; pay and reserve figures are assumptions. No outside fact to verify.",
-        "proposed_correction": "Owner decision: WAIVE as labeled fictional.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Maya: \"Under this fictional plan ...\" and \"Real employer plans vary ... check the actual plan.\"",
-      "waived": false
-    },
-    {
-      "id": "b1.claim12",
-      "journey": "jules",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Base growth and premium",
-      "current_value": "0.5% a month; $1,100 premium",
-      "suggested_source": "Illustrative rate; plausible premium",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Jules: illustrative base growth and vault premium (about 5% a year advertised).",
-        "sources": [],
-        "jurisdiction": "United States (federal)",
-        "finding": "Illustrative figures; no outside fact asserted.",
-        "proposed_correction": "Owner decision: WAIVE as labeled illustrative, or add \"illustrative\".",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Jules: \"Harbor Vault (a fictional vault)\" and intro \"All figures in this scenario are assumptions for the exercise.\" (0.3.2).",
-      "waived": false
-    },
-    {
-      "id": "b1.claim13",
-      "journey": "marcus",
-      "kind": "external",
-      "status": "VERIFIED",
-      "claim": "Tax reserve, estimated-tax schedule, USDC taxation, deductibility",
-      "current_value": "20%; M4/M7/M10/M13; income at receipt; laptop expensed",
-      "suggested_source": "Entity-type tax rules; real due dates; stablecoin treatment",
-      "verification": {
-        "result": "VERIFIED",
-        "tier": 1,
-        "statement": "Marcus: \"Another estimated tax payment ($3,100) is due this month, paid from the tax reserve.\" / \"(the month-4 payment of $2,460 is due next month)\" / tax set-aside of $820 a month; \"Tax money is not optional capital.\"",
-        "sources": [
-          {
-            "url": "https://www.irs.gov/pub/irs-pdf/f1040es.pdf",
-            "publisher": "IRS Form 1040-ES (2026)",
-            "source_date": "tax year 2026",
-            "supports": "Estimated payments are due April 15, June 15, September 15 and January 15 for calendar-year filers; required when you expect to owe at least $1,000."
-          },
-          {
-            "url": "https://www.irs.gov/filing/digital-assets",
-            "publisher": "IRS",
-            "source_date": "2026-09-02",
-            "supports": "Payments to independent contractors are reported on Schedule C; keep records of date, units and U.S. dollar value."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "The principle (set tax aside; estimated tax is quarterly) is correct. The story pays estimated tax on a monthly-style schedule (months 4, 5, 6) and states a flat set-aside, which is not the real schedule (four uneven dates). The 20% reserve rate is a story assumption. The USDC taxation and deductibility parts of the original claim are not asserted in the player text.",
-        "proposed_correction": "Add one line to the Marcus tax-reserve explanation: \"Real estimated-tax dates are April 15, June 15, September 15 and January 15; this story uses a simplified schedule and an assumed set-aside rate.\" (text-only; not applied)",
-        "confidence": "medium",
-        "checked": "2026-10-28",
-        "applied": "Applied in Marcus text 0.2.1."
-      }
-    },
-    {
-      "id": "b1.claim14",
-      "journey": "elena",
-      "kind": "external",
-      "status": "SIMULATION ASSUMPTION",
-      "claim": "Leave pay, medical plan, childcare, baby's ETH gift",
-      "current_value": "75% for M2 to M3; 0% plan $2,700; $1,800 deposit and $700 a month; held or sold by the parent",
-      "suggested_source": "Leave rules; provider plans; childcare prices; custodial and gift-tax treatment",
-      "verification": {
-        "result": "SIMULATION ASSUMPTION",
-        "tier": 2,
-        "statement": "Elena: \"Take-home pay is $5,100 a month ($3,825 in months 2 and 3 on parental leave).\" / \"A small gift can be held or sold.\" / \"The childcare centre needs a $1,800 deposit now.\"",
-        "sources": [
-          {
-            "url": "https://www.irs.gov/businesses/small-businesses-self-employed/frequently-asked-questions-on-gift-taxes",
-            "publisher": "IRS",
-            "source_date": "2026-07-23",
-            "supports": "2026 annual gift-tax exclusion is $19,000 per recipient; the donor is generally responsible for any gift tax, and the recipient generally takes the donor's basis."
-          }
-        ],
-        "jurisdiction": "United States (federal)",
-        "finding": "Gift handling in the text is consistent with the IRS. Leave pay, medical plan and childcare costs are story assumptions that vary by employer and state.",
-        "proposed_correction": "Owner decision: WAIVE leave and childcare figures as story assumptions.",
-        "confidence": "medium",
-        "checked": "2026-10-28"
-      },
-      "sim_basis": "Elena intro: \"Pay, leave pay and costs are assumptions in this story.\" (0.1.2); gift handling consistent with IRS 2026 gift-tax FAQ.",
-      "waived": false
-    }
-  ]
+ "schema": "flq.defi-rl.claims.v1",
+ "source": "Dana v0.6.1 section 6; Batch 1 financial models v0.6.1/v0.6.2 section 12. No status was upgraded; nothing is waived.",
+ "rule": "A journey may be released only when every entry for it (and for \"all\") is VERIFIED or WAIVED by an approval record.",
+ "entries": [
+  {
+   "id": "dana.v1",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "The Closing Disclosure must be provided at least three business days before closing",
+   "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
+  },
+  {
+   "id": "dana.v2",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Cash to Close is down payment plus closing costs, minus deposits and credits",
+   "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
+  },
+  {
+   "id": "dana.v3",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "The Loan Estimate shows an *estimated* Cash to Close",
+   "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
+  },
+  {
+   "id": "dana.v4",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Lenders need documentation of fund sources",
+   "source": "CFPB (Dana v0.4 research; not re-run for v0.5-v0.6.1)"
+  },
+  {
+   "id": "dana.open01",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Revised Loan Estimate rules; changes that restart the three-day Closing Disclosure wait; whether the story's cause for the cost increase is permitted",
+   "where": "D7 text",
+   "suggested_source": "CFPB TRID guidance, Regulation Z",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Dana Q7: \"Her lender sends a revised Loan Estimate. Estimated closing costs rose from $11,500 to $13,100 (updated property-tax and insurance deposits and prepaid items), so Cash to Close is now $43,100 ($30,000 down + $13,100).\" / \"The Closing Disclosure will arrive at least three business days before closing and can still differ.\"",
+    "sources": [
+     {
+      "url": "https://www.law.cornell.edu/cfr/text/12/1026.19",
+      "publisher": "12 CFR 1026.19 (Cornell LII copy of the CFR)",
+      "source_date": "current version, date not shown",
+      "supports": "Closing Disclosure no later than three business days before consummation; minor changes corrected at or before consummation; new waiting period only for APR, loan product or prepayment penalty changes; revised Loan Estimates only for listed reasons."
+     },
+     {
+      "url": "https://www.consumerfinance.gov/compliance/compliance-resources/mortgage-resources/tila-respa-integrated-disclosures/tila-respa-integrated-disclosure-faqs/",
+      "publisher": "CFPB TRID FAQs",
+      "source_date": "2024-03-15",
+      "supports": "Same three triggers for a new waiting period."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Player text no longer says a revised Loan Estimate was issued (\"Her lender updates its cost estimates\"). The retained claim, that the Closing Disclosure arrives at least three business days before closing and can still differ, matches 12 CFR 1026.19(f)(1)(ii)(A) and (f)(2)(i). Reg Z also limits revised Loan Estimates to listed reasons and bars one on or after the Closing Disclosure date, which is why the revised-estimate claim was removed. Regulation text read via Cornell LII; eCFR/CFPB pages were not retrievable.",
+    "proposed_correction": null,
+    "confidence": "high",
+    "checked": "2026-10-28",
+    "applied": "Dana text 0.6.1-w5"
+   }
+  },
+  {
+   "id": "dana.open02",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Lender source-of-funds and seasoning rules for crypto and large deposits",
+   "where": "D6",
+   "suggested_source": "Fannie Mae and Freddie Mac selling guides, CFPB",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Dana D6/Q6: \"The underwriter wants large deposits explained and the source of her funds documented.\" / \"Start moving all DeFi holdings into her bank accounts now (repaying any crypto loan first), and save the statements and transaction history.\"",
+    "sources": [
+     {
+      "url": "https://selling-guide.fanniemae.com/sel/b3-4.2-02/depository-accounts",
+      "publisher": "Fannie Mae Selling Guide B3-4.2-02",
+      "source_date": "2022-12-14 (SEL-2022-10)",
+      "supports": "Large deposits used for down payment or closing costs must be documented from an acceptable source; undocumented amounts are excluded."
+     },
+     {
+      "url": "https://selling-guide.fanniemae.com/sel/b3-4.1-04/virtual-currency",
+      "publisher": "Fannie Mae Selling Guide B3-4.1-04",
+      "source_date": "2022-05-04 (SEL-2022-04)",
+      "supports": "Virtual currency counts only if exchanged into U.S. dollars, documented, and verified in USD before closing."
+     }
+    ],
+    "jurisdiction": "United States, Fannie Mae conventional loans (other loan programs differ)",
+    "finding": "Supported for conventional loans. The player text does not state a seasoning period. Selling Guide revisions are frequent; re-check at release.",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "dana.open03",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Moving costs sit outside Cash to Close; earnest money not modeled",
+   "where": "Section 1",
+   "suggested_source": "CFPB",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 2,
+    "statement": "Dana: \"She needs $45,000 total purchase cash: a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move.\"",
+    "sources": [
+     {
+      "url": "https://www.consumerfinance.gov/archive/blog/know-before-you-owe-youll-get-3-days-to-review-your-mortgage-closing-documents/",
+      "publisher": "CFPB (with dana.v2)",
+      "source_date": "2015-06-03",
+      "supports": "Cash to Close is a Closing Disclosure figure covering down payment and closing costs, so moving costs fall outside it."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "The text separates moving cost from closing costs and Cash to Close. Earnest money is not mentioned.",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "dana.open04",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "FDIC limit ($250,000); vault and stablecoin balances are not insured",
+   "where": "D1",
+   "suggested_source": "FDIC",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "\"It is not a bank and its balances are not FDIC-insured.\" / \"Dana puts her whole purchase fund outside deposit insurance, and the rate is variable.\" / Jules: \"a vault deposit is not an insured bank balance.\" / Marcus: \"USDC is a dollar stablecoin, not an insured deposit.\" (Dana D1; Jules Q-vault; Marcus Q-USDC; Maya, Zoe disclaimers)",
+    "sources": [
+     {
+      "url": "https://www.fdic.gov/resources/deposit-insurance/understanding-deposit-insurance",
+      "publisher": "FDIC",
+      "source_date": "page updated 2024-04-01",
+      "supports": "Standard maximum $250,000 per depositor, per insured bank, per ownership category; crypto assets and non-deposit investments are not covered."
+     },
+     {
+      "url": "https://www.fdic.gov/news/financial-institution-letters/2022/fil22035b.pdf",
+      "publisher": "FDIC (FIL-22-035)",
+      "source_date": "2022 (date not shown in fetch)",
+      "supports": "Crypto assets are not FDIC-insured products; insurance does not cover insolvency of non-bank custodians, exchanges or wallet providers."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Statements say only that these balances are not insured; they do not state the $250,000 figure, so no number needs checking. The player text is consistent with FDIC.",
+    "proposed_correction": null,
+    "confidence": "high",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "dana.open05",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Taxes on ETH sales, deductibility of losses, stablecoin yield, loan interest",
+   "where": "D4, D5",
+   "suggested_source": "IRS digital-asset guidance",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Dana: \"Dana receives a $2,000 after-tax bonus in checking.\" (D5). No other player-facing statement about tax on ETH sales, loss deductibility, stablecoin yield or loan interest was found in the Dana workbook.",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/filing/digital-assets",
+      "publisher": "IRS",
+      "source_date": "2026-09-02",
+      "supports": "If a tax statement is added later, sales and exchanges are reportable; staking and similar rewards are ordinary income."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Text scan found no tax assertion beyond \"after-tax bonus\", so there is nothing inaccurate to correct. Any future tax sentence needs its own check.",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "dana.open06",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Student-loan interest convention (monthly 0.5% vs daily); no prepayment penalty",
+   "where": "D5 A (no loan)",
+   "suggested_source": "Loan servicer terms, federal student-aid rules",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 2,
+    "statement": "Dana: \"student loan $12,000 at 6.00% APR.\" / \"Use it to prepay the 6% student loan.\"",
+    "sources": [
+     {
+      "url": "https://www.consumerfinance.gov/ask-cfpb/can-i-pay-off-my-student-loan-in-full-at-any-time-en-609/",
+      "publisher": "CFPB",
+      "source_date": "last reviewed 2024-04-15",
+      "supports": "Generally no prepayment penalties on student loans."
+     },
+     {
+      "url": "https://aidvantage.studentaid.gov/components/interest-and-taxes.html",
+      "publisher": "Aidvantage (federal loan servicer, studentaid.gov)",
+      "source_date": "undated",
+      "supports": "Daily simple interest: unpaid principal x interest rate / 365."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "No-prepayment-penalty: CFPB says \"Generally, there are no penalties involved in paying off your student loans early\" (reviewed 2024-04-15). Daily accrual: loan servicer page gives daily simple interest (principal x rate / 365). Dana models monthly interest; the plan line now says so (0.6.1-w5).",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28",
+    "applied": "Dana text 0.6.1-w5"
+   }
+  },
+  {
+   "id": "dana.open07",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Wallet-security statements in D2 and the four-action ladder",
+   "where": "D2",
+   "suggested_source": "Wallet-vendor and security-agency guidance",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Dana D2: \"A recovery phrase is the master key.\" / \"Verify through channels you open yourself, and never share a recovery phrase.\" / \"Signing a message or transaction authorizes what it says.\" / \"Connecting a wallet shares your public address and balances.\" / \"Control of a wallet is control of the money.\"",
+    "sources": [
+     {
+      "url": "https://support.metamask.io/start/user-guide-secret-recovery-phrase-password-and-private-keys/",
+      "publisher": "MetaMask Support (Consensys)",
+      "source_date": "page undated; site copyright 2026",
+      "supports": "Recovery phrase is the master key; anyone with it controls the funds; never share it."
+     },
+     {
+      "url": "https://support.metamask.io/stay-safe/safety-in-web3/what-are-metamasks-official-support-channels/",
+      "publisher": "MetaMask Support",
+      "source_date": "undated",
+      "supports": "Support never asks for the recovery phrase; verify through official channels you open."
+     },
+     {
+      "url": "https://support.metamask.io/stay-safe/safety-in-web3/basic-safety-and-security-tips-for-metamask/",
+      "publisher": "MetaMask Support",
+      "source_date": "undated (copyright 2026)",
+      "supports": "Check what a dapp is requesting before approving."
+     },
+     {
+      "url": "https://www.ic3.gov/PSA/2025/PSA250515",
+      "publisher": "FBI IC3 PSA I-051525",
+      "source_date": "2025-05-15",
+      "supports": "Verify via independent contact; do not click unverified links; never share two-factor codes."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Hedged wording in 0.6.1-w5. Supported by wallet-maker primary documentation (MetaMask Support: the recovery phrase is the \"master key\"; \"Never share your SRP or private keys with anyone\"; support \"will never ask\"; \"Always check what a dapp is actually requesting before clicking approve\"; verify support through the official channels you open yourself) and by FBI IC3 guidance (verify through independently found contacts; do not click unverified links; never give a two-factor code). No regulator publishes wallet-specific guidance on recovery phrases, so this is vendor documentation for one wallet maker plus general government guidance. Statements about connecting and allowances were hedged (\"usually\", \"can\") because no fetched source states them directly.",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28",
+    "applied": "Dana text 0.6.1-w5"
+   }
+  },
+  {
+   "id": "dana.open08",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Typical US down payment, closing-cost range and moving cost",
+   "where": "Section 1",
+   "suggested_source": "CFPB, industry surveys",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 2,
+    "statement": "Dana: \"a $30,000 down payment, about $11,500 in closing costs and about $3,500 to move.\"",
+    "sources": [
+     {
+      "url": "https://www.consumerfinance.gov/owning-a-home/prepare/determine-your-down-payment/",
+      "publisher": "CFPB",
+      "source_date": "last modified 2026-02-18",
+      "supports": "Conventional loans can need as little as 3% down; closing costs typically run 2% to 5% of the purchase price."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Down payment and closing figures sit inside the CFPB ranges for the implied price. The $3,500 moving cost has no official source.",
+    "proposed_correction": "Mark the moving figure as a story assumption: \"about $3,500 to move (an assumption).\" (text-only; not applied)",
+    "confidence": "medium",
+    "checked": "2026-10-28",
+    "applied": "Moving figure labeled \"(an assumption in this story)\" in Dana text 0.6.1-w4; down payment and closing ranges verified against CFPB."
+   }
+  },
+  {
+   "id": "dana.open09",
+   "journey": "dana",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Re-underwriting after a loan or other new debt",
+   "where": "D3 B",
+   "suggested_source": "Lender guidance",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "No player-facing re-underwriting statement was found. Related Dana text: \"Dana's lender is moving toward closing.\" and \"Check your own lender's terms.\"",
+    "sources": [
+     {
+      "url": "https://singlefamily.fanniemae.com/applications-technology/desktop-underwriter-desktop-originator/undisclosed-liabilities",
+      "publisher": "Fannie Mae Desktop Underwriter",
+      "source_date": "effective 2025-11-15",
+      "supports": "New debt found during origination: lender recalculates DTI and resubmits to DU; new subordinate financing on the property requires re-underwriting."
+     },
+     {
+      "url": "https://consumerfinance.gov/ask-cfpb/when-will-my-lender-run-or-obtain-a-copy-of-my-credit-report-en-322",
+      "publisher": "CFPB",
+      "source_date": "last modified 2025-01-14",
+      "supports": "A lender may check credit just before closing."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "There is no assertion to correct; the general principle that new debt before closing can trigger a re-check is supported.",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "dana.open10",
+   "journey": "dana",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Three months of essentials as the emergency target; one month as the warning line",
+   "where": "D3, D7",
+   "suggested_source": "CFPB and personal-finance sources",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Dana: \"emergency savings $8,700 (3 months of essentials)\" / \"above the 1-month line\"",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "Three months of expenses is common guidance, but no official source was retrieved in this pass.",
+    "proposed_correction": "Find a CFPB or government emergency-savings page, or label as a rule of thumb.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Dana plan line: \"The three-month emergency target is this scenario's choice; official guidance varies and some suggests six months.\" (0.6.1-w5). FDIC (2025-01-03) recommends at least six months.",
+   "waived": false
+  },
+  {
+   "id": "dana.f1",
+   "journey": "dana",
+   "kind": "fictional",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "The stablecoin yield vault, crypto-backed lending protocol, high-yield DeFi platform and DeFi liquidity pool in the Dana story, and their rates and terms",
+   "note": "story rule; must be labeled fictional to the player",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: names and rates (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Player text: \"The stablecoin yield vault, crypto-backed lending protocol, high-yield DeFi platform and DeFi liquidity pool in this story are simulated examples. Their rates, fees, limits and terms are story rules, not market data, and real protocols differ.\" (Dana plan)",
+   "waived": false
+  },
+  {
+   "id": "dana.f2",
+   "journey": "dana",
+   "kind": "fictional",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Lending protocol terms in the Dana story: 50% maximum LTV, 80% liquidation, 5% penalty, 0.5% swap fee, simple interest, repay with collateral, collateral lock, no deficiency",
+   "note": "story rule; must be labeled fictional to the player",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: lending protocol terms (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Player text: \"The lending protocol's rules in this simulation: Lending limit 50% ...\" (Dana D5 and plan)",
+   "waived": false
+  },
+  {
+   "id": "dana.f3",
+   "journey": "dana",
+   "kind": "fictional",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Vault withdrawal cap ($2,000 a week), high-yield platform exploit and 55% recovery, liquidity pool at −4%, the platform's 12% is not credited",
+   "note": "story rule; must be labeled fictional to the player",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: vault cap and exploit (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Covered by the Dana plan line that product terms are story rules, and \"In this story the pool returns −4.0%\".",
+   "waived": false
+  },
+  {
+   "id": "dana.f4",
+   "journey": "dana",
+   "kind": "fictional",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "$450 records-reconstruction cost (Dana's own), $450 rate-lock extension fee per delay month, 3-month delay cap",
+   "note": "story rule; must be labeled fictional to the player",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: fictional fees (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Player text: \"$450 records-reconstruction cost (fictional, her own expense)\"; rate-lock fee and delay cap \"are scenario assumptions, not market data. Real fees and lock terms vary by lender.\"",
+   "waived": false
+  },
+  {
+   "id": "dana.f5",
+   "journey": "dana",
+   "kind": "fictional",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "ETH index events (−40%, −30%, later partial recovery)",
+   "note": "story rule; must be labeled fictional to the player",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: ETH index events (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: ETH falls of 40% and 30% are stated without \"in this story\". Proposed: \"In this scenario, ETH has fallen 40%.\"",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Dana plan line: \"ETH price moves are scenario events\" (0.6.1-w5). Note: the Q-level sentences \"ETH has fallen 40% since month 1\" carry no inline label; the label is the plan line only.",
+   "waived": false
+  },
+  {
+   "id": "dana.m1",
+   "journey": "dana",
+   "kind": "model",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Insured home savings earn **0%** in the model (real accounts pay interest, which understates D1 B)",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: 0% insured savings (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: No player text says insured savings earn 0% in the model. Proposed: \"Insured savings are modeled at 0% interest.\"",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Dana plan line: \"insured savings are modeled at 0% interest, which is lower than a real account would pay\" (0.6.1-w5).",
+   "waived": false
+  },
+  {
+   "id": "dana.m2",
+   "journey": "dana",
+   "kind": "model",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "$250 flexible-spending floor",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: $250 floor (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: $250 floor is stated as Dana's budget, not labeled as a model choice.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Dana intro: \"$250 floor plus $450 discretionary, set for this scenario\" (0.6.1-w5).",
+   "waived": false
+  },
+  {
+   "id": "dana.m3",
+   "journey": "dana",
+   "kind": "model",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Closing on the last day of month 24, after the month-24 transfer",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: closing date convention (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: Closing on the last day of month 24 is stated without a model label.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Dana situation: \"this scenario assumes closing on that day, after the transfer\" (0.6.1-w5).",
+   "waived": false
+  },
+  {
+   "id": "dana.m4",
+   "journey": "dana",
+   "kind": "model",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "D6: a $21,000 vault takes about 12 weeks to move, with no interest credited during the transfer",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: vault transfer time (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Derived from the labeled fictional $2,000-a-week vault cap (dana.f3); no separate real-world claim in the text.",
+   "waived": false
+  },
+  {
+   "id": "dana.m5",
+   "journey": "dana",
+   "kind": "model",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "ETH baseline $2,400; realized loss measured against the month-1 value",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: ETH baseline (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived. Not reclassified: ETH baseline $2,400 is stated as Dana's holding, not labeled.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Dana intro: \"Opening (scenario assumptions): ... ETH $2,400 ...\" (0.6.1-w5).",
+   "waived": false
+  },
+  {
+   "id": "dana.m6",
+   "journey": "dana",
+   "kind": "model",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "The 50% \"manageable\" threshold in D5 is the simulated lending protocol's own limit, used as a **scoring simplification**. It is not a real-world standard, not a safety level, and not financial advice. The 80% forced-sale line is a separate fictional rule",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: 50% line (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Not a real-world fact; no outside source applies. It stays UNVERIFIED until the owner records a WAIVED decision. Not silently waived.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Player text: the 50% line \"is a simplification for scoring, not a safe level in real life\".",
+   "waived": false
+  },
+  {
+   "id": "dana.m7",
+   "journey": "dana",
+   "kind": "model",
+   "status": "WAIVED",
+   "claim": "Fictional names need a collision check against real products",
+   "note": "modeling choice awaiting confirmation",
+   "verification": {
+    "result": "UNVERIFIED",
+    "tier": 2,
+    "statement": "Fictional names: Harbor Vault, Keystone Loans, Apex Yield, Surge Pool",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Web name search run 2026-10-28 (not a trademark search). Possible collisions: \"ApexYield\"/Apex Yield (existing Solana yield project and ApeX protocol); Keystone Finance (a DeFi entity; \"Keystone Loans\" not found exactly); Surge (existing \"Surge\" DeFi protocol and SURGE tokens; \"Surge Pool\" generic); Harbor Protocol (exists; \"Harbor Vault\" not found exactly). Collision risk is not cleared.",
+    "proposed_correction": "Owner decision: rename Apex Yield and Surge Pool (highest overlap) or accept the risk after a trademark search; display names only, IDs unaffected.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "track": "naming review (outside financial-claims verification)",
+   "naming_review": {
+    "decision": "Owner retained Harbor Vault, Keystone Loans, Apex Yield and Surge Pool unchanged (2026-10-28). Rename proposal rejected.",
+    "finding": "General web searches found name similarities (ApexYield / ApeX protocol; Surge protocol and SURGE tokens; Keystone Finance; Harbor Protocol) but no documented legal conflict.",
+    "not_done": "No formal trademark clearance or registry search was performed.",
+    "status_note": "Not an automatic financial-claims release blocker."
+   },
+   "resolution": {
+    "decision": "Superseded 2026-10-28 by the owner's Educational Terminology Standard directive. The invented provider and product names were removed from all player-facing text and replaced with generic DeFi terminology, so no name collision remains to check. The earlier \"retain original names\" decision is withdrawn.",
+    "approval": "Owner directive \"Implement Educational Terminology Corrections\" (2026-10-28)",
+    "history": "The original naming-review fields below are preserved as the historical record.",
+    "owner_confirmation": "Confirmed by the owner (2026-10-28): the waiver as superseded by the Educational Terminology directive is approved."
+   }
+  },
+  {
+   "id": "b1.claim01",
+   "journey": "zoe",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Settlement time of an on-chain crypto sale",
+   "current_value": "Proceeds available the same month, before the due date",
+   "suggested_source": "Real exchange and wallet withdrawal times; the lease due date",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Zoe: sale of crypto and on-chain transfer timing (no explicit minutes or hours found in the text).",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "No authoritative public source for settlement times; vendor and network dependent.",
+    "proposed_correction": "Treat as a labeled story assumption or add \"timing varies\" wording; owner may WAIVE as fictional.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Zoe plan line: \"In this story, a sale settles within the month.\" (Zoe 0.3.4).",
+   "waived": false
+  },
+  {
+   "id": "b1.claim02",
+   "journey": "zoe",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Tax effect of selling ETH or a vault position",
+   "current_value": "None modeled",
+   "suggested_source": "IRS treatment of digital-asset sales for a student with small positions",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Zoe: \"Selling costs money, and tax effects are not modeled here.\"",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/filing/digital-assets",
+      "publisher": "IRS",
+      "source_date": "last reviewed 2026-09-02 (tax year 2025 forms)",
+      "supports": "Sales and exchanges of digital assets must be reported; gain or loss is reported on Form 8949."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "The sentence does not claim sales are tax-free; it says tax is not modeled. Accurate as worded.",
+    "proposed_correction": null,
+    "confidence": "high",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "b1.claim03",
+   "journey": "zoe",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Sale cost",
+   "current_value": "0.5% plus a $19 on-chain fee per position",
+   "suggested_source": "Typical exchange and network fees",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Zoe: \"Buying or selling costs 0.5%; sales of crypto also cost a $19 on-chain fee per holding.\" / \"Fees can swamp small transfers: moving $25 on-chain can cost $19.\"",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "Fees vary by platform and network; no official source applies. The principle (small transfers can be dominated by fixed fees) is accurate.",
+    "proposed_correction": "Add \"In this story,\" before the fee statement. (text-only; not applied)",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "After v0.3.3 (Zoe): \"In this story, buying or selling costs 0.5%; ...\" and \"in this story, moving $25 on-chain can cost $19.\"",
+   "waived": false
+  },
+  {
+   "id": "b1.claim04",
+   "journey": "zoe",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Landlord split",
+   "current_value": "Fictional acceptance rule and $25 fee",
+   "suggested_source": "Landlord-tenant practice; lease terms; state limits on fees",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Zoe: \"Landlord (this story's rule, not a general rule)\" / \"This is this landlord's rule, not a promise from every landlord.\"",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "Already labeled as the story's rule; no outside fact to verify.",
+    "proposed_correction": "Owner decision: WAIVE as a labeled fictional rule.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Zoe: \"Landlord (this story's rule, not a general rule)\" / \"This is this landlord's rule, not a promise from every landlord.\"",
+   "waived": false
+  },
+  {
+   "id": "b1.claim05",
+   "journey": "zoe",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Card advance and late-fee mechanics",
+   "current_value": "2% a month, $800 limit, $35 late fee; a shortfall goes on the card only if all of it fits",
+   "suggested_source": "Whether a card can fund a deposit by bank transfer; cash-advance fees; card late-fee rules in force",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Zoe: \"This is a card advance, not a bank payment.\" / \"A card advance is borrowing, not cash.\" / \"Card: $800 limit, about 2% a month.\" / \"If a bill is bigger than the room left on the card, the whole bill goes unpaid and a $35 late fee is added.\"",
+    "sources": [
+     {
+      "url": "https://www.consumerfinance.gov/ask-cfpb/can-i-withdraw-money-from-my-credit-card-at-an-atm-en-34/",
+      "publisher": "CFPB",
+      "source_date": "last reviewed 2026-09-02",
+      "supports": "Cash advances usually carry a fee and a higher APR, and interest starts the day of the advance with no grace period."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Borrowing nature and immediate interest are accurate. The story prices a card advance at the same 2% a month with no fee, which understates real cost.",
+    "proposed_correction": "Add: \"Real card advances usually add a fee and a higher rate; this story uses one simple rate of about 2% a month.\" (text-only; not applied)",
+    "confidence": "medium",
+    "checked": "2026-10-28",
+    "applied": "Applied in Zoe text 0.3.3."
+   }
+  },
+  {
+   "id": "b1.claim06",
+   "journey": "marcus",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Recordkeeping need and benefit",
+   "current_value": "Not modeled; free invoice-terms action",
+   "suggested_source": "Real recordkeeping rules for crypto receipts",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 2,
+    "statement": "Marcus: \"Your tax adviser asks, as in Marcus's own plan, for a record of every crypto receipt and every conversion.\" / \"...a log is the foundation for every later tax conversation.\"",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/filing/digital-assets",
+      "publisher": "IRS",
+      "source_date": "2026-09-02",
+      "supports": "Taxpayers must keep records supporting their positions: date, time, units and U.S. dollar fair market value of each transaction."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Supported.",
+    "proposed_correction": null,
+    "confidence": "high",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "b1.claim07",
+   "journey": "jules",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Taxes on selling or lending against ETH",
+   "current_value": "None at M5",
+   "suggested_source": "IRS treatment of digital-asset sales and loans",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Jules: \"Borrowing against crypto adds interest and a forced-sale risk, and selling adds fees and, in real life, possible tax.\"",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/filing/digital-assets",
+      "publisher": "IRS",
+      "source_date": "2026-09-02",
+      "supports": "Disposing of a digital asset (sale, exchange, spending) is reportable; gain or loss depends on basis."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "\"Possible tax\" on selling is accurate. The IRS page does not address borrowing against digital assets, and the sentence makes no tax claim about borrowing.",
+    "proposed_correction": null,
+    "confidence": "high",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "b1.claim08",
+   "journey": "jules",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Lending protocol terms (Jules and Elena stories)",
+   "current_value": "50% max LTV, forced sale above 80%, 0.75% a month, 5% penalty (fictional)",
+   "suggested_source": "Real lender terms if used as a comparison",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 3,
+    "statement": "Fictional or model item: lending protocol terms (see register claim text).",
+    "sources": [],
+    "jurisdiction": "n/a",
+    "finding": "Resolved 2026-10-28 (Educational Terminology Standard): the invented lender name was removed; Jules and Elena now describe a generic crypto-backed lending protocol and label its terms as story assumptions (\"in this story\"). Not a real-world fact; no outside source applies.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional or model assumption.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Jules text: \"In this story the lending protocol's 50% opening limit needs ...\" (Jules 0.3.3); Elena: \"in this story it requires at least $2,000\".",
+   "waived": false
+  },
+  {
+   "id": "b1.claim09",
+   "journey": "all",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Credit-card cost",
+   "current_value": "2% a month (about 26.8% APR)",
+   "suggested_source": "Typical card terms; current late-fee rules",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "All journeys: \"Card: $800 limit, about 2% a month.\" / \"A credit card (limit $3,000, 2% a month).\" / Zoe: \"a $35 late fee is added.\"",
+    "sources": [
+     {
+      "url": "https://fred.stlouisfed.org/series/TERMCBCCINTNS",
+      "publisher": "Federal Reserve G.19 via FRED",
+      "source_date": "Aug 2026, updated 2026-10-07",
+      "supports": "Average credit card interest rate on accounts assessed interest: 22.36% APR (about 1.9% a month)."
+     },
+     {
+      "url": "https://www.consumerfinancemonitor.com/2025/04/16/federal-judge-voids-cfpb-credit-card-late-fee-rule/",
+      "publisher": "Consumer Finance Monitor (law-firm report of the court order)",
+      "source_date": "2025-04-16",
+      "supports": "CFPB $8 late-fee rule vacated; the old safe-harbor amounts ($30/$41, inflation-adjusted $32/$43) continue to frame typical fees. Secondary source only."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "2% a month is about 26.8% APR, above but near the 22.36% average, so it is a realistic story assumption; the text says \"about\". The $35 late fee is a story amount inside the usual range. Do not cite an $8 cap; it was vacated.",
+    "proposed_correction": null,
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   }
+  },
+  {
+   "id": "b1.claim10",
+   "journey": "zoe",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "School payment plan",
+   "current_value": "$1,500 at M12, $3,000 in three installments, $45 fee, $75 late fee",
+   "suggested_source": "A real institutional plan",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Zoe: \"first tuition payment of $1,500 (plus a $45 plan fee)\"; Elena: \"a 0% payment plan of $225 a month (an assumption in this story).\"",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "School payment-plan fees vary; no official source. Elena's plan is labeled an assumption; Zoe's fee is not labeled.",
+    "proposed_correction": "Label Zoe's $45 plan fee \"(an assumption in this story)\", or WAIVE as fictional.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Zoe intro: \"The $45 plan fee and all other amounts are assumptions in this story.\" (0.3.4); Elena: \"a 0% payment plan ... (an assumption in this story)\".",
+   "waived": false
+  },
+  {
+   "id": "b1.claim11",
+   "journey": "maya",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Gross pay, tax saving, match, reserve target",
+   "current_value": "$3,800 a month, 15%, 100% to 4%, 2 months",
+   "suggested_source": "Plausible wage; brackets; plan formulas; emergency-fund guidance",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Maya: \"Under this fictional plan the company matches 100% of her contribution, up to 4% of her pay before tax ($3,800 a month).\" / \"Real employer plans vary: match formulas, eligibility waits and vesting schedules differ, so check the actual plan.\"",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "Labeled fictional with a real-world caveat; pay and reserve figures are assumptions. No outside fact to verify.",
+    "proposed_correction": "Owner decision: WAIVE as labeled fictional.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Maya: \"Under this fictional plan ...\" and \"Real employer plans vary ... check the actual plan.\"",
+   "waived": false
+  },
+  {
+   "id": "b1.claim12",
+   "journey": "jules",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Base growth and premium",
+   "current_value": "0.5% a month; $1,100 premium",
+   "suggested_source": "Illustrative rate; plausible premium",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Jules: illustrative base growth and vault premium (about 5% a year advertised).",
+    "sources": [],
+    "jurisdiction": "United States (federal)",
+    "finding": "Illustrative figures; no outside fact asserted.",
+    "proposed_correction": "Owner decision: WAIVE as labeled illustrative, or add \"illustrative\".",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Jules: \"In this story its terms are assumptions; real vaults differ.\" and intro \"All figures in this scenario are assumptions for the exercise.\" (0.3.3).",
+   "waived": false
+  },
+  {
+   "id": "b1.claim13",
+   "journey": "marcus",
+   "kind": "external",
+   "status": "VERIFIED",
+   "claim": "Tax reserve, estimated-tax schedule, USDC taxation, deductibility",
+   "current_value": "20%; M4/M7/M10/M13; income at receipt; laptop expensed",
+   "suggested_source": "Entity-type tax rules; real due dates; stablecoin treatment",
+   "verification": {
+    "result": "VERIFIED",
+    "tier": 1,
+    "statement": "Marcus: \"Another estimated tax payment ($3,100) is due this month, paid from the tax reserve.\" / \"(the month-4 payment of $2,460 is due next month)\" / tax set-aside of $820 a month; \"Tax money is not optional capital.\"",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/pub/irs-pdf/f1040es.pdf",
+      "publisher": "IRS Form 1040-ES (2026)",
+      "source_date": "tax year 2026",
+      "supports": "Estimated payments are due April 15, June 15, September 15 and January 15 for calendar-year filers; required when you expect to owe at least $1,000."
+     },
+     {
+      "url": "https://www.irs.gov/filing/digital-assets",
+      "publisher": "IRS",
+      "source_date": "2026-09-02",
+      "supports": "Payments to independent contractors are reported on Schedule C; keep records of date, units and U.S. dollar value."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "The principle (set tax aside; estimated tax is quarterly) is correct. The story pays estimated tax on a monthly-style schedule (months 4, 5, 6) and states a flat set-aside, which is not the real schedule (four uneven dates). The 20% reserve rate is a story assumption. The USDC taxation and deductibility parts of the original claim are not asserted in the player text.",
+    "proposed_correction": "Add one line to the Marcus tax-reserve explanation: \"Real estimated-tax dates are April 15, June 15, September 15 and January 15; this story uses a simplified schedule and an assumed set-aside rate.\" (text-only; not applied)",
+    "confidence": "medium",
+    "checked": "2026-10-28",
+    "applied": "Applied in Marcus text 0.2.1."
+   }
+  },
+  {
+   "id": "b1.claim14",
+   "journey": "elena",
+   "kind": "external",
+   "status": "SIMULATION ASSUMPTION",
+   "claim": "Leave pay, medical plan, childcare, baby's ETH gift",
+   "current_value": "75% for M2 to M3; 0% plan $2,700; $1,800 deposit and $700 a month; held or sold by the parent",
+   "suggested_source": "Leave rules; provider plans; childcare prices; custodial and gift-tax treatment",
+   "verification": {
+    "result": "SIMULATION ASSUMPTION",
+    "tier": 2,
+    "statement": "Elena: \"Take-home pay is $5,100 a month ($3,825 in months 2 and 3 on parental leave).\" / \"A small gift can be held or sold.\" / \"The childcare centre needs a $1,800 deposit now.\"",
+    "sources": [
+     {
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/frequently-asked-questions-on-gift-taxes",
+      "publisher": "IRS",
+      "source_date": "2026-07-23",
+      "supports": "2026 annual gift-tax exclusion is $19,000 per recipient; the donor is generally responsible for any gift tax, and the recipient generally takes the donor's basis."
+     }
+    ],
+    "jurisdiction": "United States (federal)",
+    "finding": "Gift handling in the text is consistent with the IRS. Leave pay, medical plan and childcare costs are story assumptions that vary by employer and state.",
+    "proposed_correction": "Owner decision: WAIVE leave and childcare figures as story assumptions.",
+    "confidence": "medium",
+    "checked": "2026-10-28"
+   },
+   "sim_basis": "Elena intro: \"Pay, leave pay and costs are assumptions in this story.\" (0.1.2); gift handling consistent with IRS 2026 gift-tax FAQ.",
+   "waived": false
+  }
+ ]
 }
