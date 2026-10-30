@@ -286,10 +286,10 @@ test("a click plays for each newly added letter only, so hovering the same lette
 
 test("tap, swipe and keyboard all reach the same single sound path",()=>{
   const pointer=app.slice(app.indexOf("function wgBeginPointer"),app.indexOf("function wgCancelPointer"));
-  assert.ok(!/wgAudio/.test(pointer),"pointer handlers add no sound of their own; they call wgAddLetter");
-  assert.match(pointer,/wgAddLetter\(button\)/,"pointer down goes through wgAddLetter");
-  const processor=app.slice(app.indexOf("function wgButtonsAlongPointer"),app.indexOf("function wgBeginPointer"));
-  assert.match(processor,/forEach\(wgAddLetter\)/,"all swept swipe hits go through the same wgAddLetter path");
+  assert.ok(!/wgAudio/.test(pointer),"pointer handlers add no sound of their own; they call wgSyncGesture");
+  assert.match(pointer,/wgSyncGesture\(events\)/,"pointer down goes through wgSyncGesture, the one place swipe sounds are triggered");
+  const processor=app.slice(app.indexOf("function wgProcessPointerPosition"),app.indexOf("function wgRequestPaint"));
+  assert.match(processor,/wgSyncGesture\(wgGesture\.advance\(point\)\)/,"all swept swipe hits go through the same wgSyncGesture path");
   assert.match(app,/wgWheelElement\.addEventListener\("click",[\s\S]{0,200}wgAddLetter\(button\)/,"keyboard activation uses it too");
 });
 
