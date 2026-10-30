@@ -5,10 +5,12 @@ const path=require("node:path");
 const {ROOT}=require("./helpers.js");
 
 const html=fs.readFileSync(path.join(ROOT,"index.html"),"utf8");
+const worldMapStart=html.indexOf('id="journeyWorldMap"');
+const worldMapEnd=html.indexOf('<section class="wg-screen"',worldMapStart);
+const worldMapSection=html.slice(worldMapStart,worldMapEnd);
 
 test("Choose Your World presents all 13 owner-approved worlds in order",()=>{
-  const section=html.split('id="worldSelectScreen"')[1].split("</section>")[0];
-  const ids=[...section.matchAll(/id="(select[A-Za-z]+World)"/g)].map(match=>match[1]);
+  const ids=[...worldMapSection.matchAll(/id="(select[A-Za-z]+World)"/g)].map(match=>match[1]);
   assert.deepEqual(ids,[
     "selectMoneyBasicsWorld",
     "selectCreditWorld",
@@ -27,10 +29,9 @@ test("Choose Your World presents all 13 owner-approved worlds in order",()=>{
 });
 
 test("the eight new world cards are playable and no longer marked Coming Soon",()=>{
-  const section=html.split('id="worldSelectScreen"')[1].split("</section>")[0];
   const newWorldIds=["coins","ai_technology","real_estate","taxes","insurance","business","social_media","retirement"];
   for(const worldId of newWorldIds){
-    const node=section.match(new RegExp(`<button[^>]+data-world="${worldId}"[\\s\\S]*?<\\/button>`));
+    const node=worldMapSection.match(new RegExp(`<button[^>]+data-world="${worldId}"[\\s\\S]*?<\\/button>`));
     assert.ok(node,worldId);
     assert.doesNotMatch(node[0],/coming-soon/);
     assert.doesNotMatch(node[0],/Coming soon/i);
@@ -72,4 +73,28 @@ test("all governed runtime files load before the shared word-game engine",()=>{
   assert.ok(investingBank<engine);
   assert.ok(newTerms<engine);
   assert.ok(newBanks<engine);
+});
+
+test("Bonus Games appears before Learning Quests in the primary Journey navigation",()=>{
+  const html=fs.readFileSync(path.join(ROOT,"index.html"),"utf8");
+  assert.ok(html.indexOf('id="journeyTabGames"')<html.indexOf('id="journeyTabLearning"'));
+});
+
+test("the Bonus Games hub uses the owner-approved local portal artwork",()=>{
+  const css=fs.readFileSync(path.join(ROOT,"journey.css"),"utf8");
+  const asset=path.join(ROOT,"assets/images/bonus-games-portal.png");
+  assert.ok(fs.existsSync(asset));
+  assert.ok(fs.statSync(asset).size>2_000_000,"the approved full-resolution PNG must not be replaced by a lightweight placeholder");
+  assert.match(css,/\.bonus-games-hub[^}]*url\("assets\/images\/bonus-games-portal\.png"\)/);
+  assert.match(css,/\.bonus-game-card[^}]*backdrop-filter/,"game cards remain readable over the artwork");
+});
+
+test("the World Quest Journey uses the owner-approved local Golden Castle PNG across the complete route",()=>{
+  const css=fs.readFileSync(path.join(ROOT,"journey.css"),"utf8");
+  const asset=path.join(ROOT,"assets/images/golden-castle-journey.png");
+  assert.ok(fs.existsSync(asset));
+  assert.ok(fs.statSync(asset).size>2_000_000,"the approved full-resolution PNG must not be replaced by a lightweight placeholder");
+  assert.match(css,/#worldSelectScreen \.journey-map[^{]*\{[^}]*url\("assets\/images\/golden-castle-journey\.png"\)/);
+  assert.match(css,/#worldSelectScreen \.journey-map[^}]*background-size:100% 100%/,"the approved composition reaches the bottom of the complete route as one continuous background");
+  assert.match(css,/#worldSelectScreen \.journey-node[^}]*backdrop-filter/,"world controls remain readable over the artwork");
 });

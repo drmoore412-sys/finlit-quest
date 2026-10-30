@@ -10,6 +10,196 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-10-26 — Shared letter-wheel gesture engine (crossword + Currency Rush) — NOT DEPLOYED, NOT COMMITTED
+
+Status: local only, awaiting review. Real-iPhone testing NOT done (sandbox is Chromium-only, simulated mouse + CDP touch; no WebKit).
+
+Root causes (measured):
+1. Catch zones were about 1.4x the visible tile radius; straight swipes between non-adjacent letters clipped neighbours (simulation: old engine 69% clean on direct-line swipes vs about 97% at 1.0x).
+2. A press landing in the gap beside a letter was ignored (crossword hit-test and Currency Rush required pointerdown on the button).
+3. Currency Rush: a short/failed swipe left its letters selected and contaminated the next attempt.
+4. Releasing just short of the final letter lost that letter.
+5. Crossword re-measured layout and rewrote the trace on every pointermove (jank).
+6. Grazing the previous tile could delete a letter.
+7. Currency Rush "CODE FOUND!" overlay intercepted pointer events and swallowed the next swipe (fixed: pointer-events:none).
+
+Code changes: src/wheel-interaction.js (pure gesture engine: createGesture, segmentHits, tileAtPoint, closestApproach; defaults enter 1.0, start 1.3, backtrack .55, release 1.6); word-game-app.js and src/currency-rush.js now use it (cached geometry, rAF painting, audio in try/catch after state update); currency-rush.css overlay fix; iOS bundle copies synced (byte parity verified). Unchanged: answers, currency-code validation, scoring, timers, rewards, saves.
+
+Tests: full suite 580/580 (new tests/wheel-gesture.test.js, 19 tests; 5 legacy source-pattern tests updated, intent preserved).
+
+Benchmarks (first-attempt acceptance; Chromium, desktop viewport; animations/blur disabled in the harness for BOTH builds to make it runnable on 2 CPUs):
+- Currency Rush, 294 trials each: before 245 (83.3%) -> after 293 (99.7%). Mouse 84.4% -> 99.3%; touch 82.3% -> 100%. Slow 79.8 -> 100; medium 89.3 -> 100; fast 96.4 -> 100; burst 52.4 -> 97.6. Straight 81.5 -> 99.4; curved 85.7 -> 100. Leftover-selection (stuck) 17 -> 0.
+- Currency Rush extra styles, 120 trials: 57.5% -> 96.7% (press-in-gap 1/36 -> 36/36; release-short 25/36 -> 33/36; direct chords 43/48 -> 47/48). Remaining 4 misses: 3 release-short touch, 1 chord.
+- Crossword, 294 trials each (final word of each puzzle excluded: completion overlay is a harness artefact): 94.2% -> 96.6%. Slow/medium/fast: 100% -> 100% (252/252 both; hub-routed styles were already fine). Burst: 59.5% -> 76.2%. Mouse 94.6 -> 96.6; touch 93.9 -> 96.6.
+- Crossword extra styles, 80 trials: 60.0% -> 100%.
+- Pointer handler cost per move (ms mean/p95): crossword 0.541/1.3 -> 0.055/0.2; Currency Rush 0.245/0.7 -> 0.051/0.2. No added input lag.
+- Behaviour checks (before -> after): CR short swipe clears (fail -> pass); CR lift near last letter completes (fail -> pass); lift between two equal letters does not guess (pass); touchcancel / mouse-up outside page leave nothing selected; no page scroll while tracing (touch-action none); page scroll still works outside wheel; 390px layouts fine; reduced-motion works.
+
+Remaining limitations: crossword burst failures (10 trials, 5 words, deterministic) are 2-4 event swipes whose straight lines pass within about one tile radius of a neighbour; Currency Rush: 3 release-short touch misses. No WebKit/real iPhone; synthetic paths; the 99% target is met for Currency Rush and for slow/medium/fast crossword, not for crossword burst stress. iOS xcodebuild could not be run (no Xcode in this environment); bundle parity verified only.
+
+
+## 2026-10-26 — Approved portal artwork added to Bonus Games
+
+Integrated the owner's exact attached fantasy portal PNG as the Bonus Games hub background without regenerating, substituting, or recompressing the artwork. The dragon, glowing portal, castle, village, and treasure chest remain visible behind readable glass game cards.
+
+### Completed work
+
+- Saved the byte-identical 1672×941 PNG at `assets/images/bonus-games-portal.png` (SHA-256 `7ca93018f1878415db117dd89a7a81a2413da8901fba68d41cdf17ae53379522`).
+- Added responsive cover positioning for desktop and mobile, a restrained readability overlay, and translucent game-card and heading surfaces.
+- Added the image to the production web build manifest and synchronized identical bytes into the Capacitor iOS bundle.
+- Captured desktop and mobile review screenshots in `artifacts/bonus-games/`.
+
+### Files modified
+
+- `assets/images/bonus-games-portal.png`
+- `journey.css`
+- `scripts/build-www.sh`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/journey.css`
+- `ios/App/App/public/assets/images/bonus-games-portal.png`
+- `artifacts/bonus-games/bonus-games-background-desktop.png`
+- `artifacts/bonus-games/bonus-games-background-mobile.png`
+- `PROJECT_LOG.md`
+
+### Verification and status
+
+- Source, generated web, and generated iOS images have the same SHA-256 checksum.
+- Complete automated suite: **561 of 561 passed**.
+- Desktop review at 1440×1050 and mobile review at 375×812 confirmed readable cards and responsive artwork positioning.
+- No games, routes, puzzles, progression, saves, audio, rewards, XP, coins, or achievements changed.
+- This update remains local and is not deployed.
+
+---
+
+## 2026-10-26 — Bonus Games moved ahead of Learning Quests
+
+Reordered the World Quest Journey navigation to show **Word Quests → Bonus Games → Learning Quests**, as requested by the owner. Routes, content, and tab behavior are unchanged.
+
+### Files modified
+
+- `index.html`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/index.html`
+- `PROJECT_LOG.md`
+
+### Verification and status
+
+- Added a regression test that verifies Bonus Games appears before Learning Quests.
+- Complete automated suite: **560 of 560 passed**.
+- Rebuilt the web bundle and synchronized the iOS bundle.
+- No gameplay, puzzles, saves, progression, audio, rewards, XP, coins, or achievements changed.
+- This update remains local and is not deployed.
+
+---
+
+## 2026-10-26 — Golden Castle background extended through the complete Journey page
+
+Responded to owner review that the approved artwork ended halfway down the world route. The same approved PNG now forms one continuous background from the top of the Journey map through the final world card, with no repeated-image seam.
+
+### Completed work
+
+- Changed the Journey artwork from a top-only background to a full-height background spanning all 13 world cards.
+- Preserved the exact approved PNG and the existing translucent navigation cards, labels, routes, music controls, and gameplay behavior.
+- Rebuilt the web bundle, synchronized the iOS bundle, and replaced the desktop and mobile review screenshots with the full-height result.
+
+### Files modified
+
+- `journey.css`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/journey.css`
+- `artifacts/golden-castle/golden-castle-desktop.png`
+- `artifacts/golden-castle/golden-castle-mobile.png`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Complete automated suite: **559 of 559 passed**.
+- Desktop full-page review at 1440×1050 and mobile full-page review at 375×812 confirmed the image reaches the final world card and contains no repeat seam.
+- The web and iOS bundles were regenerated from the same source CSS.
+- Unsigned iOS Simulator Release build succeeded with Xcode and the iPhoneSimulator 27.1 SDK.
+- No puzzles, progression, hints, audio, saves, rewards, XP, coins, or achievements changed.
+- This update remains local and is not deployed.
+
+---
+
+## 2026-10-26 — Approved Golden Castle Journey artwork integrated locally
+
+Integrated the owner's exact attached Golden Castle PNG into the World Quest Journey page without regenerating, recompressing, or substituting the artwork. This milestone is complete locally and has not been deployed.
+
+### Completed work
+
+- Saved the byte-identical approved image at `assets/images/golden-castle-journey.png` (1536×1024 PNG; SHA-256 `ba0bc3ed7fabdb48adc17e94a9130ae5b4aeb553f279bb6e8c2feed36579015f`).
+- Replaced the synthetic Journey scenery with the approved castle, crescent moon, waterfalls, and golden, blue, and green paths while preserving all 13 world controls and their order.
+- Used aspect-ratio-preserving `background-size: 100% auto` presentation, translucent glass controls, limited blur, and responsive positioning. Desktop cards avoid the castle; mobile shows the complete artwork before the scrollable world route begins.
+- Removed the old synthetic SVG path, clouds, river shimmer, and path spark from the Journey screen so they do not cover or conflict with the approved artwork.
+- Added the image to the production web build manifest and synchronized the exact same bytes into the Capacitor iOS bundle.
+- Captured reviewed desktop and iPhone-size screenshots under `artifacts/golden-castle/`.
+
+### Files modified
+
+- `assets/images/golden-castle-journey.png`
+- `journey.css`
+- `scripts/build-www.sh`
+- `tests/world-selection.test.js`
+- `ios/App/App/public/journey.css`
+- `ios/App/App/public/assets/images/golden-castle-journey.png`
+- `artifacts/golden-castle/golden-castle-desktop.png`
+- `artifacts/golden-castle/golden-castle-mobile.png`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Complete automated suite: **559 of 559 passed**.
+- Production web build completed: **69 files, 9.6 MB**.
+- Unsigned iOS Simulator Release build succeeded with Xcode and the iPhoneSimulator 27.1 SDK.
+- Source, generated web, and generated iOS images have the same SHA-256 checksum, confirming exact asset parity.
+- Desktop review at 1440×1050 and mobile review at 375×812 confirmed that the artwork is not stretched, the major landmarks remain visible, and world navigation remains readable.
+- Existing music-only mute behavior, sound effects, puzzles, saves, XP, coins, achievements, and rewards were not changed.
+- Known issue: final physical-iPhone visual confirmation remains recommended because simulator-sized browser review cannot reproduce every device safe-area and browser-toolbar combination.
+- Recommended next step: owner reviews the local screenshots. Do not deploy until the owner approves the combined local changes; the live website remains unchanged.
+
+---
+
+## 2026-10-26 — Bonus Games hub and interrupted-wheel recovery completed locally
+
+Moved standalone practice experiences out of bottom-of-page banners into a dedicated top-level arcade and corrected a second wheel reliability defect reproduced in the local browser. This milestone remains local and has not been deployed.
+
+### Completed work
+
+- Added a third **Bonus Games** tab beside Word Quests and Learning Quests.
+- Added a responsive Bonus Arcade hub containing Currency Rush, Where Should My Money Go?, and a reserved future-games card.
+- Removed the scattered bottom game banners; Currency Rush now returns to Bonus Games when launched from the arcade while the post-crossword bonus still returns to the completed puzzle.
+- Reproduced the remaining wheel failure: some browsers emitted `pointercancel` or `lostpointercapture`, causing the game to erase the selected letters and report “Selection cancelled.”
+- Changed interrupted pointer handling to preserve tapped letters and submit a completed multi-letter swipe instead of discarding the attempt.
+- Disabled browser-native drag images, text selection, long-press callouts, and context menus on both crossword and Currency Rush wheels. Letter tiles are explicitly non-draggable.
+- Rebuilt the web bundle and synchronized the same assets into the local Capacitor iOS bundle.
+
+### Files modified
+
+- `index.html`
+- `app.js`
+- `journey.css`
+- `word-game-app.js`
+- `word-game.css`
+- `src/currency-rush.js`
+- `currency-rush.css`
+- `tests/wheel-interaction.test.js`
+- `tests/currency-rush.test.js`
+- `tests/world-selection.test.js`
+- Generated bundle copies under `www/` and `ios/App/App/public/`
+- `PROJECT_LOG.md`
+
+### Verification, decisions, and next steps
+
+- Focused interaction and audio tests: **88 of 88 passed**.
+- Complete automated suite: **558 of 558 passed**.
+- Local browser verification confirmed the Bonus Games desktop layout, Currency Rush launch/return routing, and first-entry acceptance of `NET` after the same automated pointer sequence had previously reproduced “Selection cancelled.”
+- Architectural decision: standalone mini-games belong in Bonus Games; Learning Quests remains reserved for authored educational lessons and activities.
+- Known issue: real-device testing is still recommended for the exact iPhone touch sequence that originally produced the ghost drag.
+- Recommended next step: owner reviews the local Bonus Games layout and wheel feel. Do not deploy until that review is complete.
+
+---
+
 ## 2026-10-26 — Shared letter-wheel reliability restored and verified for deployment
 
 Corrected intermittent word-entry failures in both governed crosswords and Currency Rush. The issue was input sampling, not puzzle data: fast pointer movement could cross a letter between browser events, and the final pointer-up position was not processed before submission.
@@ -87,6 +277,42 @@ Corrected Currency Rush so every owner-supplied nine-letter wheel follows the sa
 - No production deployment was performed. Recommended next step: owner play-tests the three Wheel 1 stages, then decides whether the optional crossword bonus should remain available after every puzzle or only at selected level milestones. Any spendable bonus reward still requires a separate one-time reward and deduplication policy.
 
 ---
+
+## 2026-10-26 — Approved DeFi Tower artwork integrated (branch feature/defi-tower) — NOT DEPLOYED
+
+The project-owner-supplied cinematic DeFi Tower image was approved for development integration. The image was not regenerated or substituted. The earlier vector placeholder tower (map building and intro art) is removed.
+
+- Original preserved: assets/defi-tower/source/defi-tower-approved-original.png (1672x941 PNG, not shipped in the app bundle).
+- Intro screen: assets/defi-tower/defi-tower-hero.jpg, the complete uncropped image at full 1672x941 resolution (JPEG quality 93, 4:4:4), displayed at its native 16:9 aspect ratio with real alt text and a caption.
+- Map: assets/defi-tower/defi-tower-map.jpg, a 350x800 crop of the same image around the skyscraper ("DeFi TOWER" sign and entrance stay recognizable, neighbouring panels excluded), shown in a gold frame with a row of eight dots for visited floors.
+- Home entry card thumbnail: assets/defi-tower/defi-tower-thumb.jpg (480px version of the full image).
+- Readability: the picture's text is small on phones, so the five education panels (Stablecoins, Ethereum, Bitcoin/WBTC, Governance tokens, Other cryptocurrencies) are repeated as real HTML text beneath the intro, each with a short risk note (not insured, no guaranteed return, wrapped-asset and collateral risks). Examples are labelled as not recommendations or endorsements.
+- Unchanged: eight floors, choices, scoring, replay protection, saved progress, sound settings, Financial City challenges. Wheel-fix branch not merged.
+- Files changed: defi-tower.js, defi-tower.css, financial-city.html, scripts/build-www.sh, tests/defi-tower.test.js, the four assets above, the iOS bundle copies (ios/App/App/public/ same paths), PROJECT_LOG.md.
+- Tests: full suite 599/599 (new tests for the full-image display, native aspect ratio and dimensions, original preserved, map crop, HTML panel text, bundle parity). Real-browser checks (desktop, 390px touch, reduced motion, keyboard climb, replay protection, mute persistence): all passed, no horizontal scroll, no console errors.
+- Remaining release blockers: (1) scenario wording, answers and scoring are still DRAFT and need accuracy review; (2) the image shows real crypto brand logos (USDC, Tether, DAI, Bitcoin, Uniswap, Aave, Solana, Avalanche) and token names, so logo/trademark and App Store review should be confirmed with the owner; (3) the full-resolution image adds about 1.0 MB (hero) to the app bundle; (4) no real-iPhone testing and no Xcode build here; (5) the picture's own captions ("Digital dollars...") are shown as supplied and should be included in the accuracy review.
+
+
+## 2026-10-26 — DeFi Tower added to Financial City (educational draft) — NOT DEPLOYED
+
+Branch: feature/defi-tower, cut from the deployed commit 5ad4dc8 so it is fully separate from the pending letter-wheel fix (which stays on release/financial-city-and-codex-upgrades, commit c44724f, awaiting real-iPhone validation). No wheel, Word Quest or Currency Rush files were touched.
+
+Implemented
+- New modular files: defi-tower.js (data, scoring, saved state, screens, keyboard; also runs in Node), defi-tower.css. financial-city.html only gained hooks: stylesheet/script tags, a "tower" screen route, click/keyboard dispatch, mount, a home-only map building (crystal-and-gold tower with glowing portals, vault door, floating coins; floors light up as they are visited), and an entry card for small screens/keyboards. The allocation and simulation scenes still draw the original eight buildings only.
+- Eight floors, three choices each: High-Yield Temptation, Stablecoin or Bank, Crypto-Backed Borrowing, Liquidity Pool, Wallet Security, International Payments, Market Crash, Financial Future. Immediate feedback with explanation, "how the other choices compare", takeaway, floor progress indicator, previous/next, final score, replay, review.
+- Scoring: 100 knowledge points per correct first answer, 800 max. Best fit and "also defensible" both earn 100 (floors 1, 3, 4, 6, 7, 8 allow more than one defensible answer). Every floor has a best-fit answer that does not use DeFi, so a perfect score never requires it (tested).
+- Anti-farming: the first answer per floor is final within a climb; saved ("banked") tower points are added at most once per floor ever (cap 800); replays are practice only; a finished climb counts once; saved data is sanitized and scores are recomputed from the data, never read from storage.
+- Separate storage key flq-defi-tower-v1; no coins/XP; Financial City saves, wallet, lessons, best scores, profiles untouched (tested byte-for-byte).
+- Draft/educational labelling on every screen, "fictional example · educational assumptions" on every floor, and the no-deposit-insurance / never-guaranteed warnings. Uses the page's existing music/effects system (FLQ_AUDIO) and its saved mute preference; no separate audio.
+- Accessibility: native buttons, 1-3 keys answer, arrow keys move between floors, focus moves to the feedback, aria-current progress, 44px+ targets, reduced-motion disables all tower animation, 390px layout.
+
+Tests: tests/defi-tower.test.js (40 tests). Full suite 596/596. Real-browser check in Chromium (not committed): keyboard-only full climb to 800/800, replay with all weaker answers scores 0 while saved stays 800, reload resumes, touch taps (390px, touch emulation), no horizontal scroll, reduced-motion, music mute persists, Decision Challenge and $10,000 challenge still open, no page errors. iOS bundle copies synced and byte-identical; build-www.sh updated. Xcode build not run (no Xcode here).
+
+Awaiting approval / open items
+- All scenario wording, answers, tiers, numbers and scoring are DRAFT and have not gone through curriculum review. Legal/financial-accuracy review of the deposit-insurance, liquidation, impermanent-loss and tax statements is needed before release.
+- Tower art is original vector placeholder-quality; no approved raster art yet.
+- No real-iPhone testing. No deploy.
+
 
 ## 2026-10-26 — Currency Rush playable prototype and progressive learning completed locally
 

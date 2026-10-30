@@ -27,8 +27,13 @@ copy privacy.html
 copy terms.html
 copy support.html
 
-# Standalone bonus game (own page, own saves; linked from Learning Quests)
+# Standalone bonus game (own page, own saves; linked from Bonus Games)
 copy financial-city.html
+copy defi-tower.js
+copy defi-tower.css
+copy assets/defi-tower/defi-tower-hero.jpg
+copy assets/defi-tower/defi-tower-thumb.jpg
+copy assets/defi-tower/defi-tower-map.jpg
 
 # Stylesheets
 for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css; do
@@ -55,6 +60,12 @@ done
 for f in "$ROOT"/assets/worlds/*.jpg; do
   copy "${f#$ROOT/}"
 done
+
+# Owner-approved World Quest Journey artwork (kept byte-identical to the supplied PNG).
+copy assets/images/golden-castle-journey.png
+
+# Owner-approved Bonus Games portal artwork (kept byte-identical to the supplied PNG).
+copy assets/images/bonus-games-portal.png
 
 # Brand assets actually referenced at runtime (favicon, apple-touch-icon, in-app header logo, PWA icons)
 for f in assets/brand/favicon/favicon.ico assets/brand/favicon/favicon-16.png assets/brand/favicon/favicon-32.png \
