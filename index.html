@@ -7,11 +7,11 @@
   <meta name="description" content="Play. Learn. Master your financial future. FinLit Quest teaches real financial literacy through 13 playable word-puzzle worlds.">
   <meta name="theme-color" content="#0a1120">
 
-  <link rel="icon" href="assets/brand/favicon/favicon.ico?v=1793048275610" sizes="any">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon/favicon-16.png?v=1793048275610">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon/favicon-32.png?v=1793048275610">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/icons/apple-touch-icon-180.png?v=1793048275610">
-  <link rel="manifest" href="manifest.webmanifest?v=1793048275610">
+  <link rel="icon" href="assets/brand/favicon/favicon.ico?v=1793351358998" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon/favicon-16.png?v=1793351358998">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon/favicon-32.png?v=1793351358998">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/icons/apple-touch-icon-180.png?v=1793351358998">
+  <link rel="manifest" href="manifest.webmanifest?v=1793351358998">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -28,47 +28,40 @@
   <meta name="twitter:description" content="A word-puzzle game that teaches real financial literacy through 13 playable learning worlds.">
   <meta name="twitter:image" content="https://finlitquest.com/assets/brand/web/og-image-1200x630.png">
 
-  <link rel="stylesheet" href="design-tokens.css?v=1793048275610">
-  <link rel="stylesheet" href="styles.css?v=1793048275610">
-  <link rel="stylesheet" href="hints.css?v=1793048275610">
-  <link rel="stylesheet" href="premium.css?v=1793048275610">
-  <link rel="stylesheet" href="learning-engine.css?v=1793048275610">
-  <link rel="stylesheet" href="micro-lessons.css?v=1793048275610">
-  <link rel="stylesheet" href="journey.css?v=1793048275610">
-  <link rel="stylesheet" href="workbook-engine.css?v=1793048275610">
-  <link rel="stylesheet" href="word-game.css?v=1793048275610">
-  <link rel="stylesheet" href="currency-rush.css?v=1793048275610">
+  <link rel="stylesheet" href="design-tokens.css?v=1793351358998">
+  <link rel="stylesheet" href="styles.css?v=1793351358998">
+  <link rel="stylesheet" href="hints.css?v=1793351358998">
+  <link rel="stylesheet" href="premium.css?v=1793351358998">
+  <link rel="stylesheet" href="learning-engine.css?v=1793351358998">
+  <link rel="stylesheet" href="micro-lessons.css?v=1793351358998">
+  <link rel="stylesheet" href="journey.css?v=1793351358998">
+  <link rel="stylesheet" href="workbook-engine.css?v=1793351358998">
+  <link rel="stylesheet" href="word-game.css?v=1793351358998">
+  <link rel="stylesheet" href="currency-rush.css?v=1793351358998">
 </head>
 <body>
   <main class="app" id="app">
-    <section class="wg-screen welcome-screen hidden" id="welcomeScreen">
+    <section class="wg-screen welcome-screen hidden" id="welcomeScreen" aria-labelledby="welcomeTitle">
+      <div class="welcome-sky" aria-hidden="true"></div>
       <div class="welcome-card">
-        <div class="wg-logo welcome-logo"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></div>
-        <h1>Your Financial Journey Starts Here</h1>
-        <p class="welcome-tagline">Build real-world money skills through puzzles, challenges, and guided learning.</p>
-        <div class="welcome-path">
-          <div class="welcome-step">
-            <span class="welcome-step-icon" aria-hidden="true">🧩</span>
-            <span class="welcome-step-copy"><b>PLAY</b><em>Solve financial word puzzles</em></span>
-          </div>
-          <div class="welcome-step">
-            <span class="welcome-step-icon" aria-hidden="true">📖</span>
-            <span class="welcome-step-copy"><b>LEARN</b><em>Understand real-life money concepts</em></span>
-          </div>
-          <div class="welcome-step">
-            <span class="welcome-step-icon" aria-hidden="true">⭐</span>
-            <span class="welcome-step-copy"><b>GROW</b><em>Earn rewards and track your progress</em></span>
-          </div>
-        </div>
-        <button class="welcome-cta" id="welcomeStartButton">Begin Your Quest</button>
-        <p class="welcome-subtext">Start with Money Basics. Explore at your own pace.</p>
+        <div class="wg-logo welcome-logo"><img src="assets/brand/web/wg-logo-96.png?v=1793351358998" alt="FinLit Quest"></div>
+        <h1 id="welcomeTitle">FINLIT QUEST</h1>
+        <p class="welcome-tagline">Your Money. Your Choices. Your Adventure.</p>
+        <button class="welcome-cta" id="welcomeStartButton" type="button">Enter the Quest</button>
+        <nav class="welcome-options" aria-label="Game options">
+          <button class="welcome-option" id="welcomeExploreWorlds" type="button"><span class="welcome-option-icon" aria-hidden="true">◇</span><b>Explore Worlds</b><em>Discover financial destinations</em></button>
+          <button class="welcome-option" id="welcomePlayChallenges" type="button"><span class="welcome-option-icon" aria-hidden="true">✦</span><b>Play Challenges</b><em>Solve currency puzzles and earn knowledge points.</em></button>
+          <button class="welcome-option" id="welcomeLearningAcademy" type="button"><span class="welcome-option-icon" aria-hidden="true">✧</span><b>Learning Academy</b><em>Build real-world money skills</em></button>
+          <button class="welcome-option" id="welcomeMyProgress" type="button"><span class="welcome-option-icon" aria-hidden="true">★</span><b>My Progress</b><em>Achievements and rewards</em></button>
+        </nav>
+        <div class="welcome-utility" id="welcomeUtilitySlot" data-reserved="music" aria-hidden="true"></div>
         <p class="welcome-legal-links"><a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> · <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a></p>
       </div>
     </section>
 
     <section class="dashboard journey-dashboard world-map-screen hidden" id="worldSelectScreen">
       <header class="journey-topbar">
-        <div class="journey-brand"><span class="journey-logo journey-logo-img"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
+        <div class="journey-brand"><span class="journey-logo journey-logo-img"><img src="assets/brand/web/wg-logo-96.png?v=1793351358998" alt="FinLit Quest"></span><span><strong>FINLIT</strong><b>QUEST</b></span></div>
         <div class="journey-currencies" aria-label="Player resources">
           <div><span class="currency-icon coin">$</span><strong id="worldMapCoins">0</strong><small>COINS</small></div>
           <div><span class="currency-icon xp">★</span><strong id="worldMapXp">0</strong><small>XP</small></div>
@@ -178,7 +171,7 @@
 
     <section class="wg-screen" id="worldGameScreen">
       <header class="wg-topbar">
-        <div class="wg-brand"><button class="wg-logo" id="wgBrandLogo" aria-label="FinLit Quest home"><img src="assets/brand/web/wg-logo-96.png?v=1793048275610" alt="FinLit Quest"></button><div><b>FINLIT</b><b>QUEST</b></div></div>
+        <div class="wg-brand"><button class="wg-logo" id="wgBrandLogo" aria-label="FinLit Quest home"><img src="assets/brand/web/wg-logo-96.png?v=1793351358998" alt="FinLit Quest"></button><div><b>FINLIT</b><b>QUEST</b></div></div>
         <div class="wg-currencies">
           <div class="wg-currency"><span>💰</span><div><b id="wgCoins">0</b><small>COINS</small></div></div>
           <div class="wg-currency"><span>⭐</span><div><b id="wgXp">0</b><small>XP</small></div></div>
@@ -487,39 +480,39 @@
   </main>
 
   <div class="toast" id="toast" aria-live="polite"></div>
-  <script src="content/crypto-terms.js?v=1793048275610"></script>
-  <script src="worlds/crypto.js?v=1793048275610"></script>
-  <script src="src/content-validator.js?v=1793048275610"></script>
-  <script src="src/world-loader.js?v=1793048275610"></script>
-  <script src="src/game-engine.js?v=1793048275610"></script>
-  <script src="src/wheel-interaction.js?v=1793048275610"></script>
-  <script src="learning-engine.js?v=1793048275610"></script>
-  <script src="content/world-definitions-2027.js?v=1793048275610"></script>
-  <script src="content/2027-new-world-terms.js?v=1793048275610"></script>
-  <script src="content/2027-new-world-puzzle-banks.js?v=1793048275610"></script>
-  <script src="content/shared-puzzle-library-2027.js?v=1793048275610"></script>
-  <script src="app.js?v=1793048275610"></script>
-  <script src="curriculum/credit/approved/runtime/credit-foundations.js?v=1793048275610"></script>
-  <script src="worlds/credit-foundations.js?v=1793048275610"></script>
-  <script src="src/workbook-engine.js?v=1793048275610"></script>
-  <script src="workbook-app.js?v=1793048275610"></script>
-  <script src="content/credit-game-terms.js?v=1793048275610"></script>
-  <script src="content/credit-term-identities.js?v=1793048275610"></script>
-  <script src="content/money-basics-terms.js?v=1793048275610"></script>
-  <script src="content/money-basics-puzzle-bank.js?v=1793048275610"></script>
-  <script src="content/banking-basics-terms.js?v=1793048275610"></script>
-  <script src="content/banking-basics-puzzle-bank.js?v=1793048275610"></script>
-  <script src="content/investing-basics-terms.js?v=1793048275610"></script>
-  <script src="content/investing-basics-puzzle-bank.js?v=1793048275610"></script>
-  <script src="src/puzzle-bank-engine.js?v=1793048275610"></script>
-  <script src="content/v3-supplemental-terms.js?v=1793048275610"></script>
-  <script src="src/v3-puzzle-slate.js?v=1793048275610"></script>
-  <script src="content/audio-config.js?v=1793048275610"></script>
-  <script src="content/world-backgrounds.js?v=1793048275610"></script>
-  <script src="content/currency-rush-data.js?v=1793048275610"></script>
-  <script src="src/game-audio.js?v=1793048275610"></script>
-  <script src="src/victory-celebration.js?v=1793048275610"></script>
-  <script src="word-game-app.js?v=1793048275610"></script>
-  <script src="src/currency-rush.js?v=1793048275610"></script>
+  <script src="content/crypto-terms.js?v=1793351358998"></script>
+  <script src="worlds/crypto.js?v=1793351358998"></script>
+  <script src="src/content-validator.js?v=1793351358998"></script>
+  <script src="src/world-loader.js?v=1793351358998"></script>
+  <script src="src/game-engine.js?v=1793351358998"></script>
+  <script src="src/wheel-interaction.js?v=1793351358998"></script>
+  <script src="learning-engine.js?v=1793351358998"></script>
+  <script src="content/world-definitions-2027.js?v=1793351358998"></script>
+  <script src="content/2027-new-world-terms.js?v=1793351358998"></script>
+  <script src="content/2027-new-world-puzzle-banks.js?v=1793351358998"></script>
+  <script src="content/shared-puzzle-library-2027.js?v=1793351358998"></script>
+  <script src="app.js?v=1793351358998"></script>
+  <script src="curriculum/credit/approved/runtime/credit-foundations.js?v=1793351358998"></script>
+  <script src="worlds/credit-foundations.js?v=1793351358998"></script>
+  <script src="src/workbook-engine.js?v=1793351358998"></script>
+  <script src="workbook-app.js?v=1793351358998"></script>
+  <script src="content/credit-game-terms.js?v=1793351358998"></script>
+  <script src="content/credit-term-identities.js?v=1793351358998"></script>
+  <script src="content/money-basics-terms.js?v=1793351358998"></script>
+  <script src="content/money-basics-puzzle-bank.js?v=1793351358998"></script>
+  <script src="content/banking-basics-terms.js?v=1793351358998"></script>
+  <script src="content/banking-basics-puzzle-bank.js?v=1793351358998"></script>
+  <script src="content/investing-basics-terms.js?v=1793351358998"></script>
+  <script src="content/investing-basics-puzzle-bank.js?v=1793351358998"></script>
+  <script src="src/puzzle-bank-engine.js?v=1793351358998"></script>
+  <script src="content/v3-supplemental-terms.js?v=1793351358998"></script>
+  <script src="src/v3-puzzle-slate.js?v=1793351358998"></script>
+  <script src="content/audio-config.js?v=1793351358998"></script>
+  <script src="content/world-backgrounds.js?v=1793351358998"></script>
+  <script src="content/currency-rush-data.js?v=1793351358998"></script>
+  <script src="src/game-audio.js?v=1793351358998"></script>
+  <script src="src/victory-celebration.js?v=1793351358998"></script>
+  <script src="word-game-app.js?v=1793351358998"></script>
+  <script src="src/currency-rush.js?v=1793351358998"></script>
 </body>
 </html>
