@@ -162,7 +162,13 @@ function toggleTheme(){const next=document.documentElement.dataset.theme==="dark
 
 $("#continueLearning").onclick=()=>wgOpenWorld("credit");$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("credit");$("#dashboardReview").onclick=()=>wgOpenWorld("credit");
 $("#journeyBrandLogo").onclick=showWorldSelect;
-$("#welcomeStartButton").onclick=()=>{localStorage.setItem("finlitQuest.onboarded","true");showWorldSelect()};
+function leaveWelcome(destination){localStorage.setItem("finlitQuest.onboarded","true");destination()}
+$("#welcomeStartButton").onclick=()=>leaveWelcome(showWorldSelect);
+// The four welcome options go only to destinations that already exist: the Word Quests world map, the Currency Wheel (Currency Rush), the Learning Quests tab, and the dashboard.
+$("#welcomeExploreWorlds").onclick=()=>leaveWelcome(showWorldSelect);
+$("#welcomePlayChallenges").onclick=()=>leaveWelcome(()=>{showWorldSelect();window.openCurrencyRush?.({source:"learning",stage:1})});
+$("#welcomeLearningAcademy").onclick=()=>leaveWelcome(()=>{showWorldSelect();renderWorldJourneyMap("learning")});
+$("#welcomeMyProgress").onclick=()=>leaveWelcome(showDashboard);
 $("#continentPreview").onclick=()=>toast("More financial regions unlock after their curriculum is approved");
 $("#dailyRewardClaim").onclick=claimDailyRewardFromUi;
 // Re-evaluate when the app returns to the foreground (e.g. after local midnight) so the card never shows a stale day.

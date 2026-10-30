@@ -63,4 +63,9 @@ for f in assets/brand/favicon/favicon.ico assets/brand/favicon/favicon-16.png as
   copy "$f"
 done
 
+# Welcome-screen skyline and the Currency Wheel command-center background (referenced from word-game.css / currency-rush.css)
+for f in assets/welcome/defi-city-night.webp assets/currency/command-center.webp; do
+  copy "$f"
+done
+
 echo "Built $WWW ($(find "$WWW" -type f | wc -l | tr -d ' ') files, $(du -sh "$WWW" | cut -f1))"
