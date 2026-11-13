@@ -31,6 +31,7 @@ copy support.html
 copy financial-city.html
 copy defi-tower.js
 copy defi-tower.css
+copy assets/financial-city/financial-city-approved.png
 copy assets/defi-tower/defi-tower-hero.jpg
 copy assets/defi-tower/defi-tower-thumb.jpg
 copy assets/defi-tower/defi-tower-map.jpg

@@ -10,6 +10,16 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-11-13 — Financial City artwork approved for `/flq-test/`
+
+- Owner approved the exact 1670×941 Financial City replacement image and hotspot update for the existing `/flq-test/` environment only. Production remains unauthorized.
+- Replaced the generated vector scene in the home, $10,000 allocation, and simulation maps with `assets/financial-city/financial-city-approved.png`; preserved the historical renderer as unreachable code.
+- Rebuilt pictured hotspots, retained DeFi Tower, removed the obsolete standalone DeFi hotspot, kept DeFi in the lesson/allocation interfaces, and left the Financial City entrance decorative.
+- Added the asset to the web/native build and added focused artwork, navigation, and bundle tests.
+- Focused artwork/Tower/bundle verification: 51/51 passed. The isolated branch's broader baseline remains 576/580 because four pre-existing proposal tests require untracked research fixtures that are not part of this approved change.
+- Files: `financial-city.html`, `assets/financial-city/financial-city-approved.png`, `scripts/build-www.sh`, `tests/financial-city-artwork.test.js`, generated iOS bundle copies, and this log.
+- Next: publish only the isolated `/flq-test/` bundle, verify all three map contexts, and await separate production approval.
+
 ## 2026-10-26 — Approved DeFi Tower artwork integrated (branch feature/defi-tower) — NOT DEPLOYED
 
 The project-owner-supplied cinematic DeFi Tower image was approved for development integration. The image was not regenerated or substituted. The earlier vector placeholder tower (map building and intro art) is removed.

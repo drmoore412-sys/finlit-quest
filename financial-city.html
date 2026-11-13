@@ -8,6 +8,7 @@
 <title>Where Should My Money Go? | FinLit Quest</title>
 <link rel="icon" href="assets/brand/favicon/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/brand/icons/apple-touch-icon-180.png">
+<link rel="preload" as="image" href="assets/financial-city/financial-city-approved.png" fetchpriority="high">
 <style>
 .fq-topnote{position:relative;z-index:50;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between;padding:8px max(14px,env(safe-area-inset-left));background:#0b0e1fee;border-bottom:1px solid #ffffff22;color:#e9ecff;font:600 13px/1.3 "Albert Sans",system-ui,sans-serif}
 .fq-topnote{padding-right:116px}
@@ -184,9 +185,16 @@ table.cmp td{width:27%}
 .iconbtn svg{width:22px;height:22px}
 .iconbtn .off{display:none}.iconbtn[aria-pressed="false"] .on{display:none}.iconbtn[aria-pressed="false"] .off{display:block}
 .top{padding-right:112px}
-.stage{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#070a22;aspect-ratio:1000/620;max-height:64vh;width:100%;isolation:isolate}
+.stage{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#070a22;aspect-ratio:1670/941;max-height:64vh;width:100%;isolation:isolate}
 .stage.home{max-height:none}
 .stage .scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.city-art{pointer-events:none}
+.city-hit{cursor:pointer;outline:none}
+.city-hit .city-hitbox{fill:transparent;stroke:transparent;stroke-width:3;vector-effect:non-scaling-stroke;transition:fill .16s ease,stroke .16s ease,filter .16s ease}
+.city-hit:hover .city-hitbox,.city-hit:focus-visible .city-hitbox{fill:rgba(71,209,196,.08);stroke:#f6dca0;filter:drop-shadow(0 0 8px rgba(246,220,138,.85))}
+.city-hit:focus-visible{outline:none}
+.city-hit .la{pointer-events:none}
+.city-map-note{position:absolute;left:10px;bottom:10px;z-index:3;max-width:min(75%,520px);padding:5px 10px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(8,12,34,.7);color:#eef0fa;font-size:.72rem;line-height:1.3;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 .glass{background:rgba(12,16,44,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:6px 12px;color:var(--text)}
 .hud{position:absolute;left:10px;right:10px;top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;pointer-events:none;z-index:3}
 .hud .glass{font-variant-numeric:tabular-nums;display:grid;line-height:1.15}
@@ -203,7 +211,7 @@ table.cmp td{width:27%}
   .stagecol .stage{max-height:none}
 }
 @media (max-width:899px){
-  .stagecol .stage,.stage.sticky{aspect-ratio:1000/560}
+  .stagecol .stage,.stage.sticky{aspect-ratio:1670/941}
   .stage.sticky{max-height:none}
 }
 .simstage{position:sticky;top:0;z-index:6;padding-top:8px;background:linear-gradient(var(--ink) 80%,transparent)}
@@ -390,7 +398,7 @@ table.cmp td{width:27%}
 @media (max-width:700px){.fx-banner{top:50px}.fx-graph{top:52px;width:36%}.fx-notify{top:92px}.fx-gauges,.fx-power{top:92px}.fx-bill{top:88px}.fx-peg{top:84px}}
 
 .hud{flex-wrap:nowrap}.hud .glass{min-width:0;white-space:nowrap}
-@media (max-width:899px){.simstage .stage{aspect-ratio:1000/640}}
+@media (max-width:899px){.simstage .stage{aspect-ratio:1670/941}}
 
 @media (max-width:700px){.top{padding-right:100px}.stats{display:flex;flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:4px;gap:6px}.stats .chip{white-space:nowrap;flex:none}.top{flex-direction:column;align-items:flex-start}.hud small{font-size:.6rem}}
 
@@ -1193,7 +1201,7 @@ table.cmp td{width:27%}
   function footer(){
     return '<div class="foot"><p>Prototype build. Every scenario is fictional and every dollar is virtual. No real accounts, wallets or money are involved, and nothing here is financial advice.</p>'+
       '<p>Educational wording is draft and has not been through FinLit Quest curriculum approval. Insurance limits, tax rules and contribution limits change, so verify current figures with official sources before relying on them.</p>'+
-      '<p>Music is an original synthesized placeholder track made in the browser for this prototype. Artwork is placeholder vector illustration. Practice rewards here never touch the real FinLit Quest coin and XP economy.</p><p><button class="link" data-action="reset">Reset prototype progress</button></p></div>';
+      '<p>Music is an original synthesized placeholder track made in the browser for this prototype. Financial City and DeFi Tower use owner-approved illustrations. Practice rewards here never touch the real FinLit Quest coin and XP economy.</p><p><button class="link" data-action="reset">Reset prototype progress</button></p></div>';
   }
 
   function cityMap(){
@@ -1235,7 +1243,7 @@ table.cmp td{width:27%}
     '<section class="panel hero"><span class="eyebrow">Financial City</span><h1 tabindex="-1" id="focus">Where should my money go?</h1>'+
       '<p class="lede">There is no single best place for your money. The right home depends on what the money is for, when you need it, how easily you must reach it, and how much risk you can take. Explore eight destinations, then make six real-life calls.</p>'+
       '<div class="row"><button class="btn primary" data-action="intro">Decision challenge</button><button class="btn primary" data-action="bprofiles">The $10,000 challenge</button><button class="btn" data-action="academy">Learning Academy</button></div></section>'+
-    '<section class="panel map-card" aria-label="Financial City">'+'<div class="stage home">'+cityScene("home")+'</div>'+'</section>'+
+    '<section class="panel map-card" aria-label="Financial City">'+'<div class="stage home">'+cityScene("home")+'<p class="city-map-note">Tap a labeled destination. The Financial City entrance is scenery, not a new destination.</p></div>'+'</section>'+
     (window.FLQ_TOWER ? '<section class="panel tw-home" aria-label="DeFi Tower"><button class="tw-enter-card" data-action="tower"><img class="tw-mini" src="assets/defi-tower/defi-tower-thumb.jpg" width="480" height="270" alt="" loading="lazy"><span><b class="tw-title">DeFi Tower</b> <span class="tag gold">Educational draft</span><small>Climb eight floors of real-life crypto and DeFi decisions. Three choices each, feedback right away.</small></span></button></section>' : '')+
     '<section class="panel list-map"><h2>Eight destinations</h2><p class="muted small" style="margin:6px 0 12px">Tap one to open its lesson.</p><div class="dgrid">'+list+'</div></section>'+
     '<section class="two">'+
@@ -1491,7 +1499,7 @@ table.cmp td{width:27%}
   function viewAlloc(){
     var p = prof(), prev = S.b.result;
     return header()+"<div class='row'><button class='btn ghost' data-action='bprofiles'>\u2190 Profiles</button></div>"+
-    "<div class='alloc-grid'><div class='stagecol'><div class='stage' id='stage'>"+cityScene("alloc")+
+    "<div class='alloc-grid'><div class='stagecol'><div class='stage' id='stage'>"+cityScene("alloc")+"<p class='city-map-note'>Tap a pictured destination to jump to its amount. DeFi remains in the allocation list below.</p>"+
       "<div class='hud'><div class='glass'><small>Left to place</small><b id='hrem'>$10,000</b></div><div class='glass' style='text-align:right'><small>Placed</small><b id='hplaced'>$0</b></div></div></div></div>"+
     "<div style='display:grid;gap:16px;align-content:start'>"+
     "<section class='panel'><span class='eyebrow'>"+esc(p.role)+"</span><h1 tabindex='-1' id='focus' style='font-size:clamp(1.6rem,4.5vw,2.4rem)'>"+esc(p.name)+", "+p.age+"</h1><p class='muted' style='margin:6px 0 14px'>"+esc(p.tagline)+"</p>"+
@@ -1515,7 +1523,7 @@ table.cmp td{width:27%}
   function moveFx(k, dlt){
     var el = $("bld-"+k), now = performance.now();
     if (el) { el.classList.remove("pulse"); void el.getBoundingClientRect(); el.classList.add("pulse"); setTimeout(function(){ el.classList.remove("pulse"); }, 850); }
-    if (now - (lastFlow[k]||0) > 220) { lastFlow[k] = now;
+    if (k!=="defi" && now - (lastFlow[k]||0) > 220) { lastFlow[k] = now;
       var n = Math.max(1, Math.min(7, Math.round(Math.abs(dlt)/400)));
       if (dlt > 0) flowCoins(walletPoint(), doorPoint(k), n); else flowCoins(doorPoint(k), walletPoint(), n, "#bcd0ff"); }
     if (now - lastCoin > 90) { lastCoin = now; sfx("coin", { level: Math.min(1, totalAlloc()/B.A.start) }); }
@@ -1584,7 +1592,7 @@ table.cmp td{width:27%}
   function playEventFx(ev){
     var st = $("stage"), fx = $("fx"); if (!st || !fx || ev.type==="final") return;
     st.classList.add(EVCLASS[ev.type]); $("hudl").textContent = "Fictional event"; $("hudbox").classList.add("evon"); fx.innerHTML = fxFor(ev, prof()); sfx(ev.type);
-    if (ev.type==="emergency" || ev.type==="planned") { var pay = P.sim.payments[ev.type]; if (pay) pay.used.forEach(function(u){ flowCoins(doorPoint(u.src), walletPoint(), Math.max(2, Math.min(6, Math.round(u.value/300))), "#ffd27a"); }); }
+    if (ev.type==="emergency" || ev.type==="planned") { var pay = P.sim.payments[ev.type]; if (pay) pay.used.filter(function(u){ return u.src!=="defi"; }).forEach(function(u){ flowCoins(doorPoint(u.src), walletPoint(), Math.max(2, Math.min(6, Math.round(u.value/300))), "#ffd27a"); }); }
   }
   function showEvent(ev){
     P.cur = ev; playEventFx(ev);
@@ -1691,18 +1699,33 @@ table.cmp td{width:27%}
   app.addEventListener("change", function(e){ var t = e.target; if (t.matches && t.matches("input[type=number][data-k]")) { setAmount(t.dataset.k, parseInt(t.value,10)); var n = t; n.value = S.b.alloc[t.dataset.k] || 0; } });
 
 
-  /* ===== Financial City scene (layered SVG, CSS-animated). Placeholder artwork: hand-built vector, not final illustration. ===== */
+  /* ===== Financial City scene =====
+     The owner-approved image is the sole city artwork. Interactive SVG hit areas sit above the pictured
+     destinations so the exact supplied labels remain visible. The center entrance is intentionally decorative,
+     and the removed standalone DeFi building has no map hotspot. DeFi remains available in lessons/allocation UI. */
+  var FINANCIAL_CITY_ART = "assets/financial-city/financial-city-approved.png";
   var BPOS = {
-    treasury:{ x:130, y:352, s:0.86 }, defi:{ x:520, y:362, s:1.05 }, stocks:{ x:860, y:362, s:1.0 },
-    bank:{ x:320, y:432, s:1.0 }, stable:{ x:700, y:452, s:1.0 }, tower:{ x:690, y:338, s:1.0 },
-    credit:{ x:150, y:548, s:0.95 }, retire:{ x:880, y:546, s:0.95 }, hysa:{ x:400, y:566, s:1.0 }
+    treasury:{ x:112, y:174, w:205, h:238, doorY:242, amountY:282 },
+    bank:{ x:306, y:220, w:210, h:225, doorY:273, amountY:303 },
+    tower:{ x:674, y:181, w:205, h:278, doorY:249, amountY:280 },
+    stocks:{ x:866, y:220, w:230, h:230, doorY:276, amountY:306 },
+    credit:{ x:119, y:414, w:225, h:205, doorY:450, amountY:488 },
+    hysa:{ x:346, y:423, w:225, h:205, doorY:461, amountY:500 },
+    stable:{ x:657, y:396, w:225, h:190, doorY:430, amountY:468 },
+    retire:{ x:874, y:414, w:235, h:205, doorY:451, amountY:489 },
+    defi:{ x:500, y:510, w:0, h:0, doorY:510, amountY:510 }
   };
   var SHORT = { bank:'Traditional Bank', credit:'Credit Union', hysa:'High-Yield Savings', stocks:'Stocks & ETFs', treasury:'Treasury', retire:'Retirement', stable:'Stablecoins', defi:'DeFi', tower:'DeFi Tower' };
-  var DRAW_ORDER = ["treasury","defi","stocks","bank","stable","credit","retire","hysa"];
-  /* The DeFi Tower is a ninth, home-map-only building. The allocation and simulation scenes keep the original eight. */
+  /* Keep the historical arrays recognizable for the approved DeFi Tower baseline,
+     then derive the actual hotspots from the owner-approved replacement artwork. */
   var HOME_ORDER = ["treasury","tower","defi","stocks","bank","stable","credit","retire","hysa"];
+  var DRAW_ORDER = ["treasury","defi","stocks","bank","stable","credit","retire","hysa"];
+  var PICTURED_DESTINATIONS = ["treasury","bank","tower","stocks","credit","hysa","stable","retire"];
+  /* The approved map pictures DeFi Tower but deliberately has no standalone DeFi building. */
+  HOME_ORDER = PICTURED_DESTINATIONS.slice();
+  DRAW_ORDER = PICTURED_DESTINATIONS.filter(function(id){ return id !== "tower"; });
   var TOWER_NODE = { color:"#8f7bff", name:"DeFi Tower", short:"Eight-floor DeFi decision challenge" };
-  var PLAZA = { x:566, y:520 };
+  var PLAZA = { x:500, y:510 };
 
   var BLD = {
     bank:function(){ var c = ""; [-68,-52,-36,28,44,60].forEach(function(x){ c += "<rect x='"+x+"' y='-100' width='8' height='84' fill='url(#gMarbleCol)'/><rect x='"+(x-2)+"' y='-103' width='12' height='5' fill='url(#gGold)'/><rect x='"+(x-2)+"' y='-18' width='12' height='4' fill='#d8cfb8'/>"; });
@@ -1803,6 +1826,21 @@ table.cmp td{width:27%}
   }
   function cityScene(mode){
     var order = mode==="home" ? HOME_ORDER : DRAW_ORDER;
+    var blds = order.map(function(k){
+      var p = BPOS[k], d = k==="tower" ? TOWER_NODE : F.dest(k);
+      var attrs = mode==="home" && k==="tower" ? " data-action='tower' tabindex='0' role='button' aria-label='DeFi Tower: eight-floor DeFi decision challenge, educational draft. Press Enter to climb.'" : mode==="home" ? " data-action='open' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(d.name)+": "+esc(d.short)+". Press Enter to open its lesson.'"
+        : mode==="alloc" ? " data-action='bfocus' data-id='"+k+"' tabindex='0' role='button' aria-label='"+esc(B.LABEL[k])+": jump to its amount'"
+        : " role='img' aria-label='"+esc(B.LABEL[k])+"'";
+      var amount = mode==="home" ? "" : "<g class='la' transform='translate(0 "+(p.amountY-p.y)+")'><rect x='-52' y='-14' width='104' height='28' rx='14'/><text id='sa-"+k+"' x='0' y='7' text-anchor='middle' class='lamt'>$0</text></g>";
+      return "<g class='bld city-hit b-"+k+"' id='bld-"+k+"' style='--c:"+d.color+"' transform='translate("+p.x+" "+p.y+")'"+attrs+"><rect class='city-hitbox' x='"+(-p.w/2)+"' y='"+(-p.h/2)+"' width='"+p.w+"' height='"+p.h+"' rx='18'/>"+amount+"</g>";
+    }).join("");
+    var label = mode==="home" ? "Financial City with seven pictured financial destinations, the decorative Financial City entrance, and DeFi Tower" : "Financial City allocation illustration; DeFi is controlled in the adjacent allocation list and has no standalone map building";
+    return "<svg class='scene approved-city-scene' viewBox='0 0 1000 563' preserveAspectRatio='xMidYMid meet' role='group' aria-label='"+label+"'>"+
+      "<image class='city-art' href='"+FINANCIAL_CITY_ART+"' x='0' y='0' width='1000' height='563' preserveAspectRatio='xMidYMid meet'/>"+
+      blds+"<g id='fxcoins' aria-hidden='true'></g></svg>";
+
+    /* Legacy vector renderer retained below for history during the approved test deployment.
+       It is unreachable because the approved-art renderer above returns first. */
     BLD.tower = BLD.tower || function(){ return window.FLQ_TOWER ? FLQ_TOWER.sceneBuilding(FLQ_TOWER.litCount()) : ""; };
     var stars = "", s = 11; function r(){ s = (s*9301+49297)%233280; return s/233280; }
     for (var i=0;i<60;i++) stars += "<circle class='star' style='animation-delay:"+(r()*4).toFixed(1)+"s' cx='"+(r()*1000).toFixed(0)+"' cy='"+(r()*230).toFixed(0)+"' r='"+(0.6+r()*1.3).toFixed(1)+"' fill='#fff'/>";
@@ -1835,7 +1873,7 @@ table.cmp td{width:27%}
   }
 
   /* coins that fly between the wallet and a building so allocation is visible */
-  function doorPoint(k){ var p = BPOS[k]; return { x:p.x, y:p.y-50*p.s }; }
+  function doorPoint(k){ var p = BPOS[k]; return { x:p.x, y:p.doorY }; }
   function flowCoins(from, to, n, color){
     var layer = $("fxcoins"); if (!layer) return;
     if (reduced()) { return; }
@@ -1849,7 +1887,7 @@ table.cmp td{width:27%}
       a.onfinish = function(){ if (c.parentNode) c.parentNode.removeChild(c); };
     })(i);
   }
-  function walletPoint(){ return { x:500, y:128 }; }
+  function walletPoint(){ return { x:500, y:510 }; }
 
   /* ---- Event cinematics: HTML/SVG overlays on the stage. They never sit over the balance or event text. ---- */
   var FXTAG = "";
