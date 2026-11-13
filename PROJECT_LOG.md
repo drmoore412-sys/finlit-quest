@@ -10,6 +10,16 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-11-13 — Approved Financial City artwork deployed to `/flq-test/` only
+
+- Owner approved the Financial City artwork replacement for the test environment; production release remains explicitly unauthorized.
+- Isolated source commit: `44b36cdb34546bc98721df46553ec43f76c2a4ad` on `codex/financial-city-artwork-approved`. It contains only the approved artwork/navigation implementation, exact PNG, focused tests, build-list update, generated iOS asset/page, and project log.
+- Test deployment PR: `#7`, merged as `6fb7c75e9d7f32ef15de0676e1efeffe11d135a9`. Its application diff contains only `flq-test/financial-city.html` and `flq-test/assets/financial-city/financial-city-approved.png`; production-root files were not changed.
+- GitHub Pages completed successfully. Verified live at `https://finlitquest.com/flq-test/financial-city.html`.
+- Live browser verification passed for the home map, $10,000 allocation map, and two-year simulation map. DeFi Tower opens and returns correctly; the entrance has no action; the obsolete standalone DeFi hotspot is absent; DeFi lesson/allocation controls remain available.
+- Exact live asset SHA-256: `7189f8fa731ad09fc4f73d2683466d506fab955c69a906030d268ecc954e7bb2`, matching source, web, and iOS copies.
+- Focused source verification: 51/51 passed. Xcode 27.1 iOS Simulator build passed before deployment. Production remains unchanged pending separate owner approval.
+
 ## 2026-10-26 — Shared letter-wheel gesture engine (crossword + Currency Rush) — NOT DEPLOYED, NOT COMMITTED
 
 Status: local only, awaiting review. Real-iPhone testing NOT done (sandbox is Chromium-only, simulated mouse + CDP touch; no WebKit).
