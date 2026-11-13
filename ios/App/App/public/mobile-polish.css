@@ -1,0 +1,183 @@
+/* Mobile polish (2026-11-13, owner request). Presentation only: no rules, rewards, curriculum or saves change here.
+   1. Word Quest puzzle fits one phone screen: board on top, letter wheel below, round tool buttons beside the wheel.
+   2. Home screen: artwork keeps its proportions (no stretching), no card overlap, tidy top bar, Daily reward in a popup.
+   3. Currency Wheel fits one phone screen.
+   4. Lighter rendering on phones (no blur layers or endless background animation) so scrolling stays smooth. */
+
+/* ---------- shared: popups ---------- */
+.flq-backdrop{position:fixed;inset:0;z-index:70;background:#030814c7;display:none}
+.flq-backdrop.is-open{display:block}
+.reward-open{position:relative;width:42px;height:42px;display:grid;place-items:center;border:1px solid #f2b84b8c;border-radius:50%;padding:0;background:#07192bd9;color:#fff;font-size:19px;line-height:1;cursor:pointer}
+.reward-open:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.reward-open-dot{position:absolute;top:1px;right:1px;width:12px;height:12px;border-radius:50%;border:2px solid #07192b;background:#ffce6b;display:none}
+.reward-open.is-ready .reward-open-dot{display:block;animation:flqDot 1.6s ease-in-out infinite}
+@keyframes flqDot{50%{transform:scale(1.25);box-shadow:0 0 0 5px #ffce6b33}}
+
+/* Daily reward: off the home screen, opened from the gift button */
+#dailyReward{display:none!important}
+#dailyReward.is-open{display:block!important;position:fixed;z-index:71;left:50%;top:50%;transform:translate(-50%,-50%);width:min(calc(100vw - 28px),440px);max-height:calc(100dvh - 40px);overflow:auto;margin:0;padding:18px 16px 16px;border-color:#f2b84b8c;box-shadow:0 24px 70px #000c}
+.daily-reward-close{position:absolute;top:8px;right:8px;width:40px;height:40px;border:0;border-radius:50%;background:#ffffff14;color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.daily-reward-close:focus-visible{outline:3px solid #fff;outline-offset:2px}
+#dailyReward.is-open .daily-reward-head{padding-right:44px}
+
+/* The screen-in animation must not leave a transform behind: a leftover transform would pin "fixed" popups and the
+   backdrop to the tall page instead of the visible screen. */
+#worldSelectScreen.dashboard{animation-fill-mode:backwards}
+/* ---------- home: artwork keeps its proportions ---------- */
+.journey-backdrop{display:none}
+#worldSelectScreen .journey-topbar{grid-template-columns:auto minmax(0,1fr) auto auto auto}
+@media(min-width:701px){#worldSelectScreen .node-1{top:124px}}
+#worldSelectScreen .journey-map{background-image:linear-gradient(180deg,#0208172e 0,#02081747 46%,#07142680 100%),url("assets/images/golden-castle-journey.webp");background-size:cover;background-position:70% center;background-attachment:fixed}
+.bonus-games-hub{background-image:linear-gradient(110deg,#03101ec7 0,#0714265e 48%,#050e1cac 100%),url("assets/images/bonus-games-portal.webp")}
+
+@media(max-width:900px){
+  /* one full-screen, correctly proportioned picture behind the journey; the cards scroll over it */
+  #worldSelectScreen .journey-backdrop{display:block;position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,#0208172e 0,#02081724 40%,#07142680 100%),url("assets/images/golden-castle-journey.webp") 70% center/cover no-repeat #071426}
+  #worldSelectScreen .journey-map{background:none;border:0;box-shadow:none;overflow:visible}
+  #worldSelectScreen .journey-map:before{display:none}
+  #worldSelectScreen.journey-dashboard{background:#071426}
+  .journey-topbar{grid-template-columns:auto minmax(0,1fr) auto auto auto!important;gap:6px!important}
+  .journey-topbar .theme-toggle,.journey-topbar .music-toggle,.journey-topbar .reward-open{width:38px;height:38px;flex-basis:38px;font-size:17px}
+}
+@media(max-width:700px){
+  #worldSelectScreen .map-heading{position:relative;top:auto;left:auto;right:auto;margin:0 2px 14px;background:#071426d9;backdrop-filter:none}
+  #worldSelectScreen .map-heading h1{font-size:22px}
+  /* a clean single column of full-width world cards */
+  #worldSelectScreen.journey-dashboard .journey-map{min-height:0;display:grid;gap:12px;padding:0 2px 24px}
+  #worldSelectScreen .journey-node{position:relative;top:auto!important;left:auto!important;right:auto!important;width:100%;min-height:92px;grid-template-columns:64px 1fr auto;column-gap:12px;padding:12px 14px;background:linear-gradient(145deg,#0b2237e0,#091726d9);backdrop-filter:none}
+  #worldSelectScreen .journey-node .world-landmark{width:60px;height:60px}
+  #worldSelectScreen .journey-node .node-copy strong{font-size:16px}
+  #worldSelectScreen .journey-node .node-copy em{font-size:11px}
+  #worldSelectScreen .journey-node .node-copy small{font-size:9px}
+  #worldSelectScreen .journey-node .node-progress{font-size:10px}
+  #worldSelectScreen .journey-node .node-state{grid-column:3;grid-row:1;align-self:center;margin:0;font-size:9px;padding:6px 10px}
+  #worldSelectScreen .life-marker,#worldSelectScreen .continent-button{display:none}
+  .bonus-games-heading,.bonus-game-card{backdrop-filter:none}
+}
+
+/* ---------- Word Quest game screen on phones ---------- */
+.wg-bottom-nav button small span{font-size:inherit}
+.wg-info-button,.wg-coin-chip{display:none}
+.wg-sheet-close{display:none}
+@media(max-width:640px){
+  #app.flq-game-open{width:100%;padding:0}
+  /* lighter rendering: no endlessly animated full-screen layers, no blur stacks */
+  .wg-screen:before{animation:none;transform:none;will-change:auto;inset:0}
+  .wg-screen:after{display:none}
+  .wg-topbar,.wg-world-header,.wg-level-card,.wg-board,.wg-wheel-wrap .wheel,.wg-mission-card,.wg-status-bar,.wg-bottom-nav{backdrop-filter:none}
+  .wg-screen{padding:10px 12px 96px}
+  .wg-topbar{background:#071222d9}
+  .wg-world-header{background:#071222cc;margin:10px 0}
+  .wg-level-card{background:linear-gradient(145deg,rgba(12,26,48,.86),rgba(7,18,35,.82))}
+
+  /* top bar: brand + balances; level, volume and sound live in the settings popup */
+  .wg-topbar .wg-level,.wg-topbar>.wg-music-toggle{display:none}
+  .wg-info-button{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border:1px solid var(--wg-border);border-radius:50%;background:var(--wg-panel);color:var(--wg-text);font-size:17px;padding:0}
+  .wg-info-button:focus-visible{outline:3px solid var(--wg-gold);outline-offset:2px}
+
+  /* settings popup = the existing top bar shown as a card */
+  #worldGameScreen.wg-sheet-open .wg-topbar{display:flex!important;position:fixed;z-index:72;left:12px;right:12px;top:calc(14px + env(safe-area-inset-top));padding:14px;background:#0b1526;border-color:#f2b84b70;box-shadow:0 24px 70px #000c}
+  #worldGameScreen.wg-sheet-open .wg-topbar .wg-level{display:block;flex:1 1 100%}
+  #worldGameScreen.wg-sheet-open .wg-topbar>.wg-music-toggle{display:grid}
+  #worldGameScreen.wg-sheet-open .wg-topbar .wg-brand,#worldGameScreen.wg-sheet-open .wg-topbar .wg-currencies{display:flex}
+  #worldGameScreen.wg-sheet-open .wg-volume-control{font-size:12px;grid-template-columns:56px minmax(58px,1fr) 40px}
+  #worldGameScreen.wg-sheet-open .wg-volume-control input{height:34px}
+  #worldGameScreen.wg-sheet-open .wg-icon-btn{width:40px;height:40px;font-size:17px}
+  #worldGameScreen.wg-sheet-open .wg-sheet-close{display:block;flex:1 1 100%;min-height:46px;border:0;border-radius:14px;background:var(--wg-teal);color:#06251f;font-weight:800;font-size:14px}
+  #worldGameScreen.wg-sheet-open.wg-playing .wg-status-bar{display:flex;position:fixed;z-index:72;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));margin:0;background:#0b1526;border-color:#f2b84b70}
+
+  /* ---- playing a puzzle: everything on one screen, no page scroll ---- */
+  #worldGameScreen.wg-playing{height:100vh;height:100dvh;min-height:0;overflow:hidden;display:flex;flex-direction:column;padding:calc(8px + env(safe-area-inset-top)) 10px calc(60px + env(safe-area-inset-bottom))}
+  #worldGameScreen.wg-playing .wg-topbar{display:none}
+  #worldGameScreen.wg-playing .wg-world-header{flex:0 0 auto;margin:0 0 6px;padding:6px 8px;gap:8px;border-radius:14px}
+  #worldGameScreen.wg-playing .wg-world-icon,#worldGameScreen.wg-playing .wg-words-solved{display:none}
+  #worldGameScreen.wg-playing .wg-back{flex:0 0 40px;width:40px;height:40px}
+  #worldGameScreen.wg-playing .wg-world-copy h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #worldGameScreen.wg-playing .wg-eyebrow{font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #worldGameScreen.wg-playing .wg-coin-chip{display:flex;align-items:center;gap:5px;flex:0 0 auto;padding:7px 10px;border:1px solid #f2b84b66;border-radius:999px;background:#0f1c33;color:var(--wg-text);font-size:13px;font-weight:800}
+
+  #worldGameScreen.wg-playing .wg-puzzle-experience{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;position:relative;--flq-wheel:min(64vw,272px,38vh)}
+  /* mission: one compact line above the board; tap to read the full card */
+  #worldGameScreen.wg-playing .wg-mission-card{order:-1;flex:0 0 auto;margin:0 0 6px;padding:7px 12px;border-radius:14px;background:#071222d9;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:10px;cursor:pointer}
+  #worldGameScreen.wg-playing .wg-mission-heading{display:contents}
+  #worldGameScreen.wg-playing .wg-mission-heading>span:first-child{grid-column:1;grid-row:1;font-size:10px}
+  #worldGameScreen.wg-playing .wg-mission-heading>span:last-child{grid-column:3;grid-row:1;font-size:10px;white-space:nowrap}
+  #worldGameScreen.wg-playing .wg-mission-card h2{grid-column:2;grid-row:1;margin:0;font-size:15px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+  #worldGameScreen.wg-playing .wg-mission-card>p,#worldGameScreen.wg-playing .wg-mission-reward{display:none}
+  #worldGameScreen.wg-playing .wg-mission-card.is-expanded{position:absolute;z-index:6;left:0;right:0;top:0;grid-template-columns:auto minmax(0,1fr) auto;row-gap:8px;padding:12px 14px;background:#0b1526;border-color:#f2b84b70;box-shadow:0 18px 44px #000b}
+  #worldGameScreen.wg-playing .wg-mission-card.is-expanded h2{white-space:normal}
+  #worldGameScreen.wg-playing .wg-mission-card.is-expanded>p{display:block;grid-column:1/-1;margin:0;font-size:14px;line-height:1.45;color:var(--wg-text)}
+  #worldGameScreen.wg-playing .wg-mission-card.is-expanded .wg-mission-reward{display:flex;grid-column:1/-1;padding-top:8px}
+
+  #worldGameScreen.wg-playing .wg-board{flex:1 1 auto;min-height:0;padding:10px;border-radius:18px;background:#07122266;container-type:size}
+  #worldGameScreen.wg-playing .wg-board:after{display:none}
+  @supports (width:1cqh){
+    #worldGameScreen.wg-playing .wg-board .crossword{width:min(100cqw,calc(100cqh * var(--wg-grid-cols) / var(--wg-grid-rows)),calc(var(--wg-grid-cols) * 52px));max-width:none}
+  }
+  #worldGameScreen.wg-playing .wg-board .crossword .cell{font-size:clamp(14px,5vw,24px);font-weight:800}
+
+  #worldGameScreen.wg-playing .wg-word-readout{flex:0 0 auto;height:34px;margin:4px auto 2px;font-size:12px}
+  #worldGameScreen.wg-playing .wg-word-readout.building,#worldGameScreen.wg-playing .wg-word-readout.correct{font-size:22px}
+  #worldGameScreen.wg-playing .wg-wheel-row{flex:0 0 auto}
+  #worldGameScreen.wg-playing .wg-wheel-wrap{width:var(--flq-wheel)}
+  #worldGameScreen.wg-playing .wg-wheel-wrap .wheel{background:radial-gradient(circle at 36% 28%,rgba(28,53,90,.72) 0%,rgba(12,28,54,.74) 60%,rgba(5,17,34,.78) 100%)}
+  #worldGameScreen.wg-playing .wg-hint-text{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  #worldGameScreen.wg-playing .wg-practice-notice{display:none}
+  #worldGameScreen.wg-playing .wg-status-bar{display:none}
+
+  /* round tool buttons in the corners beside the wheel */
+  #worldGameScreen.wg-playing .wg-wheel-actions{position:absolute;left:0;right:0;bottom:0;height:var(--flq-wheel);max-width:none;margin:0;display:block;pointer-events:none;z-index:3}
+  #worldGameScreen.wg-playing .wg-wheel-actions button{position:absolute;pointer-events:auto;width:56px;height:56px;min-height:0;padding:0;border-radius:50%;flex-direction:column;gap:1px;background:#0f1c33f2;color:var(--wg-text);box-shadow:0 6px 16px #0008}
+  #worldGameScreen.wg-playing .wg-wheel-actions button span{font-size:19px}
+  #worldGameScreen.wg-playing .wg-wheel-actions button small{font-size:8px;line-height:1.05;text-align:center;max-width:52px;overflow:hidden}
+  #worldGameScreen.wg-playing .wg-wheel-actions button small b{display:block;font-size:8px}
+  #worldGameScreen.wg-playing #wgNavShuffle{left:2px;top:4px}
+  #worldGameScreen.wg-playing #wgDefinitionsButton{left:2px;bottom:4px}
+  #worldGameScreen.wg-playing #wgHintButton{right:2px;top:4px}
+  #worldGameScreen.wg-playing #wgSubmitSelection{right:2px;bottom:4px}
+  #worldGameScreen.wg-playing .wg-wheel-actions .wg-action-primary{color:#06251f;background:linear-gradient(145deg,#43efd4,#1fb99e)}
+  #worldGameScreen.wg-playing .wg-wheel-actions .wg-action-submit{color:#2b1600;background:linear-gradient(145deg,#ffdc76,#e8a524)}
+  #worldGameScreen.wg-playing .wg-wheel-actions .wg-clear-selection{left:50%;right:auto;top:-40px;width:38px;height:38px;min-width:0;margin-left:calc(var(--flq-wheel) / 2 - 30px);transform:scale(.8)}
+  #worldGameScreen.wg-playing .wg-wheel-actions .wg-clear-selection.is-visible{transform:scale(1)}
+
+  #worldGameScreen.wg-playing .wg-bottom-nav{width:100%;padding:4px 8px calc(4px + env(safe-area-inset-bottom));border-radius:16px 16px 0 0;background:#0b1526}
+  #worldGameScreen.wg-playing .wg-bottom-nav button{min-height:44px}
+  body.flq-no-scroll{overflow:hidden;overscroll-behavior:none}
+}
+@media(max-width:640px) and (max-height:620px){
+  #worldGameScreen.wg-playing .wg-puzzle-experience{--flq-wheel:min(56vw,230px,36vh)}
+  #worldGameScreen.wg-playing .wg-wheel-actions button{width:48px;height:48px}
+  #worldGameScreen.wg-playing .wg-wheel-wrap .letter{width:44px;height:44px;font-size:22px}
+}
+
+/* ---------- key-term coin confetti (presentation only) ---------- */
+.flq-confetti{position:fixed;inset:0;z-index:65;pointer-events:none;overflow:hidden}
+.flq-confetti i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3bf,#f6c453 55%,#c98a12);box-shadow:0 0 8px #f6c45399;opacity:0;animation:flqCoin var(--d) cubic-bezier(.2,.7,.3,1) var(--w) forwards}
+.flq-confetti i.is-ribbon{border-radius:3px;width:calc(var(--s) * .55);background:var(--c);box-shadow:none}
+@keyframes flqCoin{0%{opacity:0;transform:translate(0,0) scale(.3) rotate(0)}12%{opacity:1}55%{opacity:1;transform:translate(var(--mx),var(--my)) scale(1) rotate(var(--r))}100%{opacity:0;transform:translate(var(--ex),var(--ey)) scale(.85) rotate(calc(var(--r) * 2))}}
+.flq-confetti-badge{position:fixed;z-index:66;left:50%;top:34%;transform:translate(-50%,-50%);padding:10px 18px;border-radius:999px;border:1px solid #ffe69b;background:linear-gradient(145deg,#ffdc76,#e8a524);color:#2b1600;font-weight:900;font-size:16px;letter-spacing:.03em;box-shadow:0 12px 30px #000a;pointer-events:none;white-space:nowrap;animation:flqBadge 1.7s ease forwards}
+@keyframes flqBadge{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}14%,78%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-70%) scale(1)}}
+@media(prefers-reduced-motion:reduce){.flq-confetti{display:none}.flq-confetti-badge{animation:flqBadgeStill 1.7s linear forwards}.reward-open.is-ready .reward-open-dot{animation:none}}
+@keyframes flqBadgeStill{0%,85%{opacity:1}100%{opacity:0}}
+
+/* ---------- Currency Wheel on phones: timer, score and the whole wheel on one screen ---------- */
+@media(max-width:520px){
+  .currency-rush-screen .cr-card,.cr-topbar{backdrop-filter:none}
+  .cr-topbar{padding:max(8px,env(safe-area-inset-top)) 12px 8px;background:#08092bf2}
+  .cr-heading strong{font-size:17px}
+  .cr-heading small{font-size:10px}
+  .cr-layout{padding:8px 10px calc(18px + env(safe-area-inset-bottom));gap:8px}
+  .cr-stats{grid-template-columns:auto repeat(2,minmax(0,1fr))!important;align-items:center;gap:8px;padding:8px 10px}
+  .cr-stats .cr-stat:last-child{display:none}
+  .cr-timer-ring{grid-column:1!important;grid-row:1;width:62px!important;margin:0!important}
+  .cr-timer-ring:before{width:50px!important}
+  .cr-timer-ring strong{font-size:19px!important}
+  .cr-timer-ring small{font-size:6px}
+  .cr-stat{padding:7px 9px!important}
+  .cr-stat small{font-size:8px}
+  .cr-stat strong{font-size:16px!important}
+  .cr-arena{min-height:0!important;padding:8px 8px 12px!important}
+  .cr-globe,.cr-symbols{display:none}
+  .cr-wheel-shell{margin-top:4px!important;width:min(330px,calc(100vw - 44px),calc(100dvh - 300px))!important}
+  .cr-current{margin-top:6px}
+}

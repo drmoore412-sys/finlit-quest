@@ -248,9 +248,46 @@ function wgV3Bank(worldId) {
       return puzzle;
     });
     if (bank.length !== new Set(bank.map(puzzle => puzzle.id)).size) throw new Error(`Duplicate puzzle reference in ${worldId}`);
-    wgV3Banks.set(worldId, bank);
+    wgV3Banks.set(worldId, wgPlayerPuzzleOrder(worldId, bank));
   }
   return wgV3Banks.get(worldId);
+}
+
+// Owner request 2026-11-13: a world must not open on the same key term for every
+// player. The approved puzzles and which level each one belongs to are unchanged;
+// only the order of the games INSIDE each level is mixed, once per player and world,
+// and then remembered so that player's level grid stays stable. A player who already
+// has progress in a world keeps the original order. The order is presentation state
+// (its own localStorage key); it is never written into the learning save.
+const WG_PUZZLE_ORDER_KEY = "finlitQuest.puzzleOrder.v1";
+function wgReadPuzzleOrders() {
+  try { const stored = JSON.parse(localStorage.getItem(WG_PUZZLE_ORDER_KEY) || "{}"); return stored && typeof stored === "object" && !Array.isArray(stored) ? stored : {}; } catch (_) { return {}; }
+}
+function wgMixLevelOrder(ids, random = Math.random) {
+  const mixed = [];
+  for (let start = 0; start < ids.length; start += WG_GAMES_PER_LEVEL) {
+    const level = ids.slice(start, start + WG_GAMES_PER_LEVEL), first = level[0];
+    for (let i = level.length - 1; i > 0; i--) { const j = Math.floor(random() * (i + 1)); [level[i], level[j]] = [level[j], level[i]]; }
+    // never open a level on its original first game
+    if (level.length > 1 && level[0] === first) { const swap = 1 + Math.floor(random() * (level.length - 1)); [level[0], level[swap]] = [level[swap], level[0]]; }
+    mixed.push(...level);
+  }
+  return mixed;
+}
+function wgPlayerPuzzleOrder(worldId, bank) {
+  const ids = bank.map(puzzle => puzzle.id), orders = wgReadPuzzleOrders(), stored = orders[worldId];
+  const valid = Array.isArray(stored) && stored.length === ids.length && new Set(stored).size === ids.length && stored.every(id => ids.includes(id))
+    && stored.every((id, index) => Math.floor(ids.indexOf(id) / WG_GAMES_PER_LEVEL) === Math.floor(index / WG_GAMES_PER_LEVEL));
+  let order = valid ? stored : null;
+  if (!order) {
+    const saved = learning.save.worlds[WG_WORLDS[worldId].key] || {};
+    const started = Object.values(saved.puzzleHistory || {}).some(record => record && record.timesPlayed > 0) || (Array.isArray(saved.solvedWords) && saved.solvedWords.length > 0);
+    order = started ? ids : wgMixLevelOrder(ids);
+    orders[worldId] = order;
+    try { localStorage.setItem(WG_PUZZLE_ORDER_KEY, JSON.stringify(orders)); } catch (_) {}
+  }
+  const byId = new Map(bank.map(puzzle => [puzzle.id, puzzle]));
+  return order.map(id => byId.get(id));
 }
 
 // Puzzle Bank: each world keeps a persisted bank of candidate puzzles (word
@@ -806,6 +843,8 @@ function wgFoundWord(word) {
   wgUpdateMission();
   wgPlayFoundSound(word, reward);
   wgCelebrateFinancialTerm(reward);
+  // Owner request 2026-11-13: coin confetti whenever the key term is found. Visual only; it reads the reward already granted above.
+  if (word === wgState.puzzleModel.anchorWord) window.FinLitCoinConfetti?.burst({ coins: reward.isNewSolve ? reward.coins : 0, from: $("#wgCrossword") });
   if (wgState.found.size < wgState.words.length) celebrate();
   if (wgState.found.size === wgState.words.length) {
     const bankState = wgBankState();
