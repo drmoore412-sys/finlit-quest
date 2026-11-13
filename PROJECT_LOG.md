@@ -10,6 +10,14 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-11-13 — Approved Financial City artwork live on production
+
+- Production PR `#10` merged as `ed00ed26dd2f9ae04a47971555b022adc41824e6`; GitHub Pages built that exact commit successfully.
+- Verified live at `https://finlitquest.com/financial-city.html`: the approved image appears on the home, $10,000 allocation, and two-year simulation maps; all eight intended pictured hotspots are present; DeFi Tower opens and returns; the decorative entrance has no action; the obsolete standalone DeFi hotspot is absent.
+- Live asset SHA-256 is `7189f8fa731ad09fc4f73d2683466d506fab955c69a906030d268ecc954e7bb2`, exactly matching source, web bundle, and iOS bundle.
+- Focused artwork/Tower/parity checks passed 51/51. The complete suite passed 623/627; the four failures are the unchanged clean-branch baseline caused by absent untracked research proposal fixtures. Xcode 27.1 iOS Simulator build succeeded.
+- Current mobile-polish work from `main` was preserved. Historical vector renderer remains unreachable in the page. No player saves, rewards, profiles, or unrelated gameplay were changed.
+
 ## 2026-11-13 — Financial City production promotion authorized
 
 - Owner explicitly authorized promoting the already approved Financial City artwork from `/flq-test/` to the production `.com` experience.
