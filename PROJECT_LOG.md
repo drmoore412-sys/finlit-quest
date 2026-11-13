@@ -10,6 +10,14 @@ The intended experience is premium, modern, friendly, intelligent, and game-like
 
 ---
 
+## 2026-11-13 — Financial City production promotion authorized
+
+- Owner explicitly authorized promoting the already approved Financial City artwork from `/flq-test/` to the production `.com` experience.
+- Production integration is isolated on `codex/deploy-financial-city-production` from current `origin/main` so the completed mobile-polish work remains intact.
+- Scope is limited to the exact approved PNG, Financial City page/hotspots, web/native build inclusion, focused tests, generated iOS parity files, and this log.
+- The historical vector renderer remains in the page as unreachable fallback history; no player data, rewards, profiles, or unrelated gameplay are changed.
+- Deployment remains contingent on focused tests, the full suite, web/native synchronization, iOS build, and live browser verification.
+
 ## 2026-11-13 — Approved Financial City artwork deployed to `/flq-test/` only
 
 - Owner approved the Financial City artwork replacement for the test environment; production release remains explicitly unauthorized.
