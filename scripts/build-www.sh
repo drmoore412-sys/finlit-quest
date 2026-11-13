@@ -36,7 +36,7 @@ copy assets/defi-tower/defi-tower-thumb.jpg
 copy assets/defi-tower/defi-tower-map.jpg
 
 # Stylesheets
-for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css; do
+for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css mobile-polish.css; do
   copy "$f"
 done
 
@@ -46,7 +46,7 @@ for f in app.js learning-engine.js word-game-app.js workbook-app.js; do
 done
 
 # Scripts (src/ pure modules actually referenced by index.html)
-for f in src/content-validator.js src/game-engine.js src/wheel-interaction.js src/puzzle-bank-engine.js src/v3-puzzle-slate.js src/game-audio.js src/victory-celebration.js src/currency-rush.js src/workbook-engine.js src/world-loader.js; do
+for f in src/content-validator.js src/game-engine.js src/wheel-interaction.js src/puzzle-bank-engine.js src/v3-puzzle-slate.js src/game-audio.js src/victory-celebration.js src/currency-rush.js src/mobile-polish.js src/workbook-engine.js src/world-loader.js; do
   copy "$f"
 done
 
@@ -63,6 +63,8 @@ done
 
 # Owner-approved World Quest Journey artwork (kept byte-identical to the supplied PNG).
 copy assets/images/golden-castle-journey.png
+copy assets/images/golden-castle-journey.webp
+copy assets/images/bonus-games-portal.webp
 
 # Owner-approved Bonus Games portal artwork (kept byte-identical to the supplied PNG).
 copy assets/images/bonus-games-portal.png

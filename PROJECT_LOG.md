@@ -4287,3 +4287,20 @@ Milestone 4 should focus on interaction-controller extraction and testable UI st
 - Three owner-approved images (golden treasure vault, insurance shield, neon creator studio) and the exact Golden Castle Journey image are still missing and NOT substituted. Currency Rush remains practice-only (no coins/XP).
 - Branch release/financial-city-and-codex-upgrades cut from origin/main (site files were identical to the prior local branch; only staging/exports differed and are not part of this release). Suite 556/556.
 - Not tested: real iPhone Safari, real audio output. Open: Zoe crypto-heavy plan still scores high in Financial City scoring.
+
+## 2026-11-13 — Mobile polish from owner playtest (local only; not committed, not pushed, not deployed)
+
+Branch `fix/mobile-polish` (worktree `_work-mobile-polish`, based on `origin/main` 056ac70).
+
+Owner-requested changes:
+- Word Quest puzzle fits one phone screen (board on top, wheel below, round Shuffle / Hint / Definitions / Submit beside the wheel). Level, volume and streak moved into a settings popup (gear). Mission is one compact line; tap to expand.
+- Smoother phone scrolling: endless background animation and blur layers switched off on phones; journey and Bonus Games artwork served from compressed WebP copies (2.5 MB PNG -> 0.24 MB). Original PNGs untouched.
+- Home: artwork no longer stretched (`cover`, fixed full-screen backdrop on phones); world cards are a clean single column on phones; heading no longer overlaps Money Basics; top bar is one row.
+- Daily reward removed from the home layout; opened as a popup from a gift button with a "ready" dot. Claim rules unchanged (`learning-engine.js`).
+- Coin confetti plus a "Key term!" badge whenever the key term is found (visual only; reduced-motion shows the badge only). This reverses the earlier "confetti intentionally removed" note in `app.js` at the owner's request.
+- Game order: games inside each level are mixed once per player and world (stored in `finlitQuest.puzzleOrder.v1`, not in the learning save). Puzzles never change level; a level never opens on its original first game; players with existing progress in a world keep the original order. Approved puzzle content is unchanged.
+- Currency Wheel: timer, score and whole wheel fit one phone screen.
+
+Files: `mobile-polish.css` (new), `src/mobile-polish.js` (new), `tests/mobile-polish.test.js` (new), `index.html`, `word-game-app.js`, `scripts/build-www.sh`, two WebP assets, iOS public copies of the same files.
+
+Verification: `./scripts/test.sh` 619 pass / 4 fail; the 4 failures need untracked `staging/research/` files that are not in git and fail the same way on a clean `origin/main` checkout. Browser checks at 375x548, 390x664, 430x740 and 1280x800 with no console errors. Not yet checked on a real iPhone.
