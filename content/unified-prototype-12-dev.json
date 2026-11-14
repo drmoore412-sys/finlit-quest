@@ -1,0 +1,206 @@
+{
+  "sequenceId": "prototype-12",
+  "sequenceVersion": 1,
+  "devOnly": true,
+  "environment": "development-prototype",
+  "note": "Development-only prototype. Separate from main-levels and the 58-puzzle canonical library. Not approved content and never a release sequence. Nine levels: REPAYMENT, APARTMENT, RETAIL, RECEIPT, TRADE, MARKET, RETURN, DEFAULT, CREDIT.",
+  "entries": [
+    {
+      "position": 1,
+      "puzzleId": "FQ-V3:credit:REPAYMENT:R2",
+      "anchor": "REPAYMENT",
+      "replaces": [
+        "FQ-V3:credit:REPAYMENT:R1"
+      ],
+      "compatibility": "fresh",
+      "compositionRuleVersion": "v2",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v2",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 2,
+      "puzzleId": "FQ-V3:real_estate:APARTMENT:R2",
+      "anchor": "APARTMENT",
+      "replaces": [
+        "FQ-V3:real_estate:APARTMENT:R1"
+      ],
+      "compatibility": "fresh",
+      "compositionRuleVersion": "v2",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v2",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 3,
+      "puzzleId": "FQ-V3:business:RETAIL:R1",
+      "anchor": "RETAIL",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 4,
+      "puzzleId": "FQ-V3:moneybasics:RECEIPT:R3",
+      "anchor": "RECEIPT",
+      "replaces": [
+        "FQ-V3:moneybasics:RECEIPT:R2"
+      ],
+      "compatibility": "fresh",
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 5,
+      "puzzleId": "FQ-V3:investing:TRADE:R3",
+      "anchor": "TRADE",
+      "replaces": [
+        "FQ-V3:investing:TRADE:R2"
+      ],
+      "compatibility": "fresh",
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 6,
+      "puzzleId": "FQ-V3:investing:MARKET:R3",
+      "anchor": "MARKET",
+      "replaces": [
+        "FQ-V3:investing:MARKET:R2"
+      ],
+      "compatibility": "fresh",
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 7,
+      "puzzleId": "FQ-V3:investing:RETURN:R3",
+      "anchor": "RETURN",
+      "replaces": [
+        "FQ-V3:investing:RETURN:R2"
+      ],
+      "compatibility": "fresh",
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 8,
+      "puzzleId": "FQ-V3:credit:DEFAULT:R1",
+      "anchor": "DEFAULT",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 9,
+      "puzzleId": "FQ-V3:credit:CREDIT:R1",
+      "anchor": "CREDIT",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v3",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v3",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": false,
+        "fillersApproved": true,
+        "ownerApproved": false
+      }
+    }
+  ],
+  "retired": [
+    {
+      "puzzleId": "FQ-V3:credit:REPAYMENT:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    },
+    {
+      "puzzleId": "FQ-V3:real_estate:APARTMENT:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:RECEIPT:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    },
+    {
+      "puzzleId": "FQ-V3:investing:TRADE:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    },
+    {
+      "puzzleId": "FQ-V3:investing:MARKET:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    },
+    {
+      "puzzleId": "FQ-V3:investing:RETURN:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    }
+  ]
+}

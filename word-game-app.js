@@ -111,7 +111,7 @@ const wgV3Banks = new Map();
 let wgCanonicalLibrary = null;
 document.documentElement.dataset.finlitPuzzleMode = WG_V3_ENABLED ? "v3" : "legacy";
 
-const wgState = { worldId: "crypto", levelNumber: null, playthrough: [], playthroughIndex: 0, puzzle: null, puzzleModel: null, placements: [], words: [], byWord: {}, found: new Set(), hints: new Set(), revealed: new Set(), selected: [], wheelTiles: [], tries: {} };
+const wgState = { worldId: "crypto", unified: false, levelNumber: null, playthrough: [], playthroughIndex: 0, puzzle: null, puzzleModel: null, placements: [], words: [], byWord: {}, found: new Set(), hints: new Set(), revealed: new Set(), selected: [], wheelTiles: [], tries: {} };
 // Gameplay audio (src/game-audio.js): synthesized, one sound preference shared with the victory celebration, silent until the player's first gesture.
 const wgAudio = FinLitAudio.create({
   window,
@@ -228,6 +228,11 @@ function wgBuildCanonicalLibrary() {
   learning.persist();
   wgCanonicalLibrary = library;
   return library;
+}
+
+// Development-only unified levels: answers already rewarded in a replaced puzzle never pay again. Identity when the dev UI is not loaded.
+function wgRewardRecord(record) {
+  return window.FinLitUnifiedUI?.rewardRecord ? FinLitUnifiedUI.rewardRecord(record, wgState.puzzle && wgState.puzzle.id) : record;
 }
 
 function wgCanonicalRecord(puzzle = wgState.puzzle) {
@@ -376,6 +381,7 @@ function wgWorldProgress(worldId) {
 
 function wgOpenWorld(worldId) {
   $("#app").classList.remove("journey-mode");
+  wgState.unified = false;
   wgState.worldId = worldId;
   const world = wgWorld();
   wgApplyWorldBackground(worldId);
@@ -398,7 +404,8 @@ function wgShowLevelSelect() {
   $("#wgPuzzleTitle").textContent = "Choose a Level";
   wgState.levelNumber = null;
   wgUpdateProgress();
-  wgRenderLevelSelect();
+  if (wgState.unified && window.FinLitUnifiedUI) { FinLitUnifiedUI.renderMap(); FinLitUnifiedUI.decorateHeader(); }
+  else { window.FinLitUnifiedUI?.restore(); wgRenderLevelSelect(); }
   window.scrollTo(0, 0);
 }
 
@@ -456,6 +463,13 @@ function wgBackFromWorldGame() {
   }
 }
 
+// Logo and Exit. Unified mode keeps players in the level path: a puzzle returns to the level map, the map returns to the hub.
+// Everything else (and every non-unified session) goes exactly where it always did.
+function wgHome() {
+  if (wgState.unified && !$("#wgPuzzleExperience").classList.contains("hidden")) return wgShowLevelSelect();
+  wgReturnToWorldSelect();
+}
+
 function wgReturnToWorldSelect() {
   showWorldSelect();
 }
@@ -507,7 +521,7 @@ function wgRenderPuzzle() {
   wgState.completedBefore = wgCanonicalRecord(puzzle).timesCompleted > 0;
   wgState.completionSoundKind = "crossword";
   wgState.victoryShown = false;
-  $("#wgPuzzleTitle").textContent = `Level ${wgState.levelNumber} · Game ${wgState.playthroughIndex + 1}`;
+  $("#wgPuzzleTitle").textContent = wgState.unified ? `Level ${wgState.levelNumber}` : `Level ${wgState.levelNumber} · Game ${wgState.playthroughIndex + 1}`;
   wgRenderGrid();
   wgRenderWheel(shuffled(model.letters));
   wgUpdateProgress();
@@ -821,7 +835,7 @@ function wgFoundWord(word) {
   wgState.lastFoundWord = word;
   const progress = wgProgress();
   const canonical = wgCanonicalRecord();
-  const reward = FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, word, wgRewardHistory(progress), canonical);
+  const reward = FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, word, wgRewardHistory(progress), wgRewardRecord(canonical));
   if (reward.isNewSolve) {
     wgState.puzzleCoins += reward.coins;
     wgState.puzzleXp += reward.xp;
@@ -853,6 +867,7 @@ function wgFoundWord(word) {
     bankState.puzzleHistory = FinLitPuzzleBank.recordPlaythrough(bankState.puzzleHistory, [currentPuzzleId], completedAt);
     learning.save.canonicalPuzzleProgress[currentPuzzleId] = FinLitPuzzleBank.recordCanonicalCompletion(learning.save.canonicalPuzzleProgress[currentPuzzleId], wgState.worldId, completedAt);
     learning.persist();
+    window.FinLitUnifiedUI?.afterCompletion();
     wgState.completionSoundKind = wgCompletionSoundKind();
     wgUpdateHeader();
     wgUpdateProgress();
@@ -880,6 +895,7 @@ function wgPlayFoundSound(word, reward) {
 // The completion tier is derived only after the current puzzle has been
 // recorded. It changes presentation, never unlocks content or grants rewards.
 function wgCompletionSoundKind() {
+  if (wgState.unified) return "crossword";
   const bank = wgEnsureBank(), history = wgEffectiveHistory(bank);
   const completed = puzzle => Boolean(history[puzzle.id]?.timesPlayed > 0);
   if (bank.length && bank.every(completed)) return "world";
@@ -1034,6 +1050,7 @@ function wgStartVictory() {
 function wgContinueAfterComplete() {
   wgSkipVictory();
   $("#wgCompletePanel").classList.add("hidden");
+  if (wgState.unified) { wgShowLevelSelect(); return; }
   wgState.playthroughIndex++;
   if (wgState.playthroughIndex < wgState.playthrough.length) {
     wgRenderPuzzle();
@@ -1056,6 +1073,7 @@ function wgUpdateProgress() {
   $("#wgWordsSolved").textContent = solved;
   $("#wgWordsTotal").textContent = total;
   $("#wgWordsBar").style.width = `${Math.min(100, (solved / total) * 100)}%`;
+  if (wgState.unified) window.FinLitUnifiedUI?.decorateHeader();
 }
 
 function wgUpdateMission() {
@@ -1063,7 +1081,7 @@ function wgUpdateMission() {
   const nextWord = !wgState.found.has(anchor) ? anchor : wgState.words.find(w => !wgState.found.has(w));
   if (!nextWord) return;
   const term = wgState.byWord[nextWord];
-  const reward = FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, nextWord, wgRewardHistory(wgProgress()), wgCanonicalRecord());
+  const reward = FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, nextWord, wgRewardHistory(wgProgress()), wgRewardRecord(wgCanonicalRecord()));
   const revealed = wgState.revealed.has(nextWord);
   const answer = wgState.puzzleModel.answers?.find(item=>item.word===nextWord),isAnchor=nextWord===anchor,isFinancial=answer?wgIsFinancialCategory(answer.category):(!wgState.puzzleModel.expanded||isAnchor),presentation=FinLitPuzzleBank.answerPresentation?.(answer||(!isFinancial?{word:nextWord,category:"support"}:null));
   $("#wgMissionWord").textContent = presentation?.heading || (revealed ? (nextWord.charAt(0) + nextWord.slice(1).toLowerCase()) : wgHintPattern(nextWord));
@@ -1198,7 +1216,7 @@ if (typeof ResizeObserver === "function") new ResizeObserver(() => wgUpdateSelec
 else window.addEventListener("resize", wgUpdateSelection);
 
 $("#wgBack").onclick = wgBackFromWorldGame;
-$("#wgBrandLogo").onclick = wgReturnToWorldSelect;
+$("#wgBrandLogo").onclick = wgHome;
 $("#wgSettingsButton").onclick = toggleTheme;
 $("#wgNavShuffle").onclick = wgShuffle;
 $("#wgHintButton").onclick = wgHint;
@@ -1244,10 +1262,181 @@ window.FinLitBonusAudio = {
   toggleMusic: () => { wgToggleMusic(); return FinLitVictory.loadMusicEnabled(localStorage); },
 };
 $("#wgNavJourney").onclick = wgShowLevelSelect;
-$("#wgNavPause").onclick = wgReturnToWorldSelect;
+$("#wgNavPause").onclick = wgHome;
 
 $("#wgHintCost").textContent = WG_LETTER_HINT_COST;
 $("#wgRevealCost").textContent = WG_FULL_REVEAL_COST;
+
+// ---- Development-only unified levels (Phase 3A). Off by default; never active in production or native builds. ----
+// The flag only exists on a local development host, and the unified modules are loaded on demand and are not part of
+// index.html, scripts/build-www.sh or the iOS bundle, so a production build cannot turn this on even if the flag is set.
+// It is unrelated to Premium or any purchase state.
+function fqUnifiedDevEnabled() {
+  try {
+    const host = location.hostname, local = host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".localhost");
+    if (!local || window.Capacitor || location.protocol === "capacitor:") return false;
+    const key = "finlit.dev.unifiedLevels", query = new URLSearchParams(location.search).get("unifiedLevels");
+    if (query === "dev") { try { sessionStorage.setItem(key, "1"); } catch (e) {} return true; }
+    if (query === "off") { try { sessionStorage.removeItem(key); } catch (e) {} return false; }
+    try { return sessionStorage.getItem(key) === "1"; } catch (e) { return false; }
+  } catch (e) { return false; }
+}
+// Gated candidate (dev only, off by default): main-levels sequenceVersion 2 with the nine approved development puzzles.
+// Requires the unified dev flag AND ?unifiedGated=v2 (or its session flag). The production release gate stays closed (v2-only).
+let wgGatedLibrary = null;
+function fqUnifiedGatedEnabled() {
+  try {
+    if (!fqUnifiedDevEnabled()) return false;
+    const key = "finlit.dev.unifiedGated", query = new URLSearchParams(location.search).get("unifiedGated");
+    if (query === "v2") { try { sessionStorage.setItem(key, "1"); } catch (e) {} return true; }
+    if (query === "off") { try { sessionStorage.removeItem(key); } catch (e) {} return false; }
+    try { return sessionStorage.getItem(key) === "1"; } catch (e) { return false; }
+  } catch (e) { return false; }
+}
+function wgOpenUnifiedMap() {
+  $("#app").classList.remove("journey-mode");
+  wgBuildCanonicalLibrary();
+  wgState.unified = true;
+  wgApplyWorldBackground(wgState.worldId);
+  hideAllScreens();
+  $("#worldGameScreen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+  wgShowLevelSelect();
+  wgUpdateHeader();
+  wgAudio.startMusic();
+}
+function wgOpenUnifiedPuzzle(puzzleId, levelNumber) {
+  const puzzle = wgBuildCanonicalLibrary().get(puzzleId) || (wgGatedLibrary && wgGatedLibrary.get(puzzleId));
+  if (!puzzle || !window.FinLitUnifiedUI?.canLaunch(puzzleId)) return toast("That level is not available yet");
+  wgState.unified = true;
+  wgState.worldId = puzzle.worldId;
+  wgApplyWorldBackground(puzzle.worldId);
+  wgState.levelNumber = levelNumber;
+  wgState.playthrough = [wgCloneBankPuzzle(puzzle)];
+  wgState.playthroughIndex = 0;
+  hideAllScreens();
+  $("#worldGameScreen").classList.remove("hidden");
+  $("#wgLevelSelect").classList.add("hidden");
+  $("#wgPuzzleExperience").classList.remove("hidden");
+  wgRenderPuzzle();
+  FinLitUnifiedUI.decorateHeader();
+  wgUpdateHeader();
+  window.scrollTo(0, 0);
+}
+// ---- Development-only prototype-12 (Checkpoint 10). Two puzzles, explicit ?prototype=12 flag, local development host only. ----
+// Prototype progress lives in a throwaway save kept in sessionStorage under its own key. The real save in localStorage is
+// never read for prototype progress and never written by prototype play. Not loaded by index.html, the build or the iOS bundle.
+function fqPrototype12Enabled() {
+  try {
+    const host = location.hostname, local = host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".localhost");
+    if (!local || window.Capacitor || location.protocol === "capacitor:") return false;
+    const key = "finlit.dev.prototype12", query = new URLSearchParams(location.search).get("prototype");
+    if (query === "12") { try { sessionStorage.setItem(key, "1"); } catch (e) {} return true; }
+    if (query === "off") { try { sessionStorage.removeItem(key); } catch (e) {} return false; }
+    try { return sessionStorage.getItem(key) === "1"; } catch (e) { return false; }
+  } catch (e) { return false; }
+}
+const FQ_PROTOTYPE_SAVE_KEY = "finlit.prototype12.save";
+let wgPrototypeLibrary = null;
+function fqPrototypeIsolateSave() {
+  const real = JSON.stringify(learning.save.canonicalPuzzleProgress || {}), hasRealProgress = Object.keys(learning.save.canonicalPuzzleProgress || {}).length > 0 || (learning.save.player && learning.save.player.xp > 0);
+  const store = { getItem: key => sessionStorage.getItem(key), setItem: (key, value) => sessionStorage.setItem(key, value), removeItem: key => sessionStorage.removeItem(key) };
+  // a separate engine over a namespaced sessionStorage key supplies a fresh save; the real engine only has its storage and save swapped
+  const namespaced = { getItem: () => store.getItem(FQ_PROTOTYPE_SAVE_KEY), setItem: (key, value) => store.setItem(FQ_PROTOTYPE_SAVE_KEY, value), removeItem: () => store.removeItem(FQ_PROTOTYPE_SAVE_KEY) };
+  const fresh = new FinLitLearning.LearningEngine({ terms: [], storage: namespaced });
+  learning.storage = namespaced;
+  learning.save = fresh.save;
+  learning.save.prototypeThrowaway = true;
+  learning.persist();
+  return { hadRealProgress: hasRealProgress, realBytes: real.length };
+}
+function wgOpenPrototypePuzzle(puzzleId, levelNumber) {
+  const puzzle = wgPrototypeLibrary && wgPrototypeLibrary.get(puzzleId);
+  if (!puzzle || !window.FinLitUnifiedUI?.canLaunch(puzzleId)) return toast("That level is not available yet");
+  wgBuildCanonicalLibrary();
+  wgState.unified = true;
+  wgState.worldId = puzzle.worldId;
+  wgApplyWorldBackground(puzzle.worldId);
+  wgState.levelNumber = levelNumber;
+  wgState.playthrough = [wgCloneBankPuzzle(puzzle)];
+  wgState.playthroughIndex = 0;
+  hideAllScreens();
+  $("#worldGameScreen").classList.remove("hidden");
+  $("#wgLevelSelect").classList.add("hidden");
+  $("#wgPuzzleExperience").classList.remove("hidden");
+  wgRenderPuzzle();
+  FinLitUnifiedUI.decorateHeader();
+  wgUpdateHeader();
+  window.scrollTo(0, 0);
+}
+if (fqPrototype12Enabled()) {
+  const base = location.pathname.replace(/[^/]*$/, "");
+  const load = src => new Promise((resolve, reject) => { const el = document.createElement("script"); el.src = base + src; el.onload = resolve; el.onerror = () => reject(new Error(src)); document.head.append(el); });
+  const css = document.createElement("link"); css.rel = "stylesheet"; css.href = base + "unified-levels-dev.css"; document.head.append(css);
+  const json = path => fetch(base + path).then(response => { if (!response.ok) throw new Error(path); return response.json(); });
+  fqPrototypeIsolateSave();
+  Promise.all(["src/unified-progress.js", "src/unified-sequence.js", "src/composition-rules.js", "src/unified-prototype-loader.js", "src/unified-levels-ui.js"].map(src => load(src)))
+    .then(() => Promise.all([json("content/unified-prototype-12-dev.json"), json("content/unified-prototype-12-puzzles-dev.json"), json("content/unified-prototype-12-whitelist-dev.json")]))
+    .then(([manifest, puzzleFile, whitelist]) => {
+      const canonicalIds = new Set(window.FINLIT_SHARED_PUZZLE_LIBRARY_2027.canonicalPuzzleIndex.map(item => item.id));
+      const canForm = (word, letters) => { const pool = [...letters]; return [...word].every(ch => { const i = pool.indexOf(ch); if (i < 0) return false; pool.splice(i, 1); return true; }); };
+      const result = FinLitUnifiedPrototypeLoader.load({ manifest, puzzleFile, whitelist, canonicalIds }, { Sequence: FinLitUnifiedSequence, Rules: FinLitCompositionRules, canFormFn: canForm, validateCrosswordLayoutFn: FinLitGameEngine.validateCrosswordLayout });
+      if (!result.ok) throw new Error("prototype-12 validation failed: " + result.errors.join("; "));
+      wgPrototypeLibrary = result.library;
+      // prototype key terms that no canonical puzzle uses still need an in-memory term record so mastery works; this touches only the throwaway engine
+      learning.registerTerms(FinLitV3PuzzleSlate.financialLearningTerms([...wgPrototypeLibrary.values()]));
+      FinLitUnifiedUI.mount({
+        document, progress: FinLitUnifiedProgress, manifest,
+        bridge: { save: () => { if (!FinLitUnifiedPrototypeLoader.isThrowaway(learning.save)) throw new Error("prototype-12 requires the throwaway save"); return learning.save; }, persist: () => learning.persist(), now: () => new Date().toISOString(), open: wgOpenPrototypePuzzle, openMap: wgOpenUnifiedMap },
+      });
+      window.__finlitPrototype12 = { ready: true, puzzles: [...wgPrototypeLibrary.keys()] };
+    })
+    .catch(error => { console.warn("Prototype-12 unavailable", error.message); window.__finlitPrototype12 = { ready: false, error: error.message }; });
+} else if (fqUnifiedDevEnabled()) {
+  const base = location.pathname.replace(/[^/]*$/, "");
+  const load = src => new Promise((resolve, reject) => { const el = document.createElement("script"); el.src = base + src; el.onload = resolve; el.onerror = () => reject(new Error(src)); document.head.append(el); });
+  const css = document.createElement("link"); css.rel = "stylesheet"; css.href = base + "unified-levels-dev.css"; document.head.append(css);
+  const gated = fqUnifiedGatedEnabled();
+  const json = path => fetch(base + path).then(response => { if (!response.ok) throw new Error(path); return response.json(); });
+  ["src/unified-progress.js", "src/unified-sequence.js", "content/unified-sequence-dev.js", ...(gated ? ["src/composition-rules.js", "src/unified-prototype-loader.js", "content/unified-sequence-v2-gated-dev.js"] : []), "src/unified-levels-ui.js"].reduce((chain, src) => chain.then(() => load(src)), Promise.resolve())
+    .then(() => {
+      if (!gated) return FinLitUnifiedSequenceDev;
+      // any validation failure falls back to the unchanged 58-level sequence; the gated levels simply do not appear
+      return Promise.all([json("content/unified-prototype-12-puzzles-dev.json"), json("content/unified-prototype-12-whitelist-dev.json")]).then(([puzzleFile, whitelist]) => {
+        const canonicalIds = new Set(window.FINLIT_SHARED_PUZZLE_LIBRARY_2027.canonicalPuzzleIndex.map(item => item.id));
+        const canForm = (word, letters) => { const pool = [...letters]; return [...word].every(ch => { const i = pool.indexOf(ch); if (i < 0) return false; pool.splice(i, 1); return true; }); };
+        const result = FinLitUnifiedPrototypeLoader.loadGated({ manifest: FinLitUnifiedSequenceGatedDev, previousManifest: FinLitUnifiedSequenceDev, puzzleFile, whitelist, canonicalIds }, { Sequence: FinLitUnifiedSequence, Rules: FinLitCompositionRules, canFormFn: canForm, validateCrosswordLayoutFn: FinLitGameEngine.validateCrosswordLayout });
+        if (!result.ok) throw new Error("gated validation failed: " + result.errors.join("; "));
+        wgGatedLibrary = result.library;
+        wgBuildCanonicalLibrary();
+        learning.registerTerms(FinLitV3PuzzleSlate.financialLearningTerms([...wgGatedLibrary.values()]));
+        window.__finlitGatedLevels = { ready: true, puzzles: [...wgGatedLibrary.keys()] };
+        return FinLitUnifiedSequenceGatedDev;
+      }).catch(error => { console.warn("Gated levels unavailable; using the 58-level sequence:", error.message); window.__finlitGatedLevels = { ready: false, error: error.message }; return FinLitUnifiedSequenceDev; });
+    })
+    .then(manifest => FinLitUnifiedUI.mount({
+      document, progress: FinLitUnifiedProgress, manifest,
+      bridge: { save: () => learning.save, persist: () => learning.persist(), now: () => new Date().toISOString(), open: wgOpenUnifiedPuzzle, openMap: wgOpenUnifiedMap },
+    }))
+    .catch(error => console.warn("Unified levels unavailable", error.message));
+} else if (window.FinLitUnifiedLevelsV2 && window.FinLitUnifiedUI && window.FinLitUnifiedProgress && window.FinLitUnifiedSequence && window.FinLitUnifiedPrototypeLoader && window.FinLitUnifiedRelease && window.FinLitCompositionRules && window.FinLitSha256) {
+  // Production: main-levels sequenceVersion 2 (61 levels). The release validation runs at startup (nine upgraded puzzles under v2/v3
+  // release rules, 52 legacy puzzles against the frozen baseline by ID, anchor and content hash). Any failure leaves the existing
+  // level flow exactly as it was. Saves stay version 4; progress is the additive unifiedProgress block.
+  try {
+    const canonical = wgBuildCanonicalLibrary();
+    const canForm = (word, letters) => { const pool = [...letters]; return [...word].every(ch => { const i = pool.indexOf(ch); if (i < 0) return false; pool.splice(i, 1); return true; }); };
+    const result = FinLitUnifiedPrototypeLoader.loadRelease({ levels: FinLitUnifiedLevelsV2, canonicalPuzzles: canonical, canonicalIds: new Set(canonical.keys()), sha256: FinLitSha256.hex }, { Sequence: FinLitUnifiedSequence, Rules: FinLitCompositionRules, Release: FinLitUnifiedRelease, canFormFn: canForm, validateCrosswordLayoutFn: FinLitGameEngine.validateCrosswordLayout });
+    if (!result.ok) throw new Error("release validation failed: " + result.errors.slice(0, 3).join("; "));
+    wgGatedLibrary = result.library;
+    learning.registerTerms(FinLitV3PuzzleSlate.financialLearningTerms([...wgGatedLibrary.values()]));
+    window.__finlitUnifiedLevels = { ready: true, levels: FinLitUnifiedLevelsV2.manifest.entries.length, summary: result.summary };
+    FinLitUnifiedUI.mount({
+      document, progress: FinLitUnifiedProgress, manifest: FinLitUnifiedLevelsV2.manifest,
+      bridge: { save: () => learning.save, persist: () => learning.persist(), now: () => new Date().toISOString(), open: wgOpenUnifiedPuzzle, openMap: wgOpenUnifiedMap },
+    });
+  } catch (error) { console.warn("Unified levels unavailable; using the existing level flow:", error.message); window.__finlitUnifiedLevels = { ready: false, error: error.message }; }
+}
 
 // Initial screen: a brand-new player (never tapped past Welcome before)
 // sees it once; everyone else lands on World Selection, which is now the

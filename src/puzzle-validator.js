@@ -46,7 +46,20 @@
   // Returns {valid, errors[]} with one entry per failed check name so callers
   // (bank-building retry loops, CLI validate command) get a real reason, not a
   // silent discard.
+  // Composition rule versions: a missing version keeps today's rules unchanged.
+  // "v2" (unified levels, 5-7 answers) and "v3" (v2 plus up to two declared extra letters, 9-letter wheel) are implemented in composition-rules.js.
+  function compositionRules(deps){
+    if(deps&&deps.compositionRules)return deps.compositionRules;
+    if(typeof globalThis!=="undefined"&&globalThis.FinLitCompositionRules)return globalThis.FinLitCompositionRules;
+    try{return typeof require==="function"?require("./composition-rules.js"):null}catch(_){return null}
+  }
   function validatePuzzle(puzzle,deps){
+    if(puzzle&&puzzle.compositionRuleVersion!==undefined&&puzzle.compositionRuleVersion!=="v1"){
+      if(puzzle.compositionRuleVersion!=="v2"&&puzzle.compositionRuleVersion!=="v3")return {valid:false,errors:["unknownCompositionRuleVersion"]};
+      const rules=compositionRules(deps);
+      if(!rules)return {valid:false,errors:["compositionRulesUnavailable"]};
+      return puzzle.compositionRuleVersion==="v3"?rules.validateV3Puzzle(puzzle,deps||{}):rules.validateV2Puzzle(puzzle,deps||{});
+    }
     if(Number(puzzle?.puzzleVersion)===3||puzzle?.puzzleMode==="v3")return validateV3Puzzle(puzzle,deps);
     const {canFormFn,layoutWordsFn,solveCrosswordFn,existingIds=new Set(),wordCountRange=[2,5],expandedWordCountRange=[2,9],wheelBudget=9}=deps||{};
     const errors=[];

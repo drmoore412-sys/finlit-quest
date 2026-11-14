@@ -1,0 +1,961 @@
+{
+  "prototypeId": "prototype-12",
+  "devOnly": true,
+  "status": "pending-owner-approval",
+  "note": "Six v3 prototype puzzles that are fully built but NOT loaded: every filler placement below still needs explicit owner approval. Nothing here is approved or active. Key-term answers are copied verbatim from approved canonical puzzles.",
+  "proposedFillerApprovals": [
+    {
+      "fillerId": "filler.line",
+      "word": "LINE",
+      "puzzleId": "FQ-V3:business:RETAIL:R1"
+    },
+    {
+      "fillerId": "filler.time",
+      "word": "TIME",
+      "puzzleId": "FQ-V3:moneybasics:RECEIPT:R3"
+    },
+    {
+      "fillerId": "filler.date",
+      "word": "DATE",
+      "puzzleId": "FQ-V3:investing:TRADE:R3"
+    },
+    {
+      "fillerId": "filler.date",
+      "word": "DATE",
+      "puzzleId": "FQ-V3:investing:MARKET:R3"
+    },
+    {
+      "fillerId": "filler.read",
+      "word": "READ",
+      "puzzleId": "FQ-V3:investing:MARKET:R3"
+    },
+    {
+      "fillerId": "filler.date",
+      "word": "DATE",
+      "puzzleId": "FQ-V3:investing:RETURN:R3"
+    },
+    {
+      "fillerId": "filler.date",
+      "word": "DATE",
+      "puzzleId": "FQ-V3:credit:DEFAULT:R1"
+    },
+    {
+      "fillerId": "filler.final",
+      "word": "FINAL",
+      "puzzleId": "FQ-V3:credit:DEFAULT:R1"
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "FQ-V3:business:RETAIL:R1",
+      "worldId": "business",
+      "worldName": "Business & Entrepreneurship",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 1,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-01",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-01",
+        "replacesCanonical": null,
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "RETAIL",
+      "anchorTermId": "business.retail",
+      "declaredExtraLetters": [
+        "N",
+        "S"
+      ],
+      "wheelLetters": [
+        "R",
+        "E",
+        "T",
+        "A",
+        "I",
+        "L",
+        "N",
+        "S"
+      ],
+      "answers": [
+        {
+          "word": "RETAIL",
+          "category": "financial-anchor",
+          "termId": "business.retail",
+          "masteryId": "business.retail",
+          "definition": "The sale of goods or services directly to consumers.",
+          "worldId": "business",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "SALE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.sale",
+          "masteryId": "moneybasics.sale",
+          "definition": "An exchange in which a good or service is provided for money.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "EARN",
+          "category": "financial-secondary",
+          "termId": "moneybasics.earn",
+          "masteryId": "moneybasics.earn",
+          "definition": "To receive money in return for work or another activity.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "NET",
+          "category": "financial-secondary",
+          "termId": "moneybasics.net",
+          "masteryId": "moneybasics.net",
+          "definition": "An amount remaining after deductions or costs are subtracted.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "LINE",
+          "category": "ordinary",
+          "fillerId": "filler.line",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "business",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "RETAIL",
+        "SALE",
+        "EARN",
+        "NET",
+        "LINE"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "SALE": {
+          "label": "direct",
+          "explanation": "A sale is the exchange of goods for money that retail is built on."
+        },
+        "EARN": {
+          "label": "contextual",
+          "explanation": "Retailers earn revenue from what they sell."
+        },
+        "NET": {
+          "label": "contextual",
+          "explanation": "Net is what remains after costs, which a retailer tracks.",
+          "strong": true
+        }
+      },
+      "layout": [
+        {
+          "word": "RETAIL",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "LINE",
+          "r": 1,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "SALE",
+          "r": 4,
+          "c": 1,
+          "dir": "h"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    },
+    {
+      "id": "FQ-V3:moneybasics:RECEIPT:R3",
+      "worldId": "moneybasics",
+      "worldName": "Money Basics",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 3,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-04",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-04",
+        "replacesCanonical": "FQ-V3:moneybasics:RECEIPT:R2",
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "RECEIPT",
+      "anchorTermId": "moneybasics.receipt",
+      "declaredExtraLetters": [
+        "F",
+        "M"
+      ],
+      "wheelLetters": [
+        "R",
+        "E",
+        "C",
+        "E",
+        "I",
+        "P",
+        "T",
+        "F",
+        "M"
+      ],
+      "answers": [
+        {
+          "word": "RECEIPT",
+          "category": "financial-anchor",
+          "termId": "moneybasics.receipt",
+          "masteryId": "moneybasics.receipt",
+          "definition": "A record showing that a purchase or payment was made.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "PRICE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.price",
+          "masteryId": "moneybasics.price",
+          "definition": "The amount a seller asks for a good or service.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "FEE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.fee",
+          "masteryId": "moneybasics.fee",
+          "definition": "Money charged for a service, action, or account feature.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "REMIT",
+          "category": "financial-secondary",
+          "termId": "banking.remit",
+          "masteryId": "banking.remit",
+          "definition": "To send money to another person or place, often through a domestic or international transfer service.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "TIME",
+          "category": "ordinary",
+          "fillerId": "filler.time",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "moneybasics",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "RECEIPT",
+        "PRICE",
+        "FEE",
+        "REMIT",
+        "TIME"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "PRICE": {
+          "label": "direct",
+          "explanation": "A receipt records the price that was paid."
+        },
+        "FEE": {
+          "label": "direct",
+          "explanation": "Fees are often listed as separate lines on a receipt."
+        },
+        "REMIT": {
+          "label": "contextual",
+          "explanation": "To remit is to send payment, which a receipt then confirms."
+        }
+      },
+      "layout": [
+        {
+          "word": "RECEIPT",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "TIME",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "PRICE",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "REMIT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "FEE",
+          "r": 1,
+          "c": 5,
+          "dir": "h"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    },
+    {
+      "id": "FQ-V3:investing:TRADE:R3",
+      "worldId": "investing",
+      "worldName": "Investing Basics",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 3,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-06",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-06",
+        "replacesCanonical": "FQ-V3:investing:TRADE:R2",
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "TRADE",
+      "anchorTermId": "investing.trade",
+      "declaredExtraLetters": [
+        "B",
+        "I"
+      ],
+      "wheelLetters": [
+        "T",
+        "R",
+        "A",
+        "D",
+        "E",
+        "B",
+        "I"
+      ],
+      "answers": [
+        {
+          "word": "TRADE",
+          "category": "financial-anchor",
+          "termId": "investing.trade",
+          "masteryId": "investing.trade",
+          "definition": "A completed purchase or sale of an investment.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "BID",
+          "category": "financial-secondary",
+          "termId": "investing.bid",
+          "masteryId": "investing.bid",
+          "definition": "The highest price a buyer is currently willing to pay for an investment.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "BEAR",
+          "category": "financial-secondary",
+          "termId": "investing.bear",
+          "masteryId": "investing.bear",
+          "definition": "Describes an investor or market outlook that expects prices to decline.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "REIT",
+          "category": "financial-secondary",
+          "termId": "real_estate.reit",
+          "masteryId": "real_estate.reit",
+          "definition": "A company that owns and typically operates income-producing real estate or related assets.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "DATE",
+          "category": "ordinary",
+          "fillerId": "filler.date",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "investing",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "TRADE",
+        "BID",
+        "BEAR",
+        "REIT",
+        "DATE"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "BID": {
+          "label": "direct",
+          "explanation": "A bid is the price a buyer offers in a trade."
+        },
+        "BEAR": {
+          "label": "contextual",
+          "explanation": "A bear market shapes when and how people trade.",
+          "strong": true
+        },
+        "REIT": {
+          "label": "contextual",
+          "explanation": "A REIT is a security that can be traded like a stock."
+        }
+      },
+      "layout": [
+        {
+          "word": "TRADE",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "BID",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "BEAR",
+          "r": 0,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    },
+    {
+      "id": "FQ-V3:investing:MARKET:R3",
+      "worldId": "investing",
+      "worldName": "Investing Basics",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 3,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-07",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-07",
+        "replacesCanonical": "FQ-V3:investing:MARKET:R2",
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "MARKET",
+      "anchorTermId": "investing.market",
+      "declaredExtraLetters": [
+        "B",
+        "D"
+      ],
+      "wheelLetters": [
+        "M",
+        "A",
+        "R",
+        "K",
+        "E",
+        "T",
+        "B",
+        "D"
+      ],
+      "answers": [
+        {
+          "word": "MARKET",
+          "category": "financial-anchor",
+          "termId": "investing.market",
+          "masteryId": "investing.market",
+          "definition": "A system or place where buyers and sellers trade investments.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "TRADE",
+          "category": "financial-secondary",
+          "termId": "investing.trade",
+          "masteryId": "investing.trade",
+          "definition": "A completed purchase or sale of an investment.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "BEAR",
+          "category": "financial-secondary",
+          "termId": "investing.bear",
+          "masteryId": "investing.bear",
+          "definition": "Describes an investor or market outlook that expects prices to decline.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "DATE",
+          "category": "ordinary",
+          "fillerId": "filler.date",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "investing",
+          "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "READ",
+          "category": "ordinary",
+          "fillerId": "filler.read",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "investing",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "MARKET",
+        "TRADE",
+        "BEAR",
+        "DATE",
+        "READ"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "TRADE": {
+          "label": "direct",
+          "explanation": "A trade is a buy or sell that takes place in a market."
+        },
+        "BEAR": {
+          "label": "contextual",
+          "explanation": "A bear market is a market in which prices are falling.",
+          "strong": true
+        }
+      },
+      "layout": [
+        {
+          "word": "MARKET",
+          "r": 0,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "TRADE",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 4,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "READ",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "BEAR",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    },
+    {
+      "id": "FQ-V3:investing:RETURN:R3",
+      "worldId": "investing",
+      "worldName": "Investing Basics",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 3,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-09",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-09",
+        "replacesCanonical": "FQ-V3:investing:RETURN:R2",
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "RETURN",
+      "anchorTermId": "investing.return",
+      "declaredExtraLetters": [
+        "A",
+        "D"
+      ],
+      "wheelLetters": [
+        "R",
+        "E",
+        "T",
+        "U",
+        "R",
+        "N",
+        "A",
+        "D"
+      ],
+      "answers": [
+        {
+          "word": "RETURN",
+          "category": "financial-anchor",
+          "termId": "investing.return",
+          "masteryId": "investing.return",
+          "definition": "The money gained or lost from an investment, including price changes and payments such as interest or dividends.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "EARN",
+          "category": "financial-secondary",
+          "termId": "moneybasics.earn",
+          "masteryId": "moneybasics.earn",
+          "definition": "To receive money in return for work or another activity.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "RATE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.rate",
+          "masteryId": "moneybasics.rate",
+          "definition": "An amount or percentage used to calculate a payment, cost, or return.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "TRADE",
+          "category": "financial-secondary",
+          "termId": "investing.trade",
+          "masteryId": "investing.trade",
+          "definition": "A completed purchase or sale of an investment.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "DATE",
+          "category": "ordinary",
+          "fillerId": "filler.date",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "investing",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "RETURN",
+        "EARN",
+        "RATE",
+        "TRADE",
+        "DATE"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "EARN": {
+          "label": "direct",
+          "explanation": "A return is what an investment earns."
+        },
+        "RATE": {
+          "label": "direct",
+          "explanation": "A rate of return expresses the gain as a percentage."
+        },
+        "TRADE": {
+          "label": "contextual",
+          "explanation": "Trading can produce or reduce an investment return."
+        }
+      },
+      "layout": [
+        {
+          "word": "RETURN",
+          "r": 4,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    },
+    {
+      "id": "FQ-V3:credit:DEFAULT:R1",
+      "worldId": "credit",
+      "worldName": "Credit Foundations",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 1,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-12",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-12",
+        "replacesCanonical": null,
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "DEFAULT",
+      "anchorTermId": "credit.default",
+      "declaredExtraLetters": [
+        "I",
+        "N"
+      ],
+      "wheelLetters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "I",
+        "N"
+      ],
+      "answers": [
+        {
+          "word": "DEFAULT",
+          "category": "financial-anchor",
+          "termId": "credit.default",
+          "masteryId": "credit.default",
+          "definition": "Serious failure to meet agreement obligations.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "LIEN",
+          "category": "financial-secondary",
+          "termId": "real_estate.lien",
+          "masteryId": "real_estate.lien",
+          "definition": "A legal claim against property that can secure repayment of a debt.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "TILA",
+          "category": "financial-secondary",
+          "termId": "credit.tila",
+          "masteryId": "credit.tila",
+          "definition": "The Truth in Lending Act, a federal law requiring important borrowing-cost and credit-term disclosures.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "DATE",
+          "category": "ordinary",
+          "fillerId": "filler.date",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "credit",
+          "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "FINAL",
+          "category": "ordinary",
+          "fillerId": "filler.final",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "credit",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "LIEN",
+        "TILA",
+        "DATE",
+        "FINAL"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "LIEN": {
+          "label": "direct",
+          "explanation": "A lien can follow a default and give a lender a claim on property."
+        },
+        "TILA": {
+          "label": "contextual",
+          "explanation": "Owner-approved association: TILA requires loan terms to be disclosed.",
+          "strong": true
+        }
+      },
+      "layout": [
+        {
+          "word": "DEFAULT",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "FINAL",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 4,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "LIEN",
+          "r": 2,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "TILA",
+          "r": 1,
+          "c": 3,
+          "dir": "v"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    }
+  ]
+}

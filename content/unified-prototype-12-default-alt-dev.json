@@ -1,0 +1,171 @@
+{
+  "prototypeId": "prototype-12",
+  "devOnly": true,
+  "status": "pending-owner-approval",
+  "note": "ALTERNATIVE DEFAULT layout (5x7) for owner review; NOT loaded. Six v3 prototype puzzles that are fully built but NOT loaded: every filler placement below still needs explicit owner approval. Nothing here is approved or active. Key-term answers are copied verbatim from approved canonical puzzles.",
+  "proposedFillerApprovals": [
+    {
+      "fillerId": "filler.date",
+      "word": "DATE",
+      "puzzleId": "FQ-V3:credit:DEFAULT:R1"
+    },
+    {
+      "fillerId": "filler.read",
+      "word": "READ",
+      "puzzleId": "FQ-V3:credit:DEFAULT:R1"
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "FQ-V3:credit:DEFAULT:R1",
+      "worldId": "credit",
+      "worldName": "Credit Foundations",
+      "puzzleVersion": 3,
+      "puzzleMode": "v3",
+      "contentRevision": 1,
+      "compositionRuleVersion": "v3",
+      "contentStatus": "development-prototype",
+      "sourceReviewId": "PROTOTYPE:P5-12",
+      "prototype": {
+        "sequenceId": "prototype-12",
+        "devOnly": true,
+        "key": "P5-12",
+        "replacesCanonical": null,
+        "status": "pending-owner-approval",
+        "provenance": "key-term answers copied verbatim from the approved canonical puzzles"
+      },
+      "anchorWord": "DEFAULT",
+      "anchorTermId": "credit.default",
+      "declaredExtraLetters": [
+        "B",
+        "R"
+      ],
+      "wheelLetters": [
+        "D",
+        "E",
+        "F",
+        "A",
+        "U",
+        "L",
+        "T",
+        "B",
+        "R"
+      ],
+      "answers": [
+        {
+          "word": "DEFAULT",
+          "category": "financial-anchor",
+          "termId": "credit.default",
+          "masteryId": "credit.default",
+          "definition": "Serious failure to meet agreement obligations.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "DEBT",
+          "category": "financial-secondary",
+          "termId": "credit.debt",
+          "masteryId": "credit.debt",
+          "definition": "An amount or obligation owed.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "RATE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.rate",
+          "masteryId": "moneybasics.rate",
+          "definition": "An amount or percentage used to calculate a payment, cost, or return.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve"
+        },
+        {
+          "word": "DATE",
+          "category": "ordinary",
+          "fillerId": "filler.date",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "credit",
+          "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "READ",
+          "category": "ordinary",
+          "fillerId": "filler.read",
+          "termId": null,
+          "masteryId": null,
+          "definition": null,
+          "worldId": "credit",
+          "rewardPolicy": "ordinary-first-solve"
+        }
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "DEBT",
+        "RATE",
+        "DATE",
+        "READ"
+      ],
+      "bonusWords": [],
+      "supportRelevance": {
+        "DEBT": {
+          "label": "direct",
+          "explanation": "A default is a serious failure to repay a debt as agreed."
+        },
+        "RATE": {
+          "label": "contextual",
+          "explanation": "A default can trigger a higher interest rate on what is owed (draft wording; pending owner review).",
+          "strong": true
+        }
+      },
+      "layout": [
+        {
+          "word": "DEFAULT",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "DEBT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 1,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "DATE",
+          "r": 0,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "READ",
+          "r": 1,
+          "c": 3,
+          "dir": "v"
+        }
+      ],
+      "rewardPolicy": {
+        "financial": {
+          "coinsPerLetter": 7,
+          "xpPerLetter": 1.5,
+          "roundXp": true
+        },
+        "ordinary": {
+          "coinsPerWord": 1,
+          "xp": 0
+        },
+        "bonus": {
+          "coins": 0,
+          "xp": 0
+        }
+      }
+    }
+  ]
+}

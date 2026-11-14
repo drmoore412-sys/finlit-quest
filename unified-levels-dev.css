@@ -1,0 +1,16 @@
+/* Unified level map (main-levels sequenceVersion 2). Linked from index.html and the app bundle; the file keeps its original name. */
+.unified-entry{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;min-height:56px;margin:0 0 12px;padding:12px 16px;border:0;border-radius:16px;background:linear-gradient(180deg,#f2b84b,#d89a2a);color:#241a05;font:inherit;cursor:pointer;box-shadow:0 8px 22px #f2b84b33}
+.unified-entry b{font-size:20px;letter-spacing:.04em}.unified-entry small{font-size:12px;opacity:.8}
+.unified-entry-bar{width:min(100%,480px);margin:10px auto 0;padding:0 14px}
+.unified-level-list{display:block!important}
+.unified-play{display:flex;flex-direction:column;align-items:center;gap:2px;width:100%;min-height:60px;margin:0 0 16px;padding:12px;border:0;border-radius:16px;background:linear-gradient(180deg,#f2b84b,#d89a2a);color:#241a05;font:inherit;cursor:pointer;box-shadow:0 8px 22px #f2b84b33}
+.unified-play b{font-size:22px;letter-spacing:.05em}.unified-play small{font-size:13px;font-weight:700}
+.unified-level-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:10px;margin:0;padding:0}
+.unified-level-grid>[role=listitem]{min-width:0}
+.unified-level{position:relative;display:grid;place-items:center;width:100%;min-width:44px;min-height:56px;aspect-ratio:1;padding:0;border:1px solid var(--wg-border,#2a3f5c);border-radius:14px;background:var(--wg-panel,#0f1c33);color:var(--wg-text,#eaf2ff);font:inherit;font-size:18px;font-weight:900;cursor:pointer}
+.unified-level i{position:absolute;right:5px;top:3px;font-size:11px;font-style:normal}
+.unified-level.is-current{border-color:var(--wg-gold,#f2b84b);box-shadow:0 0 0 2px #f2b84b55;background:#f2b84b22}
+.unified-level.is-completed{border-color:#2ee6c8;background:#2ee6c81f}.unified-level.is-completed i{color:#2ee6c8}
+.unified-level.is-locked{opacity:.45;cursor:not-allowed}
+.unified-level:focus-visible,.unified-play:focus-visible,.unified-entry:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media(max-width:360px){.unified-level-grid{grid-template-columns:repeat(4,1fr);gap:8px}}

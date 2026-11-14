@@ -1,0 +1,99 @@
+{
+  "whitelistVersion": 1,
+  "devOnly": true,
+  "productionApproved": true,
+  "note": "Overlay approving filler placements for exact puzzle IDs only (never anchor words). Owner-approved for production use in those IDs on 2026-11-14. Separate from content/unified-filler-whitelist-dev.json, which is not modified.",
+  "excluded": [],
+  "entries": [
+    {
+      "fillerId": "filler.name",
+      "word": "NAME",
+      "status": "approved-production-exact-puzzles",
+      "productionApproved": true,
+      "ownerReview": "owner-approved for production in the exact puzzle IDs listed (2026-11-14); previously approved for prototype-12",
+      "familiarityStatus": "pending-human-review",
+      "safetyStatus": "pending-human-review",
+      "sourceRecord": "Ordinary English word from the FinLit Quest development whitelist",
+      "licenseRecord": "No third-party data included",
+      "approvedInPuzzles": [
+        "FQ-V3:credit:REPAYMENT:R2",
+        "FQ-V3:real_estate:APARTMENT:R2"
+      ]
+    },
+    {
+      "fillerId": "filler.line",
+      "word": "LINE",
+      "status": "approved-production-exact-puzzles",
+      "productionApproved": true,
+      "ownerReview": "owner-approved for production in the exact puzzle IDs listed (2026-11-14); previously approved for prototype-12",
+      "familiarityStatus": "pending-human-review",
+      "safetyStatus": "pending-human-review",
+      "sourceRecord": "Ordinary English word from the FinLit Quest development whitelist",
+      "licenseRecord": "No third-party data included",
+      "approvedInPuzzles": [
+        "FQ-V3:business:RETAIL:R1"
+      ]
+    },
+    {
+      "fillerId": "filler.time",
+      "word": "TIME",
+      "status": "approved-production-exact-puzzles",
+      "productionApproved": true,
+      "ownerReview": "owner-approved for production in the exact puzzle IDs listed (2026-11-14); previously approved for prototype-12",
+      "familiarityStatus": "pending-human-review",
+      "safetyStatus": "pending-human-review",
+      "sourceRecord": "Ordinary English word from the FinLit Quest development whitelist",
+      "licenseRecord": "No third-party data included",
+      "approvedInPuzzles": [
+        "FQ-V3:moneybasics:RECEIPT:R3"
+      ]
+    },
+    {
+      "fillerId": "filler.date",
+      "word": "DATE",
+      "status": "approved-production-exact-puzzles",
+      "productionApproved": true,
+      "ownerReview": "owner-approved for production in the exact puzzle IDs listed (2026-11-14); previously approved for prototype-12",
+      "familiarityStatus": "pending-human-review",
+      "safetyStatus": "pending-human-review",
+      "sourceRecord": "Ordinary English word from the FinLit Quest development whitelist",
+      "licenseRecord": "No third-party data included",
+      "approvedInPuzzles": [
+        "FQ-V3:investing:TRADE:R3",
+        "FQ-V3:investing:MARKET:R3",
+        "FQ-V3:investing:RETURN:R3",
+        "FQ-V3:credit:DEFAULT:R1",
+        "FQ-V3:credit:CREDIT:R1"
+      ]
+    },
+    {
+      "fillerId": "filler.read",
+      "word": "READ",
+      "status": "approved-production-exact-puzzles",
+      "productionApproved": true,
+      "ownerReview": "owner-approved for production in the exact puzzle IDs listed (2026-11-14); previously approved for prototype-12",
+      "familiarityStatus": "pending-human-review",
+      "safetyStatus": "pending-human-review",
+      "sourceRecord": "Ordinary English word from the FinLit Quest development whitelist",
+      "licenseRecord": "No third-party data included",
+      "approvedInPuzzles": [
+        "FQ-V3:investing:MARKET:R3",
+        "FQ-V3:credit:DEFAULT:R1"
+      ]
+    },
+    {
+      "fillerId": "filler.act",
+      "word": "ACT",
+      "status": "approved-production-exact-puzzles",
+      "productionApproved": true,
+      "ownerReview": "owner-approved for production in the exact puzzle IDs listed (2026-11-14); previously approved for prototype-12",
+      "familiarityStatus": "pending-human-review",
+      "safetyStatus": "pending-human-review",
+      "sourceRecord": "Ordinary English word from the FinLit Quest development whitelist",
+      "licenseRecord": "No third-party data included",
+      "approvedInPuzzles": [
+        "FQ-V3:credit:CREDIT:R1"
+      ]
+    }
+  ]
+}
