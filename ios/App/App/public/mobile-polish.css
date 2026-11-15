@@ -181,3 +181,13 @@
   .cr-wheel-shell{margin-top:4px!important;width:min(330px,calc(100vw - 44px),calc(100dvh - 300px))!important}
   .cr-current{margin-top:6px}
 }
+
+/* Learning Quests: tablet/desktop world cards in an even, aligned grid under the heading (phones keep the single column above) */
+@media(min-width:701px){
+  #worldSelectScreen.journey-dashboard .journey-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-content:start;min-height:0;padding:20px 20px 28px}
+  #worldSelectScreen .map-heading{position:relative;top:auto;left:auto;right:auto;grid-column:1/-1;margin:0 0 4px}
+  #worldSelectScreen .journey-node,#worldSelectScreen .journey-node[class*="node-"]{position:relative;top:auto!important;left:auto!important;right:auto!important;width:100%;min-height:112px;margin:0}
+}
+@media(min-width:1024px){
+  #worldSelectScreen.journey-dashboard .journey-map{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
