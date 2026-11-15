@@ -16,6 +16,8 @@
     return result;
   }
   function canLaunch(puzzleId){return ctx.progress.canPlay(ctx.bridge.save(),sequence(),puzzleId,ctx.bridge.now())}
+  // The lowest-numbered level that is playable and not yet completed (new players: Level 1). null when everything is complete.
+  function nextLevel(){settle();const item=states().find(i=>i.playable&&i.state!=="completed");return item?{level:item.level,puzzleId:item.puzzleId}:null}
   function resumeTarget(){const r=ctx.progress.resume(ctx.bridge.save(),sequence(),ctx.bridge.now());return r}
 
   function rememberIntro(){
@@ -66,5 +68,5 @@
     const top=doc.querySelector("#worldSelectScreen .journey-topbar");if(top&&!doc.getElementById("unifiedEntryHub")){const bar=doc.createElement("div");bar.className="unified-entry-bar";bar.id="unifiedEntryHub";bar.append(make());top.after(bar)}
     doc.documentElement.dataset.finlitUnifiedDev="on";
   }
-  return {mount,renderMap,restore,decorateHeader,afterCompletion,rewardRecord,canLaunch,INTRO,LABELS};
+  return {mount,isMounted:()=>!!ctx,nextLevel,renderMap,restore,decorateHeader,afterCompletion,rewardRecord,canLaunch,INTRO,LABELS};
 });

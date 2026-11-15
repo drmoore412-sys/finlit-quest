@@ -397,6 +397,8 @@ function wgOpenWorld(worldId) {
 
 function wgShowLevelSelect() {
   wgSkipVictory?.();
+  // Unified levels have no level-selection page: Back, Levels and Exit all return to the main hub.
+  if (wgState.unified && window.FinLitUnifiedUI?.isMounted?.()) { wgReturnToWorldSelect(); return; }
   $("#wgCompletePanel").classList.add("hidden");
   $("#wgDefinitionsPanel").classList.add("hidden");
   $("#wgPuzzleExperience").classList.add("hidden");
@@ -1050,7 +1052,7 @@ function wgStartVictory() {
 function wgContinueAfterComplete() {
   wgSkipVictory();
   $("#wgCompletePanel").classList.add("hidden");
-  if (wgState.unified) { wgShowLevelSelect(); return; }
+  if (wgState.unified) { wgOpenUnifiedMap(); return; }
   wgState.playthroughIndex++;
   if (wgState.playthroughIndex < wgState.playthrough.length) {
     wgRenderPuzzle();
@@ -1293,16 +1295,13 @@ function fqUnifiedGatedEnabled() {
     try { return sessionStorage.getItem(key) === "1"; } catch (e) { return false; }
   } catch (e) { return false; }
 }
+// Opens the next unfinished level directly (no map or selection page). When every level is complete the player stays on the hub.
 function wgOpenUnifiedMap() {
+  const next = window.FinLitUnifiedUI?.nextLevel?.();
+  if (!next) { toast("You have completed every level"); wgReturnToWorldSelect(); return; }
   $("#app").classList.remove("journey-mode");
   wgBuildCanonicalLibrary();
-  wgState.unified = true;
-  wgApplyWorldBackground(wgState.worldId);
-  hideAllScreens();
-  $("#worldGameScreen").classList.remove("hidden");
-  window.scrollTo(0, 0);
-  wgShowLevelSelect();
-  wgUpdateHeader();
+  wgOpenUnifiedPuzzle(next.puzzleId, next.level);
   wgAudio.startMusic();
 }
 function wgOpenUnifiedPuzzle(puzzleId, levelNumber) {

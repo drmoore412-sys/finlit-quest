@@ -86,6 +86,8 @@ function renderWorldJourneyMap(mode){
   $("#journeyTabGames").classList.toggle("active",mode==="games");$("#journeyTabGames").setAttribute("aria-selected",mode==="games");
   $("#bonusGamesHub").classList.toggle("hidden",mode!=="games");$("#journeyWorldMap").classList.toggle("hidden",mode==="games");$("#dailyReward").classList.toggle("hidden",mode==="games");
   if(mode==="games")return;
+  // Unified levels: Word Quests has no journey/world page; the hub keeps its Play button and tabs.
+  if(mode==="quest"&&window.FinLitUnifiedUI?.isMounted?.()){$("#journeyWorldMap").classList.add("hidden");return}
   $("#worldMapKicker").textContent=mode==="quest"?"WORD QUESTS":"LEARNING QUESTS";
   $("#worldMapTitle").textContent=mode==="quest"?"Your Word Quest Journey":"Your Learning Quest Journey";
   const player=learning.save.player;
@@ -175,7 +177,7 @@ $("#continentPreview").onclick=()=>toast("More financial regions unlock after th
 $("#dailyRewardClaim").onclick=claimDailyRewardFromUi;
 // Re-evaluate when the app returns to the foreground (e.g. after local midnight) so the card never shows a stale day.
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!$("#worldSelectScreen").classList.contains("hidden"))renderDailyReward()});
-$("#journeyTabQuest").onclick=()=>renderWorldJourneyMap("quest");
+$("#journeyTabQuest").onclick=()=>{if(window.FinLitUnifiedUI?.isMounted?.()){renderWorldJourneyMap("quest");wgOpenUnifiedMap();return}renderWorldJourneyMap("quest")};
 $("#journeyTabLearning").onclick=()=>renderWorldJourneyMap("learning");
 $("#journeyTabGames").onclick=()=>renderWorldJourneyMap("games");
 $("#journeyCurrencyRush").onclick=()=>window.openCurrencyRush?.({source:"bonus-games",stage:1});
