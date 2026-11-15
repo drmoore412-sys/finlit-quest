@@ -1320,6 +1320,7 @@ function wgOpenUnifiedPuzzle(puzzleId, levelNumber) {
   wgRenderPuzzle();
   FinLitUnifiedUI.decorateHeader();
   wgUpdateHeader();
+  fqSession.set({ screen: "play", puzzleId, level: levelNumber });
   window.scrollTo(0, 0);
 }
 // ---- Development-only prototype-12 (Checkpoint 10). Two puzzles, explicit ?prototype=12 flag, local development host only. ----
@@ -1437,10 +1438,20 @@ if (fqPrototype12Enabled()) {
   } catch (error) { console.warn("Unified levels unavailable; using the existing level flow:", error.message); window.__finlitUnifiedLevels = { ready: false, error: error.message }; }
 }
 
-// Initial screen: a brand-new player (never tapped past Welcome before)
-// sees it once; everyone else lands on World Selection, which is now the
-// permanent "choose/switch a world" hub, not a one-time-only screen.
-if (!localStorage.getItem("finlitQuest.onboarded")) {
+// Initial screen. With unified levels the welcome page is the single hub: a new browser session always starts there, and a refresh
+// restores the current screen (gameplay, Bonus Games, Learning Quests or My Progress) from sessionStorage. Without unified levels the
+// original behavior is unchanged: first-time players see Welcome once, everyone else lands on World Selection.
+if (fqUnifiedHub()) {
+  const saved = fqSession.get() || {};
+  if (window.location.hash === "#bonus-games" || saved.screen === "games") showJourneySection("games");
+  else if (saved.screen === "learning") showJourneySection("learning");
+  else if (saved.screen === "progress") showDashboard();
+  else if (saved.screen === "play" && saved.puzzleId && FinLitUnifiedUI.canLaunch(saved.puzzleId)) {
+    $("#app").classList.remove("journey-mode");
+    wgBuildCanonicalLibrary();
+    wgOpenUnifiedPuzzle(saved.puzzleId, saved.level);
+  } else showWelcome();
+} else if (!localStorage.getItem("finlitQuest.onboarded")) {
   showWelcome();
 } else {
   showWorldSelect();

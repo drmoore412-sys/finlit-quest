@@ -370,7 +370,7 @@ test("music spans journey, level selection, words, puzzle changes and completion
   assert.ok(!/startMusic|stopMusic/.test(submit),"word results do not restart the music");
   assert.ok(!/startMusic|stopMusic/.test(completion),"completion does not restart the music");
   assert.match(app,/window\.FinLitMusic = \{[\s\S]*?enterJourney\(\)[\s\S]*?wgAudio\.startMusic\(\)/);
-  assert.match(read("app.js"),/function showWorldSelect\(\)[\s\S]{0,260}window\.FinLitMusic\?\.enterJourney\(\)/);
+  assert.match(read("app.js"),/function showJourneySection\(mode\)[\s\S]{0,260}window\.FinLitMusic\?\.enterJourney\(\)/);
   assert.match(app,/function wgReturnToWorldSelect\(\) \{\s*showWorldSelect\(\);\s*\}/);
   assert.doesNotMatch(app,/function wgReturnToWorldSelect\(\) \{\s*wgAudio\.stopMusic/);
 });

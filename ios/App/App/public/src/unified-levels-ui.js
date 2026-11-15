@@ -62,10 +62,7 @@
 
   function mount(options){
     ctx=options;const doc=ctx.document;
-    // One primary Play entry: on the welcome card and at the top of the main hub. Existing navigation is untouched.
-    const make=()=>{const b=doc.createElement("button");b.type="button";b.className="unified-entry";b.innerHTML="<b>Play</b><small>Continue your journey</small>";b.setAttribute("aria-label","Play");b.onclick=()=>ctx.bridge.openMap();return b};
-    const cta=doc.getElementById("welcomeStartButton");if(cta&&cta.parentNode&&!doc.getElementById("unifiedEntryWelcome")){const b=make();b.id="unifiedEntryWelcome";cta.parentNode.insertBefore(b,cta)}
-    const top=doc.querySelector("#worldSelectScreen .journey-topbar");if(top&&!doc.getElementById("unifiedEntryHub")){const bar=doc.createElement("div");bar.className="unified-entry-bar";bar.id="unifiedEntryHub";bar.append(make());top.after(bar)}
+    // The welcome page is the single hub: no extra Play entries are injected.
     doc.documentElement.dataset.finlitUnifiedDev="on";
   }
   return {mount,isMounted:()=>!!ctx,nextLevel,renderMap,restore,decorateHeader,afterCompletion,rewardRecord,canLaunch,INTRO,LABELS};

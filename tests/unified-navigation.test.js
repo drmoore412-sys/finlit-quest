@@ -39,7 +39,7 @@ test("every hook into the existing game is inert when the unified UI is not load
 });
 test("existing navigation, Continuing Education and Learning Quest entry points are untouched",()=>{
   ["welcomeStartButton","welcomeExploreWorlds","welcomePlayChallenges","welcomeLearningAcademy","welcomeMyProgress","worldSelectScreen","wgLevelSelect","wgLevelList"].forEach(id=>assert.ok(index.includes(`id="${id}"`),id));
-  assert.match(appJs,/welcomeLearningAcademy"\)\.onclick=\(\)=>leaveWelcome\(\(\)=>\{showWorldSelect\(\);renderWorldJourneyMap\("learning"\)\}\)/);
+  assert.match(appJs,/welcomeLearningAcademy"\)\.onclick=\(\)=>leaveWelcome\(\(\)=>\{if\(fqUnifiedHub\(\)\)\{showJourneySection\("learning"\);return\}showWorldSelect\(\);renderWorldJourneyMap\("learning"\)\}\)/);
   assert.equal((index.match(/data-world="/g)||[]).length>=13,true,"world selection nodes remain in the DOM for category navigation");
   assert.ok(/Learning Quests/.test(index));
   assert.equal(app.includes("wgRenderLevelSelect"),true,"classic level select remains for non-unified mode");
@@ -48,7 +48,7 @@ test("bonus games are isolated from the unified level path",()=>{
   ["currency-rush","financial-city","defi-tower","wheretomoney","openCurrencyRush"].forEach(key=>{
     ["src/unified-progress.js","src/unified-sequence.js","src/unified-levels-ui.js","content/unified-sequence-dev.json"].forEach(f=>assert.equal(read(f).toLowerCase().includes(key.toLowerCase()),false,`${f} mentions ${key}`));
   });
-  const devBlock=app.slice(app.indexOf("// ---- Development-only unified levels"),app.indexOf("// Initial screen: a brand-new player"));
+  const devBlock=app.slice(app.indexOf("// ---- Development-only unified levels"),app.indexOf("// Initial screen."));
   assert.equal(/currency|rush|city|defi|bonus/i.test(devBlock),false,"dev bridge touches no bonus-game code");
   const manifest=JSON.parse(read("content/unified-sequence-dev.json"));
   assert.equal(manifest.entries.every(e=>e.puzzleId.startsWith("FQ-V3:")),true);

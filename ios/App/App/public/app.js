@@ -28,8 +28,13 @@ function celebrate(){}
 const FQ_SCREEN_IDS=["welcomeScreen","worldSelectScreen","dashboardScreen","workbookScreen","worldGameScreen"];
 function hideAllScreens(){FQ_SCREEN_IDS.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add("hidden")})}
 
-function showWelcome(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#welcomeScreen").classList.remove("hidden");window.scrollTo(0,0)}
-function showWorldSelect(){hideAllScreens();$("#app").classList.add("journey-mode");$("#worldSelectScreen").classList.remove("hidden");renderWorldJourneyMap("quest");renderDailyReward();window.FinLitMusic?.enterJourney();window.scrollTo(0,0)}
+// Current screen for this browser session only (sessionStorage): a refresh keeps the screen, a new session starts at the welcome page.
+const fqSession={get(){try{return JSON.parse(sessionStorage.getItem("finlitQuest.session.v1")||"null")}catch(e){return null}},set(value){try{sessionStorage.setItem("finlitQuest.session.v1",JSON.stringify(value))}catch(e){}}};
+// With unified levels the welcome page is the single navigation hub; the old hub (tabs + Play) is not part of the flow.
+const fqUnifiedHub=()=>!!(window.FinLitUnifiedUI&&window.FinLitUnifiedUI.isMounted&&window.FinLitUnifiedUI.isMounted());
+function showWelcome(){hideAllScreens();$("#app").classList.remove("journey-mode");$("#welcomeScreen").classList.remove("hidden");renderDailyReward();fqSession.set({screen:"welcome"});window.scrollTo(0,0)}
+function showJourneySection(mode){hideAllScreens();$("#app").classList.add("journey-mode");$("#worldSelectScreen").classList.remove("hidden");renderWorldJourneyMap(mode);renderDailyReward();window.FinLitMusic?.enterJourney();fqSession.set({screen:mode});window.scrollTo(0,0)}
+function showWorldSelect(){if(fqUnifiedHub()){showWelcome();return}showJourneySection("quest")}
 // Word Quests route into gameplay only when the governed world registry says
 // an approved runtime puzzle bank exists. Approved world identities without an
 // approved bank stay visible as Coming Soon and never initialize progress.
@@ -131,7 +136,7 @@ function renderWorldJourneyMap(mode){
     }
   });
 }
-function showDashboard(){hideAllScreens();$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
+function showDashboard(){fqSession.set({screen:"progress"});hideAllScreens();$("#dashboardScreen").classList.remove("hidden");$("#app").classList.add("journey-mode");updateDashboard();window.scrollTo(0,0)}
 function updateJourneyNodes(activeIndex){
   $$("#dashboardScreen .journey-node").forEach((node,index)=>{
     const status=index<activeIndex?"completed":index===activeIndex?"active":"locked";
@@ -166,12 +171,16 @@ function toggleTheme(){const next=document.documentElement.dataset.theme==="dark
 
 $("#continueLearning").onclick=()=>wgOpenWorld("credit");$("#themeToggle").onclick=toggleTheme;$("#viewLevels").onclick=()=>wgOpenWorld("credit");$("#dashboardReview").onclick=()=>wgOpenWorld("credit");
 $("#journeyBrandLogo").onclick=showWorldSelect;
+// Unified flow: the logo on Bonus Games / Learning Quests returns to the welcome page (the single hub).
+{const brand=document.querySelector("#worldSelectScreen .journey-brand");if(brand){const back=()=>{if(fqUnifiedHub())showWelcome()};brand.addEventListener("click",back);brand.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();back()}});brand.setAttribute("role","button");brand.setAttribute("tabindex","0");brand.setAttribute("aria-label","FinLit Quest — back to the welcome page");brand.style.cursor="pointer"}}
+// Enter the Quest / Explore Worlds: with unified levels this opens the next unfinished puzzle directly.
+function openQuestFromWelcome(){if(fqUnifiedHub())wgOpenUnifiedMap();else showWorldSelect()}
 function leaveWelcome(destination){localStorage.setItem("finlitQuest.onboarded","true");destination()}
-$("#welcomeStartButton").onclick=()=>leaveWelcome(showWorldSelect);
+$("#welcomeStartButton").onclick=()=>leaveWelcome(openQuestFromWelcome);
 // The four welcome options go only to destinations that already exist: the Word Quests world map, the Currency Wheel (Currency Rush), the Learning Quests tab, and the dashboard.
-$("#welcomeExploreWorlds").onclick=()=>leaveWelcome(showWorldSelect);
-$("#welcomePlayChallenges").onclick=()=>leaveWelcome(()=>{showWorldSelect();window.openCurrencyRush?.({source:"bonus-games",stage:1})});
-$("#welcomeLearningAcademy").onclick=()=>leaveWelcome(()=>{showWorldSelect();renderWorldJourneyMap("learning")});
+$("#welcomeExploreWorlds").onclick=()=>leaveWelcome(openQuestFromWelcome);
+$("#welcomePlayChallenges").onclick=()=>leaveWelcome(()=>{if(fqUnifiedHub()){showJourneySection("games");return}showWorldSelect();window.openCurrencyRush?.({source:"bonus-games",stage:1})});
+$("#welcomeLearningAcademy").onclick=()=>leaveWelcome(()=>{if(fqUnifiedHub()){showJourneySection("learning");return}showWorldSelect();renderWorldJourneyMap("learning")});
 $("#welcomeMyProgress").onclick=()=>leaveWelcome(showDashboard);
 $("#continentPreview").onclick=()=>toast("More financial regions unlock after their curriculum is approved");
 $("#dailyRewardClaim").onclick=claimDailyRewardFromUi;

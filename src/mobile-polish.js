@@ -113,27 +113,27 @@
   }
 
   // ---------- Daily reward popup ----------
-  const reward=$("#dailyReward"),rewardOpen=$("#dailyRewardOpen"),rewardBackdrop=$("#dailyRewardBackdrop"),claim=$("#dailyRewardClaim");
+  const reward=$("#dailyReward"),rewardOpen=$("#dailyRewardOpen"),welcomeOpen=$("#welcomeRewardOpen"),rewardOpens=[rewardOpen,welcomeOpen].filter(Boolean),rewardBackdrop=$("#dailyRewardBackdrop"),claim=$("#dailyRewardClaim");
   function closeReward(){
     if(!reward||!reward.classList.contains("is-open"))return;
     reward.classList.remove("is-open");rewardBackdrop?.classList.remove("is-open");
-    rewardOpen?.setAttribute("aria-expanded","false");rewardOpen?.focus({preventScroll:true});
+    rewardOpens.forEach(b=>b.setAttribute("aria-expanded","false"));(lastOpener||rewardOpen)?.focus({preventScroll:true});
   }
-  function openReward(){
+  let lastOpener=null;
+  function openReward(opener){
     if(!reward)return;
+    lastOpener=opener||rewardOpen;
     reward.classList.add("is-open");rewardBackdrop?.classList.add("is-open");
-    rewardOpen?.setAttribute("aria-expanded","true");
+    rewardOpens.forEach(b=>b.setAttribute("aria-expanded","true"));
     (claim&&!claim.disabled?claim:$("#dailyRewardClose"))?.focus({preventScroll:true});
   }
   function syncRewardDot(){
-    if(!rewardOpen||!claim)return;
+    if(!rewardOpens.length||!claim)return;
     const ready=!claim.disabled&&Boolean(claim.textContent);
-    rewardOpen.classList.toggle("is-ready",ready);
-    rewardOpen.setAttribute("aria-label",ready?"Daily reward: ready to claim":"Daily reward");
+    rewardOpens.forEach(b=>{b.classList.toggle("is-ready",ready);b.setAttribute("aria-label",ready?"Daily reward: ready to claim":"Daily reward")});
   }
   if(reward&&rewardOpen){
-    rewardOpen.setAttribute("aria-expanded","false");
-    rewardOpen.addEventListener("click",()=>reward.classList.contains("is-open")?closeReward():openReward());
+    rewardOpens.forEach(b=>{b.setAttribute("aria-expanded","false");b.addEventListener("click",()=>reward.classList.contains("is-open")?closeReward():openReward(b))});
     rewardBackdrop?.addEventListener("click",closeReward);
     $("#dailyRewardClose")?.addEventListener("click",closeReward);
     if(claim&&root.MutationObserver)new MutationObserver(syncRewardDot).observe(claim,{attributes:true,attributeFilter:["disabled"],childList:true,characterData:true,subtree:true});

@@ -14,3 +14,5 @@
 .unified-level.is-locked{opacity:.45;cursor:not-allowed}
 .unified-level:focus-visible,.unified-play:focus-visible,.unified-entry:focus-visible{outline:3px solid #fff;outline-offset:2px}
 @media(max-width:360px){.unified-level-grid{grid-template-columns:repeat(4,1fr);gap:8px}}
+/* The old hub's tab row is not part of the unified flow; Bonus Games and Learning Quests open directly from the welcome page. */
+html[data-finlit-unified-dev="on"] .journey-tabs{display:none}

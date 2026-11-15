@@ -25,3 +25,27 @@ test("non-unified worlds and the other tabs are unchanged",()=>{
   assert.ok(app.includes("else { window.FinLitUnifiedUI?.restore(); wgRenderLevelSelect(); }"));
   assert.ok(hub.includes('$("#journeyTabLearning").onclick=()=>renderWorldJourneyMap("learning")')&&hub.includes('$("#journeyTabGames").onclick=()=>renderWorldJourneyMap("games")'));
 });
+test("welcome page is the single hub: session-based startup, no old hub in the unified flow",()=>{
+  assert.match(hub,/function showWorldSelect\(\)\{if\(fqUnifiedHub\(\)\)\{showWelcome\(\);return\}showJourneySection\("quest"\)\}/);
+  assert.ok(hub.includes('sessionStorage.setItem("finlitQuest.session.v1"'));
+  assert.ok(hub.includes('leaveWelcome(openQuestFromWelcome)'));
+  assert.ok(app.includes('if (fqUnifiedHub()) {\n  const saved = fqSession.get() || {};'));
+  assert.ok(app.includes('saved.screen === "play" && saved.puzzleId && FinLitUnifiedUI.canLaunch(saved.puzzleId)'));
+  assert.ok(app.includes('fqSession.set({ screen: "play", puzzleId, level: levelNumber })'));
+  assert.ok(!ui.includes("unifiedEntryHub")&&!ui.includes("unifiedEntryWelcome"),"no injected Play entries");
+  assert.ok(text("unified-levels-dev.css").includes('html[data-finlit-unified-dev="on"] .journey-tabs{display:none}'));
+  assert.ok(hub.includes('brand.setAttribute("tabindex","0")'));
+});
+test("Daily Reward gift icon on the welcome page opens the existing popup; reward logic untouched",()=>{
+  const html=text("index.html"),poly=text("src/mobile-polish.js");
+  const welcome=html.slice(html.indexOf('id="welcomeScreen"'),html.indexOf("</section>",html.indexOf('id="welcomeScreen"')));
+  assert.match(welcome,/id="welcomeRewardOpen"[^>]*aria-controls="dailyReward"[^>]*aria-label="Daily reward"/);
+  assert.equal((welcome.match(/class="welcome-option"/g)||[]).length,4,"welcome design unchanged");
+  const popup=html.indexOf('id="dailyReward"'),welcomeAt=html.indexOf('id="welcomeScreen"'),hubAt=html.indexOf('id="worldSelectScreen"');
+  assert.ok(popup>0&&popup<welcomeAt&&popup<hubAt,"popup is outside every screen");
+  assert.equal((html.match(/id="dailyReward"/g)||[]).length,1);assert.equal((html.match(/id="dailyRewardClaim"/g)||[]).length,1);
+  assert.ok(poly.includes('#welcomeRewardOpen')&&poly.includes('rewardOpens.forEach'));
+  assert.ok(hub.includes('renderDailyReward();fqSession.set({screen:"welcome"})'));
+  const L=require("../learning-engine.js");assert.deepEqual([...L.DAILY_LOGIN_SCHEDULE],[10,15,20,25,30,35,50]);
+  assert.ok(text("word-game.css").includes(".welcome-screen .welcome-reward-open{position:absolute"));
+});

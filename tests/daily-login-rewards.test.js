@@ -412,7 +412,7 @@ test("the daily reward markup is a labelled region with a real button, an ordere
   assert.match(card,/<button type="button" class="daily-reward-claim" id="dailyRewardClaim">/);
   assert.match(card,/<ol class="daily-reward-days" id="dailyRewardDays" aria-label="[^"]+">/);
   assert.match(card,/id="dailyRewardStatus" role="status" aria-live="polite" tabindex="-1"/);
-  assert.ok(html.indexOf('id="dailyReward"')>html.indexOf('id="worldSelectScreen"'),"card lives on the journey screen");
+  assert.ok(html.indexOf('id="dailyReward"')<html.indexOf('id="welcomeScreen"'),"card lives outside the screens so the welcome page and the journey screens can both open it");
 });
 
 test("the daily reward styles provide visible keyboard focus, a 44px target, and reduced-motion handling",()=>{

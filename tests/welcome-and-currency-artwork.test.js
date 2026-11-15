@@ -38,10 +38,10 @@ test("the privacy and terms links required for submission are kept",()=>{
 
 test("every welcome button goes only to an existing destination and marks the player as onboarded",()=>{
   assert.match(app,/function leaveWelcome\(destination\)\{localStorage\.setItem\("finlitQuest\.onboarded","true"\);destination\(\)\}/);
-  assert.match(app,/\$\("#welcomeStartButton"\)\.onclick=\(\)=>leaveWelcome\(showWorldSelect\)/);
-  assert.match(app,/\$\("#welcomeExploreWorlds"\)\.onclick=\(\)=>leaveWelcome\(showWorldSelect\)/);
-  assert.match(app,/\$\("#welcomePlayChallenges"\)\.onclick=\(\)=>leaveWelcome\(\(\)=>\{showWorldSelect\(\);window\.openCurrencyRush\?\.\(\{source:"bonus-games",stage:1\}\)\}\)/,"Currency Wheel, the same call the Bonus Games hub already makes");
-  assert.match(app,/\$\("#welcomeLearningAcademy"\)\.onclick=\(\)=>leaveWelcome\(\(\)=>\{showWorldSelect\(\);renderWorldJourneyMap\("learning"\)\}\)/);
+  assert.match(app,/\$\("#welcomeStartButton"\)\.onclick=\(\)=>leaveWelcome\(openQuestFromWelcome\)/);
+  assert.match(app,/\$\("#welcomeExploreWorlds"\)\.onclick=\(\)=>leaveWelcome\(openQuestFromWelcome\)/);
+  assert.match(app,/\$\("#welcomePlayChallenges"\)\.onclick=\(\)=>leaveWelcome\(\(\)=>\{if\(fqUnifiedHub\(\)\)\{showJourneySection\("games"\);return\}showWorldSelect\(\);window\.openCurrencyRush\?\.\(\{source:"bonus-games",stage:1\}\)\}\)/,"Bonus Games section (unified flow); Currency Wheel call unchanged otherwise");
+  assert.match(app,/\$\("#welcomeLearningAcademy"\)\.onclick=\(\)=>leaveWelcome\(\(\)=>\{if\(fqUnifiedHub\(\)\)\{showJourneySection\("learning"\);return\}showWorldSelect\(\);renderWorldJourneyMap\("learning"\)\}\)/);
   assert.match(app,/\$\("#welcomeMyProgress"\)\.onclick=\(\)=>leaveWelcome\(showDashboard\)/);
   ["function showWorldSelect","function renderWorldJourneyMap","function showDashboard"].forEach(fn=>assert.ok(app.includes(fn),`${fn} already exists`));
   assert.match(read("src/currency-rush.js"),/win\.openCurrencyRush=/,"the Currency Wheel entry point already exists");
