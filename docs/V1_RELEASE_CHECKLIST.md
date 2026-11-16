@@ -1,3 +1,43 @@
+## Current release tracker — updated 2026-11-16
+
+**This section is the current source of truth for release conversations.** The historical checklist below records July 2026 work and has stale scope assumptions (five worlds, older hardware). Do not treat historical unchecked entries as proof that later work was never done. Do not ask the user again about items already marked complete here. Distinguish **decided**, **source-confirmed**, **reported complete**, and **final-build verification pending**. No deployment or gameplay changes are authorized by this checklist update.
+
+### Completed / decided — do not re-ask
+
+- [x] **Primary App Store category decided:** Education. Educational positioning: *financial literacy through interactive word games*.
+- [x] **Secondary category direction decided:** Games / Word if App Store Connect offers that combination; availability still needs confirmation.
+- [x] **App Store subtitle and keywords:** user confirms these were completed previously. **Do not replace or re-draft them**; retrieve the existing approved text when needed.
+- [x] **Support page source confirmed:** `support.html` exists in the repository, with FAQ and contact email `drmoore412@gmail.com`. Intended Support URL: `https://finlitquest.com/support.html`. Historical checklist reports it published; reconfirm public accessibility at submission.
+- [x] **Privacy policy source confirmed:** `privacy.html` exists. Intended URL: `https://finlitquest.com/privacy.html`. Final privacy accuracy check remains pending due to externally loaded Google Fonts.
+- [x] **Terms page:** historical checklist records `terms.html` complete.
+- [x] **No payments, subscriptions, or advertisements intentionally built:** user confirms no such features were built; earlier source audit found no purchase/advertising system. Final iOS build validation remains part of general release QA, not a separate new audit.
+- [x] **Gameplay coins and gems are earned, not purchased:** confirmed release positioning.
+- [x] **Bonus-game reward source audit completed (read-only):** Currency Rush knowledge scoring, DeFi Tower floor points, Financial City prototype rewards, $10,000 challenge score, and optional bonus-word zero-reward behavior reviewed. No randomized prizes or real-money payouts identified in reviewed source. **This was not a fresh device test.**
+- [x] **Device-permission requirement reviewed:** no camera, microphone, location, contacts, photos, Bluetooth or notification permission is required for core gameplay. Confirm native declarations in final build.
+- [x] **App Store marketing direction:** describe the actual word-wheel gameplay, not generically as a crossword game unless describing a genuine crossword feature.
+- [x] **App icon and splash screen:** historical checklist reports installed; review final artwork as part of submission assets.
+- [x] **App Store support-page creation:** already done; do not recreate.
+
+### Open / verification required
+
+- [ ] **App Store screenshots:** not created. Capture actual release-ready iPhone gameplay after final visual/device QA.
+- [ ] **Final App Store description:** a draft was proposed in conversation, **not approved**. Verify every claimed world/feature against the final release build before approval.
+- [ ] **App Store Connect category combination:** verify Education primary + Games/Word secondary is supported.
+- [ ] **Age rating:** 4+ is preliminary; complete Apple's actual age-rating questionnaire.
+- [ ] **Google Fonts privacy fix:** replace externally loaded Google Fonts in `financial-city.html` with local bundled fonts; review build script and recheck privacy statements.
+- [ ] **Google icons:** user requested a later update; clarify exact icons only when doing that task.
+- [ ] **Bonus-game reachability:** verify bonus rounds actually launch/trigger as intended in live gameplay; source audit alone is insufficient.
+- [ ] **Final iPhone/Simulator/TestFlight QA:** touch input, layouts, orientation, accessibility/VoiceOver, contrast, save/restore, stability, permissions, and runtime behavior.
+- [ ] **Native signing and TestFlight submission:** current status not verified here.
+- [ ] **Public Support/Privacy URLs:** source files exist; verify HTTP accessibility before entering URLs in App Store Connect.
+- [ ] **App Review Notes:** describe the actual interactive gameplay and Capacitor packaging; prior historical checklist identifies this as pending.
+- [ ] **Current world/profile content and deployment parity:** historical five-world scope is obsolete; later work reports 13 worlds and 11 profiles, but final deployed availability and approvals must be checked, not assumed.
+- [ ] **Final readiness gate:** check all critical blockers before submission.
+
+**Working rule:** Advance to the next *uncompleted* release requirement. Do not re-audit or re-ask completed work unless new contradictory evidence or a changed build makes verification necessary.
+
+---
+
 # FinLit Quest — Version 1.0 Submission Readiness Checklist
 
 **Mission (originally locked 2026-07-20, phase structure updated 2026-07-21, scope re-frozen 2026-07-25 — see Blocker 13):** ship Version 1.0 to the Apple App Store with the app **as it exists today**: five worlds (Money Basics, Credit, Crypto, Banking Basics, Investing Basics), the PLAY/LEARN/GROW welcome screen, and the Word Quests / Learning Quests journey map as the primary navigation hub. Stability over new features; every change should reduce App Store rejection risk or improve quality/reliability/accessibility/compliance. Work one issue at a time; verify before marking complete; no assumptions.
