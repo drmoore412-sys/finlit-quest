@@ -12,7 +12,7 @@
 - [x] **Terms page and current description updated 2026-11-16:** `terms.html` now describes 13 learning worlds and word-wheel educational gameplay, retaining the existing legal terms, contact information, and styling. GitHub commit `41c92f0`. Public deployment still needs verification.
 - [x] **No payments, subscriptions, or advertisements intentionally built:** user confirms no such features were built; earlier source audit found no purchase/advertising system. Final iOS build validation remains part of general release QA, not a separate new audit.
 - [x] **Gameplay coins and gems are earned, not purchased:** confirmed release positioning.
-- [x] **Bonus-game reward source audit completed (read-only):** Currency Rush knowledge scoring, DeFi Tower floor points, Financial City prototype rewards, $10,000 challenge score, and optional bonus-word zero-reward behavior reviewed. No randomized prizes or real-money payouts identified in reviewed source. **This was not a fresh device test.**
+- [x] **Bonus Games source-code review only:** reviewed selected bonus-game scoring/reward code; this does **not** establish that bonus rounds trigger or that rewards function in live gameplay. User clarified on 2026-11-16 that only Bonus Games were known, not working bonus rounds/rewards.
 - [x] **Device-permission requirement reviewed:** no camera, microphone, location, contacts, photos, Bluetooth or notification permission is required for core gameplay. Confirm native declarations in final build.
 - [x] **App Store marketing direction:** describe the actual word-wheel gameplay, not generically as a crossword game unless describing a genuine crossword feature.
 - [x] **App icon and splash screen:** historical checklist reports installed; review final artwork as part of submission assets.
@@ -28,7 +28,7 @@
 - [ ] **Age rating:** 4+ is preliminary; complete Apple's actual age-rating questionnaire.
 - [ ] **Google Fonts privacy fix:** replace externally loaded Google Fonts in `financial-city.html` with local bundled fonts; review build script and recheck privacy statements.
 - [ ] **Google icons:** user requested a later update; clarify exact icons only when doing that task.
-- [ ] **Bonus-game reachability:** verify bonus rounds actually launch/trigger as intended in live gameplay; source audit alone is insufficient.
+- [ ] **Bonus rounds and rewards — UNVERIFIED:** determine whether separate bonus rounds are implemented/intended, whether they trigger, and whether rewards are granted correctly in gameplay. Do not conflate these with the Bonus Games section or mark them working from source inspection alone.
 - [ ] **Final iPhone/Simulator/TestFlight QA:** touch input, layouts, orientation, accessibility/VoiceOver, contrast, save/restore, stability, permissions, and runtime behavior.
 - [ ] **Native signing and TestFlight submission:** current status not verified here.
 - [ ] **Public Support/Privacy URLs:** source files exist; verify HTTP accessibility before entering URLs in App Store Connect.
