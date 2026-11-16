@@ -9,7 +9,7 @@
 - [x] **App Store subtitle and keywords:** user confirms these were completed previously. **Do not replace or re-draft them**; retrieve the existing approved text when needed.
 - [x] **Support page source confirmed:** `support.html` exists in the repository, with FAQ and contact email `drmoore412@gmail.com`. Intended Support URL: `https://finlitquest.com/support.html`. Historical checklist reports it published; reconfirm public accessibility at submission.
 - [x] **Privacy policy source confirmed:** `privacy.html` exists. Intended URL: `https://finlitquest.com/privacy.html`. Final privacy accuracy check remains pending due to externally loaded Google Fonts.
-- [x] **Terms page:** historical checklist records `terms.html` complete.
+- [x] **Terms page and current description updated 2026-11-16:** `terms.html` now describes 13 learning worlds and word-wheel educational gameplay, retaining the existing legal terms, contact information, and styling. GitHub commit `41c92f0`. Public deployment still needs verification.
 - [x] **No payments, subscriptions, or advertisements intentionally built:** user confirms no such features were built; earlier source audit found no purchase/advertising system. Final iOS build validation remains part of general release QA, not a separate new audit.
 - [x] **Gameplay coins and gems are earned, not purchased:** confirmed release positioning.
 - [x] **Bonus-game reward source audit completed (read-only):** Currency Rush knowledge scoring, DeFi Tower floor points, Financial City prototype rewards, $10,000 challenge score, and optional bonus-word zero-reward behavior reviewed. No randomized prizes or real-money payouts identified in reviewed source. **This was not a fresh device test.**
