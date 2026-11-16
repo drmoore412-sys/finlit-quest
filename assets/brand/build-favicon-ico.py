@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Packs the 16x16 and 32x32 favicon PNGs into a single favicon.ico container
+"""Packs the 16, 32, 48, and 96px favicon PNGs into one favicon.ico container
 (PNG-in-ICO format — every modern browser reads this; there's no other way to
 produce an .ico on macOS since sips doesn't support ICO output and no
 ImageMagick/Pillow is installed in this environment). Standard library only.
@@ -9,7 +9,12 @@ import struct
 import sys
 from pathlib import Path
 
-SOURCES = [("favicon/favicon-16.png", 16), ("favicon/favicon-32.png", 32)]
+SOURCES = [
+    ("favicon/favicon-16.png", 16),
+    ("favicon/favicon-32.png", 32),
+    ("favicon/favicon-48.png", 48),
+    ("favicon/favicon-96.png", 96),
+]
 OUT = Path("favicon/favicon.ico")
 
 

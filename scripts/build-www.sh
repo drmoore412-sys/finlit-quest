@@ -71,7 +71,7 @@ copy assets/images/bonus-games-portal.webp
 copy assets/images/bonus-games-portal.png
 
 # Brand assets actually referenced at runtime (favicon, apple-touch-icon, in-app header logo, PWA icons)
-for f in assets/brand/favicon/favicon.ico assets/brand/favicon/favicon-16.png assets/brand/favicon/favicon-32.png \
+for f in assets/brand/favicon/favicon.ico assets/brand/favicon/favicon-16.png assets/brand/favicon/favicon-32.png assets/brand/favicon/favicon-48.png assets/brand/favicon/favicon-96.png \
          assets/brand/icons/apple-touch-icon-180.png assets/brand/icons/icon-192.png assets/brand/icons/icon-512.png assets/brand/icons/icon-512-maskable.png \
          assets/brand/web/wg-logo-96.png; do
   copy "$f"
