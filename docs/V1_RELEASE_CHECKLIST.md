@@ -18,6 +18,8 @@
 - [x] **App icon and splash screen:** historical checklist reports installed; review final artwork as part of submission assets.
 - [x] **App Store support-page creation:** already done; do not recreate.
 
+- [x] **App Store copyright holder selected:** Denise Moore (legal name). Proposed App Store copyright field: `2026 Denise Moore`; enter and verify in App Store Connect when preparing submission.
+
 ### Open / verification required
 
 - [ ] **App Store screenshots:** not created. Capture actual release-ready iPhone gameplay after final visual/device QA.
