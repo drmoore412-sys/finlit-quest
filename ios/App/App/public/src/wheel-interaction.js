@@ -22,24 +22,44 @@
   // Words accepted in EVERY world whenever the current wheel can spell them. They are optional bonus words:
   // they never count toward completion, never pay coins or XP, and are not saved. A word that is also a required
   // answer of the puzzle is classified as that answer first, so its normal reward and progression are untouched.
-  const GLOBAL_BONUS_WORDS=Object.freeze(["DUE"]);
+  //
+  // Beyond DUE, two optional sources may be passed in options (callers that pass neither get exactly the original DUE-only behaviour):
+  //  - options.vocabulary: the approved financial terms (FinLitUniversalVocabulary), so an approved term from ANY world is accepted by any wheel that can spell it;
+  //  - options.currency ({code,name}): the puzzle's single designated three-letter currency bonus.
+  // FREE, COINS, PAYOUT and NETPAY: owner-approved financial gameplay words (2026-11-18). Gameplay acceptance only:
+  // they are not curriculum terms and have no definition, learning object or mastery record.
+  const GLOBAL_BONUS_WORDS=Object.freeze(["DUE","FREE","COINS","PAYOUT","NETPAY"]);
+  const DEFAULT_MIN_LENGTH=3;
   // Same multiset rule as FinLitGameEngine.canForm: every letter must be available, repeats need repeated tiles.
   function canSpell(word,letters){
     const available=[...(letters||[])];
     return [...String(word||"")].every(letter=>{const index=available.indexOf(letter);if(index<0)return false;available.splice(index,1);return true});
   }
   function isGlobalBonus(word,options){return GLOBAL_BONUS_WORDS.includes(word)&&canSpell(word,options&&options.wheelLetters)}
+  // The bonus meaning of a word for this wheel, or null: {kind:"currency",code,currency} | {kind:"financial"} | {} (DUE).
+  function bonusOf(word,options){
+    if(!word||!options)return null;
+    const currency=options.currency;
+    if(currency&&currency.code===word&&canSpell(word,options.wheelLetters))return{kind:"currency",code:currency.code,currency:currency.name};
+    const vocabulary=options.vocabulary;
+    if(vocabulary&&word.length>=(options.minLength||DEFAULT_MIN_LENGTH)&&canSpell(word,options.wheelLetters)){
+      const kind=vocabulary.kindOf(word);
+      if(kind)return{kind};
+    }
+    return isGlobalBonus(word,options)?{}:null;
+  }
   function classifyWord(word,targetWords,foundWords,options){
     if(!word)return{status:"empty"};
     if(foundWords&&foundWords.has(word))return{status:"duplicate",word};
     if((targetWords||[]).includes(word))return{status:"target",word};
-    if(isGlobalBonus(word,options))return options.foundBonus&&options.foundBonus.has(word)?{status:"duplicate",word,bonus:true}:{status:"bonus",word};
+    const bonus=bonusOf(word,options);
+    if(bonus)return options.foundBonus&&options.foundBonus.has(word)?{status:"duplicate",word,bonus:true}:Object.assign({status:"bonus",word},bonus);
     return{status:"invalid",word};
   }
 
   function canSubmitTapWord(word,targetWords,foundWords,options){
     const targets=targetWords||[],found=foundWords||new Set();
-    const isAnswer=targets.includes(word)||found.has(word)||isGlobalBonus(word,options);
+    const isAnswer=targets.includes(word)||found.has(word)||bonusOf(word,options)!==null;
     const extendsToUnfinishedAnswer=targets.some(candidate=>candidate!==word&&candidate.startsWith(word)&&!found.has(candidate));
     return isAnswer&&!extendsToUnfinishedAnswer;
   }
@@ -60,7 +80,7 @@
     if(!retappedLastTile)return false;
     if(isDeferredTarget(word,targetWords,foundWords))return true;
     const targets=targetWords||[],found=foundWords||new Set();
-    return isGlobalBonus(word,options)&&!targets.includes(word)&&targets.some(candidate=>candidate.startsWith(word)&&!found.has(candidate));
+    return bonusOf(word,options)!==null&&!targets.includes(word)&&targets.some(candidate=>candidate.startsWith(word)&&!found.has(candidate));
   }
 
   function shuffledOrder(tiles,shuffleFn){
@@ -193,5 +213,5 @@
     };
   }
 
-  return{GLOBAL_BONUS_WORDS,canSpell,transitionSelection,wordFor,classifyWord,canSubmitTapWord,isDeferredTarget,shouldSubmitOnRetap,shuffledOrder,positionsFor,targetsAlongSegment,GESTURE_DEFAULTS,closestApproach,segmentHits,tileAtPoint,createGesture};
+  return{GLOBAL_BONUS_WORDS,DEFAULT_MIN_LENGTH,bonusOf,canSpell,transitionSelection,wordFor,classifyWord,canSubmitTapWord,isDeferredTarget,shouldSubmitOnRetap,shuffledOrder,positionsFor,targetsAlongSegment,GESTURE_DEFAULTS,closestApproach,segmentHits,tileAtPoint,createGesture};
 });

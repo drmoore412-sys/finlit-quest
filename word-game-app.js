@@ -506,6 +506,7 @@ function wgRenderPuzzle() {
   wgState.puzzle = puzzle;
   wgState.puzzleModel = model;
   wgState.words = model.words;
+  wgState.wordContext = wgBuildWordContext(puzzle, model);
   wgState.placements = selectedLayout;
   wgState.byWord = Object.fromEntries(wgWorld().vocabulary().map(t => [t.word, t]));
   (model.answers || []).forEach(answer => { wgState.byWord[answer.word] = {...wgState.byWord[answer.word], ...answer}; });
@@ -657,7 +658,20 @@ function wgPositionWheelTiles(animate = true) {
 function wgTileForButton(button) { return wgState.wheelTiles.find(tile => tile.id === button?.dataset.tileId); }
 function wgSelectedWord() { return FinLitWheelInteraction.wordFor(wgState.selected, wgState.wheelTiles); }
 // Shared word-validation context: the current wheel (for global bonus words such as DUE) and the bonus words already found.
-function wgWordOptions() { return { wheelLetters: wgState.puzzleModel ? wgState.puzzleModel.letters : [], foundBonus: wgState.foundBonus }; }
+function wgWordOptions() {
+  const context = wgState.wordContext || { wheelLetters: wgState.puzzleModel ? wgState.puzzleModel.letters : [] };
+  return Object.assign({}, context, { foundBonus: wgState.foundBonus });
+}
+// Universal word acceptance + currency bonus context for the current puzzle (built once per puzzle, never saved).
+// Every vocabulary word the wheel can spell is an optional bonus word in every world (src/universal-vocabulary.js), and the puzzle may designate
+// one three-letter currency code (src/currency-bonus.js). Required answers, rewards and progression are untouched: classifyWord checks required answers first.
+function wgBuildWordContext(puzzle, model) {
+  const letters = model.letters || [];
+  const vocabulary = window.FinLitUniversalVocabulary && FinLitUniversalVocabulary.shared();
+  if (!vocabulary || !vocabulary.size) return { wheelLetters: letters };   // vocabulary unavailable: fall back to the original behaviour
+  const currency = window.FinLitCurrencyBonus ? FinLitCurrencyBonus.forPuzzle({ id: puzzle && puzzle.id, letters, requiredWords: model.words }) : null;
+  return { wheelLetters: letters, vocabulary, minLength: FinLitUniversalVocabulary.MIN_LENGTH, currency };
+}
 function wgCanSubmitTapWord(word) {
   return FinLitWheelInteraction.canSubmitTapWord(word, wgState.words, wgState.found, wgWordOptions());
 }
@@ -823,9 +837,11 @@ function wgSubmitWord() {
   if (result.status === "bonus") {
     // Optional bonus word (e.g. DUE): zero coins, zero XP, not saved, not part of completion (wgState.found is untouched).
     wgState.foundBonus.add(word);
-    wgShowWordFeedback(word, "duplicate");
+    // The designated currency code is shown with its full currency name; it is recognised once, pays nothing extra and is never required.
+    const isCurrency = result.kind === "currency";
+    wgShowWordFeedback(isCurrency ? `${result.code} — ${result.currency}` : word, "duplicate");
     wgAudio.duplicate();
-    return toast("Bonus word — no coins or XP");
+    return toast(isCurrency ? `Currency bonus: ${result.code} · ${result.currency}` : "Bonus word — no coins or XP");
   }
   wgShowWordFeedback(word, "invalid");
   wgAudio.wrong();

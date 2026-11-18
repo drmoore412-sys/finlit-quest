@@ -8,6 +8,15 @@ FinLit Quest is an applied financial-learning platform, not primarily a word gam
 
 The intended experience is premium, modern, friendly, intelligent, and game-like without appearing childish. When a material UX improvement is identified, propose the layout, navigation, visual, or interaction change before implementing it. Prefer a cohesive experience over preserving legacy presentation.
 
+
+---
+
+## 2026-11-18 — Approved-term acceptance and three-letter currency bonus (local, uncommitted)
+
+- Narrowed to approved financial terms: the shared vocabulary is the 196 approved terms that fit a wheel (no general English). 270 term/puzzle combinations across the 61 released puzzles, all accepted, 0 rejected; all were already required answers. FREE, COINS, PAYOUT are not approved terms and are not accepted.
+- Currency bonus: one designated ISO 4217 code per puzzle from the approved 20 (41 of 61; 20 have no fitting code), shown with its currency name, once, no coins or XP, never required.
+- Tap-input logic restored to the original. Tests: 793, 789 pass, the 4 pre-existing missing-fixture failures remain. Not tested in a browser or on a device. Report: `docs/UNIVERSAL_WORD_ACCEPTANCE_REPORT.md`.
+
 ---
 
 ## 2026-11-13 — Approved Financial City artwork live on production
@@ -4325,3 +4334,8 @@ Verification: `./scripts/test.sh` 619 pass / 4 fail; the 4 failures need untrack
 - ADDRESS, CUSTODY, SCAM, CONFIRMED (approved in CAL-0008, never implemented) added to `content/v3-supplemental-terms.json`/`.js` with the exact CAL-0008 definitions and IDs (`crypto.address`, `crypto.custody`, `crypto.scam`, `crypto.confirmed`). Definitions re-checked against FTC, CFTC and NIST; no factual error found, wording unchanged. The 20 Crypto learning objects are untouched; the four terms have no lesson content.
 - Dictionary 207 -> 211 (Crypto 20 -> 24). `EXPECTED_TERM_COUNT` and the expansion manifest `termCount` updated. No current puzzle wheel can spell any of the four, so no puzzle, key term or answer list changed.
 - Tests: new `tests/crypto-term-restoration.test.js`; count expectations updated in answer-expansion, exact-wheel-v4, unified-legacy-release, credit-id-governance, v3-phase5-governance and v3-cross-world-composition. Suite 772/776; the 4 failures are the pre-existing missing `staging/research/expansion` fixtures. Web and iOS bundles rebuilt. Not committed, merged, deployed or pushed.
+
+## 2026-11-18 — Integrated owner-approved gameplay words and designated currency codes (uncommitted, on top of 93a5376)
+
+- Owner confirmed that the earlier approvals stand. FREE, COINS, PAYOUT and NETPAY were added to GLOBAL_BONUS_WORDS: gameplay only, not curriculum, and the 211 terms are unchanged. The nine further codes and ten designated assignments were added to `src/currency-bonus.js` (DESIGNATED, DESIGNATED_POOL). The 20-code pool and its 41 assignments are unchanged (verified). Coverage is 51/61; the 10 uncovered puzzles keep their wheels.
+- Tests updated: universal-word-acceptance, bonus-word-due. The currency manifest was regenerated and iOS copies synced. Suite 790/794 (the 4 known missing research fixtures). Node only: not verified in a browser or on a device. Nothing committed, pushed or deployed. project.pbxproj untouched.
