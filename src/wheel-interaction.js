@@ -57,10 +57,26 @@
     return{status:"invalid",word};
   }
 
+  // Optional bonus words this wheel can still produce: the global gameplay words, the puzzle's currency code and the approved
+  // financial terms the wheel can spell, minus the ones already found. Used only to decide whether a tapped word should wait.
+  function openBonusWords(options){
+    if(!options||!options.wheelLetters)return[];
+    const letters=options.wheelLetters,foundBonus=options.foundBonus,out=new Set();
+    GLOBAL_BONUS_WORDS.forEach(word=>{if(canSpell(word,letters))out.add(word)});
+    if(options.currency&&options.currency.code&&canSpell(options.currency.code,letters))out.add(options.currency.code);
+    if(options.vocabulary&&typeof options.vocabulary.eligible==="function")options.vocabulary.eligible(letters).forEach(word=>out.add(word));
+    return[...out].filter(word=>!(foundBonus&&foundBonus.has(word)));
+  }
+  // A tapped word waits (instead of auto-submitting) while it is the start of a longer word the player can still find: an unfound
+  // required answer (PAY / PAYMENT) or an unfound optional bonus word (COIN / COINS, PAY / PAYOUT, NET / NETPAY).
+  function extendsToOpenWord(word,targets,found,options){
+    if(targets.some(candidate=>candidate!==word&&candidate.startsWith(word)&&!found.has(candidate)))return true;
+    return openBonusWords(options).some(candidate=>candidate!==word&&candidate.startsWith(word)&&!targets.includes(candidate));
+  }
   function canSubmitTapWord(word,targetWords,foundWords,options){
     const targets=targetWords||[],found=foundWords||new Set();
     const isAnswer=targets.includes(word)||found.has(word)||bonusOf(word,options)!==null;
-    const extendsToUnfinishedAnswer=targets.some(candidate=>candidate!==word&&candidate.startsWith(word)&&!found.has(candidate));
+    const extendsToUnfinishedAnswer=extendsToOpenWord(word,targets,found,options);
     return isAnswer&&!extendsToUnfinishedAnswer;
   }
 
@@ -72,13 +88,13 @@
   // the UI can say so, and shouldSubmitOnRetap() is the confirmation: tapping
   // the last selected tile again submits the pending word. Swipe release and
   // keyboard Enter continue to work exactly as before.
-  function isDeferredTarget(word,targetWords,foundWords){
+  function isDeferredTarget(word,targetWords,foundWords,options){
     const targets=targetWords||[],found=foundWords||new Set();
-    return Boolean(word)&&targets.includes(word)&&!found.has(word)&&!canSubmitTapWord(word,targets,found);
+    return Boolean(word)&&targets.includes(word)&&!found.has(word)&&!canSubmitTapWord(word,targets,found,options);
   }
   function shouldSubmitOnRetap(retappedLastTile,word,targetWords,foundWords,options){
     if(!retappedLastTile)return false;
-    if(isDeferredTarget(word,targetWords,foundWords))return true;
+    if(isDeferredTarget(word,targetWords,foundWords,options))return true;
     const targets=targetWords||[],found=foundWords||new Set();
     return bonusOf(word,options)!==null&&!targets.includes(word)&&targets.some(candidate=>candidate.startsWith(word)&&!found.has(candidate));
   }
@@ -213,5 +229,5 @@
     };
   }
 
-  return{GLOBAL_BONUS_WORDS,DEFAULT_MIN_LENGTH,bonusOf,canSpell,transitionSelection,wordFor,classifyWord,canSubmitTapWord,isDeferredTarget,shouldSubmitOnRetap,shuffledOrder,positionsFor,targetsAlongSegment,GESTURE_DEFAULTS,closestApproach,segmentHits,tileAtPoint,createGesture};
+  return{GLOBAL_BONUS_WORDS,DEFAULT_MIN_LENGTH,bonusOf,canSpell,transitionSelection,wordFor,classifyWord,canSubmitTapWord,openBonusWords,isDeferredTarget,shouldSubmitOnRetap,shuffledOrder,positionsFor,targetsAlongSegment,GESTURE_DEFAULTS,closestApproach,segmentHits,tileAtPoint,createGesture};
 });

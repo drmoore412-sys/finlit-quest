@@ -794,7 +794,7 @@ function wgUpdateSelection() {
   if (word) {
     clearTimeout(wgFeedbackTimer);
     // While a finger is down (dragging) lifting off the last letter submits, so the retap hint only applies to tapped words.
-    const deferred = !wgPointerDown && FinLitWheelInteraction.isDeferredTarget(word, wgState.words, wgState.found);
+    const deferred = !wgPointerDown && FinLitWheelInteraction.isDeferredTarget(word, wgState.words, wgState.found, wgWordOptions());
     $("#wgWordReadout").textContent = deferred ? `${word} — tap the last letter again to submit` : word;
     $("#wgWordReadout").className = deferred ? "wg-word-readout building pending" : "wg-word-readout building";
   }
