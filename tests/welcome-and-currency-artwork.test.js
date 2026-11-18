@@ -13,7 +13,8 @@ const welcome=html.slice(html.indexOf('id="welcomeScreen"'),html.indexOf("</sect
 
 test("the welcome screen shows the approved logo, title, tagline, main button and the four options",()=>{
   assert.match(welcome,/<img src="assets\/brand\/web\/wg-logo-96\.png[^"]*" alt="FinLit Quest">/);
-  assert.match(welcome,/<h1 id="welcomeTitle">FINLIT QUEST<\/h1>/);
+  assert.match(welcome,/<h1 id="welcomeTitle">FINLIT <span class="welcome-q">Q<\/span>UEST<\/h1>/);
+  assert.match(wgCss,/#welcomeTitle \.welcome-q\{[^}]*font-family:Arial,Helvetica,sans-serif[^}]*font-style:normal/,"the title uses a complete conventional Q glyph");
   assert.match(welcome,/Your Money\. Your Choices\. Your Adventure\./);
   assert.match(welcome,/<button class="welcome-cta" id="welcomeStartButton" type="button">Enter the Quest<\/button>/);
   [["welcomeExploreWorlds","Explore Worlds","Discover financial destinations"],["welcomePlayChallenges","Play Challenges","Solve currency puzzles and earn knowledge points."],["welcomeLearningAcademy","Learning Academy","Build real-world money skills"],["welcomeMyProgress","My Progress","Achievements and rewards"]].forEach(([id,title,subtitle])=>{

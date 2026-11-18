@@ -408,6 +408,8 @@ No SVG source was provided (raster PNG only) — noted against §9, not blocking
 
 **Icon consistency verification — completed 2026-11-16.** Reconfirmed the owner-supplied, opaque navy-and-gold full-square `FinLit_Quest_Icon_Mark_1024x1024_AppStore.png` as the approved canonical artwork; no replacement branding was invented. Regenerated the website favicon PNGs (16, 32, 48, and 96px), multi-size `favicon.ico`, Apple touch icon (180px), and PWA icons (192/512px) from that exact source. The maskable PWA icon retains its required safe-zone treatment while using the same mark. Verified every PNG is square and at its declared size, all install/app icons are opaque, the web manifest references existing correctly sized files, and the iOS asset catalog contains the byte-identical approved 1024px source with no alpha. The stable 96px favicon URL exceeds Google Search's current recommendation for a square favicon larger than 48px. Native/browser/device visual checks remain part of the existing external verification gap above.
 
+**Welcome-title Q correction — completed 2026-11-18.** The display font made the Q in the large `FINLIT QUEST` welcome heading appear incomplete. Isolated only that letter and rendered it with a conventional complete Q glyph while preserving the rest of the approved heading typography. Synchronized the corrected heading and CSS into the native web bundle, refreshed the web deployment cache stamp, and added regression coverage for both the markup and Q-glyph styling.
+
 ---
 
 ### Blocker 9b — Native App Wrapper (Capacitor) — In Progress (scaffolded and branded; cannot build/sign/submit from this machine)
