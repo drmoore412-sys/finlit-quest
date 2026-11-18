@@ -33,7 +33,7 @@ test("v3 only where needed: REPAYMENT and APARTMENT stay v2, the seven new-wheel
 test("the production release gate stays closed: v3, development status and devOnly all refuse release",()=>{
   const rel=S.validateManifest(v2(),{release:true});assert.equal(rel.valid,false);
   assert.ok(rel.errors.includes("releaseRequiresDevOnlyFalse"));
-  assert.ok(rel.errors.some(e=>/releaseRequiresRuleV2OrV3/.test(e)),"the 52 legacy v1 entries");assert.ok(rel.errors.some(e=>/releaseRequiresApproved/.test(e)));
+  assert.ok(rel.errors.some(e=>/releaseRequiresRuleV2OrV4/.test(e)),"the 52 legacy v1 entries");assert.ok(rel.errors.some(e=>/releaseRequiresApproved/.test(e)));
   assert.equal(S.validateManifest(v2(),{release:true}).valid,false);
   assert.equal(S.validateManifest(v2()).valid,true);
   const m=v2();assert.equal(m.releaseGate.status,"closed");assert.equal(m.devOnly,true);
@@ -96,7 +96,11 @@ test("every candidate key term resolves governed vocabulary only; fillers carry 
 });
 test("canonical library, main-levels v1 manifest and held anchors are untouched; production build excludes the development-only gated files",()=>{
   try{const head=cp.execFileSync("git",["show","HEAD:content/shared-puzzle-library-2027.json"],{cwd:ROOT,maxBuffer:1<<26}),sha=b=>crypto.createHash("sha256").update(b).digest("hex");
-    assert.equal(sha(head),sha(fs.readFileSync(path.join(ROOT,"content/shared-puzzle-library-2027.json"))))}catch(e){if(e.code==="ENOENT")return;throw e}
+    // answer-expansion v1 (2026-11-18) regenerated the library (libraryVersion 2027.2). Puzzle IDs, anchors and world placements are unchanged;
+    // only version metadata and the new architecture.answerExpansion pointer differ.
+    const before=JSON.parse(head.toString("utf8")),after=JSON.parse(fs.readFileSync(path.join(ROOT,"content/shared-puzzle-library-2027.json"),"utf8"));
+    for(const doc of [before,after]){delete doc.libraryVersion;delete doc.generatedOn;if(doc.architecture)delete doc.architecture.answerExpansion}
+    assert.equal(sha(Buffer.from(JSON.stringify(before))),sha(Buffer.from(JSON.stringify(after))))}catch(e){if(e.code==="ENOENT")return;throw e}
   const a=v1();assert.equal(a.sequenceVersion,1);assert.equal(a.entries.length,58);assert.equal(a.retired.length,0);assert.equal(a.devOnly,true);
   assert.equal(lib.uniquePuzzleCount,58);assert.equal(canonicalIds.size,58);
   v2().entries.forEach(e=>["TITLE","CLIENT","TICKER"].forEach(h=>assert.notEqual(e.anchor,h)));

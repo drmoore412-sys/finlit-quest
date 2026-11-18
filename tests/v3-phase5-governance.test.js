@@ -7,13 +7,13 @@ const path=require("node:path");
 const {ROOT}=require("./helpers.js");
 const supplement=require("../content/v3-supplemental-terms.js");
 
-test("ACH, WORTH and the eight CAL-0008 terms carry the approved permanent IDs and are the only additions",()=>{
-  assert.deepEqual(supplement.TERMS.map(term=>term.id),["banking.ach","investing.worth","banking.atm","banking.wire","banking.phishing","investing.liquidity","credit.report","credit.bureau","credit.freeze","credit.history"]);
-  assert.equal(supplement.TERMS.length,10);
+test("ACH, WORTH, the eight CAL-0008 terms and the four restored CAL-0008 Crypto terms (CAL-0012) carry the approved permanent IDs and are the only additions",()=>{
+  assert.deepEqual(supplement.TERMS.map(term=>term.id),["banking.ach","investing.worth","banking.atm","banking.wire","banking.phishing","investing.liquidity","credit.report","credit.bureau","credit.freeze","credit.history","crypto.address","crypto.custody","crypto.scam","crypto.confirmed"]);
+  assert.equal(supplement.TERMS.length,14);
+  assert.deepEqual(supplement.forWorld("crypto").map(term=>term.termId),["crypto.address","crypto.custody","crypto.scam","crypto.confirmed"]);
   assert.deepEqual(supplement.forWorld("banking").map(term=>term.termId),["banking.ach","banking.atm","banking.wire","banking.phishing"]);
   assert.deepEqual(supplement.forWorld("investing").map(term=>term.termId),["investing.worth","investing.liquidity"]);
   assert.deepEqual(supplement.forWorld("credit").map(term=>term.termId),["credit.report","credit.bureau","credit.freeze","credit.history"]);
-  assert.deepEqual(supplement.forWorld("crypto"),[]);
 });
 
 test("merge never mutates its input, never duplicates a word, and leaves other worlds alone",()=>{
@@ -22,7 +22,7 @@ test("merge never mutates its input, never duplicates a word, and leaves other w
   assert.equal(JSON.stringify(input),frozen);
   assert.deepEqual(merged.banking.map(term=>term.word),["ACCESS","ACH","ATM","WIRE","PHISHING"]);
   assert.deepEqual(merged.investing.map(term=>term.word),["WORTH","LIQUIDITY"],"an existing WORTH is not duplicated");
-  assert.deepEqual(merged.crypto,input.crypto);
+  assert.deepEqual(merged.crypto.map(term=>term.word),["COIN","ADDRESS","CUSTODY","SCAM","CONFIRMED"],"CAL-0012: the four restored Crypto terms are appended after the existing term");
 });
 
 test("the frozen legacy Banking and Investing v1.1 data is untouched, so their puzzle banks are unchanged",()=>{

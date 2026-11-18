@@ -29,7 +29,7 @@ test("DUE is rejected when any one of D, U or E is missing",()=>{
 });
 
 test("only the exact word DUE is added: near misses and other words are unchanged",()=>{
-  assert.deepEqual([...wheel.GLOBAL_BONUS_WORDS],["DUE"]);
+  assert.deepEqual([...wheel.GLOBAL_BONUS_WORDS],["DUE","FREE","COINS","PAYOUT","NETPAY"],"DUE plus the four owner-approved gameplay words (2026-11-18)");
   assert.ok(Object.isFrozen(wheel.GLOBAL_BONUS_WORDS));
   ["DUES","DUET","DU","UE","DEU","due","DUD"].forEach(word=>assert.equal(classify(word,"DUESTP").status,"invalid",word));
   assert.equal(classify("XYZ","DUEXYZ",["XYZ"]).status,"target","required words classify exactly as before");

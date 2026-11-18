@@ -1,0 +1,243 @@
+{
+ "schema": 1,
+ "version": "1.0.0",
+ "note": "Designated three-letter currency bonus per released puzzle (null = no approved code can be spelled from that wheel). Generated deterministically by scripts/build-currency-bonus.mjs; do not edit by hand.",
+ "pool": [
+  {
+   "code": "NIO",
+   "name": "Nicaraguan córdoba"
+  },
+  {
+   "code": "INR",
+   "name": "Indian rupee"
+  },
+  {
+   "code": "AED",
+   "name": "UAE dirham"
+  },
+  {
+   "code": "RON",
+   "name": "Romanian leu"
+  },
+  {
+   "code": "IDR",
+   "name": "Indonesian rupiah"
+  },
+  {
+   "code": "SAR",
+   "name": "Saudi riyal"
+  },
+  {
+   "code": "ARS",
+   "name": "Argentine peso"
+  },
+  {
+   "code": "TRY",
+   "name": "Turkish lira"
+  },
+  {
+   "code": "EUR",
+   "name": "Euro"
+  },
+  {
+   "code": "PEN",
+   "name": "Peruvian sol"
+  },
+  {
+   "code": "SCR",
+   "name": "Seychellois rupee"
+  },
+  {
+   "code": "CAD",
+   "name": "Canadian dollar"
+  },
+  {
+   "code": "NPR",
+   "name": "Nepalese rupee"
+  },
+  {
+   "code": "AUD",
+   "name": "Australian dollar"
+  },
+  {
+   "code": "LSL",
+   "name": "Lesotho loti"
+  },
+  {
+   "code": "NAD",
+   "name": "Namibian dollar"
+  },
+  {
+   "code": "KES",
+   "name": "Kenyan shilling"
+  },
+  {
+   "code": "SEK",
+   "name": "Swedish krona"
+  },
+  {
+   "code": "NOK",
+   "name": "Norwegian krone"
+  },
+  {
+   "code": "USD",
+   "name": "United States dollar"
+  }
+ ],
+ "designatedPool": [
+  {
+   "code": "AFN",
+   "name": "Afghan afghani"
+  },
+  {
+   "code": "ERN",
+   "name": "Eritrean nakfa"
+  },
+  {
+   "code": "BDT",
+   "name": "Bangladeshi taka"
+  },
+  {
+   "code": "HTG",
+   "name": "Haitian gourde"
+  },
+  {
+   "code": "AOA",
+   "name": "Angolan kwanza"
+  },
+  {
+   "code": "XAF",
+   "name": "Central African CFA franc"
+  },
+  {
+   "code": "ALL",
+   "name": "Albanian lek"
+  },
+  {
+   "code": "UAH",
+   "name": "Ukrainian hryvnia"
+  },
+  {
+   "code": "PKR",
+   "name": "Pakistani rupee"
+  }
+ ],
+ "designated": {
+  "FQ-V3:business:FREELANCE:R1": "AFN",
+  "FQ-V3:business:BREAKEVEN:R1": "ERN",
+  "FQ-V3:moneybasics:BUDGET:R2": "BDT",
+  "FQ-V3:investing:GROWTH:R2": "HTG",
+  "FQ-V3:credit:AUTOPAY:R1": "AOA",
+  "FQ-V3:taxes:TAXFILING:R1": "XAF",
+  "FQ-V3:insurance:LIABILITY:R1": "ALL",
+  "FQ-V3:insurance:CASHVALUE:R1": "UAH",
+  "FQ-V3:coins:PROOFLIKE:R1": "PKR",
+  "FQ-V3:coins:MELTVALUE:R1": "ALL"
+ },
+ "puzzleCount": 61,
+ "assignments": {
+  "FQ-V3:business:FREELANCE:R1": "AFN",
+  "FQ-V3:moneybasics:BUDGET:R2": "BDT",
+  "FQ-V3:moneybasics:REFUND:R1": "EUR",
+  "FQ-V3:crypto:INCOME:R2": "NIO",
+  "FQ-V3:investing:SAVING:R2": null,
+  "FQ-V3:moneybasics:RECEIPT:R4": null,
+  "FQ-V3:moneybasics:PAYMENT:R1": "PEN",
+  "FQ-V3:credit:AUTOPAY:R1": "AOA",
+  "FQ-V3:real_estate:APARTMENT:R2": "NPR",
+  "FQ-V3:banking:PASSWORD:R2": "ARS",
+  "FQ-V3:credit:REPAYMENT:R2": "TRY",
+  "FQ-V3:retirement:LIFESTYLE:R1": "LSL",
+  "FQ-V3:moneybasics:PAYCHECK:R1": null,
+  "FQ-V3:business:MARKETING:R1": "INR",
+  "FQ-V3:investing:TRADE:R4": "AED",
+  "FQ-V3:investing:STOCK:R2": null,
+  "FQ-V3:investing:GROWTH:R2": "HTG",
+  "FQ-V3:investing:MARKET:R4": null,
+  "FQ-V3:taxes:TAXFILING:R1": "XAF",
+  "FQ-V3:taxes:INCOMETAX:R1": "NIO",
+  "FQ-V3:banking:CONVERT:R2": "RON",
+  "FQ-V3:credit:CREDITOR:R2": "IDR",
+  "FQ-V3:banking:DEPOSITOR:R1": "IDR",
+  "FQ-V3:business:WHOLESALE:R1": "LSL",
+  "FQ-V3:business:INVENTORY:R1": "INR",
+  "FQ-V3:business:TRADEMARK:R1": "AED",
+  "FQ-V3:credit:TERMS:R1": null,
+  "FQ-V3:investing:RETURN:R4": "EUR",
+  "FQ-V3:business:FRANCHISE:R1": "SCR",
+  "FQ-V3:credit:PRINCIPAL:R2": "NPR",
+  "FQ-V3:real_estate:REFINANCE:R1": "INR",
+  "FQ-V3:banking:PASSKEY:R2": "SEK",
+  "FQ-V3:business:NETINCOME:R1": "NIO",
+  "FQ-V3:insurance:EXCLUSION:R1": "NIO",
+  "FQ-V3:banking:NETWORK:R2": "NOK",
+  "FQ-V3:social_media:ROYALTIES:R1": "SAR",
+  "FQ-V3:insurance:LIABILITY:R1": "ALL",
+  "FQ-V3:taxes:TAXCREDIT:R1": "CAD",
+  "FQ-V3:social_media:ADREVENUE:R1": "AUD",
+  "FQ-V3:retirement:LONGEVITY:R1": "NIO",
+  "FQ-V3:business:BREAKEVEN:R1": "ERN",
+  "FQ-V3:crypto:TOKEN:R2": "NOK",
+  "FQ-V3:business:RETENTION:R1": "RON",
+  "FQ-V3:ai_technology:AUTOTRADE:R1": "AUD",
+  "FQ-V3:coins:SPOTPRICE:R1": "SCR",
+  "FQ-V3:credit:CAPACITY:R1": null,
+  "FQ-V3:coins:COINGRADE:R1": "NAD",
+  "FQ-V3:coins:PROOFLIKE:R1": "PKR",
+  "FQ-V3:insurance:TRIPDELAY:R1": "TRY",
+  "FQ-V3:coins:MELTVALUE:R1": "ALL",
+  "FQ-V3:crypto:CHAIN:R2": null,
+  "FQ-V3:crypto:BLOCK:R3": null,
+  "FQ-V3:crypto:STAKE:R2": "KES",
+  "FQ-V3:retirement:COASTFIRE:R1": "ARS",
+  "FQ-V3:business:FACTORING:R1": "RON",
+  "FQ-V3:retirement:SIMPLEIRA:R1": "SAR",
+  "FQ-V3:retirement:FIDUCIARY:R1": "CAD",
+  "FQ-V3:insurance:CASHVALUE:R1": "UAH",
+  "FQ-V3:business:RETAIL:R2": null,
+  "FQ-V3:credit:DEFAULT:R2": "AUD",
+  "FQ-V3:credit:CREDIT:R2": "IDR"
+ },
+ "usage": {
+  "AED": 2,
+  "AFN": 1,
+  "ALL": 2,
+  "AOA": 1,
+  "ARS": 2,
+  "AUD": 3,
+  "BDT": 1,
+  "CAD": 2,
+  "ERN": 1,
+  "EUR": 2,
+  "HTG": 1,
+  "IDR": 3,
+  "INR": 3,
+  "KES": 1,
+  "LSL": 2,
+  "NAD": 1,
+  "NIO": 5,
+  "NOK": 2,
+  "NPR": 2,
+  "PEN": 1,
+  "PKR": 1,
+  "RON": 3,
+  "SAR": 2,
+  "SCR": 2,
+  "SEK": 1,
+  "TRY": 2,
+  "UAH": 1,
+  "XAF": 1
+ },
+ "withoutCode": [
+  "FQ-V3:investing:SAVING:R2",
+  "FQ-V3:moneybasics:RECEIPT:R4",
+  "FQ-V3:moneybasics:PAYCHECK:R1",
+  "FQ-V3:investing:STOCK:R2",
+  "FQ-V3:investing:MARKET:R4",
+  "FQ-V3:credit:TERMS:R1",
+  "FQ-V3:credit:CAPACITY:R1",
+  "FQ-V3:crypto:CHAIN:R2",
+  "FQ-V3:crypto:BLOCK:R3",
+  "FQ-V3:business:RETAIL:R2"
+ ]
+}

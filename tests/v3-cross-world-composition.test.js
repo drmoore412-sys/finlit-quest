@@ -29,19 +29,24 @@ const supplement=require("../content/v3-supplemental-terms.js");
 // BASE_INVENTORY is the original 145-term approved vocabulary. INVENTORY adds the two owner-approved V3 supplement terms (ACH, WORTH; Phase 5, 2026-10-16) = 147.
 const BASE_INVENTORY=WORLDS.flatMap(worldId=>VOCAB[worldId].map(term=>({worldId,word:term.word,id:termId(worldId,term),definition:String(term.definition||"")})));
 const INVENTORY=[...BASE_INVENTORY,...supplement.TERMS.map(term=>({worldId:term.world,word:term.word,id:term.id,definition:term.definition}))];
-const BY_WORD=new Map(INVENTORY.map(term=>[term.word,term]));
+// answer-expansion v1 (2026-11-18): puzzles may also hold approved 2027 new-world terms (for example REIT, RENT, PEER, REPO), which the runtime registry carries.
+const NEW_WORLD_TERMS=JSON.parse(fs.readFileSync(path.join(ROOT,"content/2027-new-world-terms.json"),"utf8")).terms.map(term=>({worldId:term.worldId,word:term.word,id:term.id,definition:term.definition}));
+const BY_WORD=new Map([...INVENTORY,...NEW_WORLD_TERMS.filter(term=>!INVENTORY.some(entry=>entry.word===term.word))].map(term=>[term.word,term]));
 const PUZZLES=slate.createSlate(VOCAB,game);
 const validate=puzzle=>validator.validateV3Puzzle(puzzle,{canFormFn:game.canForm,validateCrosswordLayoutFn:game.validateCrosswordLayout});
 const letterCounts=word=>[...word].reduce((counts,letter)=>({...counts,[letter]:(counts[letter]||0)+1}),{});
 // Every recomposed puzzle (revision 2): seven from the cross-world repair, eight from Phase 3 (three financial-only and five with one editor-selected ordinary word).
-const CHANGED={TOKEN:["TOKEN","NET","NOTE"],STAKE:["STAKE","ASK","TAKE"],CREDITOR:["CREDITOR","CREDIT","DIRECT"],RECEIPT:["RECEIPT","PRICE","PIECE"],BUDGET:["BUDGET","DEBT","BED"],NETWORK:["NETWORK","OWNER","WORK"],PASSWORD:["PASSWORD","SWAP","PASS"],
-  PASSKEY:["PASSKEY","PAY","APY"],CONVERT:["CONVERT","NET","VOTE"],MARKET:["MARKET","RATE","TERM"],PRINCIPAL:["PRINCIPAL","APR","PLAIN"],BLOCK:["BLOCK","LOCK","LOB"],STOCK:["STOCK","COST","SOCK"],TRADE:["TRADE","RATE","READ"],RETURN:["RETURN","NET","TUNE"],
+// Compositions below include the answers added by answer-expansion v1 (2026-11-18, the exhaustive-answer rule).
+const CHANGED={TOKEN:["TOKEN","NET","NOTE"],STAKE:["STAKE","ASK","TAKE"],CREDITOR:["CREDITOR","CREDIT","ORDER","REIT","DIRECT"],RECEIPT:["RECEIPT","PRICE","PEER","REIT","PIECE"],BUDGET:["BUDGET","DEBT","BED"],NETWORK:["NETWORK","OWNER","TOKEN","NET","RENT","WORK"],PASSWORD:["PASSWORD","SWAP","APR","PASS"],
+  PASSKEY:["PASSKEY","PAY","APY","ASK"],CONVERT:["CONVERT","NET","VOTE","RENT"],MARKET:["MARKET","RATE","TERM","ATM"],PRINCIPAL:["PRINCIPAL","APR","PLAIN"],BLOCK:["BLOCK","LOCK","LOB"],STOCK:["STOCK","COST","SOCK"],TRADE:["TRADE","RATE","READ"],RETURN:["RETURN","NET","RENT","TUNE"],
   // Phase 5 (owner-approved 2026-10-16): the last four puzzles, using ACH and WORTH and two cross-world anchors.
   CHAIN:["CHAIN","ACH","CHIN"],INCOME:["INCOME","COIN","COME"],SAVING:["SAVING","GAS","GAIN"],GROWTH:["GROWTH","WORTH","ROW"]};
 // Approved terms that appear in a puzzle of a world other than their own, with their owning world.
 // Revision of each recomposed puzzle. BLOCK is revision 3: Phase 4 replaced the ordinary word COB with LOB (owner decision), so BLOCK:R2 completions are not inherited.
 const REVISION_OF=anchor=>anchor==="BLOCK"?3:2;
-const CROSS={NET:"moneybasics",ASK:"investing",DEBT:"credit",OWNER:"investing",SWAP:"crypto",PAY:"moneybasics",APY:"credit",VOTE:"investing",RATE:"moneybasics",TERM:"credit",COST:"moneybasics",ACH:"banking",GAS:"crypto",INCOME:"moneybasics",SAVING:"moneybasics"};
+const CROSS={NET:"moneybasics",ASK:"investing",DEBT:"credit",OWNER:"investing",SWAP:"crypto",PAY:"moneybasics",APY:"credit",VOTE:"investing",RATE:"moneybasics",TERM:"credit",COST:"moneybasics",ACH:"banking",GAS:"crypto",INCOME:"moneybasics",SAVING:"moneybasics",
+  // added by answer-expansion v1 (2026-11-18)
+  ORDER:"investing",REIT:"real_estate",PEER:"crypto",PAYMENT:"moneybasics",EARN:"moneybasics",RENT:"real_estate",ATM:"banking",DEPOSIT:"moneybasics",REPO:"investing",TOKEN:"crypto",APR:"credit"};
 // INCOME and SAVING are the two approved cross-world ANCHORS (FLQ-V3-CROSS-WORLD-ANCHOR-001); every other cross-world answer is a secondary.
 const CROSS_ANCHORS=new Set(["INCOME","SAVING"]);
 
@@ -60,18 +65,18 @@ test("the original approved vocabulary is exactly 145 terms with unique permanen
   assert.ok(credit.every(term=>identities.resolveTerm(VOCAB.credit.find(entry=>entry.word===term.word))===term.id),"Credit identities come only from the approved registry");
 });
 
-test("the owner-approved supplement adds exactly ACH, WORTH and the four CAL-0008 terms (155 terms) without touching the original 145",()=>{
-  assert.equal(INVENTORY.length,155);
-  assert.deepEqual(Object.fromEntries(WORLDS.map(worldId=>[worldId,INVENTORY.filter(term=>term.worldId===worldId).length])),{moneybasics:36,credit:42,crypto:20,banking:30,investing:27});
-  assert.equal(new Set(INVENTORY.map(term=>term.id)).size,155);
-  assert.equal(new Set(INVENTORY.map(term=>term.word)).size,155,"the supplement duplicates no existing word");
-  assert.deepEqual(supplement.TERMS.map(term=>[term.id,term.word,term.world]),[["banking.ach","ACH","banking"],["investing.worth","WORTH","investing"],["banking.atm","ATM","banking"],["banking.wire","WIRE","banking"],["banking.phishing","PHISHING","banking"],["investing.liquidity","LIQUIDITY","investing"],["credit.report","REPORT","credit"],["credit.bureau","BUREAU","credit"],["credit.freeze","FREEZE","credit"],["credit.history","HISTORY","credit"]]);
+test("the owner-approved supplement adds exactly ACH, WORTH, the eight CAL-0008 Credit/Banking/Investing terms and the four CAL-0012 Crypto terms (159 terms) without touching the original 145",()=>{
+  assert.equal(INVENTORY.length,159);
+  assert.deepEqual(Object.fromEntries(WORLDS.map(worldId=>[worldId,INVENTORY.filter(term=>term.worldId===worldId).length])),{moneybasics:36,credit:42,crypto:24,banking:30,investing:27});
+  assert.equal(new Set(INVENTORY.map(term=>term.id)).size,159);
+  assert.equal(new Set(INVENTORY.map(term=>term.word)).size,159,"the supplement duplicates no existing word");
+  assert.deepEqual(supplement.TERMS.map(term=>[term.id,term.word,term.world]),[["banking.ach","ACH","banking"],["investing.worth","WORTH","investing"],["banking.atm","ATM","banking"],["banking.wire","WIRE","banking"],["banking.phishing","PHISHING","banking"],["investing.liquidity","LIQUIDITY","investing"],["credit.report","REPORT","credit"],["credit.bureau","BUREAU","credit"],["credit.freeze","FREEZE","credit"],["credit.history","HISTORY","credit"],["crypto.address","ADDRESS","crypto"],["crypto.custody","CUSTODY","crypto"],["crypto.scam","SCAM","crypto"],["crypto.confirmed","CONFIRMED","crypto"]]);
   const json=JSON.parse(fs.readFileSync(path.join(ROOT,"content/v3-supplemental-terms.json"),"utf8"));
   assert.deepEqual(json.map(({id,word,world,definition})=>({id,word,world,definition})),supplement.TERMS.map(({id,word,world,definition})=>({id,word,world,definition})),"runtime and governance record are identical");
   json.forEach(term=>{assert.match(term.sourceUrl,/^https:\/\//);if(term.secondarySourceUrl)assert.match(term.secondarySourceUrl,/^https:\/\//);/* CAL-0008 terms WIRE, PHISHING and LIQUIDITY have one registered official source; no second source is invented */assert.ok(term.verificationNote&&term.definitionStatus&&term.sourceOrganization)});
   assert.match(BY_WORD.get("WORTH").definition,/^The amount of money something is valued at/,"WORTH describes monetary value, not an investment instrument");
   assert.doesNotMatch(BY_WORD.get("WORTH").definition,/investment|security|stock|fund/i);
-  assert.equal(BASE_INVENTORY.some(term=>["ACH","WORTH","ATM","WIRE","PHISHING","LIQUIDITY","REPORT","BUREAU","FREEZE","HISTORY"].includes(term.word)),false);
+  assert.equal(BASE_INVENTORY.some(term=>["ACH","WORTH","ATM","WIRE","PHISHING","LIQUIDITY","REPORT","BUREAU","FREEZE","HISTORY","ADDRESS","CUSTODY","SCAM","CONFIRMED"].includes(term.word)),false);
   const legacyBanking=JSON.parse(fs.readFileSync(path.join(ROOT,"content/banking-basics-terms.json"),"utf8"));
   assert.equal(legacyBanking.length,26,"the frozen Banking v1.1 record and its 13 clusters are untouched");
 });
@@ -88,14 +93,14 @@ test("the nineteen recomposed puzzles have exactly the approved composition and 
   assert.equal(unchanged.length,8);
   unchanged.forEach(puzzle=>{assert.equal(puzzle.contentRevision,1);assert.match(puzzle.id,/:R1$/)});
   const specs=slate.SPECS.filter(spec=>!CHANGED[spec.anchor]);
-  assert.ok(specs.every(spec=>spec.revision===undefined&&spec.secondary.every(entry=>typeof entry==="string")),"the other 8 specs are untouched");
+  assert.ok(specs.every(spec=>spec.revision===undefined),"the other 8 specs keep revision 1 (their answers may only grow under answer-expansion v1)");
 });
 
 test("CREDITOR and RECEIPT remove only EDITOR and TIRE and keep 3 required words with a financial majority",()=>{
   ["CREDITOR","RECEIPT"].forEach(anchor=>{
     const puzzle=PUZZLES.find(item=>item.anchorWord===anchor),verdict=slate.validateComposition(puzzle,game);
-    assert.equal(puzzle.requiredWords.length,3);
-    assert.deepEqual(verdict,{valid:true,errors:[],counts:{required:3,financial:2,minimumFinancial:2}});
+    assert.equal(puzzle.requiredWords.length,5,"EDITOR and TIRE stay removed; answer-expansion v1 adds ORDER/REIT (CREDITOR) and PEER/REIT (RECEIPT)");
+    assert.deepEqual(verdict,{valid:true,errors:[],counts:{required:5,financial:4,minimumFinancial:3}});
   });
   const all=PUZZLES.flatMap(puzzle=>puzzle.requiredWords);
   assert.ok(!all.includes("EDITOR")&&!all.includes("TIRE"));
@@ -110,7 +115,7 @@ test("every cross-world puzzle meets all rules: wheel multiplicity, spelling, co
     const wheel=letterCounts(puzzle.wheelLetters.join(""));
     puzzle.requiredWords.forEach(word=>Object.entries(letterCounts(word)).forEach(([letter,count])=>assert.ok((wheel[letter]||0)>=count,`${puzzle.id}: ${word} needs ${count} ${letter}`)));
     assert.equal(game.validateCrosswordLayout(puzzle.requiredWords,puzzle.layout).valid,true);
-    assert.ok(puzzle.requiredWords.length>=3&&puzzle.requiredWords.length<=5);
+    assert.ok(puzzle.requiredWords.length>=3&&puzzle.requiredWords.length<=slate.MAX_REQUIRED_ANSWERS);
   });
 });
 
@@ -245,7 +250,7 @@ test("mastery stays one record per permanent term identity, never duplicated acr
 test("registering every V3 term from every world's bank never conflicts",()=>{
   const learning=new learningApi.LearningEngine({terms:[],storage:memoryStorage()});
   WORLDS.forEach(worldId=>assert.doesNotThrow(()=>learning.registerTerms(slate.financialLearningTerms(PUZZLES.filter(puzzle=>puzzle.worldId===worldId)))));
-  assert.equal(learning.repository.size,49,"49 distinct approved terms appear in V3 puzzles (44 before Phase 5: WALLET and ASSET left, seven terms joined)");
+  assert.equal(learning.repository.size,57,"57 distinct approved terms appear in V3 puzzles (49 before answer-expansion v1 added eight, including 2027 new-world terms)");
 });
 
 // ---------- Task 5: save compatibility ----------
@@ -302,8 +307,8 @@ test("the three financial-only replacements use approved terms only (no ordinary
   FINANCIAL_ONLY.forEach(anchor=>{
     const puzzle=PUZZLES.find(item=>item.anchorWord===anchor);
     assert.equal(puzzle.answers.filter(answer=>answer.category==="ordinary").length,0);
-    puzzle.requiredWords.forEach(word=>assert.ok(BY_WORD.has(word),`${anchor}: ${word} is one of the 145 approved terms`));
-    assert.deepEqual(slate.validateComposition(puzzle,game).counts,{required:3,financial:3,minimumFinancial:2});
+    puzzle.requiredWords.forEach(word=>assert.ok(BY_WORD.has(word),`${anchor}: ${word} is an approved term`));
+    assert.deepEqual(slate.validateComposition(puzzle,game).counts,{required:4,financial:4,minimumFinancial:3});
   });
 });
 

@@ -78,6 +78,86 @@
           "definition": null,
           "worldId": "credit",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "PEER",
+          "category": "financial-secondary",
+          "termId": "crypto.peer",
+          "masteryId": "crypto.peer",
+          "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+          "worldId": "crypto",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "PAYMENT",
+          "category": "financial-secondary",
+          "termId": "moneybasics.payment",
+          "masteryId": "moneybasics.payment",
+          "definition": "Money given to pay a bill, amount owed, or purchase.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "EARN",
+          "category": "financial-secondary",
+          "termId": "moneybasics.earn",
+          "masteryId": "moneybasics.earn",
+          "definition": "To receive money in return for work or another activity.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RATE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.rate",
+          "masteryId": "moneybasics.rate",
+          "definition": "An amount or percentage used to calculate a payment, cost, or return.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "PAY",
+          "category": "financial-secondary",
+          "termId": "moneybasics.pay",
+          "masteryId": "moneybasics.pay",
+          "definition": "To give money for work, a purchase, or an amount owed.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "NET",
+          "category": "financial-secondary",
+          "termId": "moneybasics.net",
+          "masteryId": "moneybasics.net",
+          "definition": "An amount remaining after deductions or costs are subtracted.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RENT",
+          "category": "financial-secondary",
+          "termId": "real_estate.rent",
+          "masteryId": "real_estate.rent",
+          "definition": "Money paid for temporary use of property.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "ATM",
+          "category": "financial-secondary",
+          "termId": "banking.atm",
+          "masteryId": "banking.atm",
+          "definition": "An automated teller machine that lets bank customers complete basic transactions such as deposits and withdrawals.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -85,7 +165,15 @@
         "TERM",
         "APR",
         "APY",
-        "NAME"
+        "NAME",
+        "PEER",
+        "PAYMENT",
+        "EARN",
+        "RATE",
+        "PAY",
+        "NET",
+        "RENT",
+        "ATM"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -101,38 +189,118 @@
           "label": "contextual",
           "strong": true,
           "explanation": "Owner-approved association: APY is the deposit-side yield measure, a contrast to the cost of repaying a loan."
+        },
+        "PEER": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "PAYMENT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "EARN": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RATE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "PAY": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "NET": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RENT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "ATM": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "REPAYMENT",
-          "r": 2,
+          "word": "TERM",
+          "r": 6,
           "c": 0,
           "dir": "h"
         },
         {
           "word": "APR",
-          "r": 1,
+          "r": 4,
           "c": 2,
           "dir": "v"
         },
         {
-          "word": "APY",
-          "r": 0,
+          "word": "NAME",
+          "r": 4,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "PEER",
+          "r": 2,
           "c": 4,
           "dir": "v"
         },
         {
-          "word": "NAME",
-          "r": 0,
-          "c": 3,
+          "word": "PAYMENT",
+          "r": 2,
+          "c": 4,
           "dir": "h"
         },
         {
-          "word": "TERM",
+          "word": "APY",
           "r": 0,
-          "c": 0,
+          "c": 6,
           "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 0,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "REPAYMENT",
+          "r": 5,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 1,
+          "c": 10,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
         }
       ],
       "rewardPolicy": {
@@ -150,7 +318,16 @@
           "xp": 0
         }
       },
-      "sourceReviewId": "PROTOTYPE:P5-03"
+      "sourceReviewId": "PROTOTYPE:P5-03",
+      "prefixJustifications": [
+        {
+          "shorter": "PAY",
+          "longer": "PAYMENT",
+          "justification": "PAY is the act of giving money and PAYMENT is the amount given; both are approved terms and the exhaustive-answer rule requires both.",
+          "interactionSupport": true,
+          "testId": "answer-expansion-prefix-pay-payment"
+        }
+      ]
     },
     {
       "id": "FQ-V3:real_estate:APARTMENT:R2",
@@ -227,6 +404,46 @@
           "definition": null,
           "worldId": "real_estate",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "APR",
+          "category": "financial-secondary",
+          "termId": "credit.apr",
+          "masteryId": "credit.apr",
+          "definition": "Annual Percentage Rate, an annual borrowing-cost measure.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "EARN",
+          "category": "financial-secondary",
+          "termId": "moneybasics.earn",
+          "masteryId": "moneybasics.earn",
+          "definition": "To receive money in return for work or another activity.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "NET",
+          "category": "financial-secondary",
+          "termId": "moneybasics.net",
+          "masteryId": "moneybasics.net",
+          "definition": "An amount remaining after deductions or costs are subtracted.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "ATM",
+          "category": "financial-secondary",
+          "termId": "banking.atm",
+          "masteryId": "banking.atm",
+          "definition": "An automated teller machine that lets bank customers complete basic transactions such as deposits and withdrawals.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -234,7 +451,11 @@
         "RENT",
         "TERM",
         "RATE",
-        "NAME"
+        "NAME",
+        "APR",
+        "EARN",
+        "NET",
+        "ATM"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -250,38 +471,78 @@
         "RATE": {
           "label": "contextual",
           "explanation": "Owner-approved association: the rate used to calculate a payment or cost."
+        },
+        "APR": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "EARN": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "NET": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "ATM": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "APARTMENT",
+          "word": "ATM",
+          "r": 4,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
           "r": 3,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 3,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "TERM",
+          "r": 1,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "APR",
+          "r": 5,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 6,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "APARTMENT",
+          "r": 1,
           "c": 0,
           "dir": "h"
         },
         {
           "word": "NAME",
           "r": 0,
-          "c": 6,
+          "c": 0,
           "dir": "v"
-        },
-        {
-          "word": "TERM",
-          "r": 1,
-          "c": 3,
-          "dir": "v"
-        },
-        {
-          "word": "RENT",
-          "r": 0,
-          "c": 8,
-          "dir": "v"
-        },
-        {
-          "word": "RATE",
-          "r": 1,
-          "c": 5,
-          "dir": "h"
         }
       ],
       "rewardPolicy": {
@@ -381,6 +642,66 @@
           "definition": null,
           "worldId": "business",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "ALERT",
+          "category": "financial-secondary",
+          "termId": "banking.alert",
+          "masteryId": "banking.alert",
+          "definition": "A notice that warns a customer about account activity, security, or a possible problem.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RATE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.rate",
+          "masteryId": "moneybasics.rate",
+          "definition": "An amount or percentage used to calculate a payment, cost, or return.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "TILA",
+          "category": "financial-secondary",
+          "termId": "credit.tila",
+          "masteryId": "credit.tila",
+          "definition": "The Truth in Lending Act, a federal law requiring important borrowing-cost and credit-term disclosures.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "LIEN",
+          "category": "financial-secondary",
+          "termId": "real_estate.lien",
+          "masteryId": "real_estate.lien",
+          "definition": "A legal claim against property that can secure repayment of a debt.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "REIT",
+          "category": "financial-secondary",
+          "termId": "real_estate.reit",
+          "masteryId": "real_estate.reit",
+          "definition": "A company that owns and typically operates income-producing real estate or related assets.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RENT",
+          "category": "financial-secondary",
+          "termId": "real_estate.rent",
+          "masteryId": "real_estate.rent",
+          "definition": "Money paid for temporary use of property.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -388,7 +709,13 @@
         "SALE",
         "EARN",
         "NET",
-        "LINE"
+        "LINE",
+        "ALERT",
+        "RATE",
+        "TILA",
+        "LIEN",
+        "REIT",
+        "RENT"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -404,38 +731,98 @@
           "label": "contextual",
           "explanation": "Net is what remains after costs, which a retailer tracks.",
           "strong": true
+        },
+        "ALERT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RATE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "TILA": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "LIEN": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "REIT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RENT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "RETAIL",
+          "word": "EARN",
+          "r": 6,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "TILA",
+          "r": 3,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "ALERT",
+          "r": 3,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
           "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "LIEN",
+          "r": 3,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "LINE",
+          "r": 3,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "SALE",
+          "r": 0,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 5,
           "c": 0,
           "dir": "h"
         },
         {
           "word": "NET",
-          "r": 0,
-          "c": 2,
+          "r": 3,
+          "c": 9,
           "dir": "v"
         },
         {
-          "word": "EARN",
-          "r": 0,
-          "c": 0,
-          "dir": "v"
-        },
-        {
-          "word": "LINE",
+          "word": "RETAIL",
           "r": 1,
-          "c": 4,
-          "dir": "v"
+          "c": 7,
+          "dir": "h"
         },
         {
-          "word": "SALE",
-          "r": 4,
+          "word": "RATE",
+          "r": 2,
           "c": 1,
-          "dir": "h"
+          "dir": "v"
         }
       ],
       "rewardPolicy": {
@@ -535,6 +922,46 @@
           "definition": null,
           "worldId": "moneybasics",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "TERM",
+          "category": "financial-secondary",
+          "termId": "credit.term",
+          "masteryId": "credit.term",
+          "definition": "The period allowed for repayment.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "PEER",
+          "category": "financial-secondary",
+          "termId": "crypto.peer",
+          "masteryId": "crypto.peer",
+          "definition": "Another network participant that communicates directly with your node rather than through one central server.",
+          "worldId": "crypto",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "REIT",
+          "category": "financial-secondary",
+          "termId": "real_estate.reit",
+          "masteryId": "real_estate.reit",
+          "definition": "A company that owns and typically operates income-producing real estate or related assets.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "FIRE",
+          "category": "financial-secondary",
+          "termId": "retirement.fire",
+          "masteryId": "retirement.fire",
+          "definition": "A financial strategy focused on reaching financial independence and the option to retire early.",
+          "worldId": "retirement",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -542,7 +969,11 @@
         "PRICE",
         "FEE",
         "REMIT",
-        "TIME"
+        "TIME",
+        "TERM",
+        "PEER",
+        "REIT",
+        "FIRE"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -557,38 +988,78 @@
         "REMIT": {
           "label": "contextual",
           "explanation": "To remit is to send payment, which a receipt then confirms."
+        },
+        "TERM": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "PEER": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "REIT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "FIRE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "RECEIPT",
-          "r": 4,
+          "word": "PRICE",
+          "r": 5,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "TERM",
+          "r": 3,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "FIRE",
+          "r": 2,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "TIME",
+          "r": 3,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "REMIT",
+          "r": 3,
           "c": 0,
           "dir": "h"
         },
         {
-          "word": "TIME",
-          "r": 1,
-          "c": 1,
+          "word": "REIT",
+          "r": 3,
+          "c": 0,
           "dir": "v"
         },
         {
-          "word": "PRICE",
+          "word": "RECEIPT",
           "r": 0,
-          "c": 3,
+          "c": 9,
           "dir": "v"
         },
         {
-          "word": "REMIT",
+          "word": "PEER",
           "r": 0,
           "c": 6,
-          "dir": "v"
+          "dir": "h"
         },
         {
           "word": "FEE",
           "r": 1,
-          "c": 5,
-          "dir": "h"
+          "c": 1,
+          "dir": "v"
         }
       ],
       "rewardPolicy": {
@@ -686,6 +1157,36 @@
           "definition": null,
           "worldId": "investing",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "DEBT",
+          "category": "financial-secondary",
+          "termId": "credit.debt",
+          "masteryId": "credit.debt",
+          "definition": "An amount or obligation owed.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RATE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.rate",
+          "masteryId": "moneybasics.rate",
+          "definition": "An amount or percentage used to calculate a payment, cost, or return.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "DEBIT",
+          "category": "financial-secondary",
+          "termId": "moneybasics.debit",
+          "masteryId": "moneybasics.debit",
+          "definition": "Money taken from an account to complete a payment or withdrawal.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -693,7 +1194,10 @@
         "BID",
         "BEAR",
         "REIT",
-        "DATE"
+        "DATE",
+        "DEBT",
+        "RATE",
+        "DEBIT"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -709,37 +1213,67 @@
         "REIT": {
           "label": "contextual",
           "explanation": "A REIT is a security that can be traded like a stock."
+        },
+        "DEBT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RATE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "DEBIT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "TRADE",
-          "r": 2,
-          "c": 0,
+          "word": "REIT",
+          "r": 1,
+          "c": 6,
           "dir": "h"
         },
         {
           "word": "BID",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "BEAR",
+          "r": 4,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "DEBT",
+          "r": 0,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "DEBIT",
           "r": 0,
           "c": 3,
           "dir": "v"
         },
         {
           "word": "DATE",
-          "r": 0,
+          "r": 1,
           "c": 0,
-          "dir": "v"
-        },
-        {
-          "word": "BEAR",
-          "r": 0,
-          "c": 3,
           "dir": "h"
         },
         {
-          "word": "REIT",
+          "word": "RATE",
           "r": 0,
-          "c": 6,
+          "c": 1,
           "dir": "v"
         }
       ],
@@ -840,6 +1374,46 @@
           "definition": null,
           "worldId": "investing",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "DEBT",
+          "category": "financial-secondary",
+          "termId": "credit.debt",
+          "masteryId": "credit.debt",
+          "definition": "An amount or obligation owed.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "TERM",
+          "category": "financial-secondary",
+          "termId": "credit.term",
+          "masteryId": "credit.term",
+          "definition": "The period allowed for repayment.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RATE",
+          "category": "financial-secondary",
+          "termId": "moneybasics.rate",
+          "masteryId": "moneybasics.rate",
+          "definition": "An amount or percentage used to calculate a payment, cost, or return.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "ATM",
+          "category": "financial-secondary",
+          "termId": "banking.atm",
+          "masteryId": "banking.atm",
+          "definition": "An automated teller machine that lets bank customers complete basic transactions such as deposits and withdrawals.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -847,7 +1421,11 @@
         "TRADE",
         "BEAR",
         "DATE",
-        "READ"
+        "READ",
+        "DEBT",
+        "TERM",
+        "RATE",
+        "ATM"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -859,37 +1437,77 @@
           "label": "contextual",
           "explanation": "A bear market is a market in which prices are falling.",
           "strong": true
+        },
+        "DEBT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "TERM": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RATE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "ATM": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "MARKET",
-          "r": 0,
+          "word": "TRADE",
+          "r": 4,
           "c": 0,
           "dir": "h"
         },
         {
-          "word": "TRADE",
+          "word": "ATM",
+          "r": 3,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "MARKET",
           "r": 0,
-          "c": 5,
+          "c": 4,
           "dir": "v"
         },
         {
           "word": "DATE",
-          "r": 4,
-          "c": 2,
+          "r": 1,
+          "c": 3,
           "dir": "h"
+        },
+        {
+          "word": "DEBT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
         },
         {
           "word": "READ",
           "r": 2,
-          "c": 3,
+          "c": 2,
           "dir": "v"
         },
         {
           "word": "BEAR",
           "r": 2,
-          "c": 0,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "TERM",
+          "r": 5,
+          "c": 4,
           "dir": "h"
         }
       ],
@@ -989,6 +1607,26 @@
           "definition": null,
           "worldId": "investing",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "NET",
+          "category": "financial-secondary",
+          "termId": "moneybasics.net",
+          "masteryId": "moneybasics.net",
+          "definition": "An amount remaining after deductions or costs are subtracted.",
+          "worldId": "moneybasics",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RENT",
+          "category": "financial-secondary",
+          "termId": "real_estate.rent",
+          "masteryId": "real_estate.rent",
+          "definition": "Money paid for temporary use of property.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -996,7 +1634,9 @@
         "EARN",
         "RATE",
         "TRADE",
-        "DATE"
+        "DATE",
+        "NET",
+        "RENT"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -1011,38 +1651,58 @@
         "TRADE": {
           "label": "contextual",
           "explanation": "Trading can produce or reduce an investment return."
+        },
+        "NET": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RENT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "RETURN",
+          "word": "TRADE",
           "r": 4,
-          "c": 1,
+          "c": 5,
           "dir": "h"
         },
         {
-          "word": "DATE",
-          "r": 1,
-          "c": 2,
+          "word": "NET",
+          "r": 2,
+          "c": 5,
           "dir": "v"
         },
         {
-          "word": "EARN",
-          "r": 1,
-          "c": 6,
-          "dir": "v"
-        },
-        {
-          "word": "TRADE",
+          "word": "RETURN",
           "r": 2,
           "c": 0,
           "dir": "h"
         },
         {
-          "word": "RATE",
+          "word": "EARN",
           "r": 0,
           "c": 0,
           "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 2,
+          "dir": "h"
         }
       ],
       "rewardPolicy": {
@@ -1143,6 +1803,45 @@
           "definition": null,
           "worldId": "credit",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "ALERT",
+          "category": "financial-secondary",
+          "termId": "banking.alert",
+          "masteryId": "banking.alert",
+          "definition": "A notice that warns a customer about account activity, security, or a possible problem.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "BEAR",
+          "category": "financial-secondary",
+          "termId": "investing.bear",
+          "masteryId": "investing.bear",
+          "definition": "Describes an investor or market outlook that expects prices to decline.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "TRADE",
+          "category": "financial-secondary",
+          "termId": "investing.trade",
+          "masteryId": "investing.trade",
+          "definition": "A completed purchase or sale of an investment.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "FRAUD",
+          "category": "financial-secondary",
+          "termId": "credit.fraud",
+          "masteryId": "credit.fraud",
+          "definition": "Intentional deception for financial or personal gain.",
+          "worldId": "credit",
+          "rewardPolicy": "financial-first-solve"
         }
       ],
       "requiredWords": [
@@ -1150,7 +1849,11 @@
         "DEBT",
         "RATE",
         "DATE",
-        "READ"
+        "READ",
+        "ALERT",
+        "BEAR",
+        "TRADE",
+        "FRAUD"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -1162,20 +1865,54 @@
           "label": "contextual",
           "explanation": "Depending on the loan agreement, default may trigger a higher interest rate.",
           "strong": true
+        },
+        "ALERT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "BEAR": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "TRADE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "FRAUD": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "DEFAULT",
-          "r": 3,
-          "c": 0,
+          "word": "FRAUD",
+          "r": 2,
+          "c": 6,
           "dir": "h"
         },
         {
           "word": "DEBT",
+          "r": 2,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "DEFAULT",
           "r": 0,
           "c": 6,
           "dir": "v"
+        },
+        {
+          "word": "ALERT",
+          "r": 6,
+          "c": 2,
+          "dir": "h"
         },
         {
           "word": "RATE",
@@ -1184,15 +1921,21 @@
           "dir": "h"
         },
         {
-          "word": "DATE",
+          "word": "TRADE",
           "r": 0,
-          "c": 1,
+          "c": 3,
           "dir": "v"
         },
         {
           "word": "READ",
-          "r": 1,
-          "c": 3,
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "BEAR",
+          "r": 0,
+          "c": 0,
           "dir": "v"
         }
       ],
@@ -1293,6 +2036,56 @@
           "definition": null,
           "worldId": "credit",
           "rewardPolicy": "ordinary-first-solve"
+        },
+        {
+          "word": "ALERT",
+          "category": "financial-secondary",
+          "termId": "banking.alert",
+          "masteryId": "banking.alert",
+          "definition": "A notice that warns a customer about account activity, security, or a possible problem.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "CLEAR",
+          "category": "financial-secondary",
+          "termId": "banking.clear",
+          "masteryId": "banking.clear",
+          "definition": "To complete the information-processing stage required before a payment can be settled.",
+          "worldId": "banking",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "TRADE",
+          "category": "financial-secondary",
+          "termId": "investing.trade",
+          "masteryId": "investing.trade",
+          "definition": "A completed purchase or sale of an investment.",
+          "worldId": "investing",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "RETAIL",
+          "category": "financial-secondary",
+          "termId": "business.retail",
+          "masteryId": "business.retail",
+          "definition": "The sale of goods or services directly to consumers.",
+          "worldId": "business",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
+        },
+        {
+          "word": "REIT",
+          "category": "financial-secondary",
+          "termId": "real_estate.reit",
+          "masteryId": "real_estate.reit",
+          "definition": "A company that owns and typically operates income-producing real estate or related assets.",
+          "worldId": "real_estate",
+          "rewardPolicy": "financial-first-solve",
+          "crossWorld": true
         }
       ],
       "requiredWords": [
@@ -1300,7 +2093,12 @@
         "RATE",
         "TILA",
         "ACT",
-        "DATE"
+        "DATE",
+        "ALERT",
+        "CLEAR",
+        "TRADE",
+        "RETAIL",
+        "REIT"
       ],
       "bonusWords": [],
       "supportRelevance": {
@@ -1311,38 +2109,88 @@
         "TILA": {
           "label": "direct",
           "explanation": "TILA is the law that requires the cost of credit to be disclosed."
+        },
+        "ALERT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "CLEAR": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "TRADE": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "RETAIL": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
+        },
+        "REIT": {
+          "label": "incidental",
+          "explanation": "Approved financial term the wheel spells; required by the exhaustive-answer rule (answer-expansion v1)."
         }
       },
       "layout": [
         {
-          "word": "CREDIT",
-          "r": 0,
-          "c": 1,
+          "word": "REIT",
+          "r": 6,
+          "c": 6,
           "dir": "h"
         },
         {
+          "word": "ACT",
+          "r": 4,
+          "c": 9,
+          "dir": "v"
+        },
+        {
           "word": "TILA",
+          "r": 4,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "ALERT",
           "r": 0,
           "c": 6,
           "dir": "v"
         },
         {
+          "word": "CREDIT",
+          "r": 2,
+          "c": 4,
+          "dir": "h"
+        },
+        {
           "word": "DATE",
           "r": 0,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "CLEAR",
+          "r": 2,
           "c": 4,
           "dir": "v"
         },
         {
-          "word": "RATE",
-          "r": 0,
+          "word": "TRADE",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "RETAIL",
+          "r": 1,
           "c": 2,
           "dir": "v"
         },
         {
-          "word": "ACT",
+          "word": "RATE",
           "r": 2,
           "c": 0,
-          "dir": "h"
+          "dir": "v"
         }
       ],
       "rewardPolicy": {

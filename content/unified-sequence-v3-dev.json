@@ -1,0 +1,1152 @@
+{
+  "sequenceId": "main-levels",
+  "sequenceVersion": 3,
+  "devOnly": true,
+  "environment": "development",
+  "note": "GATED CANDIDATE (sequenceVersion 3 of main-levels): sequenceVersion 2 plus seven exact-wheel replacements (RETAIL, RECEIPT, TRADE, MARKET, RETURN, DEFAULT, CREDIT) under composition rule v4. Development-only until the owner approves the release.",
+  "entries": [
+    {
+      "position": 1,
+      "puzzleId": "FQ-V3:business:FREELANCE:R1",
+      "anchor": "FREELANCE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 2,
+      "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+      "anchor": "BUDGET",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 3,
+      "puzzleId": "FQ-V3:moneybasics:REFUND:R1",
+      "anchor": "REFUND",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 4,
+      "puzzleId": "FQ-V3:crypto:INCOME:R2",
+      "anchor": "INCOME",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 5,
+      "puzzleId": "FQ-V3:investing:SAVING:R2",
+      "anchor": "SAVING",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:RECEIPT:R4",
+      "anchor": "RECEIPT",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:moneybasics:RECEIPT:R3"
+      ],
+      "compatibility": "fresh",
+      "position": 6
+    },
+    {
+      "position": 7,
+      "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+      "anchor": "PAYMENT",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 8,
+      "puzzleId": "FQ-V3:credit:AUTOPAY:R1",
+      "anchor": "AUTOPAY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:real_estate:APARTMENT:R2",
+      "anchor": "APARTMENT",
+      "compositionRuleVersion": "v2",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v2",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:real_estate:APARTMENT:R1"
+      ],
+      "compatibility": "fresh",
+      "position": 9
+    },
+    {
+      "position": 10,
+      "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+      "anchor": "PASSWORD",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:credit:REPAYMENT:R2",
+      "anchor": "REPAYMENT",
+      "compositionRuleVersion": "v2",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v2",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:credit:REPAYMENT:R1"
+      ],
+      "compatibility": "fresh",
+      "position": 11
+    },
+    {
+      "position": 12,
+      "puzzleId": "FQ-V3:retirement:LIFESTYLE:R1",
+      "anchor": "LIFESTYLE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 13,
+      "puzzleId": "FQ-V3:moneybasics:PAYCHECK:R1",
+      "anchor": "PAYCHECK",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 14,
+      "puzzleId": "FQ-V3:business:MARKETING:R1",
+      "anchor": "MARKETING",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:investing:TRADE:R4",
+      "anchor": "TRADE",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:investing:TRADE:R3"
+      ],
+      "compatibility": "fresh",
+      "position": 15
+    },
+    {
+      "position": 16,
+      "puzzleId": "FQ-V3:investing:STOCK:R2",
+      "anchor": "STOCK",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 17,
+      "puzzleId": "FQ-V3:investing:GROWTH:R2",
+      "anchor": "GROWTH",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:investing:MARKET:R4",
+      "anchor": "MARKET",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:investing:MARKET:R3"
+      ],
+      "compatibility": "fresh",
+      "position": 18
+    },
+    {
+      "position": 19,
+      "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+      "anchor": "TAXFILING",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 20,
+      "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+      "anchor": "INCOMETAX",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 21,
+      "puzzleId": "FQ-V3:banking:CONVERT:R2",
+      "anchor": "CONVERT",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 22,
+      "puzzleId": "FQ-V3:credit:CREDITOR:R2",
+      "anchor": "CREDITOR",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 23,
+      "puzzleId": "FQ-V3:banking:DEPOSITOR:R1",
+      "anchor": "DEPOSITOR",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 24,
+      "puzzleId": "FQ-V3:business:WHOLESALE:R1",
+      "anchor": "WHOLESALE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 25,
+      "puzzleId": "FQ-V3:business:INVENTORY:R1",
+      "anchor": "INVENTORY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 26,
+      "puzzleId": "FQ-V3:business:TRADEMARK:R1",
+      "anchor": "TRADEMARK",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 27,
+      "puzzleId": "FQ-V3:credit:TERMS:R1",
+      "anchor": "TERMS",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:investing:RETURN:R4",
+      "anchor": "RETURN",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:investing:RETURN:R3"
+      ],
+      "compatibility": "fresh",
+      "position": 28
+    },
+    {
+      "position": 29,
+      "puzzleId": "FQ-V3:business:FRANCHISE:R1",
+      "anchor": "FRANCHISE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 30,
+      "puzzleId": "FQ-V3:credit:PRINCIPAL:R2",
+      "anchor": "PRINCIPAL",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 31,
+      "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+      "anchor": "REFINANCE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 32,
+      "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+      "anchor": "PASSKEY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 33,
+      "puzzleId": "FQ-V3:business:NETINCOME:R1",
+      "anchor": "NETINCOME",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 34,
+      "puzzleId": "FQ-V3:insurance:EXCLUSION:R1",
+      "anchor": "EXCLUSION",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 35,
+      "puzzleId": "FQ-V3:banking:NETWORK:R2",
+      "anchor": "NETWORK",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 36,
+      "puzzleId": "FQ-V3:social_media:ROYALTIES:R1",
+      "anchor": "ROYALTIES",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 37,
+      "puzzleId": "FQ-V3:insurance:LIABILITY:R1",
+      "anchor": "LIABILITY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 38,
+      "puzzleId": "FQ-V3:taxes:TAXCREDIT:R1",
+      "anchor": "TAXCREDIT",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 39,
+      "puzzleId": "FQ-V3:social_media:ADREVENUE:R1",
+      "anchor": "ADREVENUE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 40,
+      "puzzleId": "FQ-V3:retirement:LONGEVITY:R1",
+      "anchor": "LONGEVITY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 41,
+      "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+      "anchor": "BREAKEVEN",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 42,
+      "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+      "anchor": "TOKEN",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 43,
+      "puzzleId": "FQ-V3:business:RETENTION:R1",
+      "anchor": "RETENTION",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 44,
+      "puzzleId": "FQ-V3:ai_technology:AUTOTRADE:R1",
+      "anchor": "AUTOTRADE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 45,
+      "puzzleId": "FQ-V3:coins:SPOTPRICE:R1",
+      "anchor": "SPOTPRICE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 46,
+      "puzzleId": "FQ-V3:credit:CAPACITY:R1",
+      "anchor": "CAPACITY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 47,
+      "puzzleId": "FQ-V3:coins:COINGRADE:R1",
+      "anchor": "COINGRADE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 48,
+      "puzzleId": "FQ-V3:coins:PROOFLIKE:R1",
+      "anchor": "PROOFLIKE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 49,
+      "puzzleId": "FQ-V3:insurance:TRIPDELAY:R1",
+      "anchor": "TRIPDELAY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 50,
+      "puzzleId": "FQ-V3:coins:MELTVALUE:R1",
+      "anchor": "MELTVALUE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 51,
+      "puzzleId": "FQ-V3:crypto:CHAIN:R2",
+      "anchor": "CHAIN",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 52,
+      "puzzleId": "FQ-V3:crypto:BLOCK:R3",
+      "anchor": "BLOCK",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 53,
+      "puzzleId": "FQ-V3:crypto:STAKE:R2",
+      "anchor": "STAKE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 54,
+      "puzzleId": "FQ-V3:retirement:COASTFIRE:R1",
+      "anchor": "COASTFIRE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 55,
+      "puzzleId": "FQ-V3:business:FACTORING:R1",
+      "anchor": "FACTORING",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 56,
+      "puzzleId": "FQ-V3:retirement:SIMPLEIRA:R1",
+      "anchor": "SIMPLEIRA",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 57,
+      "puzzleId": "FQ-V3:retirement:FIDUCIARY:R1",
+      "anchor": "FIDUCIARY",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "position": 58,
+      "puzzleId": "FQ-V3:insurance:CASHVALUE:R1",
+      "anchor": "CASHVALUE",
+      "replaces": [],
+      "compatibility": null,
+      "compositionRuleVersion": "v1",
+      "releaseStatus": "development",
+      "validation": {
+        "ruleVersionChecked": "v1",
+        "layoutVerified": true,
+        "relevanceReviewed": false,
+        "definitionsVerified": false,
+        "fillersApproved": false,
+        "ownerApproved": false
+      }
+    },
+    {
+      "puzzleId": "FQ-V3:business:RETAIL:R2",
+      "anchor": "RETAIL",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:business:RETAIL:R1"
+      ],
+      "compatibility": "fresh",
+      "position": 59
+    },
+    {
+      "puzzleId": "FQ-V3:credit:DEFAULT:R2",
+      "anchor": "DEFAULT",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:credit:DEFAULT:R1"
+      ],
+      "compatibility": "fresh",
+      "position": 60
+    },
+    {
+      "puzzleId": "FQ-V3:credit:CREDIT:R2",
+      "anchor": "CREDIT",
+      "compositionRuleVersion": "v4",
+      "releaseStatus": "candidate",
+      "validation": {
+        "ruleVersionChecked": "v4",
+        "layoutVerified": true,
+        "relevanceReviewed": true,
+        "definitionsVerified": true,
+        "fillersApproved": true,
+        "ownerApproved": true
+      },
+      "replaces": [
+        "FQ-V3:credit:CREDIT:R1"
+      ],
+      "compatibility": "fresh",
+      "position": 61
+    }
+  ],
+  "retired": [
+    {
+      "puzzleId": "FQ-V3:credit:REPAYMENT:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 1
+    },
+    {
+      "puzzleId": "FQ-V3:real_estate:APARTMENT:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:RECEIPT:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:investing:TRADE:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:investing:MARKET:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:investing:RETURN:R2",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:business:RETAIL:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:RECEIPT:R3",
+      "replaces": [
+        "FQ-V3:moneybasics:RECEIPT:R2"
+      ],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:investing:TRADE:R3",
+      "replaces": [
+        "FQ-V3:investing:TRADE:R2"
+      ],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:investing:MARKET:R3",
+      "replaces": [
+        "FQ-V3:investing:MARKET:R2"
+      ],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:investing:RETURN:R3",
+      "replaces": [
+        "FQ-V3:investing:RETURN:R2"
+      ],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:credit:DEFAULT:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    },
+    {
+      "puzzleId": "FQ-V3:credit:CREDIT:R1",
+      "replaces": [],
+      "retiredAtSequenceVersion": 2
+    }
+  ],
+  "releaseGate": {
+    "status": "closed",
+    "resolved": [
+      "fillerPlacementsApprovedForExactPuzzleIds",
+      "definitionsAndTermRecordsFEE_BID_DEFAULT",
+      "productionIdsRETAIL_DEFAULT_CREDIT",
+      "v3ReleaseSupport"
+    ],
+    "requires": [
+      "ownerActivationApproval",
+      "releaseClassificationOfLegacyV1Entries"
+    ]
+  }
+}

@@ -1,10 +1,16 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "2027.1",
-  "generatedOn": "2026-10-19",
+  "libraryVersion": "2027.2",
+  "generatedOn": "2026-11-18",
   "uniquePuzzleCount": 58,
   "totalWorldPlacements": 195,
   "architecture": {
+    "answerExpansion": {
+      "manifest": "content/answer-expansion-v1.json",
+      "expansionVersion": 1,
+      "rule": "Every approved financial term that can be spelled from a puzzle wheel is a required answer. Puzzle IDs and anchors are unchanged.",
+      "puzzlesExpanded": 35
+    },
     "canonicalDefinitionRule": "Puzzle definitions remain in their existing approved canonical sources. This manifest stores references only.",
     "originalSource": "src/v3-puzzle-slate.js",
     "newWorldSource": "content/2027-new-world-puzzle-banks.json",

@@ -128,5 +128,57 @@
     "verificationNote": "Defines credit history as a record of credit accounts and payment behavior shown in a credit report. Explains how credit history affects housing, accounts, credit cards, loans, and borrowing costs. Wording approved as written in CAL-0008; not a quotation.",
     "supportFlag": "Supported",
     "scope": "V3 supplement (CAL-0008). Not part of the 38-term Credit Foundations workbook record."
+  },
+  {
+    "id": "crypto.address",
+    "world": "crypto",
+    "word": "ADDRESS",
+    "definition": "A string of letters and numbers used as a destination for sending or receiving cryptocurrency.",
+    "definitionStatus": "Owner approved 2026-10-17 (CAL-0008); restored to implementation 2026-11-18",
+    "sourceOrganization": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/articles/what-know-about-cryptocurrency-and-scams",
+    "secondarySourceUrl": "",
+    "verificationNote": "The FTC describes a crypto wallet address as a long string of numbers and letters. Re-checked 2026-11-18: consistent with the approved wording, which is unchanged. Not a quotation.",
+    "supportFlag": "Supported",
+    "scope": "V3 supplement (CAL-0008). Crypto Foundations vocabulary term with no lesson content; not one of the 20 original Crypto learning objects."
+  },
+  {
+    "id": "crypto.custody",
+    "world": "crypto",
+    "word": "CUSTODY",
+    "definition": "The responsibility for safeguarding the keys or accounts that control access to cryptocurrency.",
+    "definitionStatus": "Owner approved 2026-10-17 (CAL-0008); restored to implementation 2026-11-18",
+    "sourceOrganization": "Commodity Futures Trading Commission",
+    "sourceUrl": "https://www.cftc.gov/sites/default/files/2022-09/KeyTerms.pdf",
+    "secondarySourceUrl": "",
+    "verificationNote": "The CFTC key-terms guide distinguishes custodial wallets, where a third party holds the private keys, from noncustodial wallets, where the owner holds them. Re-checked 2026-11-18: consistent with the approved wording, which is unchanged. Not a quotation.",
+    "supportFlag": "Supported",
+    "scope": "V3 supplement (CAL-0008). Crypto Foundations vocabulary term with no lesson content; not one of the 20 original Crypto learning objects."
+  },
+  {
+    "id": "crypto.scam",
+    "world": "crypto",
+    "word": "SCAM",
+    "definition": "A deceptive scheme designed to steal money or cryptocurrency.",
+    "definitionStatus": "Owner approved 2026-10-17 (CAL-0008); restored to implementation 2026-11-18",
+    "sourceOrganization": "Federal Trade Commission",
+    "sourceUrl": "https://consumer.ftc.gov/articles/what-know-about-cryptocurrency-and-scams",
+    "secondarySourceUrl": "",
+    "verificationNote": "The FTC describes crypto scams and warns that only scammers demand payment in cryptocurrency. Re-checked 2026-11-18: no factual error; the definition is general rather than crypto-specific, as recorded in CAL-0008 (approved as written, unchanged). Not a quotation.",
+    "supportFlag": "Supported",
+    "scope": "V3 supplement (CAL-0008). Crypto Foundations vocabulary term with no lesson content; not one of the 20 original Crypto learning objects."
+  },
+  {
+    "id": "crypto.confirmed",
+    "world": "crypto",
+    "word": "CONFIRMED",
+    "definition": "Describes a blockchain transaction or block whose inclusion has been accepted through network consensus.",
+    "definitionStatus": "Owner approved 2026-10-17 (CAL-0008); restored to implementation 2026-11-18",
+    "sourceOrganization": "National Institute of Standards and Technology",
+    "sourceUrl": "https://csrc.nist.gov/glossary/term/confirmed",
+    "secondarySourceUrl": "",
+    "verificationNote": "NIST (NISTIR 8202) defines confirmed as the state of a transaction or block when consensus has been reached about its inclusion in the blockchain. Re-checked 2026-11-18: consistent with the approved wording, which is unchanged. Replaces the research candidate CONFIRM. Not a quotation.",
+    "supportFlag": "Supported",
+    "scope": "V3 supplement (CAL-0008). Crypto Foundations vocabulary term with no lesson content; not one of the 20 original Crypto learning objects."
   }
 ]

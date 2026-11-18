@@ -112,6 +112,39 @@
     return {ok:true,reason:limited?"best_within_limit":null,placements,nodes,score:bestScore,bounds:boundsFor(placements)};
   }
 
+
+  // Compact layouts for expanded (exhaustive-answer) puzzles. The default solver scores for crossings and tight area, which can
+  // produce very wide boards. This objective instead maximises the cell size a phone can actually show: it fits each candidate
+  // layout into the measured crossword boards of a 375x667 and a 320x568 phone (the board is whatever is left above the pinned
+  // letter wheel) and keeps the layout with the largest cells. Fully deterministic: a fixed list of word orders and search limits,
+  // no randomness, so node, tests and the browser always agree. Intended for build time; stored layouts are what the game uses.
+  const COMPACT_BOARDS=Object.freeze([Object.freeze({width:353,height:216}),Object.freeze({width:298,height:178})]),COMPACT_GAP=3;
+  function cellFit(bounds,board){return Math.min((board.width-(bounds.columns-1)*COMPACT_GAP)/bounds.columns,(board.height-(bounds.rows-1)*COMPACT_GAP)/bounds.rows)}
+  // Deterministic seeded permutations (linear congruential generator) widen the search without any randomness at run time.
+  function seededOrders(words,count){
+    let seed=2463534242;const next=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296},out=[];
+    for(let k=0;k<count;k++){const order=[...words];for(let i=order.length-1;i>0;i--){const j=Math.floor(next()*(i+1));[order[i],order[j]]=[order[j],order[i]]}out.push(order)}
+    return out;
+  }
+  function compactOrders(words,shuffles){
+    const anchor=words[0],rest=words.slice(1),byLong=(a,b)=>b.length-a.length||a.localeCompare(b),byShort=(a,b)=>a.length-b.length||a.localeCompare(b);
+    const base=[words,[anchor,...[...rest].sort(byLong)],[anchor,...[...rest].sort(byShort)],[...words].sort(byLong),[...words].sort(byShort),[...words].reverse(),[...words].sort((a,b)=>a.length-b.length),[...words].sort((a,b)=>b.length-a.length)];
+    return [...base.map(order=>({order,deep:true})),...seededOrders(words,shuffles).map(order=>({order,deep:false}))];
+  }
+  function solveCompactCrossword(inputWords,options={}){
+    const words=(inputWords||[]).map(word=>String(word||"").toUpperCase());
+    const limits=Array.isArray(options.limits)?options.limits:[[250000,1000],[600000,4000]];
+    let best=null,bestKey=null,lastFailure={ok:false,reason:"no_valid_layout",placements:[],nodes:0};
+    const shuffles=Number.isInteger(options.shuffles)?options.shuffles:100;
+    compactOrders(words,shuffles).forEach(({order,deep})=>(deep?limits:[limits[0]]).forEach(([maxNodes,maxSolutions])=>{
+      const result=solveCrossword(order,{maxNodes,maxSolutions});
+      if(!result.ok){lastFailure=result;return}
+      const fits=COMPACT_BOARDS.map(board=>cellFit(result.bounds,board)),key=[fits[0],fits[1]];
+      if(!best||key[0]>bestKey[0]+1e-9||(Math.abs(key[0]-bestKey[0])<=1e-9&&key[1]>bestKey[1]+1e-9)){best=result;bestKey=key}
+    }));
+    return best?{...best,compact:true,cellFit:{phone375x667:+bestKey[0].toFixed(2),phone320x568:+bestKey[1].toFixed(2)}}:lastFailure;
+  }
+
   function validateCrosswordLayout(words,placements){
     const errors=[],expected=words||[],actual=placements||[];
     if(actual.length!==expected.length||new Set(actual.map(item=>item.word)).size!==expected.length||expected.some(word=>!actual.some(item=>item.word===word)))errors.push("everyWordPlacedOnce");
@@ -151,5 +184,5 @@
   function positionFor(placement,index){return {row:placement.r+(placement.dir==="v"?index:0),column:placement.c+(placement.dir==="h"?index:0)}}
   function isCrossingVisible(word,index,words,foundWords,placements){const activePlacements=placements||layoutWords(words),target=activePlacements.find(item=>item.word===word);if(!target)return false;const position=positionFor(target,index);return activePlacements.some(item=>foundWords.has(item.word)&&[...item.word].some((_,i)=>{const other=positionFor(item,i);return other.row===position.row&&other.column===position.column}))}
   function nextHint(words,foundWords,hints,placements){const unfinished=words.filter(word=>!foundWords.has(word));for(const word of unfinished){for(let index=0;index<word.length;index++){if(!hints.has(`${word}:${index}`)&&!isCrossingVisible(word,index,words,foundWords,placements))return {word,index,letter:word[index]}}}return null}
-  return {canForm,evaluateWord,layoutWords,solveCrossword,validateCrosswordLayout,wheelFor,isCrossingVisible,nextHint};
+  return {canForm,evaluateWord,layoutWords,solveCrossword,solveCompactCrossword,COMPACT_BOARDS,validateCrosswordLayout,wheelFor,isCrossingVisible,nextHint};
 });

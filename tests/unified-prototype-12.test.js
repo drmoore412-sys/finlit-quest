@@ -32,7 +32,11 @@ test("v2 stays the only rule version and the release gate still refuses the prot
 });
 test("canonical library and main-levels manifest are untouched",()=>{
   try{const head=cp.execFileSync("git",["show","HEAD:content/shared-puzzle-library-2027.json"],{cwd:ROOT,maxBuffer:1<<26});
-    const sha=b=>crypto.createHash("sha256").update(b).digest("hex");assert.equal(sha(head),sha(fs.readFileSync(path.join(ROOT,"content/shared-puzzle-library-2027.json"))))}catch(e){if(e.code==="ENOENT")return;throw e}
+    const sha=b=>crypto.createHash("sha256").update(b).digest("hex");
+    // answer-expansion v1 (2026-11-18): only version metadata and the architecture.answerExpansion pointer differ; IDs, anchors and placements are unchanged.
+    const before=JSON.parse(head.toString("utf8")),after=JSON.parse(fs.readFileSync(path.join(ROOT,"content/shared-puzzle-library-2027.json"),"utf8"));
+    for(const doc of [before,after]){delete doc.libraryVersion;delete doc.generatedOn;if(doc.architecture)delete doc.architecture.answerExpansion}
+    assert.equal(sha(Buffer.from(JSON.stringify(before))),sha(Buffer.from(JSON.stringify(after))))}catch(e){if(e.code==="ENOENT")return;throw e}
   assert.equal(lib.uniquePuzzleCount,58);assert.equal(canonicalIds.size,58);
   assert.equal(mainManifest.entries.length,58);assert.deepEqual(mainManifest.retired,[]);assert.equal(mainManifest.sequenceId,"main-levels");
   const src=fs.readFileSync(path.join(ROOT,"src/unified-prototype-loader.js"),"utf8");assert.equal(/localStorage|sessionStorage|persist\(|canonicalPuzzleLibrary|wgBuildCanonicalLibrary/.test(src),false);
@@ -104,12 +108,16 @@ test("associations preserved: REPAYMENT->APY and APARTMENT->TERM/RATE are presen
   ["TERM","RATE"].forEach(w=>assert.ok(apt.answers.some(a=>a.word===w)&&apt.supportRelevance[w]));
   [rep,apt].forEach(p=>assert.equal(Object.values(p.supportRelevance).every(v=>v.explanation.length>=12),true));
 });
+const EXPANSION=JSON.parse(fs.readFileSync(path.join(ROOT,"content/answer-expansion-v1.json"),"utf8"));
 test("layout and mobile fit: legal crossword layouts, wheel equals anchor, grid within canonical bounds",()=>{
   const canonDims=Math.max;
   run().library.forEach(p=>{
     assert.equal(G.validateCrosswordLayout(p.answers.map(a=>a.word),p.layout).valid,true);
     assert.deepEqual([...p.wheelLetters].sort(),[...p.anchorWord,...(p.declaredExtraLetters||[])].sort());assert.ok(p.wheelLetters.length<=9);
     const rows=Math.max(...p.layout.map(q=>q.r+(q.dir==="v"?q.word.length:1))),cols=Math.max(...p.layout.map(q=>q.c+(q.dir==="h"?q.word.length:1)));
-    assert.ok(rows<=8&&cols<=11&&rows*cols<=72,`${p.id} ${rows}x${cols}`);
+    const expanded=EXPANSION.puzzles[p.id];
+    // answer-expansion v1 puzzles use the compact layout recorded in the manifest (more answers need a larger grid); every other puzzle keeps the original canonical bounds.
+    if(expanded)assert.ok(rows<=expanded.bounds.rows&&cols<=expanded.bounds.columns,`${p.id} ${rows}x${cols} exceeds its recorded compact bounds`);
+    else assert.ok(rows<=8&&cols<=11&&rows*cols<=72,`${p.id} ${rows}x${cols}`);
   });
 });

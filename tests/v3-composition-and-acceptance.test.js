@@ -40,12 +40,12 @@ test("financial-majority minimums: 3 words need 2, 4 words need 3, 5 words need 
   });
 });
 
-test("single-word, two-word, and six-word puzzles are never valid",()=>{
-  const wheelWord="ACCOUNTERS";
-  [synthetic({anchor:"ACCOUNT"}),synthetic({anchor:wheelWord,secondary:["COUNT"]}),synthetic({anchor:wheelWord,secondary:["COUNT","TONE","ACE"],ordinary:["ONE","TEN"]})].forEach(puzzle=>{
+test("single-word, two-word, and over-ceiling puzzles are never valid (the six-word case ended with answer-expansion v1; the ceiling is now 20)",()=>{
+  const wheelWord="ACCOUNTERS",MAX=slate.MAX_REQUIRED_ANSWERS;
+  [synthetic({anchor:"ACCOUNT"}),synthetic({anchor:wheelWord,secondary:["COUNT"]}),synthetic({anchor:wheelWord,secondary:Array.from({length:MAX+1},(_,index)=>`WORD${index}`)})].forEach(puzzle=>{
     const verdict=slate.validateComposition(puzzle);
     assert.equal(verdict.valid,false);
-    assert.match(verdict.errors.join(" "),/3-5 required words/);
+    assert.match(verdict.errors.join(" "),/3-20 required words/);
   });
 });
 
@@ -68,7 +68,8 @@ test("the 27-puzzle slate is unchanged until the owner approves further composit
   const fingerprint=crypto.createHash("sha256").update(JSON.stringify(slate.SPECS)).digest("hex").slice(0,16);
   // cb3e6394540f0207 before the owner-authorized cross-world repair of 2026-10-17 (seven puzzles recomposed, revision 2).
   // a8de9ede25b5ba9c after the cross-world repair; 8c810ab1ba4afec9 after the Phase 3 replacement of eight anchors; f44d39b44363c248 after Phase 4 (owner-approved COB -> LOB in BLOCK, revision 3); 718154a858036bba after the owner-approved Phase 5 compositions (CHAIN/ACH, INCOME, SAVING, GROWTH/WORTH).
-  assert.equal(fingerprint,"718154a858036bba","SPECS changed; composition revisions require owner approval and a new pinned fingerprint");
+  // 91067cef2176a623 after the owner-authorized answer-expansion v1 of 2026-11-18 (exhaustive-answer rule: 113 missing approved-term answers added across 44 puzzles; 14 slate SPECS extended; IDs, anchors and revisions unchanged).
+  assert.equal(fingerprint,"91067cef2176a623","SPECS changed; composition revisions require owner approval and a new pinned fingerprint");
 });
 
 test("all 27 puzzles have exact anchor wheels, spellable answers, and legal connected crosswords; only the financial-majority rule is open",()=>{
@@ -77,7 +78,7 @@ test("all 27 puzzles have exact anchor wheels, spellable answers, and legal conn
     const verdict=slate.validateComposition(puzzle,game);
     const nonMajority=verdict.errors.filter(error=>!/financial majority/.test(error));
     assert.deepEqual(nonMajority,[],`${puzzle.anchorWord}: ${nonMajority.join("; ")}`);
-    assert.ok(puzzle.requiredWords.length>=3&&puzzle.requiredWords.length<=5);
+    assert.ok(puzzle.requiredWords.length>=3&&puzzle.requiredWords.length<=slate.MAX_REQUIRED_ANSWERS);
     assert.equal(puzzle.wheelLetters.join(""),puzzle.anchorWord,"wheel is exactly the anchor, repeated letters included");
   });
 });
@@ -129,7 +130,8 @@ test("short words that are the start of a longer answer are exactly the ones nee
   const pending=[];
   PUZZLES.forEach(puzzle=>puzzle.requiredWords.forEach(word=>{if(wheel.isDeferredTarget(word,puzzle.requiredWords,new Set()))pending.push(`${puzzle.anchorWord}:${word}`)}));
   // BROKER:BROKE, DIVIDEND:DIVIDE, and MINER:MINE left with their replaced anchors in Phase 3; WALLET:WALL left with WALLET in Phase 5.
-  assert.deepEqual(pending.sort(),["AUTOPAY:AUTO","CREDITOR:CREDIT","DEPOSITOR:POST","PASSWORD:PASS","PAYCHECK:PAY","PAYMENT:PAY","TERMS:TERM"].sort());
+  // answer-expansion v1 (2026-11-18) added DEPOSITOR:DEPOSIT, NETWORK:NET and REPAYMENT:PAY.
+  assert.deepEqual(pending.sort(),["AUTOPAY:AUTO","CREDITOR:CREDIT","DEPOSITOR:DEPOSIT","DEPOSITOR:POST","NETWORK:NET","PASSWORD:PASS","PAYCHECK:PAY","PAYMENT:PAY","REPAYMENT:PAY","TERMS:TERM"].sort());
   assert.equal(wheel.shouldSubmitOnRetap(false,"PAY",["PAYMENT","PAY"],new Set()),false,"a first tap never confirms");
   assert.equal(wheel.shouldSubmitOnRetap(true,"PAYMENT",["PAYMENT","PAY"],new Set()),false,"a word that is not pending is not submitted by a re-tap");
   assert.equal(wheel.shouldSubmitOnRetap(true,"PAY",["PAYMENT","PAY"],new Set(["PAYMENT"])),false,"once the longer word is found, PAY auto-submits normally");

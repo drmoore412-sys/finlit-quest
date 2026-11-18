@@ -1,0 +1,3921 @@
+{
+  "schemaVersion": 1,
+  "expansionVersion": 1,
+  "approvedOn": "2026-11-18",
+  "rule": "Every approved financial term in the dictionary that can be spelled from a puzzle's wheel is a required answer of that puzzle.",
+  "dictionary": {
+    "sources": [
+      "content/credit-game-terms.json",
+      "content/crypto-terms.json",
+      "content/banking-basics-terms.json",
+      "content/investing-basics-terms.json",
+      "content/money-basics-terms.json",
+      "content/2027-new-world-terms.json",
+      "content/v3-supplemental-terms.json"
+    ],
+    "termCount": 211
+  },
+  "rewardGuard": "An answer listed in `added` never pays coins or XP on a puzzle whose record already shows a completion; learning mastery is unaffected.",
+  "totals": {
+    "puzzles": 44,
+    "addedOccurrences": 113
+  },
+  "puzzles": {
+    "FQ-V3:credit:CREDITOR:R2": {
+      "source": "slate",
+      "worldId": "credit",
+      "anchorWord": "CREDITOR",
+      "previousRequiredWords": [
+        "CREDITOR",
+        "CREDIT",
+        "DIRECT"
+      ],
+      "added": [
+        {
+          "word": "ORDER",
+          "termId": "investing.order",
+          "worldId": "investing"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "CREDITOR",
+        "CREDIT",
+        "DIRECT",
+        "ORDER",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "CREDIT",
+          "r": 4,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "ORDER",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "REIT",
+          "r": 1,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "DIRECT",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "CREDITOR",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 9,
+        "rows": 6,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:credit:REPAYMENT:R1": {
+      "source": "slate",
+      "worldId": "credit",
+      "anchorWord": "REPAYMENT",
+      "previousRequiredWords": [
+        "REPAYMENT",
+        "TERM",
+        "APR",
+        "APY"
+      ],
+      "added": [
+        {
+          "word": "PEER",
+          "termId": "crypto.peer",
+          "worldId": "crypto"
+        },
+        {
+          "word": "PAYMENT",
+          "termId": "moneybasics.payment",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "EARN",
+          "termId": "moneybasics.earn",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "PAY",
+          "termId": "moneybasics.pay",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "REPAYMENT",
+        "TERM",
+        "APR",
+        "APY",
+        "PEER",
+        "PAYMENT",
+        "EARN",
+        "RATE",
+        "PAY",
+        "NET",
+        "RENT",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "TERM",
+          "r": 4,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "APR",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "REPAYMENT",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 0,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "PEER",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 4,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 4,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "PAYMENT",
+          "r": 6,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
+          "r": 1,
+          "c": 8,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 11,
+        "rows": 7,
+        "columns": 12
+      },
+      "cellFit": {
+        "phone375x667": 26.67,
+        "phone320x568": 22.08
+      }
+    },
+    "FQ-V3:credit:AUTOPAY:R1": {
+      "source": "slate",
+      "worldId": "credit",
+      "anchorWord": "AUTOPAY",
+      "previousRequiredWords": [
+        "AUTOPAY",
+        "APY",
+        "AUTO"
+      ],
+      "added": [
+        {
+          "word": "PAY",
+          "termId": "moneybasics.pay",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "AUTOPAY",
+        "APY",
+        "AUTO",
+        "PAY"
+      ],
+      "layout": [
+        {
+          "word": "AUTOPAY",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 1,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "AUTO",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 6,
+        "rows": 4,
+        "columns": 7
+      },
+      "cellFit": {
+        "phone375x667": 47.86,
+        "phone320x568": 40
+      }
+    },
+    "FQ-V3:credit:CAPACITY:R1": {
+      "source": "slate",
+      "worldId": "credit",
+      "anchorWord": "CAPACITY",
+      "previousRequiredWords": [
+        "CAPACITY",
+        "APY",
+        "CITY"
+      ],
+      "added": [
+        {
+          "word": "PAY",
+          "termId": "moneybasics.pay",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "CAPACITY",
+        "APY",
+        "CITY",
+        "PAY"
+      ],
+      "layout": [
+        {
+          "word": "CAPACITY",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "CITY",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 3,
+          "c": 3,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 7,
+        "rows": 4,
+        "columns": 8
+      },
+      "cellFit": {
+        "phone375x667": 41.5,
+        "phone320x568": 34.63
+      }
+    },
+    "FQ-V3:moneybasics:PAYMENT:R1": {
+      "source": "slate",
+      "worldId": "moneybasics",
+      "anchorWord": "PAYMENT",
+      "previousRequiredWords": [
+        "PAYMENT",
+        "PAY",
+        "NET"
+      ],
+      "added": [
+        {
+          "word": "APY",
+          "termId": "credit.apy",
+          "worldId": "credit"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "PAYMENT",
+        "PAY",
+        "NET",
+        "APY",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "PAYMENT",
+          "r": 0,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "ATM",
+          "r": 2,
+          "c": 5,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 2,
+        "maxColumn": 7,
+        "rows": 3,
+        "columns": 8
+      },
+      "cellFit": {
+        "phone375x667": 41.5,
+        "phone320x568": 34.63
+      }
+    },
+    "FQ-V3:moneybasics:RECEIPT:R2": {
+      "source": "slate",
+      "worldId": "moneybasics",
+      "anchorWord": "RECEIPT",
+      "previousRequiredWords": [
+        "RECEIPT",
+        "PRICE",
+        "PIECE"
+      ],
+      "added": [
+        {
+          "word": "PEER",
+          "termId": "crypto.peer",
+          "worldId": "crypto"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "RECEIPT",
+        "PRICE",
+        "PIECE",
+        "PEER",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "RECEIPT",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "PRICE",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "PIECE",
+          "r": 2,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "PEER",
+          "r": 1,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 6,
+        "rows": 5,
+        "columns": 7
+      },
+      "cellFit": {
+        "phone375x667": 40.8,
+        "phone320x568": 33.2
+      }
+    },
+    "FQ-V3:moneybasics:PAYCHECK:R1": {
+      "source": "slate",
+      "worldId": "moneybasics",
+      "anchorWord": "PAYCHECK",
+      "previousRequiredWords": [
+        "PAYCHECK",
+        "PAY",
+        "CHECK"
+      ],
+      "added": [
+        {
+          "word": "APY",
+          "termId": "credit.apy",
+          "worldId": "credit"
+        },
+        {
+          "word": "ACH",
+          "termId": "banking.ach",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "PAYCHECK",
+        "PAY",
+        "CHECK",
+        "APY",
+        "ACH"
+      ],
+      "layout": [
+        {
+          "word": "PAYCHECK",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 0,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "ACH",
+          "r": 2,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "CHECK",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 7,
+        "rows": 5,
+        "columns": 8
+      },
+      "cellFit": {
+        "phone375x667": 40.8,
+        "phone320x568": 33.2
+      }
+    },
+    "FQ-V3:banking:DEPOSITOR:R1": {
+      "source": "slate",
+      "worldId": "banking",
+      "anchorWord": "DEPOSITOR",
+      "previousRequiredWords": [
+        "DEPOSITOR",
+        "POSTED",
+        "POST"
+      ],
+      "added": [
+        {
+          "word": "DEPOSIT",
+          "termId": "moneybasics.deposit",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "REPO",
+          "termId": "investing.repo",
+          "worldId": "investing"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "DEPOSITOR",
+        "POSTED",
+        "POST",
+        "DEPOSIT",
+        "REPO",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "DEPOSIT",
+          "r": 3,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "POST",
+          "r": 2,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "POSTED",
+          "r": 5,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "REPO",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "DEPOSITOR",
+          "r": 0,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:banking:NETWORK:R2": {
+      "source": "slate",
+      "worldId": "banking",
+      "anchorWord": "NETWORK",
+      "previousRequiredWords": [
+        "NETWORK",
+        "OWNER",
+        "WORK"
+      ],
+      "added": [
+        {
+          "word": "TOKEN",
+          "termId": "crypto.token",
+          "worldId": "crypto"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "NETWORK",
+        "OWNER",
+        "WORK",
+        "TOKEN",
+        "NET",
+        "RENT"
+      ],
+      "layout": [
+        {
+          "word": "OWNER",
+          "r": 2,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "TOKEN",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "WORK",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "NETWORK",
+          "r": 0,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "RENT",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:banking:PASSWORD:R2": {
+      "source": "slate",
+      "worldId": "banking",
+      "anchorWord": "PASSWORD",
+      "previousRequiredWords": [
+        "PASSWORD",
+        "SWAP",
+        "PASS"
+      ],
+      "added": [
+        {
+          "word": "APR",
+          "termId": "credit.apr",
+          "worldId": "credit"
+        }
+      ],
+      "requiredWords": [
+        "PASSWORD",
+        "SWAP",
+        "PASS",
+        "APR"
+      ],
+      "layout": [
+        {
+          "word": "PASSWORD",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APR",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "SWAP",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "PASS",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 7,
+        "rows": 4,
+        "columns": 8
+      },
+      "cellFit": {
+        "phone375x667": 41.5,
+        "phone320x568": 34.63
+      }
+    },
+    "FQ-V3:banking:PASSKEY:R2": {
+      "source": "slate",
+      "worldId": "banking",
+      "anchorWord": "PASSKEY",
+      "previousRequiredWords": [
+        "PASSKEY",
+        "PAY",
+        "APY"
+      ],
+      "added": [
+        {
+          "word": "ASK",
+          "termId": "investing.ask",
+          "worldId": "investing"
+        }
+      ],
+      "requiredWords": [
+        "PASSKEY",
+        "PAY",
+        "APY",
+        "ASK"
+      ],
+      "layout": [
+        {
+          "word": "PASSKEY",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 1,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "ASK",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 2,
+        "maxColumn": 8,
+        "rows": 3,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:banking:CONVERT:R2": {
+      "source": "slate",
+      "worldId": "banking",
+      "anchorWord": "CONVERT",
+      "previousRequiredWords": [
+        "CONVERT",
+        "NET",
+        "VOTE"
+      ],
+      "added": [
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "CONVERT",
+        "NET",
+        "VOTE",
+        "RENT"
+      ],
+      "layout": [
+        {
+          "word": "CONVERT",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 1,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "VOTE",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 6,
+        "rows": 4,
+        "columns": 7
+      },
+      "cellFit": {
+        "phone375x667": 47.86,
+        "phone320x568": 40
+      }
+    },
+    "FQ-V3:investing:MARKET:R2": {
+      "source": "slate",
+      "worldId": "investing",
+      "anchorWord": "MARKET",
+      "previousRequiredWords": [
+        "MARKET",
+        "RATE",
+        "TERM"
+      ],
+      "added": [
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "MARKET",
+        "RATE",
+        "TERM",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "MARKET",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "TERM",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 5,
+        "rows": 4,
+        "columns": 6
+      },
+      "cellFit": {
+        "phone375x667": 51.75,
+        "phone320x568": 42.25
+      }
+    },
+    "FQ-V3:investing:RETURN:R2": {
+      "source": "slate",
+      "worldId": "investing",
+      "anchorWord": "RETURN",
+      "previousRequiredWords": [
+        "RETURN",
+        "NET",
+        "TUNE"
+      ],
+      "added": [
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "RETURN",
+        "NET",
+        "TUNE",
+        "RENT"
+      ],
+      "layout": [
+        {
+          "word": "RETURN",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 1,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 3,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "TUNE",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 5,
+        "rows": 4,
+        "columns": 6
+      },
+      "cellFit": {
+        "phone375x667": 51.75,
+        "phone320x568": 42.25
+      }
+    },
+    "FQ-V3:coins:COINGRADE:R1": {
+      "source": "bank",
+      "worldId": "coins",
+      "anchorWord": "COINGRADE",
+      "previousRequiredWords": [
+        "COINGRADE",
+        "COIN",
+        "COINAGE",
+        "EARN",
+        "NODE"
+      ],
+      "added": [
+        {
+          "word": "GAIN",
+          "termId": "investing.gain",
+          "worldId": "investing"
+        },
+        {
+          "word": "ECOA",
+          "termId": "credit.ecoa",
+          "worldId": "credit"
+        }
+      ],
+      "requiredWords": [
+        "COINGRADE",
+        "COIN",
+        "COINAGE",
+        "EARN",
+        "NODE",
+        "GAIN",
+        "ECOA"
+      ],
+      "layout": [
+        {
+          "word": "COINGRADE",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "COIN",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "GAIN",
+          "r": 2,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "NODE",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 0,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "COINAGE",
+          "r": 5,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "ECOA",
+          "r": 1,
+          "c": 1,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 9,
+        "rows": 6,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:coins:MELTVALUE:R1": {
+      "source": "bank",
+      "worldId": "coins",
+      "anchorWord": "MELTVALUE",
+      "previousRequiredWords": [
+        "MELTVALUE",
+        "VALUE",
+        "VAULT"
+      ],
+      "added": [
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "MELTVALUE",
+        "VALUE",
+        "VAULT",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "MELTVALUE",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 2,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "VALUE",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "VAULT",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 8,
+        "rows": 5,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:real_estate:APARTMENT:R1": {
+      "source": "bank",
+      "worldId": "real_estate",
+      "anchorWord": "APARTMENT",
+      "previousRequiredWords": [
+        "APARTMENT",
+        "EARN",
+        "RATE",
+        "RENT",
+        "TERM"
+      ],
+      "added": [
+        {
+          "word": "APR",
+          "termId": "credit.apr",
+          "worldId": "credit"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "APARTMENT",
+        "EARN",
+        "RATE",
+        "RENT",
+        "TERM",
+        "APR",
+        "NET",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "APARTMENT",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APR",
+          "r": 1,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "ATM",
+          "r": 1,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 2,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 5,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "TERM",
+          "r": 0,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 2,
+          "c": 6,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 9,
+        "rows": 6,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:real_estate:REFINANCE:R1": {
+      "source": "bank",
+      "worldId": "real_estate",
+      "anchorWord": "REFINANCE",
+      "previousRequiredWords": [
+        "REFINANCE",
+        "EARN",
+        "FCRA",
+        "FIRE"
+      ],
+      "added": [
+        {
+          "word": "FEE",
+          "termId": "moneybasics.fee",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "REFINANCE",
+        "EARN",
+        "FCRA",
+        "FIRE",
+        "FEE"
+      ],
+      "layout": [
+        {
+          "word": "REFINANCE",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "FCRA",
+          "r": 0,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "FEE",
+          "r": 0,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "FIRE",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 8,
+        "rows": 4,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:taxes:INCOMETAX:R1": {
+      "source": "bank",
+      "worldId": "taxes",
+      "anchorWord": "INCOMETAX",
+      "previousRequiredWords": [
+        "INCOMETAX",
+        "COIN",
+        "ECOA",
+        "INCOME",
+        "MINT"
+      ],
+      "added": [
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "INCOMETAX",
+        "COIN",
+        "ECOA",
+        "INCOME",
+        "MINT",
+        "NET",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "INCOMETAX",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "MINT",
+          "r": 1,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "COIN",
+          "r": 2,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "INCOME",
+          "r": 4,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "ECOA",
+          "r": 2,
+          "c": 5,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:taxes:TAXCREDIT:R1": {
+      "source": "bank",
+      "worldId": "taxes",
+      "anchorWord": "TAXCREDIT",
+      "previousRequiredWords": [
+        "TAXCREDIT",
+        "CREDIT",
+        "RATE",
+        "TAXID",
+        "TRADE"
+      ],
+      "added": [
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "TAXCREDIT",
+        "CREDIT",
+        "RATE",
+        "TAXID",
+        "TRADE",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "TAXCREDIT",
+          "r": 5,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 2,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "CREDIT",
+          "r": 0,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "TAXID",
+          "r": 3,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 2,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 9,
+        "rows": 6,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:insurance:CASHVALUE:R1": {
+      "source": "bank",
+      "worldId": "insurance",
+      "anchorWord": "CASHVALUE",
+      "previousRequiredWords": [
+        "CASHVALUE",
+        "CASH",
+        "SALE",
+        "VALUE"
+      ],
+      "added": [
+        {
+          "word": "ACH",
+          "termId": "banking.ach",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "CASHVALUE",
+        "CASH",
+        "SALE",
+        "VALUE",
+        "ACH"
+      ],
+      "layout": [
+        {
+          "word": "CASHVALUE",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "ACH",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "CASH",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "VALUE",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "SALE",
+          "r": 4,
+          "c": 3,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 8,
+        "rows": 5,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:insurance:TRIPDELAY:R1": {
+      "source": "bank",
+      "worldId": "insurance",
+      "anchorWord": "TRIPDELAY",
+      "previousRequiredWords": [
+        "TRIPDELAY",
+        "ALERT",
+        "RETAIL",
+        "TRADE",
+        "YIELD"
+      ],
+      "added": [
+        {
+          "word": "APR",
+          "termId": "credit.apr",
+          "worldId": "credit"
+        },
+        {
+          "word": "APY",
+          "termId": "credit.apy",
+          "worldId": "credit"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "PAY",
+          "termId": "moneybasics.pay",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "TILA",
+          "termId": "credit.tila",
+          "worldId": "credit"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "TRIPDELAY",
+        "ALERT",
+        "RETAIL",
+        "TRADE",
+        "YIELD",
+        "APR",
+        "APY",
+        "RATE",
+        "PAY",
+        "TILA",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "RETAIL",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "TILA",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "YIELD",
+          "r": 0,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "ALERT",
+          "r": 3,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "APR",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 3,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "REIT",
+          "r": 4,
+          "c": 9,
+          "dir": "h"
+        },
+        {
+          "word": "PAY",
+          "r": 1,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "TRIPDELAY",
+          "r": 7,
+          "c": 4,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 7,
+        "maxColumn": 12,
+        "rows": 8,
+        "columns": 13
+      },
+      "cellFit": {
+        "phone375x667": 24.38,
+        "phone320x568": 19.63
+      }
+    },
+    "FQ-V3:business:FACTORING:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "FACTORING",
+      "previousRequiredWords": [
+        "FACTORING",
+        "FCRA",
+        "FRACTION",
+        "GAIN",
+        "GIFT"
+      ],
+      "added": [
+        {
+          "word": "COIN",
+          "termId": "crypto.coin",
+          "worldId": "crypto"
+        }
+      ],
+      "requiredWords": [
+        "FACTORING",
+        "FCRA",
+        "FRACTION",
+        "GAIN",
+        "GIFT",
+        "COIN"
+      ],
+      "layout": [
+        {
+          "word": "FACTORING",
+          "r": 5,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "COIN",
+          "r": 2,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "GIFT",
+          "r": 2,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "FRACTION",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "GAIN",
+          "r": 0,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "FCRA",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 10,
+        "rows": 6,
+        "columns": 11
+      },
+      "cellFit": {
+        "phone375x667": 29.36,
+        "phone320x568": 24.36
+      }
+    },
+    "FQ-V3:business:FRANCHISE:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "FRANCHISE",
+      "previousRequiredWords": [
+        "FRANCHISE",
+        "CASH",
+        "CHAIN",
+        "HEIR",
+        "SHARE"
+      ],
+      "added": [
+        {
+          "word": "EARN",
+          "termId": "moneybasics.earn",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "FCRA",
+          "termId": "credit.fcra",
+          "worldId": "credit"
+        },
+        {
+          "word": "FIRE",
+          "termId": "retirement.fire",
+          "worldId": "retirement"
+        },
+        {
+          "word": "ACH",
+          "termId": "banking.ach",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "FRANCHISE",
+        "CASH",
+        "CHAIN",
+        "HEIR",
+        "SHARE",
+        "EARN",
+        "FCRA",
+        "FIRE",
+        "ACH"
+      ],
+      "layout": [
+        {
+          "word": "FRANCHISE",
+          "r": 3,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "ACH",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "HEIR",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "FCRA",
+          "r": 3,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "FIRE",
+          "r": 0,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "CASH",
+          "r": 3,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 6,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "CHAIN",
+          "r": 0,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "SHARE",
+          "r": 5,
+          "c": 5,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 9,
+        "rows": 7,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 28.29,
+        "phone320x568": 22.86
+      }
+    },
+    "FQ-V3:business:FREELANCE:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "FREELANCE",
+      "previousRequiredWords": [
+        "FREELANCE",
+        "CLEAR",
+        "EARN",
+        "FCRA"
+      ],
+      "added": [
+        {
+          "word": "FEE",
+          "termId": "moneybasics.fee",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "FREELANCE",
+        "CLEAR",
+        "EARN",
+        "FCRA",
+        "FEE"
+      ],
+      "layout": [
+        {
+          "word": "FREELANCE",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "FCRA",
+          "r": 1,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "FEE",
+          "r": 2,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "EARN",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "CLEAR",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 8,
+        "rows": 5,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:business:INVENTORY:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "INVENTORY",
+      "previousRequiredWords": [
+        "INVENTORY",
+        "REIT",
+        "RENT",
+        "VOTE"
+      ],
+      "added": [
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "INVENTORY",
+        "REIT",
+        "RENT",
+        "VOTE",
+        "NET"
+      ],
+      "layout": [
+        {
+          "word": "INVENTORY",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "VOTE",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 3,
+          "c": 5,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 8,
+        "rows": 4,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:business:MARKETING:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "MARKETING",
+      "previousRequiredWords": [
+        "MARKETING",
+        "MARGIN",
+        "MARKET",
+        "MINER",
+        "REMIT"
+      ],
+      "added": [
+        {
+          "word": "TERM",
+          "termId": "credit.term",
+          "worldId": "credit"
+        },
+        {
+          "word": "MINT",
+          "termId": "crypto.mint",
+          "worldId": "crypto"
+        },
+        {
+          "word": "GAIN",
+          "termId": "investing.gain",
+          "worldId": "investing"
+        },
+        {
+          "word": "EARN",
+          "termId": "moneybasics.earn",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "MARKETING",
+        "MARGIN",
+        "MARKET",
+        "MINER",
+        "REMIT",
+        "TERM",
+        "MINT",
+        "GAIN",
+        "EARN",
+        "RATE",
+        "NET",
+        "REIT",
+        "RENT",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "NET",
+          "r": 8,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "MARGIN",
+          "r": 3,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "MINER",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 7,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "GAIN",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "MINT",
+          "r": 9,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "REMIT",
+          "r": 3,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 1,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "MARKET",
+          "r": 5,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
+          "r": 3,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "MARKETING",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "REIT",
+          "r": 3,
+          "c": 8,
+          "dir": "h"
+        },
+        {
+          "word": "RENT",
+          "r": 8,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "TERM",
+          "r": 3,
+          "c": 11,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 9,
+        "maxColumn": 11,
+        "rows": 10,
+        "columns": 12
+      },
+      "cellFit": {
+        "phone375x667": 18.9,
+        "phone320x568": 15.1
+      }
+    },
+    "FQ-V3:business:NETINCOME:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "NETINCOME",
+      "previousRequiredWords": [
+        "NETINCOME",
+        "COIN",
+        "INCOME",
+        "MINT"
+      ],
+      "added": [
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "NETINCOME",
+        "COIN",
+        "INCOME",
+        "MINT",
+        "NET"
+      ],
+      "layout": [
+        {
+          "word": "NETINCOME",
+          "r": 3,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "COIN",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 2,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "MINT",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "INCOME",
+          "r": 0,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 10,
+        "rows": 5,
+        "columns": 11
+      },
+      "cellFit": {
+        "phone375x667": 29.36,
+        "phone320x568": 24.36
+      }
+    },
+    "FQ-V3:business:RETENTION:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "RETENTION",
+      "previousRequiredWords": [
+        "RETENTION",
+        "REIT",
+        "RENT"
+      ],
+      "added": [
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "RETENTION",
+        "REIT",
+        "RENT",
+        "NET"
+      ],
+      "layout": [
+        {
+          "word": "RETENTION",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 1,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 8,
+        "rows": 4,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:business:TRADEMARK:R1": {
+      "source": "bank",
+      "worldId": "business",
+      "anchorWord": "TRADEMARK",
+      "previousRequiredWords": [
+        "TRADEMARK",
+        "MARKET",
+        "RATE",
+        "TERM",
+        "TRADE"
+      ],
+      "added": [
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "TRADEMARK",
+        "MARKET",
+        "RATE",
+        "TERM",
+        "TRADE",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "TERM",
+          "r": 5,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 3,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "MARKET",
+          "r": 0,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 4,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 2,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "TRADEMARK",
+          "r": 0,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:social_media:ROYALTIES:R1": {
+      "source": "bank",
+      "worldId": "social_media",
+      "anchorWord": "ROYALTIES",
+      "previousRequiredWords": [
+        "ROYALTIES",
+        "ALERT",
+        "RATE",
+        "RETAIL",
+        "SALE"
+      ],
+      "added": [
+        {
+          "word": "TILA",
+          "termId": "credit.tila",
+          "worldId": "credit"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "ROYALTIES",
+        "ALERT",
+        "RATE",
+        "RETAIL",
+        "SALE",
+        "TILA",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "RATE",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "SALE",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "REIT",
+          "r": 3,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "ALERT",
+          "r": 1,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "RETAIL",
+          "r": 1,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "ROYALTIES",
+          "r": 6,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "TILA",
+          "r": 0,
+          "c": 1,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 10,
+        "rows": 7,
+        "columns": 11
+      },
+      "cellFit": {
+        "phone375x667": 28.29,
+        "phone320x568": 22.86
+      }
+    },
+    "FQ-V3:retirement:COASTFIRE:R1": {
+      "source": "bank",
+      "worldId": "retirement",
+      "anchorWord": "COASTFIRE",
+      "previousRequiredWords": [
+        "COASTFIRE",
+        "COST",
+        "ECOA",
+        "FCRA",
+        "FIRE"
+      ],
+      "added": [
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "COASTFIRE",
+        "COST",
+        "ECOA",
+        "FCRA",
+        "FIRE",
+        "RATE",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "COASTFIRE",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "COST",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "FIRE",
+          "r": 2,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "REIT",
+          "r": 5,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "FCRA",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "ECOA",
+          "r": 2,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:retirement:LIFESTYLE:R1": {
+      "source": "bank",
+      "worldId": "retirement",
+      "anchorWord": "LIFESTYLE",
+      "previousRequiredWords": [
+        "LIFESTYLE",
+        "FEES",
+        "SELL"
+      ],
+      "added": [
+        {
+          "word": "FEE",
+          "termId": "moneybasics.fee",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "LIFESTYLE",
+        "FEES",
+        "SELL",
+        "FEE"
+      ],
+      "layout": [
+        {
+          "word": "LIFESTYLE",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "FEE",
+          "r": 1,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "FEES",
+          "r": 1,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "SELL",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 3,
+        "maxColumn": 8,
+        "rows": 4,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 36.56,
+        "phone320x568": 30.44
+      }
+    },
+    "FQ-V3:retirement:LONGEVITY:R1": {
+      "source": "bank",
+      "worldId": "retirement",
+      "anchorWord": "LONGEVITY",
+      "previousRequiredWords": [
+        "LONGEVITY",
+        "LIEN",
+        "LONG",
+        "VOTE"
+      ],
+      "added": [
+        {
+          "word": "LOGIN",
+          "termId": "banking.login",
+          "worldId": "banking"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "LONGEVITY",
+        "LIEN",
+        "LONG",
+        "VOTE",
+        "LOGIN",
+        "NET"
+      ],
+      "layout": [
+        {
+          "word": "NET",
+          "r": 4,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "LOGIN",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "LIEN",
+          "r": 0,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "LONGEVITY",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "LONG",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "VOTE",
+          "r": 2,
+          "c": 5,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:retirement:SIMPLEIRA:R1": {
+      "source": "bank",
+      "worldId": "retirement",
+      "anchorWord": "SIMPLEIRA",
+      "previousRequiredWords": [
+        "SIMPLEIRA",
+        "LAPSE",
+        "SALE",
+        "SEPIRA"
+      ],
+      "added": [
+        {
+          "word": "APR",
+          "termId": "credit.apr",
+          "worldId": "credit"
+        }
+      ],
+      "requiredWords": [
+        "SIMPLEIRA",
+        "LAPSE",
+        "SALE",
+        "SEPIRA",
+        "APR"
+      ],
+      "layout": [
+        {
+          "word": "SIMPLEIRA",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APR",
+          "r": 1,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "SEPIRA",
+          "r": 0,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "SALE",
+          "r": 5,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "LAPSE",
+          "r": 1,
+          "c": 3,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 8,
+        "rows": 6,
+        "columns": 9
+      },
+      "cellFit": {
+        "phone375x667": 33.5,
+        "phone320x568": 27.17
+      }
+    },
+    "FQ-V3:credit:REPAYMENT:R2": {
+      "source": "sequence",
+      "worldId": "credit",
+      "anchorWord": "REPAYMENT",
+      "previousRequiredWords": [
+        "REPAYMENT",
+        "TERM",
+        "APR",
+        "APY",
+        "NAME"
+      ],
+      "added": [
+        {
+          "word": "PEER",
+          "termId": "crypto.peer",
+          "worldId": "crypto"
+        },
+        {
+          "word": "PAYMENT",
+          "termId": "moneybasics.payment",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "EARN",
+          "termId": "moneybasics.earn",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "PAY",
+          "termId": "moneybasics.pay",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "REPAYMENT",
+        "TERM",
+        "APR",
+        "APY",
+        "NAME",
+        "PEER",
+        "PAYMENT",
+        "EARN",
+        "RATE",
+        "PAY",
+        "NET",
+        "RENT",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "TERM",
+          "r": 6,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "APR",
+          "r": 4,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "NAME",
+          "r": 4,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "PEER",
+          "r": 2,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "PAYMENT",
+          "r": 2,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "APY",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "PAY",
+          "r": 0,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "REPAYMENT",
+          "r": 5,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 1,
+          "c": 10,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 12,
+        "rows": 7,
+        "columns": 13
+      },
+      "cellFit": {
+        "phone375x667": 24.38,
+        "phone320x568": 20.15
+      }
+    },
+    "FQ-V3:real_estate:APARTMENT:R2": {
+      "source": "sequence",
+      "worldId": "real_estate",
+      "anchorWord": "APARTMENT",
+      "previousRequiredWords": [
+        "APARTMENT",
+        "RENT",
+        "TERM",
+        "RATE",
+        "NAME"
+      ],
+      "added": [
+        {
+          "word": "APR",
+          "termId": "credit.apr",
+          "worldId": "credit"
+        },
+        {
+          "word": "EARN",
+          "termId": "moneybasics.earn",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "APARTMENT",
+        "RENT",
+        "TERM",
+        "RATE",
+        "NAME",
+        "APR",
+        "EARN",
+        "NET",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "ATM",
+          "r": 4,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
+          "r": 3,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 3,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "TERM",
+          "r": 1,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "APR",
+          "r": 5,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "NET",
+          "r": 6,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "APARTMENT",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NAME",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 9,
+        "rows": 7,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 28.29,
+        "phone320x568": 22.86
+      }
+    },
+    "FQ-V3:business:RETAIL:R1": {
+      "source": "sequence",
+      "worldId": "business",
+      "anchorWord": "RETAIL",
+      "previousRequiredWords": [
+        "RETAIL",
+        "SALE",
+        "EARN",
+        "NET",
+        "LINE"
+      ],
+      "added": [
+        {
+          "word": "ALERT",
+          "termId": "banking.alert",
+          "worldId": "banking"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "TILA",
+          "termId": "credit.tila",
+          "worldId": "credit"
+        },
+        {
+          "word": "LIEN",
+          "termId": "real_estate.lien",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "RETAIL",
+        "SALE",
+        "EARN",
+        "NET",
+        "LINE",
+        "ALERT",
+        "RATE",
+        "TILA",
+        "LIEN",
+        "REIT",
+        "RENT"
+      ],
+      "layout": [
+        {
+          "word": "EARN",
+          "r": 6,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "TILA",
+          "r": 3,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "ALERT",
+          "r": 3,
+          "c": 1,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 2,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "LIEN",
+          "r": 3,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "LINE",
+          "r": 3,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "SALE",
+          "r": 0,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 5,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 3,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "RETAIL",
+          "r": 1,
+          "c": 7,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 2,
+          "c": 1,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 12,
+        "rows": 7,
+        "columns": 13
+      },
+      "cellFit": {
+        "phone375x667": 24.38,
+        "phone320x568": 20.15
+      }
+    },
+    "FQ-V3:moneybasics:RECEIPT:R3": {
+      "source": "sequence",
+      "worldId": "moneybasics",
+      "anchorWord": "RECEIPT",
+      "previousRequiredWords": [
+        "RECEIPT",
+        "PRICE",
+        "FEE",
+        "REMIT",
+        "TIME"
+      ],
+      "added": [
+        {
+          "word": "TERM",
+          "termId": "credit.term",
+          "worldId": "credit"
+        },
+        {
+          "word": "PEER",
+          "termId": "crypto.peer",
+          "worldId": "crypto"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        },
+        {
+          "word": "FIRE",
+          "termId": "retirement.fire",
+          "worldId": "retirement"
+        }
+      ],
+      "requiredWords": [
+        "RECEIPT",
+        "PRICE",
+        "FEE",
+        "REMIT",
+        "TIME",
+        "TERM",
+        "PEER",
+        "REIT",
+        "FIRE"
+      ],
+      "layout": [
+        {
+          "word": "PRICE",
+          "r": 5,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "TERM",
+          "r": 3,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "FIRE",
+          "r": 2,
+          "c": 7,
+          "dir": "v"
+        },
+        {
+          "word": "TIME",
+          "r": 3,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "REMIT",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "REIT",
+          "r": 3,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "RECEIPT",
+          "r": 0,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "PEER",
+          "r": 0,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "FEE",
+          "r": 1,
+          "c": 1,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 9,
+        "rows": 7,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 28.29,
+        "phone320x568": 22.86
+      }
+    },
+    "FQ-V3:investing:TRADE:R3": {
+      "source": "sequence",
+      "worldId": "investing",
+      "anchorWord": "TRADE",
+      "previousRequiredWords": [
+        "TRADE",
+        "BID",
+        "BEAR",
+        "REIT",
+        "DATE"
+      ],
+      "added": [
+        {
+          "word": "DEBT",
+          "termId": "credit.debt",
+          "worldId": "credit"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "DEBIT",
+          "termId": "moneybasics.debit",
+          "worldId": "moneybasics"
+        }
+      ],
+      "requiredWords": [
+        "TRADE",
+        "BID",
+        "BEAR",
+        "REIT",
+        "DATE",
+        "DEBT",
+        "RATE",
+        "DEBIT"
+      ],
+      "layout": [
+        {
+          "word": "REIT",
+          "r": 1,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "BID",
+          "r": 0,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "BEAR",
+          "r": 4,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "DEBT",
+          "r": 0,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "DEBIT",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 1,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 9,
+        "rows": 5,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:investing:MARKET:R3": {
+      "source": "sequence",
+      "worldId": "investing",
+      "anchorWord": "MARKET",
+      "previousRequiredWords": [
+        "MARKET",
+        "TRADE",
+        "BEAR",
+        "DATE",
+        "READ"
+      ],
+      "added": [
+        {
+          "word": "DEBT",
+          "termId": "credit.debt",
+          "worldId": "credit"
+        },
+        {
+          "word": "TERM",
+          "termId": "credit.term",
+          "worldId": "credit"
+        },
+        {
+          "word": "RATE",
+          "termId": "moneybasics.rate",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "ATM",
+          "termId": "banking.atm",
+          "worldId": "banking"
+        }
+      ],
+      "requiredWords": [
+        "MARKET",
+        "TRADE",
+        "BEAR",
+        "DATE",
+        "READ",
+        "DEBT",
+        "TERM",
+        "RATE",
+        "ATM"
+      ],
+      "layout": [
+        {
+          "word": "TRADE",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "ATM",
+          "r": 3,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "MARKET",
+          "r": 0,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "DEBT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "READ",
+          "r": 2,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "BEAR",
+          "r": 2,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "TERM",
+          "r": 5,
+          "c": 4,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 5,
+        "maxColumn": 9,
+        "rows": 6,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:investing:RETURN:R3": {
+      "source": "sequence",
+      "worldId": "investing",
+      "anchorWord": "RETURN",
+      "previousRequiredWords": [
+        "RETURN",
+        "EARN",
+        "RATE",
+        "TRADE",
+        "DATE"
+      ],
+      "added": [
+        {
+          "word": "NET",
+          "termId": "moneybasics.net",
+          "worldId": "moneybasics"
+        },
+        {
+          "word": "RENT",
+          "termId": "real_estate.rent",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "RETURN",
+        "EARN",
+        "RATE",
+        "TRADE",
+        "DATE",
+        "NET",
+        "RENT"
+      ],
+      "layout": [
+        {
+          "word": "TRADE",
+          "r": 4,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "NET",
+          "r": 2,
+          "c": 5,
+          "dir": "v"
+        },
+        {
+          "word": "RETURN",
+          "r": 2,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "EARN",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 0,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "RENT",
+          "r": 0,
+          "c": 2,
+          "dir": "h"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 4,
+        "maxColumn": 9,
+        "rows": 5,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 32.6,
+        "phone320x568": 27.1
+      }
+    },
+    "FQ-V3:credit:DEFAULT:R1": {
+      "source": "sequence",
+      "worldId": "credit",
+      "anchorWord": "DEFAULT",
+      "previousRequiredWords": [
+        "DEFAULT",
+        "DEBT",
+        "RATE",
+        "DATE",
+        "READ"
+      ],
+      "added": [
+        {
+          "word": "ALERT",
+          "termId": "banking.alert",
+          "worldId": "banking"
+        },
+        {
+          "word": "BEAR",
+          "termId": "investing.bear",
+          "worldId": "investing"
+        },
+        {
+          "word": "TRADE",
+          "termId": "investing.trade",
+          "worldId": "investing"
+        },
+        {
+          "word": "FRAUD",
+          "termId": "credit.fraud",
+          "worldId": "credit"
+        }
+      ],
+      "requiredWords": [
+        "DEFAULT",
+        "DEBT",
+        "RATE",
+        "DATE",
+        "READ",
+        "ALERT",
+        "BEAR",
+        "TRADE",
+        "FRAUD"
+      ],
+      "layout": [
+        {
+          "word": "FRAUD",
+          "r": 2,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "DEBT",
+          "r": 2,
+          "c": 10,
+          "dir": "v"
+        },
+        {
+          "word": "DATE",
+          "r": 1,
+          "c": 8,
+          "dir": "v"
+        },
+        {
+          "word": "DEFAULT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "ALERT",
+          "r": 6,
+          "c": 2,
+          "dir": "h"
+        },
+        {
+          "word": "RATE",
+          "r": 1,
+          "c": 3,
+          "dir": "h"
+        },
+        {
+          "word": "TRADE",
+          "r": 0,
+          "c": 3,
+          "dir": "v"
+        },
+        {
+          "word": "READ",
+          "r": 3,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "BEAR",
+          "r": 0,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 10,
+        "rows": 7,
+        "columns": 11
+      },
+      "cellFit": {
+        "phone375x667": 28.29,
+        "phone320x568": 22.86
+      }
+    },
+    "FQ-V3:credit:CREDIT:R1": {
+      "source": "sequence",
+      "worldId": "credit",
+      "anchorWord": "CREDIT",
+      "previousRequiredWords": [
+        "CREDIT",
+        "RATE",
+        "TILA",
+        "ACT",
+        "DATE"
+      ],
+      "added": [
+        {
+          "word": "ALERT",
+          "termId": "banking.alert",
+          "worldId": "banking"
+        },
+        {
+          "word": "CLEAR",
+          "termId": "banking.clear",
+          "worldId": "banking"
+        },
+        {
+          "word": "TRADE",
+          "termId": "investing.trade",
+          "worldId": "investing"
+        },
+        {
+          "word": "RETAIL",
+          "termId": "business.retail",
+          "worldId": "business"
+        },
+        {
+          "word": "REIT",
+          "termId": "real_estate.reit",
+          "worldId": "real_estate"
+        }
+      ],
+      "requiredWords": [
+        "CREDIT",
+        "RATE",
+        "TILA",
+        "ACT",
+        "DATE",
+        "ALERT",
+        "CLEAR",
+        "TRADE",
+        "RETAIL",
+        "REIT"
+      ],
+      "layout": [
+        {
+          "word": "REIT",
+          "r": 6,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "ACT",
+          "r": 4,
+          "c": 9,
+          "dir": "v"
+        },
+        {
+          "word": "TILA",
+          "r": 4,
+          "c": 6,
+          "dir": "h"
+        },
+        {
+          "word": "ALERT",
+          "r": 0,
+          "c": 6,
+          "dir": "v"
+        },
+        {
+          "word": "CREDIT",
+          "r": 2,
+          "c": 4,
+          "dir": "h"
+        },
+        {
+          "word": "DATE",
+          "r": 0,
+          "c": 5,
+          "dir": "h"
+        },
+        {
+          "word": "CLEAR",
+          "r": 2,
+          "c": 4,
+          "dir": "v"
+        },
+        {
+          "word": "TRADE",
+          "r": 4,
+          "c": 0,
+          "dir": "h"
+        },
+        {
+          "word": "RETAIL",
+          "r": 1,
+          "c": 2,
+          "dir": "v"
+        },
+        {
+          "word": "RATE",
+          "r": 2,
+          "c": 0,
+          "dir": "v"
+        }
+      ],
+      "bounds": {
+        "minRow": 0,
+        "minColumn": 0,
+        "maxRow": 6,
+        "maxColumn": 9,
+        "rows": 7,
+        "columns": 10
+      },
+      "cellFit": {
+        "phone375x667": 28.29,
+        "phone320x568": 22.86
+      }
+    }
+  }
+}

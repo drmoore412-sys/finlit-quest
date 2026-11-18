@@ -22,14 +22,14 @@ test("review slate contains the exact 27 approved-development combinations",()=>
   assert.deepEqual(Object.fromEntries(Object.keys(vocabularies()).map(worldId=>[worldId,actual.filter(puzzle=>puzzle.worldId===worldId).length])),{crypto:5,credit:6,moneybasics:5,banking:5,investing:6});
   assert.equal(byAnchor.MONEY,undefined);assert.equal(byAnchor.LOGIN,undefined);
   assert.deepEqual(byAnchor.TOKEN,["TOKEN","NET","NOTE"],"owner-authorized cross-world repair: NET (Money Basics) replaces TONE");
-  assert.deepEqual(byAnchor.REPAYMENT,["REPAYMENT","TERM","APR","APY"]);
-  assert.deepEqual(byAnchor.PAYMENT,["PAYMENT","PAY","NET"]);
+  assert.deepEqual(byAnchor.REPAYMENT,["REPAYMENT","TERM","APR","APY","PEER","PAYMENT","EARN","RATE","PAY","NET","RENT","ATM"],"answer-expansion v1 (2026-11-18): every approved term the wheel spells is required");
+  assert.deepEqual(byAnchor.PAYMENT,["PAYMENT","PAY","NET","APY","ATM"]);
   assert.deepEqual(byAnchor.BUDGET,["BUDGET","DEBT","BED"],"owner-authorized cross-world repair: DEBT (Credit) replaces GET");
   assert.equal(byAnchor.DIVIDEND,undefined,"Phase 3: DIVIDEND was replaced by RETURN");
-  assert.deepEqual(byAnchor.RETURN,["RETURN","NET","TUNE"]);
-  assert.deepEqual(byAnchor.PASSKEY,["PASSKEY","PAY","APY"]);
-  assert.deepEqual(byAnchor.CONVERT,["CONVERT","NET","VOTE"]);
-  assert.deepEqual(byAnchor.MARKET,["MARKET","RATE","TERM"]);
+  assert.deepEqual(byAnchor.RETURN,["RETURN","NET","RENT","TUNE"]);
+  assert.deepEqual(byAnchor.PASSKEY,["PASSKEY","PAY","APY","ASK"]);
+  assert.deepEqual(byAnchor.CONVERT,["CONVERT","NET","VOTE","RENT"]);
+  assert.deepEqual(byAnchor.MARKET,["MARKET","RATE","TERM","ATM"]);
   assert.deepEqual(byAnchor.PRINCIPAL,["PRINCIPAL","APR","PLAIN"]);
   assert.deepEqual(byAnchor.BLOCK,["BLOCK","LOCK","LOB"]);
   assert.deepEqual(byAnchor.STOCK,["STOCK","COST","SOCK"]);
@@ -49,7 +49,7 @@ test("all V3 records have exact anchor wheels, complete categories, and strict b
   for(const puzzle of puzzles()){
     assert.deepEqual(validate(puzzle),{valid:true,errors:[]},puzzle.id);
     assert.deepEqual(puzzle.wheelLetters,[...puzzle.anchorWord],puzzle.id);
-    assert.ok(puzzle.requiredWords.length>=3&&puzzle.requiredWords.length<=5,puzzle.id);
+    assert.ok(puzzle.requiredWords.length>=3&&puzzle.requiredWords.length<=slate.MAX_REQUIRED_ANSWERS,puzzle.id);
     assert.equal(game.validateCrosswordLayout(puzzle.requiredWords,puzzle.layout).valid,true,puzzle.id);
     assert.ok(puzzle.answers.filter(answer=>answer.category==="financial-anchor").length===1,puzzle.id);
     assert.ok(puzzle.answers.filter(answer=>answer.category!=="bonus").every(answer=>game.canForm(answer.word,puzzle.wheelLetters)),puzzle.id);
@@ -66,7 +66,7 @@ test("repeated anchor letters remain physical wheel tiles",()=>{
 
 test("Credit receives deterministic V3 identities without editing governed term files",()=>{
   const credit=puzzles().filter(puzzle=>puzzle.worldId==="credit");
-  for(const answer of credit.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-"))){
+  for(const answer of credit.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-")&&answer.worldId==="credit")){
     assert.equal(answer.termId,`credit.${answer.word.toLowerCase()}`);
     assert.equal(answer.masteryId,answer.termId);
     assert.ok(answer.definition.length>0);

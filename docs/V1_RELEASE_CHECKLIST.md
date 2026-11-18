@@ -507,3 +507,13 @@ Regenerated: favicons 16/32/48/96 and multi-size `favicon.ico`, `apple-touch-ico
 Known limitation: the master is 512×512, so the 1024×1024 App Store/iOS icon is an upscale; replace with a ≥1024 original before submission.
 
 Verified (headless Chromium, local copy of the iOS bundle, 390 and 1280 px): full Q on welcome, Credit World and legal pages; no broken images; no console errors; favicon, touch icon and manifest icons return 200; related tests pass. NOT verified: real iPhone home-screen icon, real browser tab favicon, Google search favicon (re-crawl is Google's schedule), Xcode asset-catalog compile, production deployment and mobile cache behavior.
+
+---
+
+### Blocker 9d — Phase 2b exact-wheel rule v4, exhaustive answers and seven revisions (2026-11-18) — Committed to feature/glossy-logo, NOT deployed, NOT verified on iPhone
+
+Owner-approved 2026-11-18: (1) every wheel is exactly the letters of its financial key term; (2) composition rule v4 (minimum one required financial answer, no filler, no direct-support or three-substantive-term requirement; v1/v2/v3 frozen, v3 no longer releasable); (3) every approved term in the 207-term dictionary that a wheel can spell is a required answer (44 puzzles expanded, 113 added occurrences); (4) seven new revisions replace their predecessors as main-levels sequenceVersion 3: RETAIL:R2, RECEIPT:R4, TRADE:R4, MARKET:R4, RETURN:R4, DEFAULT:R2, CREDIT:R2 (DATE removed from TRADE and DEFAULT); (5) dense-grid zoom with first-use hint; added-answer reward guard. Baseline v1 unchanged (hash pinned); baseline v2 generated; historical revisions and earned rewards preserved through the replacement lineage.
+
+Verified: full suite 768/772; all 61 unified levels pass release validation incl. exhaustive check; 58 canonical puzzles valid; headless browser solve-through of the seven revised puzzles at 320/375/390/430 px (28/28). The four failing tests (expansion-proposal, nine-letter-puzzle-proposals, thirteen-world-expansion, updated-puzzle-construction) fail with ENOENT/module-not-found on untracked `staging/research/expansion/...` fixture files that are not in this checkout; unrelated to these changes.
+
+Remaining blockers before production: physical iPhone testing of pinch, pan, double-tap reset, wheel swipes and the seven revised puzzles; owner deployment approval; merge of this branch to main.

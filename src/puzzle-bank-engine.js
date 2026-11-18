@@ -357,9 +357,20 @@
     }
     return next;
   }
-  function canonicalAnswerReward(puzzle,word,histories,record){
+  // Added-answer reward guard (exhaustive-answer expansion, 2026-11-18). An answer that was added to a puzzle after release never pays coins
+  // or XP on a puzzle the player already completed, so expanding a puzzle cannot create retroactive rewards. Players who have not completed
+  // the puzzle (new players, players mid-way) are paid normally. Learning mastery is recorded elsewhere and is not affected by this guard.
+  // `expansion` is the content/answer-expansion manifest; it defaults to the page global.
+  function isAddedAnswer(expansion,puzzleId,word){
+    const record=expansion&&expansion.puzzles&&expansion.puzzles[puzzleId];
+    return Boolean(record&&Array.isArray(record.added)&&record.added.some(item=>item&&item.word===word));
+  }
+  function canonicalAnswerReward(puzzle,word,histories,record,expansion){
     const reward=answerReward(puzzle,word,histories),canonical=canonicalPuzzleRecord(record);
-    return canonical.rewardedAnswers.includes(word)?{...reward,coins:0,xp:0,isNewSolve:false}:reward;
+    if(canonical.rewardedAnswers.includes(word))return {...reward,coins:0,xp:0,isNewSolve:false};
+    const manifest=expansion!==undefined?expansion:(typeof globalThis!=="undefined"?globalThis.FINLIT_ANSWER_EXPANSION:null);
+    if(canonical.timesCompleted>0&&isAddedAnswer(manifest,puzzle&&puzzle.id,word))return {...reward,coins:0,xp:0,isNewSolve:false,guard:"added-answer-on-completed-puzzle"};
+    return reward;
   }
   function recordCanonicalAnswer(record,word){
     const next=canonicalPuzzleRecord(record);
@@ -405,5 +416,5 @@
     return levels;
   }
 
-  return {puzzleId,buildOneCandidate,buildBank,anchorPuzzleId,toAnchorPuzzles,effectiveAnchorHistory,effectivePuzzleHistory,globalRewardHistory,selectPlaythrough,recordPlaythrough,wordReward,isExpandedPuzzle,isV3Puzzle,isFinancialCategory,answerPresentation,puzzleModel,completionLearningSummary,answerCategory,answerReward,canonicalPuzzleRecord,migrateCanonicalPuzzleProgress,canonicalAnswerReward,recordCanonicalAnswer,recordCanonicalCompletion,isTutorialLevel,hintCost,canAffordHint,puzzleProgress,puzzleLevels,hasPrefixConflict};
+  return {isAddedAnswer,puzzleId,buildOneCandidate,buildBank,anchorPuzzleId,toAnchorPuzzles,effectiveAnchorHistory,effectivePuzzleHistory,globalRewardHistory,selectPlaythrough,recordPlaythrough,wordReward,isExpandedPuzzle,isV3Puzzle,isFinancialCategory,answerPresentation,puzzleModel,completionLearningSummary,answerCategory,answerReward,canonicalPuzzleRecord,migrateCanonicalPuzzleProgress,canonicalAnswerReward,recordCanonicalAnswer,recordCanonicalCompletion,isTutorialLevel,hintCost,canAffordHint,puzzleProgress,puzzleLevels,hasPrefixConflict};
 });
