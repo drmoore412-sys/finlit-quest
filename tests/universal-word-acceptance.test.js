@@ -102,13 +102,13 @@ test("required answers, completion and progression are unchanged: approved terms
 });
 
 // ---------------------------------------------------------------- tap input is back to the original behaviour
-test("tap-input logic is the original: deferral considers required answers only, and the original signatures are restored",()=>{
+test("tap-input deferral: unfound required answers, plus unfound bonus words since the owner-approved tap fix (2026-11-18; see tap-bonus-prefix.test.js)",()=>{
   const src=text("src/wheel-interaction.js");
   assert.ok(!src.includes("hasLongerPending")&&!src.includes("options.candidates"));
-  assert.equal(Wheel.isDeferredTarget.length,3);
+  assert.equal(Wheel.isDeferredTarget.length,4,"isDeferredTarget(word, targets, found, options)");
   assert.equal(Wheel.canSubmitTapWord("PAY",["PAY","PAYMENT"],new Set()),false,"PAY waits while PAYMENT is unfound");
   assert.equal(Wheel.shouldSubmitOnRetap(true,"PAY",["PAY","PAYMENT"],new Set()),true,"and the retap submits it");
-  assert.ok(text("word-game-app.js").includes("FinLitWheelInteraction.isDeferredTarget(word, wgState.words, wgState.found)"));
+  assert.ok(text("word-game-app.js").includes("FinLitWheelInteraction.isDeferredTarget(word, wgState.words, wgState.found, wgWordOptions())"));
 });
 
 // ---------------------------------------------------------------- currency bonus
