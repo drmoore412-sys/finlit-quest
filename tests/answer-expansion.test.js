@@ -11,9 +11,9 @@ const manifest=read("content/answer-expansion-v1.json"),dictionary=A.loadDiction
 const sequencePuzzles=read("content/unified-prototype-12-puzzles-dev.json").puzzles;
 const allPuzzles=[...canon.values(),...sequencePuzzles];
 
-test("the reconciled dictionary has exactly 207 approved terms from the seven content files",()=>{
-  assert.equal(A.EXPECTED_TERM_COUNT,207);assert.equal(dictionary.size,207);assert.equal(A.SOURCES.length,7);
-  assert.equal(manifest.dictionary.termCount,207);
+test("the reconciled dictionary has exactly 211 approved terms (207 + the four Crypto terms restored under CAL-0012) from the seven content files",()=>{
+  assert.equal(A.EXPECTED_TERM_COUNT,211);assert.equal(dictionary.size,211);assert.equal(A.SOURCES.length,7);
+  assert.equal(manifest.dictionary.termCount,211);
 });
 
 test("every one of the 58 canonical puzzles requires every approved term its wheel can spell",()=>{

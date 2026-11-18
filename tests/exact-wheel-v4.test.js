@@ -1,7 +1,7 @@
 // Phase 2b (owner-approved 2026-11-18): exact-wheel puzzles under composition rule v4.
 //  - every wheel is exactly the letters of its financial key term, repeated letters included, with no exceptions
 //  - rule v4 allows a minimum of one required financial answer and no filler / direct-support / three-substantive-term requirements
-//  - every approved (207-term) financial term the wheel can spell is a required answer
+//  - every approved (211-term) financial term the wheel can spell is a required answer
 //  - the seven corrected puzzles are new revisions that replace their predecessors; rewards already earned never pay twice
 //  - previous rule versions (v1, v2, v3) stay frozen and keep validating the historical records
 const test=require("node:test");
@@ -91,8 +91,8 @@ test("v4 requires every approved financial term the wheel can spell (exhaustive-
   assert.deepEqual(A.missingAnswers(dropped,dictionary).map(m=>m.word),["PEER"]);
 });
 
-test("the seven revisions: key terms unchanged, wheel = key term, answers recomputed against the 207-term dictionary",()=>{
-  assert.equal(dictionary.size,207);const puzzles=byId();assert.equal(puzzles.size,7);
+test("the seven revisions: key terms unchanged, wheel = key term, answers recomputed against the 211-term dictionary",()=>{
+  assert.equal(dictionary.size,211);const puzzles=byId();assert.equal(puzzles.size,7);
   const old=new Map(oldFile().puzzles.map(p=>[p.id,p]));
   for(const [oldId,[newId,anchor,expected]] of Object.entries(REVISIONS)){
     const p=puzzles.get(newId),before=old.get(oldId);assert.ok(p,newId);assert.ok(before,oldId);

@@ -13,7 +13,7 @@
       "content/2027-new-world-terms.json",
       "content/v3-supplemental-terms.json"
     ],
-    "termCount": 207
+    "termCount": 211
   },
   "rewardGuard": "An answer listed in `added` never pays coins or XP on a puzzle whose record already shows a completion; learning mastery is unaffected.",
   "totals": {

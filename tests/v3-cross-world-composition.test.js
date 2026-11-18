@@ -65,18 +65,18 @@ test("the original approved vocabulary is exactly 145 terms with unique permanen
   assert.ok(credit.every(term=>identities.resolveTerm(VOCAB.credit.find(entry=>entry.word===term.word))===term.id),"Credit identities come only from the approved registry");
 });
 
-test("the owner-approved supplement adds exactly ACH, WORTH and the four CAL-0008 terms (155 terms) without touching the original 145",()=>{
-  assert.equal(INVENTORY.length,155);
-  assert.deepEqual(Object.fromEntries(WORLDS.map(worldId=>[worldId,INVENTORY.filter(term=>term.worldId===worldId).length])),{moneybasics:36,credit:42,crypto:20,banking:30,investing:27});
-  assert.equal(new Set(INVENTORY.map(term=>term.id)).size,155);
-  assert.equal(new Set(INVENTORY.map(term=>term.word)).size,155,"the supplement duplicates no existing word");
-  assert.deepEqual(supplement.TERMS.map(term=>[term.id,term.word,term.world]),[["banking.ach","ACH","banking"],["investing.worth","WORTH","investing"],["banking.atm","ATM","banking"],["banking.wire","WIRE","banking"],["banking.phishing","PHISHING","banking"],["investing.liquidity","LIQUIDITY","investing"],["credit.report","REPORT","credit"],["credit.bureau","BUREAU","credit"],["credit.freeze","FREEZE","credit"],["credit.history","HISTORY","credit"]]);
+test("the owner-approved supplement adds exactly ACH, WORTH, the eight CAL-0008 Credit/Banking/Investing terms and the four CAL-0012 Crypto terms (159 terms) without touching the original 145",()=>{
+  assert.equal(INVENTORY.length,159);
+  assert.deepEqual(Object.fromEntries(WORLDS.map(worldId=>[worldId,INVENTORY.filter(term=>term.worldId===worldId).length])),{moneybasics:36,credit:42,crypto:24,banking:30,investing:27});
+  assert.equal(new Set(INVENTORY.map(term=>term.id)).size,159);
+  assert.equal(new Set(INVENTORY.map(term=>term.word)).size,159,"the supplement duplicates no existing word");
+  assert.deepEqual(supplement.TERMS.map(term=>[term.id,term.word,term.world]),[["banking.ach","ACH","banking"],["investing.worth","WORTH","investing"],["banking.atm","ATM","banking"],["banking.wire","WIRE","banking"],["banking.phishing","PHISHING","banking"],["investing.liquidity","LIQUIDITY","investing"],["credit.report","REPORT","credit"],["credit.bureau","BUREAU","credit"],["credit.freeze","FREEZE","credit"],["credit.history","HISTORY","credit"],["crypto.address","ADDRESS","crypto"],["crypto.custody","CUSTODY","crypto"],["crypto.scam","SCAM","crypto"],["crypto.confirmed","CONFIRMED","crypto"]]);
   const json=JSON.parse(fs.readFileSync(path.join(ROOT,"content/v3-supplemental-terms.json"),"utf8"));
   assert.deepEqual(json.map(({id,word,world,definition})=>({id,word,world,definition})),supplement.TERMS.map(({id,word,world,definition})=>({id,word,world,definition})),"runtime and governance record are identical");
   json.forEach(term=>{assert.match(term.sourceUrl,/^https:\/\//);if(term.secondarySourceUrl)assert.match(term.secondarySourceUrl,/^https:\/\//);/* CAL-0008 terms WIRE, PHISHING and LIQUIDITY have one registered official source; no second source is invented */assert.ok(term.verificationNote&&term.definitionStatus&&term.sourceOrganization)});
   assert.match(BY_WORD.get("WORTH").definition,/^The amount of money something is valued at/,"WORTH describes monetary value, not an investment instrument");
   assert.doesNotMatch(BY_WORD.get("WORTH").definition,/investment|security|stock|fund/i);
-  assert.equal(BASE_INVENTORY.some(term=>["ACH","WORTH","ATM","WIRE","PHISHING","LIQUIDITY","REPORT","BUREAU","FREEZE","HISTORY"].includes(term.word)),false);
+  assert.equal(BASE_INVENTORY.some(term=>["ACH","WORTH","ATM","WIRE","PHISHING","LIQUIDITY","REPORT","BUREAU","FREEZE","HISTORY","ADDRESS","CUSTODY","SCAM","CONFIRMED"].includes(term.word)),false);
   const legacyBanking=JSON.parse(fs.readFileSync(path.join(ROOT,"content/banking-basics-terms.json"),"utf8"));
   assert.equal(legacyBanking.length,26,"the frozen Banking v1.1 record and its 13 clusters are untouched");
 });

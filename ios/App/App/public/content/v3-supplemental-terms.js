@@ -15,6 +15,10 @@
     Object.freeze({id:"credit.bureau",world:"credit",word:"BUREAU",definition:"A common name for a credit reporting company that collects credit information and creates credit reports."}),
     Object.freeze({id:"credit.freeze",world:"credit",word:"FREEZE",definition:"A free protection that restricts access to your credit file to help prevent new accounts from being opened in your name."}),
     Object.freeze({id:"credit.history",world:"credit",word:"HISTORY",definition:"A record of how you have used and repaid credit over time."}),
+    Object.freeze({id:"crypto.address",world:"crypto",word:"ADDRESS",definition:"A string of letters and numbers used as a destination for sending or receiving cryptocurrency."}),
+    Object.freeze({id:"crypto.custody",world:"crypto",word:"CUSTODY",definition:"The responsibility for safeguarding the keys or accounts that control access to cryptocurrency."}),
+    Object.freeze({id:"crypto.scam",world:"crypto",word:"SCAM",definition:"A deceptive scheme designed to steal money or cryptocurrency."}),
+    Object.freeze({id:"crypto.confirmed",world:"crypto",word:"CONFIRMED",definition:"Describes a blockchain transaction or block whose inclusion has been accepted through network consensus."})
   ]);
   function forWorld(worldId){return TERMS.filter(term=>term.world===worldId).map(term=>({word:term.word,definition:term.definition,termId:term.id}))}
   // Returns new vocabulary lists (inputs are never mutated) with the approved supplement appended.

@@ -311,6 +311,25 @@ These are documentation and project-history directions, not approvals of curricu
 
 **D10 — Project history** (verbatim): "Add one concise historical backfill entry covering the documented October V3, audio, bonus-word, and related work. Base it only on existing reports, tests, and repository evidence. Do not reconstruct undocumented approval decisions or fabricate dates."
 
+## CAL-0012 — Restoration of four approved Crypto terms (implementation of CAL-0008)
+
+| Field | Record |
+|---|---|
+| World / section | Crypto Foundations |
+| **Status** | **Owner Approved** (definitions and IDs unchanged from CAL-0008); owner instruction to restore them to implementation, 2026-11-18 |
+| Decision date | 2026-11-18 |
+| Source files | CAL-0008 above; `docs/FINLIT_QUEST_18_CONCEPT_EVIDENCE_AND_OWNER_REVIEW_PACKET_2026-10-17.md` |
+| Implementation status | **Implemented 2026-11-18** in `content/v3-supplemental-terms.json` / `.js` (the same governed supplement route CAL-0008 used for its other eight terms): `crypto.address` ADDRESS, `crypto.custody` CUSTODY, `crypto.scam` SCAM, `crypto.confirmed` CONFIRMED. Definitions are exactly as approved in CAL-0008. They carry no lesson content (no example, challenge or related terms), which is not authorized. No current puzzle wheel can spell any of the four, so no puzzle, key term or answer list changed |
+| Superseded records | None. CAL-0008's "Not implemented: the four Crypto terms" is now resolved by this entry |
+
+Owner instruction, verbatim (2026-11-18): "Restore the four Crypto terms approved under CAL-0008: ADDRESS, CUSTODY, SCAM, CONFIRMED." and "Preserve the approved wording unless a factual error requires my review."
+
+**Re-verification, 2026-11-18 (no factual error found; wording unchanged).** ADDRESS: the FTC describes a wallet address as a long string of numbers and letters. CUSTODY: the CFTC key-terms guide distinguishes custodial wallets (a third party holds the keys) from noncustodial wallets (the owner holds them). SCAM: consistent with FTC crypto-scam guidance; the CAL-0008 observation that the wording is general, not crypto-specific, stands and was not acted on. CONFIRMED: NIST (NISTIR 8202) defines it as the state when consensus has been reached about a transaction's or block's inclusion in the blockchain.
+
+**Qualifications carried forward.** CAL-0006 asks for a dedicated Crypto governance record before Crypto is treated as Approved & Locked or expanded substantially; the owner's restoration instruction implements the approved terms and does not state whether four terms is "substantial". Dictionary: 207 → 211 terms (Crypto 20 → 24).
+
+---
+
 ---
 
 ## Audit triggers (from the owner's governance continuity instructions)
@@ -332,3 +351,4 @@ Do not repeat the governance audit unless: a controlling curriculum file changes
 | CAL-0009 | Eight additional FinLit Quest worlds | Owner Approved (world identities and separation; runtime pending) | 2026-10-18 |
 | CAL-0010 | Updated 2027 puzzle-construction rules | Owner Approved construction rule (proposals only) | 2026-10-18 |
 | CAL-0011 | Eight new-world term and puzzle activation | Owner Approved for playable implementation (31 pass, 3 reject) | 2026-10-18 |
+| CAL-0012 | Restoration of four approved Crypto terms (ADDRESS, CUSTODY, SCAM, CONFIRMED) | Owner Approved; implemented | 2026-11-18 |

@@ -4320,3 +4320,8 @@ Owner-requested changes:
 Files: `mobile-polish.css` (new), `src/mobile-polish.js` (new), `tests/mobile-polish.test.js` (new), `index.html`, `word-game-app.js`, `scripts/build-www.sh`, two WebP assets, iOS public copies of the same files.
 
 Verification: `./scripts/test.sh` 619 pass / 4 fail; the 4 failures need untracked `staging/research/` files that are not in git and fail the same way on a clean `origin/main` checkout. Browser checks at 375x548, 390x664, 430x740 and 1280x800 with no console errors. Not yet checked on a real iPhone.
+
+## 2026-11-18 — CAL-0012: four approved Crypto terms restored (uncommitted)
+- ADDRESS, CUSTODY, SCAM, CONFIRMED (approved in CAL-0008, never implemented) added to `content/v3-supplemental-terms.json`/`.js` with the exact CAL-0008 definitions and IDs (`crypto.address`, `crypto.custody`, `crypto.scam`, `crypto.confirmed`). Definitions re-checked against FTC, CFTC and NIST; no factual error found, wording unchanged. The 20 Crypto learning objects are untouched; the four terms have no lesson content.
+- Dictionary 207 -> 211 (Crypto 20 -> 24). `EXPECTED_TERM_COUNT` and the expansion manifest `termCount` updated. No current puzzle wheel can spell any of the four, so no puzzle, key term or answer list changed.
+- Tests: new `tests/crypto-term-restoration.test.js`; count expectations updated in answer-expansion, exact-wheel-v4, unified-legacy-release, credit-id-governance, v3-phase5-governance and v3-cross-world-composition. Suite 772/776; the 4 failures are the pre-existing missing `staging/research/expansion` fixtures. Web and iOS bundles rebuilt. Not committed, merged, deployed or pushed.

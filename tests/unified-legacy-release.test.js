@@ -37,7 +37,7 @@ test("baseline v2 supersedes v1: same 52 IDs and anchors, 30 re-hashed (exactly 
 });
 test("the complete 61-level sequence passes release validation (52 legacy exact matches + 9 fully validated upgrades)",()=>{
   const r=run();assert.deepEqual(r.errors,[]);assert.equal(r.valid,true);assert.deepEqual(r.summary,{entries:61,legacyVerified:52,upgradedVerified:9});
-  // the exhaustive-answer rule holds for every one of the 61 levels against the 207-term dictionary
+  // the exhaustive-answer rule holds for every one of the 61 levels against the 211-term dictionary
   const ex=run({dictionary:A.loadDictionary(ROOT)},{...deps,Expansion:A});assert.deepEqual(ex.errors,[]);assert.equal(ex.summary.exhaustiveVerified,61);
   assert.equal(view().entries.filter(e=>e.compositionRuleVersion==="v1").length,52);
 });

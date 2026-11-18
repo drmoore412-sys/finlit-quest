@@ -5,7 +5,7 @@
   // (207 distinct words). Added answers are recorded, per puzzle, in content/answer-expansion-v1.json so that (a) the exhaustive
   // rule can be re-checked by tests and release validation and (b) the reward guard knows which answers were added after a
   // player may already have completed the puzzle. Puzzle IDs and anchors never change.
-  const EXPANSION_VERSION=1,EXPECTED_TERM_COUNT=207;
+  const EXPANSION_VERSION=1,EXPECTED_TERM_COUNT=211;
   const SOURCES=Object.freeze([
     {file:"content/credit-game-terms.json",world:"credit"},
     {file:"content/crypto-terms.json",world:"crypto"},
