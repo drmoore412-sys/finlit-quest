@@ -22,8 +22,8 @@
 .wg-topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1;padding:10px;border:1px solid #d9edff26;border-radius:18px;background:#07122294;backdrop-filter:blur(8px) saturate(1.08);box-shadow:0 12px 34px #02081433}
 .wg-topbar>.wg-music-toggle{margin-left:auto;border-color:#7893ad70;background:#07192bd9}
 .wg-brand{display:flex;align-items:center;gap:8px}
-.wg-logo{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;border:0;padding:0;overflow:hidden;background:#040f32;box-shadow:0 0 0 3px #f2b84b33;cursor:pointer}
-.wg-logo img{width:100%;height:100%;object-fit:cover;display:block}
+.wg-logo{width:38px;height:38px;display:grid;place-items:center;border-radius:22%;border:0;padding:0;overflow:hidden;background:#040f32;box-shadow:0 0 0 3px #f2b84b33;cursor:pointer}
+.wg-logo img{width:100%;height:100%;object-fit:contain;display:block}
 .wg-brand b{display:block;font-size:11px;letter-spacing:.08em;line-height:1.15;color:var(--wg-text)}
 .wg-brand b:last-child{color:var(--wg-gold)}
 .wg-currencies{display:flex;gap:8px;flex:1;min-width:200px}

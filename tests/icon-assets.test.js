@@ -47,14 +47,14 @@ test("Google Search and the web manifest reference existing correctly sized icon
   const manifest = JSON.parse(read("manifest.webmanifest").toString("utf8"));
   for (const icon of manifest.icons) {
     const size = Number(icon.sizes.split("x")[0]);
-    const info = pngInfo(icon.src);
+    const info = pngInfo(icon.src.split("?")[0]);
     assert.deepEqual([info.width, info.height], [size, size]);
   }
 });
 
-test("the approved source, App Store export, and iOS AppIcon are byte-identical", () => {
-  const approved = sha256("assets/brand/source/FinLit_Quest_Icon_Mark_1024x1024_AppStore.png");
-  assert.equal(sha256("assets/brand/icons/icon-1024-appstore.png"), approved);
+test("the approved glossy master, App Store export, and iOS AppIcon are consistent", () => {
+  assert.ok(fs.existsSync(path.join(root, "assets/brand/source/FinLit_Quest_Icon_Mark_Glossy_Master_512.png")));
+  const approved = sha256("assets/brand/icons/icon-1024-appstore.png");
   assert.equal(sha256("ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png"), approved);
 });
 

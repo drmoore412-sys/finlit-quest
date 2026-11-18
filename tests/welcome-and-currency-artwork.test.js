@@ -12,7 +12,7 @@ const html=read("index.html"),app=read("app.js"),wgCss=read("word-game.css"),crC
 const welcome=html.slice(html.indexOf('id="welcomeScreen"'),html.indexOf("</section>",html.indexOf('id="welcomeScreen"')));
 
 test("the welcome screen shows the approved logo, title, tagline, main button and the four options",()=>{
-  assert.match(welcome,/<img src="assets\/brand\/web\/wg-logo-96\.png[^"]*" alt="FinLit Quest">/);
+  assert.match(welcome,/<img src="assets\/brand\/web\/wg-logo-192\.png[^"]*" alt="FinLit Quest">/);
   assert.match(welcome,/<h1 id="welcomeTitle">FINLIT <span class="welcome-q">Q<\/span>UEST<\/h1>/);
   assert.match(wgCss,/#welcomeTitle \.welcome-q\{[^}]*font-family:Arial,Helvetica,sans-serif[^}]*font-style:normal/,"the title uses a complete conventional Q glyph");
   assert.match(welcome,/Your Money\. Your Choices\. Your Adventure\./);

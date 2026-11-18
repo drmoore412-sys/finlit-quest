@@ -493,3 +493,17 @@ Direct follow-on from the App Store readiness conversation: **this app could not
 **Scope re-freeze (this entry, confirmed by user 2026-07-25):** the app as it exists after these two PRs — 5 worlds, PLAY/LEARN/GROW onboarding, Word Quests/Learning Quests journey map — is the new frozen Version 1.0 baseline. This document has been updated throughout (Mission statement, Known Blockers table, Phase 3 re-verification flags, Phase 7 asset requirements) to reflect that baseline as of this entry. No further worlds, games, or UI redesigns until Version 1.0 ships; only bug fixes, accessibility, and App Store compliance work from here.
 
 **Remaining blockers:** Phase 5 (Accessibility, not started), Phase 3 re-verification against current scope (flagged above, not yet redone), Blocker 10 (Store Assets — now scoped to the 5-world app per Phase 7 above, not started), Phase 8 (Submission Readiness Review, not started), Blocker 11 (Submit). Plus the infrastructure blockers in the Known Blockers table above (native build capability, Apple Developer Program enrollment status, real-device testing, TestFlight) — all pending regardless of application-code work.
+
+---
+
+### Blocker 9c — Logo correction to the glossy Q master (2026-11-18) — Implemented locally, NOT deployed, NOT verified on iPhone
+
+Supersedes the 2026-11-16 "Icon consistency verification" above: on 2026-11-18 the owner supplied the glossy gold Q with compass needle (512×512 PNG) and stated it is the correct logo. All icons were regenerated from it. Saved as `assets/brand/source/FinLit_Quest_Icon_Mark_Glossy_Master_512.png`; the flat-Q files (including `FinLit_Quest_Icon_Mark_1024x1024_AppStore.png`) moved to `assets/brand/source/superseded-flat/`.
+
+Problems fixed: (1) Credit World header showed a drawn outline compass (inline SVG) instead of the logo image; (2) the circular frame (`border-radius:50%` + `overflow:hidden`) clipped the Q's tail on the welcome screen, game header and legal pages — now a rounded square with `object-fit:contain`.
+
+Regenerated: favicons 16/32/48/96 and multi-size `favicon.ico`, `apple-touch-icon-180`, `icon-192`, `icon-512`, `icon-512-maskable`, `wg-logo-192` (replaces `wg-logo-96`), `icon-1024-appstore` and the iOS AppIcon. Manifest and legal-page icon links carry `?v=glossy1`; `index.html` links use the build stamp.
+
+Known limitation: the master is 512×512, so the 1024×1024 App Store/iOS icon is an upscale; replace with a ≥1024 original before submission.
+
+Verified (headless Chromium, local copy of the iOS bundle, 390 and 1280 px): full Q on welcome, Credit World and legal pages; no broken images; no console errors; favicon, touch icon and manifest icons return 200; related tests pass. NOT verified: real iPhone home-screen icon, real browser tab favicon, Google search favicon (re-crawl is Google's schedule), Xcode asset-catalog compile, production deployment and mobile cache behavior.
