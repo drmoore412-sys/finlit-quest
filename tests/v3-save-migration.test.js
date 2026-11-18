@@ -4,7 +4,8 @@ const {ROOT,memoryStorage}=require("./helpers.js"),learningApi=require("../learn
 const NOW=new Date("2026-10-14T12:00:00.000Z");
 function loadWindow(file,key,window={}){const context={window};vm.runInNewContext(fs.readFileSync(path.join(ROOT,file),"utf8"),context);return context.window[key]}
 function creditTerms(){return loadWindow("content/credit-game-terms.js","CREDIT_GAME_TERMS")}
-function creditSlate(){return slate.createWorldSlate("credit",creditTerms(),game)}
+const {allVocabularies}=require("./all-vocabularies.js");
+function creditSlate(){return slate.createWorldSlate("credit",creditTerms(),game,allVocabularies())}
 function engineFrom(raw){
   const storage=memoryStorage(raw===undefined?{}:{[learningApi.SAVE_KEY]:JSON.stringify(raw)}),terms=slate.financialLearningTerms(creditSlate());
   return {engine:new learningApi.LearningEngine({terms,storage,now:()=>new Date(NOW)}),storage};
@@ -54,7 +55,7 @@ test("a financial term rewarded in V1 cannot earn duplicate V3 coins or XP",()=>
 });
 
 test("ordinary reward histories from both V2 and V3 prevent duplicate coins",()=>{
-  const terms=creditTerms(),puzzle=slate.createWorldSlate("credit",terms,game).find(item=>item.anchorWord==="TERMS");
+  const terms=creditTerms(),puzzle=slate.createWorldSlate("credit",terms,game,allVocabularies()).find(item=>item.anchorWord==="TERMS");
   assert.equal(bank.answerReward(puzzle,"REST",{rewardedSupportWords:["REST"],rewardedOrdinaryWords:[]}).coins,0);
   assert.equal(bank.answerReward(puzzle,"REST",{rewardedSupportWords:[],rewardedOrdinaryWords:["REST"]}).coins,0);
 });

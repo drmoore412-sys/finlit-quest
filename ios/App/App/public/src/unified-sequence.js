@@ -3,9 +3,10 @@
   // Unified level-sequence manifest: references canonical puzzle IDs, never copies puzzle definitions.
   // Level number is a display position, not a completion identity.
   const RELEASE_STATUSES=new Set(["development","candidate","approved"]);
-  const RULE_VERSIONS=new Set(["v1","v2","v3"]);
-  // Release accepts v2 (kept unchanged) and v3 (v2 plus up to two declared extra letters, nine-letter wheel). v1 is legacy and never releasable.
-  const RELEASE_RULE_VERSIONS=new Set(["v2","v3"]);
+  const RULE_VERSIONS=new Set(["v1","v2","v3","v4"]);
+  // Release accepts v2 (kept unchanged) and v4 (exact-wheel puzzles, 2026-11-18). v3 (declared extra letters) is historical only and is no longer
+  // releasable: every released wheel is exactly the letters of its key term. v1 is legacy and never releasable.
+  const RELEASE_RULE_VERSIONS=new Set(["v2","v4"]);
   const isPlain=value=>Object.prototype.toString.call(value)==="[object Object]";
   const clone=value=>JSON.parse(JSON.stringify(value));
 
@@ -61,7 +62,7 @@
           return;
         }
         if(entry.releaseStatus!=="approved")errors.push(`entry ${index+1}: releaseRequiresApproved`);
-        if(!RELEASE_RULE_VERSIONS.has(entry.compositionRuleVersion))errors.push(`entry ${index+1}: releaseRequiresRuleV2OrV3`);
+        if(!RELEASE_RULE_VERSIONS.has(entry.compositionRuleVersion))errors.push(`entry ${index+1}: releaseRequiresRuleV2OrV4`);
         const v=entry.validation||{};
         ["relevanceReviewed","definitionsVerified","fillersApproved","ownerApproved","layoutVerified"].forEach(key=>{if(v[key]!==true)errors.push(`entry ${index+1}: validation.${key}`)});
       });

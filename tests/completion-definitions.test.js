@@ -79,6 +79,8 @@ test("every active V3 financial answer resolves to its exact governed record, in
   };
   const governed=supplement.merge(vocabularies),records=[];
   Object.entries(governed).forEach(([worldId,terms])=>terms.forEach(term=>records.push({termId:term.termId||term.id,word:term.word,definition:term.definition,worldId})));
+  // The runtime registry (word-game-app.js wgAuthoritativeTermRegistry) also holds the approved 2027 new-world terms.
+  JSON.parse(fs.readFileSync(path.join(ROOT,"content/2027-new-world-terms.json"),"utf8")).terms.forEach(term=>records.push({termId:term.id,word:term.word,definition:term.definition,worldId:term.worldId}));
   const byId=new Map(records.map(record=>[record.termId,record]));
   for(const puzzle of slate.createSlate(vocabularies,game)){
     const summary=bank.completionLearningSummary(puzzle,termId=>byId.get(termId));
@@ -89,11 +91,11 @@ test("every active V3 financial answer resolves to its exact governed record, in
   }
 });
 
-test("runtime hard-gates V3 to complete 3-5 answer layouts while leaving legacy routing available",()=>{
+test("runtime hard-gates V3 to complete layouts of at most the approved answer ceiling while leaving legacy routing available",()=>{
   const source=fs.readFileSync(path.join(ROOT,"word-game-app.js"),"utf8");
   assert.match(source,/get\("puzzles"\) === "legacy"/);
   assert.match(source,/const WG_V3_ENABLED = !WG_LEGACY_DIAGNOSTIC_ENABLED/);
-  assert.match(source,/model\.words\.length < 3 \|\| model\.words\.length > 5/);
+  assert.match(source,/model\.words\.length < 1 \|\| model\.words\.length > \(window\.FinLitV3PuzzleSlate\?\.MAX_REQUIRED_ANSWERS \|\| 20\)/);
   assert.match(source,/model\.words\.some\(word=>!renderedWords\.has\(word\)\)/);
   assert.match(source,/return wgPlayableBank\(bankState\.puzzleBank\)/);
   assert.match(source,/renderedAnswerCount/);

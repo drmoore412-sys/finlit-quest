@@ -1,6 +1,9 @@
 (function(root,factory){const api=factory();if(typeof module==="object"&&module.exports)module.exports=api;root.FinLitPuzzleValidator=api})(typeof globalThis!=="undefined"?globalThis:this,function(){
   "use strict";
 
+  // The exhaustive-answer rule (every approved spellable financial term is required) decides how many answers a puzzle has, so there is no
+  // editorial maximum. This ceiling only guards layout feasibility; the largest expanded puzzle has 14 answers.
+  const MAX_REQUIRED_ANSWERS=20;
   const DIFFICULTIES=new Set(["Easy","Medium","Hard","Expert"]);
   const PUZZLE_MODES=new Set(["multi-term","single-term","expanded","anchor-only","v3"]);
   const V3_CATEGORIES=new Set(["financial-anchor","financial-secondary","ordinary","bonus"]);
@@ -15,7 +18,7 @@
     if(!puzzle?.id||!Number.isInteger(puzzle?.contentRevision)||puzzle.contentRevision<1)errors.push("stableRevisionIdentity");
     if(existingIds.has(puzzle?.id))errors.push("noDuplicateId");
     if(anchors.length!==1||anchors[0]?.word!==puzzle?.anchorWord||anchors[0]?.termId!==puzzle?.anchorTermId)errors.push("singleFinancialAnchor");
-    if(required.length<3||required.length>5||new Set(words).size!==words.length)errors.push("requiredAnswerCount");
+    if(required.length<3||required.length>MAX_REQUIRED_ANSWERS||new Set(words).size!==words.length)errors.push("requiredAnswerCount");
     if(answers.some(answer=>!answer?.word||!V3_CATEGORIES.has(answer.category)))errors.push("answerCategoriesValid");
     if(answers.some(answer=>answer.category.startsWith("financial-")&&(!answer.termId||!answer.masteryId||!String(answer.definition||"").trim()||(answer.crossWorld===true?(answer.worldId===puzzle.worldId||!V3_WORLDS.has(answer.worldId)||!String(answer.termId).startsWith(`${answer.worldId}.`)):answer.worldId!==puzzle.worldId)||answer.rewardPolicy!=="financial-first-solve")))errors.push("financialMetadataComplete");
     if(answers.some(answer=>answer.category==="ordinary"&&(answer.termId||answer.masteryId||answer.definition||answer.rewardPolicy!=="ordinary-first-solve")))errors.push("ordinaryMetadataIsolated");
@@ -55,10 +58,10 @@
   }
   function validatePuzzle(puzzle,deps){
     if(puzzle&&puzzle.compositionRuleVersion!==undefined&&puzzle.compositionRuleVersion!=="v1"){
-      if(puzzle.compositionRuleVersion!=="v2"&&puzzle.compositionRuleVersion!=="v3")return {valid:false,errors:["unknownCompositionRuleVersion"]};
+      if(!["v2","v3","v4"].includes(puzzle.compositionRuleVersion))return {valid:false,errors:["unknownCompositionRuleVersion"]};
       const rules=compositionRules(deps);
       if(!rules)return {valid:false,errors:["compositionRulesUnavailable"]};
-      return puzzle.compositionRuleVersion==="v3"?rules.validateV3Puzzle(puzzle,deps||{}):rules.validateV2Puzzle(puzzle,deps||{});
+      return rules.validatorFor(puzzle.compositionRuleVersion)(puzzle,deps||{});
     }
     if(Number(puzzle?.puzzleVersion)===3||puzzle?.puzzleMode==="v3")return validateV3Puzzle(puzzle,deps);
     const {canFormFn,layoutWordsFn,solveCrosswordFn,existingIds=new Set(),wordCountRange=[2,5],expandedWordCountRange=[2,9],wheelBudget=9}=deps||{};

@@ -49,12 +49,15 @@ test("frozen Credit vocabulary remains byte-identical to the approved source",()
 });
 
 test("current Credit V3 answers preserve world ownership, definitions, and permanent registry IDs",()=>{
-  const terms=creditTerms(),byWord=new Map(terms.map(term=>[term.word,term])),puzzles=slate.createWorldSlate("credit",terms,game);
-  for(const answer of puzzles.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-"))){
-    assert.equal(answer.worldId,"credit");
+  const terms=creditTerms(),byWord=new Map(terms.map(term=>[term.word,term])),puzzles=slate.createWorldSlate("credit",terms,game,require("./all-vocabularies.js").allVocabularies());
+  // The exhaustive-answer rule (2026-11-18) also places approved terms owned by other worlds in Credit puzzles; those keep their own world, ID and definition.
+  const creditAnswers=puzzles.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-")&&answer.worldId==="credit");
+  assert.ok(creditAnswers.length>0);
+  for(const answer of creditAnswers){
     assert.equal(answer.termId,`credit.${answer.word.toLowerCase()}`);
     assert.equal(answer.definition,byWord.get(answer.word).definition);
   }
+  for(const answer of puzzles.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-")&&answer.worldId!=="credit"))assert.equal(answer.crossWorld,true,`${answer.word} must be flagged cross-world`);
 });
 
 test("browser and native build paths load the Credit registry before the V3 slate",()=>{
@@ -64,20 +67,21 @@ test("browser and native build paths load the Credit registry before the V3 slat
   assert.match(build,/content\/credit-term-identities\.js/);
 });
 
+// Updated 2026-11-18 (answer-expansion v1, exhaustive-answer rule): the partition of the 155-term inventory is now 54/42/59 because the added answers place more approved terms in V3 puzzles.
 // 2026-10-17 (CAL-0008): 49/39/59 -> 49/43/63 and 147 -> 155 (the four Credit terms are existing-education: Credit is never a futureInterface world) when ATM, WIRE, PHISHING and LIQUIDITY were added to the supplement; none is in a V3 puzzle yet.
 // Updated 2026-10-17 (owner-authorized cross-world composition, then Phase 3 anchor replacements): the partition moved 36/43/66 -> 40/41/64 -> 44/40/61 as approved
 // terms entered V3 puzzles; 44/40/61 -> 49/39/59 after the owner-approved Phase 5 compositions, which also added ACH and WORTH (145 -> 147). The terms remain mutually exclusive and exhaustive.
-test("the 155-term coverage partition (145 original + ACH, WORTH and the eight CAL-0008 Credit/Banking/Investing terms) is mutually exclusive and reconciles to 49/43/63",()=>{
+test("the 155-term coverage partition (145 original + ACH, WORTH and the eight CAL-0008 Credit/Banking/Investing terms) is mutually exclusive and reconciles to 54/42/59",()=>{
   const vocab=require("../content/v3-supplemental-terms.js").merge(allVocabularies()),all=Object.entries(vocab).flatMap(([worldId,terms])=>terms.map(term=>({worldId,word:term.word,id:worldId==="credit"?identities.resolveTerm(term):(term.termId||term.id||`${worldId}.${term.word.toLowerCase()}`)})));
-  const puzzles=slate.createSlate(vocab,game),v3Ids=new Set(puzzles.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-")).map(answer=>answer.termId));
+  const puzzles=slate.createSlate(vocab,game),inventory=new Set(all.map(term=>term.id)),v3Ids=new Set(puzzles.flatMap(puzzle=>puzzle.answers).filter(answer=>answer.category.startsWith("financial-")).map(answer=>answer.termId).filter(id=>inventory.has(id)));
   const existingEducation=new Set(all.filter(term=>(term.worldId==="crypto"||term.worldId==="credit")&&!v3Ids.has(term.id)).map(term=>term.id));
   const futureInterface=new Set(all.filter(term=>!v3Ids.has(term.id)&&!existingEducation.has(term.id)).map(term=>term.id));
   const classified=[...v3Ids,...existingEducation,...futureInterface];
   assert.equal(all.length,155);
   assert.equal(new Set(all.map(term=>term.id)).size,155);
-  assert.equal(v3Ids.size,49);
-  assert.equal(existingEducation.size,43);
-  assert.equal(futureInterface.size,63);
+  assert.equal(v3Ids.size,54);
+  assert.equal(existingEducation.size,42);
+  assert.equal(futureInterface.size,59);
   assert.equal(classified.length,155);
   assert.equal(new Set(classified).size,155);
 });

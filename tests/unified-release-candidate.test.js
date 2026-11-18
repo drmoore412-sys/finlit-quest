@@ -56,13 +56,14 @@ test("production IDs RETAIL:R1, DEFAULT:R1 and CREDIT:R1 do not collide with any
   ids.forEach(id=>{assert.equal(canonicalIds.has(id),false,id);assert.ok(NINE.includes(id))});
   const main=read("content/unified-sequence-dev.json"),seen=new Set([...main.entries.map(e=>e.puzzleId),...main.retired.map(e=>e.puzzleId)]);ids.forEach(id=>assert.equal(seen.has(id),false,id));
   // no other content bank defines these IDs
-  fs.readdirSync(path.join(ROOT,"content")).filter(f=>/\.(json|js)$/.test(f)&&!/^unified-/.test(f)).forEach(f=>{const t=fs.readFileSync(path.join(ROOT,"content",f),"utf8");ids.forEach(id=>assert.equal(t.includes(id),false,f+" contains "+id))});
+  fs.readdirSync(path.join(ROOT,"content")).filter(f=>/\.(json|js)$/.test(f)&&!/^unified-/.test(f)&&!/^answer-expansion-/.test(f)).forEach(f=>{const t=fs.readFileSync(path.join(ROOT,"content",f),"utf8");ids.forEach(id=>assert.equal(t.includes(id),false,f+" contains "+id))});
   assert.equal(new Set(NINE).size,9);
   // revision numbering: first revision of a new anchor; replacements continue past the retired revision
   puzzles().forEach(p=>assert.equal(p.contentRevision,Number(p.id.split(":").pop().slice(1))));
 });
-test("release view: the nine entries are release-valid; the only remaining release errors are the 52 legacy v1 entries",()=>{
-  const g=gated(),nineIds=new Set(NINE),view=structuredClone(g);view.devOnly=false;
+test("release view (sequence v3): the nine entries are release-valid; the only remaining release errors are the 52 legacy v1 entries",()=>{
+  const g=read("content/unified-sequence-v3-dev.json"),replaced=new Set(g.retired.map(r=>r.puzzleId));
+  const active=[...puzzles().filter(p=>!replaced.has(p.id)),...read("content/unified-exact-wheel-revisions-dev.json").puzzles].map(p=>p.id),nineIds=new Set(active),view=structuredClone(g);view.devOnly=false;
   view.entries.forEach(e=>{if(nineIds.has(e.puzzleId))e.releaseStatus="approved"});
   const r=S.validateManifest(view,{release:true});assert.equal(r.valid,false);
   const nine=view.entries.map((e,i)=>[e,i+1]).filter(([e])=>nineIds.has(e.puzzleId)).map(([,n])=>n),legacy=view.entries.map((e,i)=>[e,i+1]).filter(([e])=>!nineIds.has(e.puzzleId)).map(([,n])=>n);
@@ -70,7 +71,10 @@ test("release view: the nine entries are release-valid; the only remaining relea
   const nineErrors=r.errors.filter(e=>nine.some(n=>e.startsWith(`entry ${n}:`)));assert.deepEqual(nineErrors,[],"the nine pass every release rule");
   const rest=r.errors.filter(e=>!nineIds.has(e));assert.ok(rest.length>0);
   rest.forEach(e=>{const n=Number((/^entry (\d+):/.exec(e)||[])[1]);assert.ok(legacy.includes(n),"only legacy entries fail: "+e)});
-  assert.ok(rest.some(e=>/releaseRequiresRuleV2OrV3/.test(e)),"legacy v1 entries are the blocker");
-  assert.equal(g.releaseGate.status,"closed");assert.equal(g.devOnly,true);assert.equal(g.entries.filter(e=>e.releaseStatus==="candidate").length,9);
+  assert.ok(rest.some(e=>/releaseRequiresRuleV2OrV4/.test(e)),"legacy v1 entries are the blocker");
+  assert.equal(g.devOnly,true);assert.equal(g.entries.filter(e=>e.releaseStatus==="candidate").length,9);
   nine.forEach(n=>{const v=g.entries[n-1].validation;["relevanceReviewed","definitionsVerified","fillersApproved","ownerApproved","layoutVerified"].forEach(k=>assert.equal(v[k],true,k))});
+  // the superseded sequence-v2 candidate used the declared-extra-letter rule v3, which is no longer releasable: the four unified in-place v3 entries now refuse release
+  const old=structuredClone(gated());old.devOnly=false;old.entries.forEach(e=>{if(e.releaseStatus==="candidate")e.releaseStatus="approved"});
+  assert.ok(S.validateManifest(old,{release:true}).errors.some(e=>/releaseRequiresRuleV2OrV4/.test(e)&&Number((/^entry (\d+):/.exec(e)||[])[1])===6),"v3 is historical only");
 });

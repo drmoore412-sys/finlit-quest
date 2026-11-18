@@ -31,7 +31,7 @@
       if(mainIds.has(id))errors.push(`${id}: collidesWithMainLevels`);
       (entry.replaces||[]).forEach(old=>{if(!canonicalIds.has(old))errors.push(`${id}: replacesUnknownCanonical ${old}`)});
       if(!puzzle){errors.push(`${id}: puzzleRecordMissing`);return}
-      const validate=entry.compositionRuleVersion==="v3"?deps.Rules.validateV3Puzzle:deps.Rules.validateV2Puzzle;
+      const validate=deps.Rules.validatorFor(entry.compositionRuleVersion)||deps.Rules.validateV2Puzzle;
       if(puzzle.compositionRuleVersion!==entry.compositionRuleVersion)errors.push(`${id}: ruleVersionMismatch`);
       const r=validate(puzzle,{canFormFn:deps.canFormFn,validateCrosswordLayoutFn:deps.validateCrosswordLayoutFn,fillerWhitelist:whitelist,existingIds:canonicalIds,release:false});
       r.errors.forEach(error=>errors.push(`${id}: ${error}`));
@@ -72,7 +72,7 @@
       (entry.replaces||[]).forEach(old=>{if(!canonicalIds.has(old)||!prevById.has(old))errors.push(`${id}: replacesUnknown ${old}`)});
       if(!puzzle){errors.push(`${id}: puzzleRecordMissing`);return}
       if(puzzle.compositionRuleVersion!==entry.compositionRuleVersion)errors.push(`${id}: ruleVersionMismatch`);
-      const validate=entry.compositionRuleVersion==="v3"?deps.Rules.validateV3Puzzle:deps.Rules.validateV2Puzzle;
+      const validate=deps.Rules.validatorFor(entry.compositionRuleVersion)||deps.Rules.validateV2Puzzle;
       const r=validate(puzzle,{canFormFn:deps.canFormFn,validateCrosswordLayoutFn:deps.validateCrosswordLayoutFn,fillerWhitelist:whitelist,existingIds:canonicalIds,release:false});
       r.errors.forEach(error=>errors.push(`${id}: ${error}`));
       if(!r.errors.length)library.set(id,puzzle);

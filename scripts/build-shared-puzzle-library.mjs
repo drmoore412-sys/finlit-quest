@@ -62,8 +62,8 @@ for(const worldId of worldOrder){
 const placementIds=new Set(Object.values(placements).flat().map(item=>item.puzzleId));
 if(placementIds.size!==58)throw new Error(`Shared library lost canonical puzzles: ${placementIds.size}/58 referenced`);
 const report={
-  schemaVersion:1,libraryVersion:"2027.1",generatedOn:"2026-10-19",uniquePuzzleCount:58,totalWorldPlacements:worldOrder.length*15,
-  architecture:{canonicalDefinitionRule:"Puzzle definitions remain in their existing approved canonical sources. This manifest stores references only.",originalSource:"src/v3-puzzle-slate.js",newWorldSource:"content/2027-new-world-puzzle-banks.json",rewardRule:"First-discovery rewards are keyed to canonical puzzle IDs; world progress is recorded separately."},
+  schemaVersion:1,libraryVersion:"2027.2",generatedOn:"2026-11-18",uniquePuzzleCount:58,totalWorldPlacements:worldOrder.length*15,
+  architecture:{answerExpansion:{manifest:"content/answer-expansion-v1.json",expansionVersion:1,rule:"Every approved financial term that can be spelled from a puzzle wheel is a required answer. Puzzle IDs and anchors are unchanged.",puzzlesExpanded:35},canonicalDefinitionRule:"Puzzle definitions remain in their existing approved canonical sources. This manifest stores references only.",originalSource:"src/v3-puzzle-slate.js",newWorldSource:"content/2027-new-world-puzzle-banks.json",rewardRule:"First-discovery rewards are keyed to canonical puzzle IDs; world progress is recorded separately."},
   canonicalPuzzleIndex:canonical.map(({key:_,...item})=>item),worldPlacements:placements
 };
 const json=JSON.stringify(report,null,2)+"\n";

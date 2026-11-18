@@ -1,4 +1,4 @@
-(function(root,factory){const creditIdentities=typeof module==="object"&&module.exports?require("../content/credit-term-identities.js"):root.FINLIT_CREDIT_TERM_IDENTITIES;const supplement=typeof module==="object"&&module.exports?require("../content/v3-supplemental-terms.js"):root.FinLitV3Supplement;const api=factory(creditIdentities,supplement);if(typeof module==="object"&&module.exports)module.exports=api;root.FinLitV3PuzzleSlate=api})(typeof globalThis!=="undefined"?globalThis:this,function(creditIdentities,supplement){
+(function(root,factory){const creditIdentities=typeof module==="object"&&module.exports?require("../content/credit-term-identities.js"):root.FINLIT_CREDIT_TERM_IDENTITIES;const supplement=typeof module==="object"&&module.exports?require("../content/v3-supplemental-terms.js"):root.FinLitV3Supplement;const expansion=typeof module==="object"&&module.exports?require("../content/answer-expansion-v1.json"):root.FINLIT_ANSWER_EXPANSION;const newWorld=typeof module==="object"&&module.exports?require("../content/2027-new-world-terms.json"):root.FINLIT_2027_NEW_WORLD_TERMS;const api=factory(creditIdentities,supplement,expansion,newWorld);if(typeof module==="object"&&module.exports)module.exports=api;root.FinLitV3PuzzleSlate=api})(typeof globalThis!=="undefined"?globalThis:this,function(creditIdentities,supplement,expansion,newWorld){
   "use strict";
 
   const PUZZLE_VERSION=3,CONTENT_REVISION=1;
@@ -20,26 +20,26 @@
     {worldId:"crypto",anchor:"BLOCK",secondary:["LOCK"],ordinary:["LOB"],revision:3},
     {worldId:"credit",anchor:"TERMS",secondary:["TERM"],ordinary:["REST"]},
     {worldId:"credit",anchor:"PRINCIPAL",secondary:["APR"],ordinary:["PLAIN"],revision:2},
-    {worldId:"credit",anchor:"CREDITOR",secondary:["CREDIT"],ordinary:["DIRECT"],revision:2},
-    {worldId:"credit",anchor:"REPAYMENT",secondary:["TERM","APR","APY"],ordinary:[]},
-    {worldId:"credit",anchor:"AUTOPAY",secondary:["APY"],ordinary:["AUTO"]},
-    {worldId:"credit",anchor:"CAPACITY",secondary:["APY"],ordinary:["CITY"]},
-    {worldId:"moneybasics",anchor:"PAYMENT",secondary:["PAY","NET"],ordinary:[]},
-    {worldId:"moneybasics",anchor:"RECEIPT",secondary:["PRICE"],ordinary:["PIECE"],revision:2},
+    {worldId:"credit",anchor:"CREDITOR",secondary:["CREDIT",{word:"ORDER",from:"investing"},{word:"REIT",from:"real_estate"}],ordinary:["DIRECT"],revision:2},
+    {worldId:"credit",anchor:"REPAYMENT",secondary:["TERM","APR","APY",{word:"PEER",from:"crypto"},{word:"PAYMENT",from:"moneybasics"},{word:"EARN",from:"moneybasics"},{word:"RATE",from:"moneybasics"},{word:"PAY",from:"moneybasics"},{word:"NET",from:"moneybasics"},{word:"RENT",from:"real_estate"},{word:"ATM",from:"banking"}],ordinary:[]},
+    {worldId:"credit",anchor:"AUTOPAY",secondary:["APY",{word:"PAY",from:"moneybasics"}],ordinary:["AUTO"]},
+    {worldId:"credit",anchor:"CAPACITY",secondary:["APY",{word:"PAY",from:"moneybasics"}],ordinary:["CITY"]},
+    {worldId:"moneybasics",anchor:"PAYMENT",secondary:["PAY","NET",{word:"APY",from:"credit"},{word:"ATM",from:"banking"}],ordinary:[]},
+    {worldId:"moneybasics",anchor:"RECEIPT",secondary:["PRICE",{word:"PEER",from:"crypto"},{word:"REIT",from:"real_estate"}],ordinary:["PIECE"],revision:2},
     {worldId:"moneybasics",anchor:"REFUND",secondary:["FUND"],ordinary:["RUN"]},
-    {worldId:"moneybasics",anchor:"PAYCHECK",secondary:["PAY"],ordinary:["CHECK"]},
+    {worldId:"moneybasics",anchor:"PAYCHECK",secondary:["PAY",{word:"APY",from:"credit"},{word:"ACH",from:"banking"}],ordinary:["CHECK"]},
     {worldId:"moneybasics",anchor:"BUDGET",secondary:[{word:"DEBT",from:"credit"}],ordinary:["BED"],revision:2},
-    {worldId:"banking",anchor:"DEPOSITOR",secondary:["POSTED"],ordinary:["POST"]},
-    {worldId:"banking",anchor:"NETWORK",secondary:[{word:"OWNER",from:"investing"}],ordinary:["WORK"],revision:2},
-    {worldId:"banking",anchor:"PASSWORD",secondary:[{word:"SWAP",from:"crypto"}],ordinary:["PASS"],revision:2},
-    {worldId:"banking",anchor:"PASSKEY",secondary:[{word:"PAY",from:"moneybasics"},{word:"APY",from:"credit"}],ordinary:[],revision:2},
-    {worldId:"banking",anchor:"CONVERT",secondary:[{word:"NET",from:"moneybasics"},{word:"VOTE",from:"investing"}],ordinary:[],revision:2},
+    {worldId:"banking",anchor:"DEPOSITOR",secondary:["POSTED",{word:"DEPOSIT",from:"moneybasics"},{word:"REPO",from:"investing"},{word:"REIT",from:"real_estate"}],ordinary:["POST"]},
+    {worldId:"banking",anchor:"NETWORK",secondary:[{word:"OWNER",from:"investing"},{word:"TOKEN",from:"crypto"},{word:"NET",from:"moneybasics"},{word:"RENT",from:"real_estate"}],ordinary:["WORK"],revision:2},
+    {worldId:"banking",anchor:"PASSWORD",secondary:[{word:"SWAP",from:"crypto"},{word:"APR",from:"credit"}],ordinary:["PASS"],revision:2},
+    {worldId:"banking",anchor:"PASSKEY",secondary:[{word:"PAY",from:"moneybasics"},{word:"APY",from:"credit"},{word:"ASK",from:"investing"}],ordinary:[],revision:2},
+    {worldId:"banking",anchor:"CONVERT",secondary:[{word:"NET",from:"moneybasics"},{word:"VOTE",from:"investing"},{word:"RENT",from:"real_estate"}],ordinary:[],revision:2},
     {worldId:"investing",anchor:"SAVING",anchorFrom:"moneybasics",secondary:[{word:"GAS",from:"crypto"},"GAIN"],ordinary:[],revision:2},
     {worldId:"investing",anchor:"STOCK",secondary:[{word:"COST",from:"moneybasics"}],ordinary:["SOCK"],revision:2},
     {worldId:"investing",anchor:"GROWTH",secondary:["WORTH"],ordinary:["ROW"],revision:2},
     {worldId:"investing",anchor:"TRADE",secondary:[{word:"RATE",from:"moneybasics"}],ordinary:["READ"],revision:2},
-    {worldId:"investing",anchor:"MARKET",secondary:[{word:"RATE",from:"moneybasics"},{word:"TERM",from:"credit"}],ordinary:[],revision:2},
-    {worldId:"investing",anchor:"RETURN",secondary:[{word:"NET",from:"moneybasics"}],ordinary:["TUNE"],revision:2},
+    {worldId:"investing",anchor:"MARKET",secondary:[{word:"RATE",from:"moneybasics"},{word:"TERM",from:"credit"},{word:"ATM",from:"banking"}],ordinary:[],revision:2},
+    {worldId:"investing",anchor:"RETURN",secondary:[{word:"NET",from:"moneybasics"},{word:"RENT",from:"real_estate"}],ordinary:["TUNE"],revision:2},
   ]);
 
   function normalizeWord(word){return String(word||"").trim().toUpperCase()}
@@ -64,7 +64,15 @@
   }
   function secondaryEntry(entry){return typeof entry==="string"?{word:entry,from:null}:{word:entry.word,from:entry.from||null}}
   // The owner-approved V3 supplement (ACH, WORTH) is appended to a world's governed vocabulary here, so every caller sees it.
-  function withSupplement(worldId,vocabulary){return supplement?supplement.merge({[worldId]:vocabulary||[]})[worldId]:(vocabulary||[])}
+  // Approved 2027 terms owned by a world (for example REPO, owned by Investing) live in the 2027 term file, not in that world's
+  // original vocabulary. The exhaustive-answer rule can place them in any puzzle whose wheel spells them, so they are resolvable
+  // here with their own permanent ID and governed definition. Words the world's vocabulary already has are never overridden.
+  function withNewWorldTerms(worldId,vocabulary){
+    const have=new Set((vocabulary||[]).map(term=>normalizeWord(term.word)));
+    const extra=((newWorld&&newWorld.terms)||[]).filter(term=>term.worldId===worldId&&!have.has(normalizeWord(term.word))).map(term=>({word:term.word,definition:term.definition,termId:term.id}));
+    return extra.length?[...(vocabulary||[]),...extra]:(vocabulary||[]);
+  }
+  function withSupplement(worldId,vocabulary){return withNewWorldTerms(worldId,supplement?supplement.merge({[worldId]:vocabulary||[]})[worldId]:(vocabulary||[]))}
   function vocabularyIndex(vocabulary,worldId){return new Map((worldId?withSupplement(worldId,vocabulary):(vocabulary||[])).map(term=>[normalizeWord(term.word),term]))}
   function ordinaryAnswer(word,worldId){return {word,category:CATEGORY.ORDINARY,termId:null,masteryId:null,definition:null,worldId,rewardPolicy:"ordinary-first-solve"}}
   function buildPuzzle(spec,vocabulary,game,allVocabularies){
@@ -72,9 +80,11 @@
     const secondary=spec.secondary.map(entry=>{
       const {word,from}=secondaryEntry(entry);
       if(!from||from===spec.worldId)return financialAnswer(word,CATEGORY.SECONDARY,spec.worldId,spec.worldId,own);
-      if(!allVocabularies||!allVocabularies[from])throw new Error(`Cross-world term ${word} in ${spec.anchor} requires the ${from} vocabulary`);
+      // A world whose terms all come from the 2027 term file (no separate vocabulary list) resolves from that file.
+      const owned=(allVocabularies&&allVocabularies[from])||(withNewWorldTerms(from,[]).length?[]:null);
+      if(!owned)throw new Error(`Cross-world term ${word} in ${spec.anchor} requires the ${from} vocabulary`);
       if(from==="credit"&&!creditIdentities)throw new Error("Credit identity registry is unavailable");
-      return financialAnswer(word,CATEGORY.SECONDARY,spec.worldId,from,vocabularyIndex(allVocabularies[from],from));
+      return financialAnswer(word,CATEGORY.SECONDARY,spec.worldId,from,vocabularyIndex(owned,from));
     });
     // Cross-world anchor exception (owner-approved 2026-10-16, FLQ-V3-CROSS-WORLD-ANCHOR-001): an approved term owned by
     // another world may anchor a puzzle in this slot. It keeps its own permanent ID, governed definition and mastery identity.
@@ -82,12 +92,16 @@
     if(anchorFrom&&(!allVocabularies||!allVocabularies[anchorFrom]))throw new Error(`Cross-world anchor ${spec.anchor} requires the ${anchorFrom} vocabulary`);
     if(anchorFrom==="credit"&&!creditIdentities)throw new Error("Credit identity registry is unavailable");
     const answers=[financialAnswer(spec.anchor,CATEGORY.ANCHOR,spec.worldId,anchorFrom||spec.worldId,anchorFrom?vocabularyIndex(allVocabularies[anchorFrom],anchorFrom):own),...secondary,...spec.ordinary.map(word=>ordinaryAnswer(word,spec.worldId))];
-    const requiredWords=answers.map(answer=>answer.word),layout=game.solveCrossword(requiredWords,{maxNodes:250000,maxSolutions:1000});
+    const requiredWords=answers.map(answer=>answer.word),id=puzzleId(spec.worldId,spec.anchor,spec.revision||CONTENT_REVISION);
+    // Expanded puzzles use the compact layout stored in the answer-expansion manifest (the search is slow, so it is done once at build time);
+    // if the stored layout does not match the answers it is ignored and a compact layout is searched instead. Unexpanded puzzles keep the original solver.
+    const stored=expansion&&expansion.puzzles&&expansion.puzzles[id],storedFits=stored&&stored.requiredWords.length===requiredWords.length&&requiredWords.every(word=>stored.requiredWords.includes(word))&&game.validateCrosswordLayout(requiredWords,stored.layout).valid;
+    const layout=storedFits?{ok:true,placements:stored.layout}:(requiredWords.length>5&&game.solveCompactCrossword?game.solveCompactCrossword(requiredWords):game.solveCrossword(requiredWords,{maxNodes:250000,maxSolutions:1000}));
     if(!layout.ok)throw new Error(`Reviewed V3 puzzle ${spec.anchor} no longer lays out: ${layout.reason}`);
     const validation=game.validateCrosswordLayout(requiredWords,layout.placements);
     if(!validation.valid)throw new Error(`Reviewed V3 puzzle ${spec.anchor} failed boundaries: ${validation.errors.join(",")}`);
     return {
-      id:puzzleId(spec.worldId,spec.anchor,spec.revision||CONTENT_REVISION),worldId:spec.worldId,worldName:WORLD_NAMES[spec.worldId],puzzleVersion:PUZZLE_VERSION,
+      id,worldId:spec.worldId,worldName:WORLD_NAMES[spec.worldId],puzzleVersion:PUZZLE_VERSION,
       puzzleMode:"v3",contentRevision:spec.revision||CONTENT_REVISION,contentStatus:"development-review",sourceReviewId:`REVIEW:${spec.worldId}:${spec.anchor}`,
       anchorWord:spec.anchor,anchorTermId:answers[0].termId,wheelLetters:[...spec.anchor],answers,bonusWords:[],requiredWords,
       layout:layout.placements.map(item=>({...item})),rewardPolicy:{financial:{coinsPerLetter:7,xpPerLetter:1.5,roundXp:true},ordinary:{coinsPerWord:1,xp:0},bonus:{coins:0,xp:0}},
@@ -119,14 +133,18 @@
   // every required word can be spelled, and, when a game engine is supplied, a
   // connected crossword with legal intersections and boundaries.
   const FINANCIAL_MINIMUM_BY_REQUIRED_WORDS=Object.freeze({3:2,4:3,5:3});
+  // Answer count is not capped editorially: the exhaustive-answer rule decides how many answers a puzzle has. MAX_REQUIRED_ANSWERS is only a
+  // layout-feasibility ceiling (the largest expanded puzzle has 14 answers); above 5 answers at least three must be financial.
+  const MIN_REQUIRED_ANSWERS=3,MAX_REQUIRED_ANSWERS=20;
+  const financialMinimum=count=>FINANCIAL_MINIMUM_BY_REQUIRED_WORDS[count]!==undefined?FINANCIAL_MINIMUM_BY_REQUIRED_WORDS[count]:(count>5&&count<=MAX_REQUIRED_ANSWERS?3:null);
   function letterCounts(word){return [...String(word)].reduce((counts,letter)=>({...counts,[letter]:(counts[letter]||0)+1}),{})}
   function validateComposition(puzzle,game){
     const errors=[],answers=(puzzle&&puzzle.answers)||[],required=answers.filter(answer=>answer.category!==CATEGORY.BONUS);
     const words=required.map(answer=>answer.word),count=words.length;
     const anchors=required.filter(answer=>answer.category===CATEGORY.ANCHOR);
     const financial=required.filter(answer=>answer.category===CATEGORY.ANCHOR||answer.category===CATEGORY.SECONDARY).length;
-    const minimumFinancial=FINANCIAL_MINIMUM_BY_REQUIRED_WORDS[count]===undefined?null:FINANCIAL_MINIMUM_BY_REQUIRED_WORDS[count];
-    if(count<3||count>5)errors.push(`requires 3-5 required words (has ${count})`);
+    const minimumFinancial=financialMinimum(count);
+    if(count<MIN_REQUIRED_ANSWERS||count>MAX_REQUIRED_ANSWERS)errors.push(`requires ${MIN_REQUIRED_ANSWERS}-${MAX_REQUIRED_ANSWERS} required words (has ${count})`);
     if(anchors.length<1)errors.push("requires at least one approved primary financial term");
     if(count-Math.min(anchors.length,1)<2)errors.push("requires at least two additional required words");
     if(minimumFinancial!==null&&financial<minimumFinancial)errors.push(`financial majority not met: ${financial} of ${count} required words are financial, minimum is ${minimumFinancial}`);
@@ -149,5 +167,5 @@
     }
     return terms;
   }
-  return {PUZZLE_VERSION,CONTENT_REVISION,CATEGORY,WORLD_NAMES,SPECS,FINANCIAL_MINIMUM_BY_REQUIRED_WORDS,stableTermId,puzzleId,buildPuzzle,createWorldSlate,createSlate,validateComposition,financialLearningTerms};
+  return {PUZZLE_VERSION,CONTENT_REVISION,CATEGORY,WORLD_NAMES,SPECS,FINANCIAL_MINIMUM_BY_REQUIRED_WORDS,MIN_REQUIRED_ANSWERS,MAX_REQUIRED_ANSWERS,stableTermId,puzzleId,buildPuzzle,createWorldSlate,createSlate,validateComposition,financialLearningTerms};
 });

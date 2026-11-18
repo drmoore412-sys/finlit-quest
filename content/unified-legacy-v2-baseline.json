@@ -1,0 +1,328 @@
+{
+  "baselineVersion": 2,
+  "supersedes": {
+    "baselineVersion": 1,
+    "file": "content/unified-legacy-v1-baseline.json",
+    "fileSha256": "de2fbca0734cdb40e336a40aae11218d1834c4aaba38097f18b2d31deb79d182"
+  },
+  "note": "Baseline v2 of the canonical v1 puzzles allowed into the 61-level release sequence under the owner-approved legacy compatibility exception. It differs from v1 only for the puzzles expanded by the exhaustive-answer rule (owner-authorised 2026-11-18, content/answer-expansion-v1.json): same IDs, same anchors, new content hashes. Unexpanded puzzles keep their v1 hashes. sha256 is of the stable-JSON canonical puzzle record built from the committed vocabularies and puzzle sources.",
+  "algorithm": "sha256(stable-json(canonical puzzle record))",
+  "changedFromV1": [
+    "FQ-V3:business:FREELANCE:R1",
+    "FQ-V3:moneybasics:PAYMENT:R1",
+    "FQ-V3:credit:AUTOPAY:R1",
+    "FQ-V3:banking:PASSWORD:R2",
+    "FQ-V3:retirement:LIFESTYLE:R1",
+    "FQ-V3:moneybasics:PAYCHECK:R1",
+    "FQ-V3:business:MARKETING:R1",
+    "FQ-V3:taxes:INCOMETAX:R1",
+    "FQ-V3:banking:CONVERT:R2",
+    "FQ-V3:credit:CREDITOR:R2",
+    "FQ-V3:banking:DEPOSITOR:R1",
+    "FQ-V3:business:INVENTORY:R1",
+    "FQ-V3:business:TRADEMARK:R1",
+    "FQ-V3:business:FRANCHISE:R1",
+    "FQ-V3:real_estate:REFINANCE:R1",
+    "FQ-V3:banking:PASSKEY:R2",
+    "FQ-V3:business:NETINCOME:R1",
+    "FQ-V3:banking:NETWORK:R2",
+    "FQ-V3:social_media:ROYALTIES:R1",
+    "FQ-V3:taxes:TAXCREDIT:R1",
+    "FQ-V3:retirement:LONGEVITY:R1",
+    "FQ-V3:business:RETENTION:R1",
+    "FQ-V3:credit:CAPACITY:R1",
+    "FQ-V3:coins:COINGRADE:R1",
+    "FQ-V3:insurance:TRIPDELAY:R1",
+    "FQ-V3:coins:MELTVALUE:R1",
+    "FQ-V3:retirement:COASTFIRE:R1",
+    "FQ-V3:business:FACTORING:R1",
+    "FQ-V3:retirement:SIMPLEIRA:R1",
+    "FQ-V3:insurance:CASHVALUE:R1"
+  ],
+  "unchangedFromV1": [
+    "FQ-V3:moneybasics:BUDGET:R2",
+    "FQ-V3:moneybasics:REFUND:R1",
+    "FQ-V3:crypto:INCOME:R2",
+    "FQ-V3:investing:SAVING:R2",
+    "FQ-V3:investing:STOCK:R2",
+    "FQ-V3:investing:GROWTH:R2",
+    "FQ-V3:taxes:TAXFILING:R1",
+    "FQ-V3:business:WHOLESALE:R1",
+    "FQ-V3:credit:TERMS:R1",
+    "FQ-V3:credit:PRINCIPAL:R2",
+    "FQ-V3:insurance:EXCLUSION:R1",
+    "FQ-V3:insurance:LIABILITY:R1",
+    "FQ-V3:social_media:ADREVENUE:R1",
+    "FQ-V3:business:BREAKEVEN:R1",
+    "FQ-V3:crypto:TOKEN:R2",
+    "FQ-V3:ai_technology:AUTOTRADE:R1",
+    "FQ-V3:coins:SPOTPRICE:R1",
+    "FQ-V3:coins:PROOFLIKE:R1",
+    "FQ-V3:crypto:CHAIN:R2",
+    "FQ-V3:crypto:BLOCK:R3",
+    "FQ-V3:crypto:STAKE:R2",
+    "FQ-V3:retirement:FIDUCIARY:R1"
+  ],
+  "entries": [
+    {
+      "puzzleId": "FQ-V3:business:FREELANCE:R1",
+      "anchor": "FREELANCE",
+      "sha256": "1a35bddb0f2a84f584069342f27cca0fcf1b80fa971e8d4ad98b42bd0c2a53d0"
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:BUDGET:R2",
+      "anchor": "BUDGET",
+      "sha256": "4ad62a81a5da6a5758d6f5d327204619df13a5adb3c2b171f716c032580d8a96"
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:REFUND:R1",
+      "anchor": "REFUND",
+      "sha256": "a5d369be25b84cedbe267b3a483448d667c77a3903e78327c5b52d45dfda4e3a"
+    },
+    {
+      "puzzleId": "FQ-V3:crypto:INCOME:R2",
+      "anchor": "INCOME",
+      "sha256": "cbf4a0cd8306979f3746c1e66a7ab000510daa80a89d0e0b8f00b0dde028d78e"
+    },
+    {
+      "puzzleId": "FQ-V3:investing:SAVING:R2",
+      "anchor": "SAVING",
+      "sha256": "cc5dd36c530a7a4bc8e9685fb9206e044d4ab41d93143d88c8044d5bf1ef3b3b"
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:PAYMENT:R1",
+      "anchor": "PAYMENT",
+      "sha256": "74cd2ce2e33e94b9569130251cddc09d30b235bc3b62897b802042b44c25292f"
+    },
+    {
+      "puzzleId": "FQ-V3:credit:AUTOPAY:R1",
+      "anchor": "AUTOPAY",
+      "sha256": "8dd7f1d0447ab20f55559796e3fb5b2646bb8725895dbdaa41371ca614a796a3"
+    },
+    {
+      "puzzleId": "FQ-V3:banking:PASSWORD:R2",
+      "anchor": "PASSWORD",
+      "sha256": "d80cb4b80cd362f58bd25fbccef04393a0b0056409ff761a620e4efd3d9a7124"
+    },
+    {
+      "puzzleId": "FQ-V3:retirement:LIFESTYLE:R1",
+      "anchor": "LIFESTYLE",
+      "sha256": "ecec87b4d9c7e0624565144d2014edfea7df2903a1848d0f1ef3eb8ba852de22"
+    },
+    {
+      "puzzleId": "FQ-V3:moneybasics:PAYCHECK:R1",
+      "anchor": "PAYCHECK",
+      "sha256": "f91e92713456e1fed6a122ec9bd8b25e75c67625ec97c1195e5aeb68d147b579"
+    },
+    {
+      "puzzleId": "FQ-V3:business:MARKETING:R1",
+      "anchor": "MARKETING",
+      "sha256": "6a4d6ec14f9509bd9fac8c4c99838957ee8536d9dfc9de746a9af7bcddab97f4"
+    },
+    {
+      "puzzleId": "FQ-V3:investing:STOCK:R2",
+      "anchor": "STOCK",
+      "sha256": "7b2ccb125485e7a1417be1498b36a009d3133035ffb7f3093a039c56cba6b8de"
+    },
+    {
+      "puzzleId": "FQ-V3:investing:GROWTH:R2",
+      "anchor": "GROWTH",
+      "sha256": "839709ec6df8fcaf0defd0d3820ecbfe7b5664e4cf5d3cdfe6251c322354cbfc"
+    },
+    {
+      "puzzleId": "FQ-V3:taxes:TAXFILING:R1",
+      "anchor": "TAXFILING",
+      "sha256": "25c85a0ffbca59a55833b9ce9e57d91c75a79e026be5d505873ec81ebfbf4b72"
+    },
+    {
+      "puzzleId": "FQ-V3:taxes:INCOMETAX:R1",
+      "anchor": "INCOMETAX",
+      "sha256": "7343dea4589f8910f473483e7a63d199ebdba03706215456a96294e59267187d"
+    },
+    {
+      "puzzleId": "FQ-V3:banking:CONVERT:R2",
+      "anchor": "CONVERT",
+      "sha256": "c3352f8d96d207b945ca4efa5c5cdf475210835e2781d44e6f707fa0274c0ab2"
+    },
+    {
+      "puzzleId": "FQ-V3:credit:CREDITOR:R2",
+      "anchor": "CREDITOR",
+      "sha256": "88cd094f00bc4c82e64259755f21538d6addff1a5a9e76de7b83ff162b5b9b28"
+    },
+    {
+      "puzzleId": "FQ-V3:banking:DEPOSITOR:R1",
+      "anchor": "DEPOSITOR",
+      "sha256": "1b4b2b49d97444359b6f52a5c3b5a4f82b98c0f442478391e684e3da24dd9166"
+    },
+    {
+      "puzzleId": "FQ-V3:business:WHOLESALE:R1",
+      "anchor": "WHOLESALE",
+      "sha256": "69109223ba8e9d04efca3648af7512c657ccec5ef16edffc0cb1b56b3d29c0aa"
+    },
+    {
+      "puzzleId": "FQ-V3:business:INVENTORY:R1",
+      "anchor": "INVENTORY",
+      "sha256": "4652bf9d9e9875aaafc24c969fcfd7abfb38e86badb652f5b2a879b4d1b15d59"
+    },
+    {
+      "puzzleId": "FQ-V3:business:TRADEMARK:R1",
+      "anchor": "TRADEMARK",
+      "sha256": "56c72516b861629769248a36eb42c89d1a1db07725849e2d1e77fe8c9f6ffafb"
+    },
+    {
+      "puzzleId": "FQ-V3:credit:TERMS:R1",
+      "anchor": "TERMS",
+      "sha256": "ee5addec5b9d0132dae0af867a9d046b3e267a9111a3ba7ccbf4ca913caa278d"
+    },
+    {
+      "puzzleId": "FQ-V3:business:FRANCHISE:R1",
+      "anchor": "FRANCHISE",
+      "sha256": "56f08b511cfea66e55f95113705bbf772e6e05073f993326a03e5ff50b4ad782"
+    },
+    {
+      "puzzleId": "FQ-V3:credit:PRINCIPAL:R2",
+      "anchor": "PRINCIPAL",
+      "sha256": "9561dba4297ebc0f670f7edcad1b761ca889e278c05897e215350c71734fb277"
+    },
+    {
+      "puzzleId": "FQ-V3:real_estate:REFINANCE:R1",
+      "anchor": "REFINANCE",
+      "sha256": "1368d12382aed2da58292fd79027c28ae1ed80748111415d60c26363f72de860"
+    },
+    {
+      "puzzleId": "FQ-V3:banking:PASSKEY:R2",
+      "anchor": "PASSKEY",
+      "sha256": "d378f5b9915d2e7dc5bb44423ed5f94b0dec8694571fc7a8f23aa293b950b30b"
+    },
+    {
+      "puzzleId": "FQ-V3:business:NETINCOME:R1",
+      "anchor": "NETINCOME",
+      "sha256": "b821cd5c354d462725f5b509fa317849c6823c8e5aa0c2c2c848d16cb9ec51cf"
+    },
+    {
+      "puzzleId": "FQ-V3:insurance:EXCLUSION:R1",
+      "anchor": "EXCLUSION",
+      "sha256": "0aa34044d3389b6c7c6e0661b34c98b1b5d92897dabddff646538e26b3dbde8b"
+    },
+    {
+      "puzzleId": "FQ-V3:banking:NETWORK:R2",
+      "anchor": "NETWORK",
+      "sha256": "d971ad729d185cc6506bd4f4fff527e17b95d4de33ffb271e8429cf0c9b26658"
+    },
+    {
+      "puzzleId": "FQ-V3:social_media:ROYALTIES:R1",
+      "anchor": "ROYALTIES",
+      "sha256": "35f2263f6a222b4481e65aa33c554e133cfa94e793b23edd7dbae00e19072988"
+    },
+    {
+      "puzzleId": "FQ-V3:insurance:LIABILITY:R1",
+      "anchor": "LIABILITY",
+      "sha256": "3276e94367dceffad1005067fd597a992b83d1480bf9e830dcfc94ea223416da"
+    },
+    {
+      "puzzleId": "FQ-V3:taxes:TAXCREDIT:R1",
+      "anchor": "TAXCREDIT",
+      "sha256": "9d82ad569fc2789c1cf785180ad28601e8680c5fe4ccb89ba4a814a2b1683c12"
+    },
+    {
+      "puzzleId": "FQ-V3:social_media:ADREVENUE:R1",
+      "anchor": "ADREVENUE",
+      "sha256": "31a3fc275318e87e868559d6a015c310652314cb182a7856c782e17c2e353dc3"
+    },
+    {
+      "puzzleId": "FQ-V3:retirement:LONGEVITY:R1",
+      "anchor": "LONGEVITY",
+      "sha256": "a6da1e9c33ee83c5c2a2f567513fa5e28ccfa574f1325e4f963e3e02d0f51a87"
+    },
+    {
+      "puzzleId": "FQ-V3:business:BREAKEVEN:R1",
+      "anchor": "BREAKEVEN",
+      "sha256": "2c5c19188f01a22dc47c6b0f489a97eaceb414fb7f18435bb208b83f3d7d873c"
+    },
+    {
+      "puzzleId": "FQ-V3:crypto:TOKEN:R2",
+      "anchor": "TOKEN",
+      "sha256": "f240a9591422940290a04b97b4eaf4212a846e935fdee339f1c0544b0b92d059"
+    },
+    {
+      "puzzleId": "FQ-V3:business:RETENTION:R1",
+      "anchor": "RETENTION",
+      "sha256": "df4f987b308cd7fff6cf506ff48ca33e43a8c4cd5d63e5f638fe45278abe147e"
+    },
+    {
+      "puzzleId": "FQ-V3:ai_technology:AUTOTRADE:R1",
+      "anchor": "AUTOTRADE",
+      "sha256": "d537d1cb87966807a91266cc78d6cb725432ec48146d8fc6b1c7084bbe4f7eaa"
+    },
+    {
+      "puzzleId": "FQ-V3:coins:SPOTPRICE:R1",
+      "anchor": "SPOTPRICE",
+      "sha256": "526b0f39dcb5e2cf3f55e605b1e045daf6ea7dd971fd63ecc99dfd81b63f9c0a"
+    },
+    {
+      "puzzleId": "FQ-V3:credit:CAPACITY:R1",
+      "anchor": "CAPACITY",
+      "sha256": "64e92c7893dd1748097799c1a64d4e97f5c8047810237c77f8ac73db2c50826e"
+    },
+    {
+      "puzzleId": "FQ-V3:coins:COINGRADE:R1",
+      "anchor": "COINGRADE",
+      "sha256": "5af8867426a90232ef80d041df2256c1e38a6d1be6ff20a86c7aa664727cd59d"
+    },
+    {
+      "puzzleId": "FQ-V3:coins:PROOFLIKE:R1",
+      "anchor": "PROOFLIKE",
+      "sha256": "f2a7198822ebc5c961eaeba4573ec8c8c7ce3acb9299e8a4970854e1aa1f400a"
+    },
+    {
+      "puzzleId": "FQ-V3:insurance:TRIPDELAY:R1",
+      "anchor": "TRIPDELAY",
+      "sha256": "3af3243143f3d7b12ecf53c14f0384fcb34e1dd4e08a44d867a2edc737352d91"
+    },
+    {
+      "puzzleId": "FQ-V3:coins:MELTVALUE:R1",
+      "anchor": "MELTVALUE",
+      "sha256": "c97f72cf3a7d7bb8ae453c2597be6c17792dca49999ec8a8361b3c812cef11fa"
+    },
+    {
+      "puzzleId": "FQ-V3:crypto:CHAIN:R2",
+      "anchor": "CHAIN",
+      "sha256": "89e33b22c64f07babf173ef56516e3a96b6fd695af2bd8d99986bc10c1843a88"
+    },
+    {
+      "puzzleId": "FQ-V3:crypto:BLOCK:R3",
+      "anchor": "BLOCK",
+      "sha256": "ecd5a3448a4f3a0c443d518c173718c98f8902a7f23e74056b475f051a157338"
+    },
+    {
+      "puzzleId": "FQ-V3:crypto:STAKE:R2",
+      "anchor": "STAKE",
+      "sha256": "0ae1c91963b530a80d1d2829c2cb3982b3edf097251558c8f91b6d3b978d31e2"
+    },
+    {
+      "puzzleId": "FQ-V3:retirement:COASTFIRE:R1",
+      "anchor": "COASTFIRE",
+      "sha256": "78ce36563a71f134a6c6edcd8ed4514358759cf79705f489478cefd74935981a"
+    },
+    {
+      "puzzleId": "FQ-V3:business:FACTORING:R1",
+      "anchor": "FACTORING",
+      "sha256": "446226ca32abec6af69dfa93159341836fdca7634a4683091acbddd2daa4f4c0"
+    },
+    {
+      "puzzleId": "FQ-V3:retirement:SIMPLEIRA:R1",
+      "anchor": "SIMPLEIRA",
+      "sha256": "9787aea6a8b4d162def45ff73be4d634143cabc861e2a5f4e9d69eee8f61b1ba"
+    },
+    {
+      "puzzleId": "FQ-V3:retirement:FIDUCIARY:R1",
+      "anchor": "FIDUCIARY",
+      "sha256": "42ef3551d5ba2c4a46d03ed8c8317737fc2218d5083904c3905f3e914b4083bf"
+    },
+    {
+      "puzzleId": "FQ-V3:insurance:CASHVALUE:R1",
+      "anchor": "CASHVALUE",
+      "sha256": "0667fa5573a06130c29634e46f31e092d6e5b61620dd505cff16daaaacc247f0"
+    }
+  ]
+}

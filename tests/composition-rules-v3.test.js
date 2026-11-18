@@ -12,11 +12,13 @@ const proto=()=>{const w=structuredClone(read("content/unified-prototype-12-whit
 // test-only whitelist that SIMULATES owner approval of the proposed filler placements; never written to disk
 function simulatedWhitelist(p){const w=proto();p.proposedFillerApprovals.forEach(a=>{let e=w.entries.find(x=>x.fillerId===a.fillerId);if(!e){e={fillerId:a.fillerId,word:a.word,status:"simulated-test-only",productionApproved:false,approvedInPuzzles:[]};w.entries.push(e)}e.approvedInPuzzles.push(a.puzzleId)});return w}
 const byId=(p,id)=>p.puzzles.find(x=>x.id===id);
-test("v2 is unchanged and v3 is an additional release-supported rule version",()=>{
+test("v2 is unchanged; v3 stays valid for historical records but is no longer releasable (v4 replaces it)",()=>{
   assert.equal(R.RULE_VERSION,"v2");assert.equal(R.RULE_VERSION_V3,"v3");assert.equal(R.MAX_EXTRA_LETTERS,2);
-  const m={sequenceId:"s",sequenceVersion:1,devOnly:false,retired:[],entries:[{position:1,puzzleId:"X",compositionRuleVersion:"v3",releaseStatus:"approved",validation:{relevanceReviewed:true,definitionsVerified:true,fillersApproved:true,ownerApproved:true,layoutVerified:true}}]};
-  assert.deepEqual(S.validateManifest(m,{release:true}).errors,[],"a fully approved v3 entry passes the release gate");
-  const bad=structuredClone(m);bad.entries[0].compositionRuleVersion="v1";assert.ok(S.validateManifest(bad,{release:true}).errors.includes("entry 1: releaseRequiresRuleV2OrV3"),"v1 is legacy and never releasable");
+  const m={sequenceId:"s",sequenceVersion:1,devOnly:false,retired:[],entries:[{position:1,puzzleId:"X",compositionRuleVersion:"v4",releaseStatus:"approved",validation:{relevanceReviewed:true,definitionsVerified:true,fillersApproved:true,ownerApproved:true,layoutVerified:true}}]};
+  assert.deepEqual(S.validateManifest(m,{release:true}).errors,[],"a fully approved v4 entry passes the release gate");
+  const v3=structuredClone(m);v3.entries[0].compositionRuleVersion="v3";assert.ok(S.validateManifest(v3,{release:true}).errors.includes("entry 1: releaseRequiresRuleV2OrV4"),"v3 (declared extra letters) is historical only");
+  assert.equal(S.RULE_VERSIONS.has("v3"),true);
+  const bad=structuredClone(m);bad.entries[0].compositionRuleVersion="v1";assert.ok(S.validateManifest(bad,{release:true}).errors.includes("entry 1: releaseRequiresRuleV2OrV4"),"v1 is legacy and never releasable");
   bad.entries[0].compositionRuleVersion="v9";assert.ok(S.validateManifest(bad).errors.includes("entry 1: compositionRuleVersion"));
   assert.equal(S.RULE_VERSIONS.has("v3"),true);assert.equal(S.RULE_VERSIONS.has("v2"),true);assert.equal(R.RULE_VERSION,"v2");
 });

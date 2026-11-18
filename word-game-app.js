@@ -494,7 +494,7 @@ function wgRenderPuzzle() {
   const selectedLayout = isV3 ? puzzle.layout?.map(item=>({...item})) : model.expanded ? strictLayout.placements : FinLitGameEngine.layoutWords(model.words);
   const renderedWords = new Set((selectedLayout || []).map(item=>item.word));
   const storedLayoutValidation = isV3 ? FinLitGameEngine.validateCrosswordLayout(model.words, selectedLayout || []) : {valid:true,errors:[]};
-  if (isV3 && (model.words.length < 3 || model.words.length > 5 || renderedWords.size !== model.words.length || model.words.some(word=>!renderedWords.has(word)) || !storedLayoutValidation.valid)) {
+  if (isV3 && (model.words.length < 1 || model.words.length > (window.FinLitV3PuzzleSlate?.MAX_REQUIRED_ANSWERS || 20) || renderedWords.size !== model.words.length || model.words.some(word=>!renderedWords.has(word)) || !storedLayoutValidation.valid)) {
     console.error("V3 crossword rejected before rendering", puzzle.id, storedLayoutValidation.errors);
     toast("This V3 crossword is incomplete and cannot be displayed");
     return;

@@ -1,4 +1,4 @@
-// Production release of main-levels sequenceVersion 2: generated data, startup release validation, wiring and fallback.
+// Production release of main-levels sequenceVersion 3 (sequence v2 plus the seven exact-wheel v4 revisions): generated data, startup release validation, wiring and fallback.
 const test=require("node:test");
 const assert=require("node:assert/strict");
 const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto");
@@ -9,6 +9,7 @@ const text=f=>fs.readFileSync(path.join(ROOT,f),"utf8");
 const canForm=(w,l)=>{const a=[...l];return [...w].every(c=>{const i=a.indexOf(c);if(i<0)return false;a.splice(i,1);return true})};
 const deps={Sequence:S,Rules:R,Release:Rel,canFormFn:canForm,validateCrosswordLayoutFn:G.validateCrosswordLayout};
 const canon=H.canonicalMap(),canonicalIds=new Set(canon.keys());
+const v2File=()=>read("content/unified-prototype-12-puzzles-dev.json"),revisionsFile=()=>read("content/unified-exact-wheel-revisions-dev.json");
 const levels=()=>structuredClone(require("../content/unified-levels-v2.js"));
 const load=(lv,over={})=>L.loadRelease({levels:lv,canonicalPuzzles:canon,canonicalIds,sha256:Sha.hex,...over},deps);
 
@@ -17,17 +18,19 @@ test("sha256 module matches Node crypto",()=>{
 });
 test("generated production data is current and carries only the release flags changes",async()=>{
   const {build}=await import("../scripts/build-unified-levels-v2.mjs");assert.equal(text("content/unified-levels-v2.js"),build());
-  const lv=levels(),m=lv.manifest,dev=read("content/unified-sequence-v2-gated-dev.json");
-  assert.equal(m.sequenceId,"main-levels");assert.equal(m.sequenceVersion,2);assert.equal(m.devOnly,false);assert.equal(m.releaseGate.status,"open");assert.equal(m.entries.length,61);
+  const lv=levels(),m=lv.manifest,dev=read("content/unified-sequence-v3-dev.json");
+  assert.equal(m.sequenceId,"main-levels");assert.equal(m.sequenceVersion,3);assert.equal(m.devOnly,false);assert.equal(m.releaseGate.status,"open");assert.equal(m.entries.length,61);
   const nine=new Set(lv.puzzles.map(p=>p.id));assert.equal(nine.size,9);
   m.entries.forEach((e,i)=>{const d=dev.entries[i];assert.equal(e.puzzleId,d.puzzleId);assert.equal(e.position,d.position);
-    if(nine.has(e.puzzleId)){assert.equal(e.releaseStatus,"approved");assert.ok(["v2","v3"].includes(e.compositionRuleVersion))}else assert.deepEqual(e,d,"legacy entry unchanged")});
-  assert.deepEqual(lv.puzzles,read("content/unified-prototype-12-puzzles-dev.json").puzzles);
+    if(nine.has(e.puzzleId)){assert.equal(e.releaseStatus,"approved");assert.ok(["v2","v4"].includes(e.compositionRuleVersion))}else assert.deepEqual(e,d,"legacy entry unchanged")});
+  const replacedIds=new Set(dev.retired.map(r=>r.puzzleId));
+  assert.deepEqual(lv.puzzles,[...v2File().puzzles.filter(p=>!replacedIds.has(p.id)),...revisionsFile().puzzles]);
+  assert.deepEqual(lv.puzzles.filter(p=>p.compositionRuleVersion==="v4").map(p=>p.id).sort(),["FQ-V3:business:RETAIL:R2","FQ-V3:credit:CREDIT:R2","FQ-V3:credit:DEFAULT:R2","FQ-V3:investing:MARKET:R4","FQ-V3:investing:RETURN:R4","FQ-V3:investing:TRADE:R4","FQ-V3:moneybasics:RECEIPT:R4"]);
   assert.equal(lv.baseline.entries.length,52);assert.ok(lv.whitelist.entries.every(e=>e.productionApproved===true&&e.approvedInPuzzles.every(id=>nine.has(id))));
   ["TITLE","CLIENT","TICKER","DTI"].forEach(h=>m.entries.forEach(e=>assert.notEqual(e.anchor,h)));
 });
 test("startup release validation passes for the shipped data (52 legacy exact matches, 9 fully validated) and loads exactly the nine",()=>{
-  const r=load(levels());assert.deepEqual(r.errors,[]);assert.equal(r.ok,true);assert.deepEqual(r.summary,{entries:61,legacyVerified:52,upgradedVerified:9});assert.equal(r.library.size,9);
+  const r=load(levels());assert.deepEqual(r.errors,[]);assert.equal(r.ok,true);assert.deepEqual(r.summary,{entries:61,legacyVerified:52,upgradedVerified:9});assert.equal(r.library.size,9);assert.equal(r.summary.upgradedVerified,9);
   assert.equal(S.validateManifest(levels().manifest,{release:true}).valid,false,"v1 is still not generally releasable");
 });
 test("startup validation fails closed: any tampering returns ok:false and an empty library",()=>{

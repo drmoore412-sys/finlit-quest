@@ -16,7 +16,7 @@ test("the canonical library and 2027 placements are untouched by the manifest",(
 });
 test("release validation fails for any development entry or dev-only manifest",()=>{
   const r=S.validateManifest(dev,{library:libIds,release:true});
-  assert.ok(r.errors.includes("releaseRequiresDevOnlyFalse"));assert.ok(r.errors.some(e=>e.endsWith("releaseRequiresApproved")));assert.ok(r.errors.some(e=>e.endsWith("releaseRequiresRuleV2OrV3")));
+  assert.ok(r.errors.includes("releaseRequiresDevOnlyFalse"));assert.ok(r.errors.some(e=>e.endsWith("releaseRequiresApproved")));assert.ok(r.errors.some(e=>e.endsWith("releaseRequiresRuleV2OrV4")));
 });
 test("manifest validation catches duplicates, gaps, unknown puzzles, bad versions, and missing metadata",()=>{
   const m=mk(3);m.entries[1].puzzleId="P1";m.entries[2].position=9;m.entries[0].compositionRuleVersion="v9";m.entries[1].releaseStatus="legacy";delete m.entries[2].validation;
