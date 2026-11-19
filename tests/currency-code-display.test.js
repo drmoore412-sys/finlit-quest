@@ -34,7 +34,11 @@ test("finding the code marks it found; rewards and completion are unchanged",()=
 test("wiring: the bar is on the puzzle screen, rendered when a puzzle opens and when the code is found, and styled for phones",()=>{
   const read=f=>fs.readFileSync(path.join(ROOT,f),"utf8"),html=read("index.html"),app=read("word-game-app.js");
   assert.match(html,/<div class="wg-currency-code hidden" id="wgCurrencyCode"[^>]*>.*id="wgCurrencyCodeValue".*id="wgCurrencyCodeName".*<\/div>/);
-  assert.ok(html.indexOf('id="wgCurrencyCode"')>html.indexOf('id="wgMissionCard"'),"directly after the mission bar");
+  // first element of the puzzle area, above the board, so it is on screen when the puzzle opens at every width
+  // (on desktop the puzzle area is a plain column: an element after the wheel and mission card starts below the fold)
+  const area=html.indexOf('id="wgPuzzleExperience"'),bar=html.indexOf('id="wgCurrencyCode"'),board=html.indexOf('class="wg-board"');
+  assert.ok(area<bar&&bar<board,"inside the puzzle area, before the board");
+  assert.ok(!/<div[^>]*>/.test(html.slice(html.indexOf(">",area)+1,html.lastIndexOf("<div",bar)).trim()),"nothing precedes it in the puzzle area");
   assert.match(app,/wgState\.foundBonus = new Set\(\);\n\s*wgRenderCurrencyCode\(\);/,"rendered when the puzzle opens");
   assert.match(app,/wgState\.foundBonus\.add\(word\);\n\s*wgRenderCurrencyCode\(\);/,"updated when the code is found");
   assert.match(read("word-game.css"),/\.wg-currency-code\{/);
