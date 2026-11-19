@@ -45,22 +45,26 @@ test("every placed code is a real three-square entry on the opened grid, crossin
   assert.equal(placed,51);
 });
 
-test("spelling the code fills its three squares, shows the full currency name, pays nothing and never blocks completion",()=>{
-  puzzles.filter(p=>doc.placements[p.id]).forEach(p=>{
-    const s=session(p),code=doc.assignments[p.id],name=Currency.NAMES[code];
+test("the code is a required answer: counted, needed for completion, fills its squares, paid like a financial term once",()=>{
+  let checked=0;
+  puzzles.forEach(p=>{
+    const s=session(p),code=doc.assignments[p.id];
+    if(!doc.placements[p.id]){assert.deepEqual([...s.state.words],[...s.model.words],`${p.anchorWord} unchanged`);return}
+    checked++;
+    assert.equal(s.state.words.length,s.model.words.length+1,"the left counter includes the code");
+    s.model.words.forEach(w=>s.submit(w));
+    assert.equal(s.state.found.size,s.state.words.length-1,"not complete without the code");
+    assert.ok(s.grid().filter(c=>c.currency&&c.words.length===1).every(c=>!c.filled),"the code's own squares are still empty");
     const r=s.submit(code);
-    assert.equal(r.outcome,"currency");assert.equal(r.toast,`Currency bonus: ${code} · ${name}`);assert.equal(r.feedback.message,`${code} — ${name}`);
-    assert.ok(s.log.gridRenders>=1,"the grid is redrawn");
-    assert.ok(s.grid().filter(c=>c.currency).every(c=>c.filled),`${p.anchorWord}: squares filled`);
-    assert.deepEqual(s.log.found,[],"no reward path");assert.equal(s.state.found.size,0,"not counted toward completion");
-    assert.equal(s.submit(code).outcome,"duplicate","recognised once");
-    assert.ok(s.grid().filter(c=>c.currency).every(c=>c.filled),"stays filled");
-    s.model.words.forEach(w=>assert.equal(s.submit(w).outcome,"required"));
-    assert.equal(s.state.found.size,s.model.words.length,"completes with the required answers");
-    // and a puzzle completes without ever finding the code
-    const t=session(p);t.model.words.forEach(w=>t.submit(w));assert.equal(t.state.found.size,t.model.words.length);
-    assert.ok(t.grid().filter(c=>c.currency&&c.words.length===1).every(c=>!c.filled),"the code's own squares stay empty if it was not found");
+    assert.equal(r.outcome,"required");assert.equal(r.feedback.message,`${code} — ${Currency.NAMES[code]}`);
+    assert.equal(s.state.found.size,s.state.words.length,"complete");
+    assert.ok(s.grid().filter(c=>c.currency).every(c=>c.filled),"its squares are filled");
+    assert.equal(s.submit(code).outcome,"duplicate");
+    // reward: the same value as a three-letter financial term (FEE: 21 coins, 5 XP), once per puzzle
+    assert.deepEqual(s.currencyReward(code,{rewardedAnswers:[]}),{coins:21,xp:5,isNewSolve:true,category:"currency",historyKey:null,termId:null});
+    assert.deepEqual(s.currencyReward(code,{rewardedAnswers:[code]}),{coins:0,xp:0,isNewSolve:false,category:"currency",historyKey:null,termId:null});
   });
+  assert.equal(checked,51);
 });
 
 test("puzzle content is untouched and the banner is gone",()=>{
@@ -94,10 +98,18 @@ test("every one of the 51 currency entries is defined as \"[Country] — Currenc
   assert.equal(defined,51);
 });
 
-test("wiring: the definition is added to the existing Definitions list and the end-of-level list, in their existing formats",()=>{
-  const app=read("word-game-app.js"),defs=app.slice(app.indexOf("function wgRenderDefinitionsList()"),app.indexOf("function wgRenderWheel("));
-  assert.match(defs,/const currency = wgCurrencyDefinition\(\);[\s\S]*item\.className = `clue \$\{currency\.found \? "found" : ""\}`;[\s\S]*clue-number[\s\S]*clue-answer[\s\S]*list\.append\(item\);/);
+test("wiring: required in the game, the normal reward path with confetti, definitions in both lists",()=>{
+  const app=read("word-game-app.js");
+  assert.match(app,/if \(wgState\.currencyPlacement\) wgState\.words = \[\.\.\.model\.words, wgState\.currencyPlacement\.word\];/);
+  const found=app.slice(app.indexOf("function wgFoundWord("),app.indexOf("function wgPlayFoundSound("));
+  assert.match(found,/const reward = isCurrency \? wgCurrencyAnswerReward\(word, wgRewardRecord\(canonical\)\)/);
+  assert.match(found,/if \(reward\.historyKey\) progress\[reward\.historyKey\]\.push\(word\);/);
+  assert.match(found,/recordCanonicalAnswer\(canonical, word\)/,"recorded once in the puzzle's reward record");
+  assert.match(found,/if \(word === wgState\.puzzleModel\.anchorWord \|\| isCurrency\) window\.FinLitCoinConfetti\?\.burst/,"coin confetti");
+  assert.match(app,/reward\.category === "currency"\) \|\| reward\.coins <= 0\) return;/,"the existing term celebration runs for the code");
+  const defs=app.slice(app.indexOf("function wgRenderDefinitionsList()"),app.indexOf("function wgRenderWheel("));
+  assert.match(defs,/if \(wgIsCurrencyAnswer\(word\)\)[\s\S]*currency\.definition[\s\S]*clue-answer/);
   const done=app.slice(app.indexOf("function wgShowPuzzleComplete()"),app.indexOf("learningSummary.unresolved.forEach"));
-  assert.match(done,/const currency = wgCurrencyDefinition\(\);[\s\S]*item\.className = "wg-complete-term";[\s\S]*heading\.textContent = currency\.word;[\s\S]*definition\.textContent = currency\.definition;/);
-  assert.ok(!/termProgress|recordPuzzleSolved|learning\./.test(done.slice(done.indexOf("const currency = wgCurrencyDefinition"))),"no learning record for the code");
+  assert.match(done,/heading\.textContent = currency\.word;[\s\S]*definition\.textContent = currency\.definition;/);
+  assert.ok(!/recordPuzzleSolved|termProgress/.test(app.slice(app.indexOf("function wgCurrencyAnswerReward"),app.indexOf("function wgGridCells"))),"no learning record for the code");
 });

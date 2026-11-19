@@ -154,32 +154,28 @@ test("assignment is deterministic and varied; the committed manifest equals a fr
   assert.ok(Object.keys(usage).length>=15);assert.deepEqual(usage,currencyDoc.usage);
 });
 
-test("finding the code: special bonus, shows code and full currency name, pays nothing, once only, never required",()=>{
+test("the currency code is a required answer (owner decision 2026-11-19): shown with its currency name, recognised once",()=>{
   let verified=0;
   for(const puzzle of puzzles){
     const s=session(puzzle),d=s.options().currency;if(!d)continue;
-    const before={reward:s.log.found.length,found:s.state.found.size};
+    assert.ok(s.state.words.includes(d.code),`${puzzle.anchorWord}: ${d.code} is in the required answers`);
     const first=s.submit(d.code);
-    assert.equal(first.outcome,"currency",puzzle.id);
-    assert.equal(first.toast,`Currency bonus: ${d.code} · ${ALL_NAMES[d.code]}`);
-    assert.equal(first.feedback.message,`${d.code} — ${ALL_NAMES[d.code]}`);
-    assert.equal(s.log.found.length,before.reward,"no coins or XP: the required-answer reward path is never entered");
-    assert.equal(s.state.found.size,before.found,"not counted toward completion");
+    assert.equal(first.outcome,"required",puzzle.id);
+    assert.equal(first.feedback.message,`${d.code} — ${ALL_NAMES[d.code]}`,"the full currency name is shown");
+    assert.deepEqual(s.log.found,[d.code],"it goes through the normal required-answer reward path");
     assert.equal(s.submit(d.code).outcome,"duplicate","never credited twice");
-    assert.equal(s.log.toasts.filter(t=>t.startsWith("Currency bonus")).length,1);
     verified++;
   }
   assert.equal(verified,51);
 });
 
-test("only the designated code is a currency bonus, and completion never needs it (with or without a code)",()=>{
-  const t=synthetic("OTHER",[..."EURTRY"]);t.state.wordContext=Object.assign({},t.state.wordContext,{currency:{code:"TRY",name:"Turkish lira"}});
-  assert.equal(t.submit("EUR").outcome,"rejected","an undesignated code is not a bonus");assert.equal(t.submit("TRY").outcome,"currency");
+test("only the designated code counts, and a currency puzzle needs its code to complete; the other 10 are unchanged",()=>{
   for(const puzzle of puzzles){
     const s=session(puzzle),d=s.options().currency;
-    if(d&&puzzle.id.length%2===0)s.submit(d.code);
     s.model.words.forEach(w=>assert.equal(s.submit(w).outcome,"required"));
-    assert.equal(s.state.found.size,s.model.words.length,puzzle.id);
+    if(!d){assert.deepEqual([...s.state.words],[...s.model.words],puzzle.id);assert.equal(s.state.found.size,s.state.words.length,puzzle.id+" completes as before");continue}
+    assert.equal(s.state.found.size,s.state.words.length-1,puzzle.id+" is not complete without the code");
+    s.submit(d.code);assert.equal(s.state.found.size,s.state.words.length,puzzle.id+" completes with the code");
   }
 });
 

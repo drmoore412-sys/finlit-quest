@@ -509,6 +509,9 @@ function wgRenderPuzzle() {
   wgState.wordContext = wgBuildWordContext(puzzle, model);
   wgState.placements = selectedLayout;
   wgState.currencyPlacement = wgCurrencyPlacement(puzzle, model, wgState.wordContext.currency);
+  // Owner decision 2026-11-19: the currency code is a REQUIRED answer of its puzzle (counts toward completion, the "left"
+  // counter, rewards and confetti). It is added here at runtime; the stored puzzle records and their fingerprints are unchanged.
+  if (wgState.currencyPlacement) wgState.words = [...model.words, wgState.currencyPlacement.word];
   wgState.byWord = Object.fromEntries(wgWorld().vocabulary().map(t => [t.word, t]));
   (model.answers || []).forEach(answer => { wgState.byWord[answer.word] = {...wgState.byWord[answer.word], ...answer}; });
   wgState.found = new Set();
@@ -579,7 +582,7 @@ function wgIsLetterVisible(word, index) {
   const placements = wgLayout(), target = placements.find(item => item.word === word) || (wgState.currencyPlacement?.word === word ? wgState.currencyPlacement : null);
   if (!target) return false;
   const row = target.r + (target.dir === "v" ? index : 0), column = target.c + (target.dir === "h" ? index : 0);
-  const currency = wgState.currencyPlacement && wgState.foundBonus?.has(wgState.currencyPlacement.word) ? [wgState.currencyPlacement] : [];
+  const currency = wgState.currencyPlacement && wgState.found.has(wgState.currencyPlacement.word) ? [wgState.currencyPlacement] : [];
   return [...placements.filter(item => wgState.found.has(item.word)), ...currency].some(item => [...item.word].some((_, i) => item.r + (item.dir === "v" ? i : 0) === row && item.c + (item.dir === "h" ? i : 0) === column));
 }
 
@@ -592,10 +595,19 @@ function wgCurrencyPlacement(puzzle, model, currency) {
   const check = FinLitGameEngine.validateCrosswordLayout([...model.words, placement.word], [...(wgState.placements || []), placement]);
   return check.valid ? placement : null;
 }
+// True when `word` is this puzzle's required currency-code answer.
+function wgIsCurrencyAnswer(word) { return Boolean(wgState.currencyPlacement && wgState.currencyPlacement.word === word && wgState.words.includes(word)); }
+// Reward for the currency-code answer: the same value as a comparable financial term (FinLitPuzzleBank.wordReward), paid once per
+// puzzle via the puzzle's reward record (a repeat pays nothing). Kept out of the world's financial-term history and learning records.
+function wgCurrencyAnswerReward(word, record) {
+  const rewarded = Boolean(record && Array.isArray(record.rewardedAnswers) && record.rewardedAnswers.includes(word));
+  const value = rewarded ? { coins: 0, xp: 0, isNewSolve: false } : FinLitPuzzleBank.wordReward(word, []);
+  return { ...value, category: "currency", historyKey: null, termId: null };
+}
 // Cell model of the crossword: every required answer plus the currency entry (filled once its code is found).
 function wgGridCells() {
   const entries = wgLayout().map(p => ({ p, found: wgState.found.has(p.word), currency: false }));
-  if (wgState.currencyPlacement) entries.push({ p: wgState.currencyPlacement, found: wgState.foundBonus.has(wgState.currencyPlacement.word), currency: true });
+  if (wgState.currencyPlacement) entries.push({ p: wgState.currencyPlacement, found: wgState.found.has(wgState.currencyPlacement.word), currency: true });
   let minRow = 0, minColumn = 0;
   entries.forEach(({ p }) => { minRow = Math.min(minRow, p.r); minColumn = Math.min(minColumn, p.c); });
   const cells = new Map();
@@ -605,7 +617,7 @@ function wgGridCells() {
     cell.words.push(p.word);
     if (currency) cell.currency = true;
     if (found) { cell.filled = true; if (wgState.lastFoundWord === p.word) { cell.justFound = true; cell.delay = i * 38; } }
-    else if (!currency && wgState.hints.has(`${p.word}:${i}`)) cell.hinted = true;
+    else if (wgState.hints.has(`${p.word}:${i}`)) cell.hinted = true;
     cells.set(key, cell);
   }));
   return [...cells.values()];
@@ -641,13 +653,21 @@ function wgRenderGrid() {
 // The puzzle's currency entry as a definition: its code and country (src/currency-bonus.js COUNTRIES), or null.
 function wgCurrencyDefinition() {
   const placement = wgState.currencyPlacement, definition = placement && window.FinLitCurrencyBonus?.definitionFor ? FinLitCurrencyBonus.definitionFor(placement.word) : null;
-  return definition ? { word: placement.word, definition, found: Boolean(wgState.foundBonus?.has(placement.word)) } : null;
+  return definition ? { word: placement.word, definition, found: wgState.found.has(placement.word) } : null;
 }
 function wgRenderDefinitionsList() {
   const list = $("#wgDefinitionsList");
   list.innerHTML = "";
   wgState.words.forEach((word, i) => {
     const item = document.createElement("div");
+    if (wgIsCurrencyAnswer(word)) {   // the currency-code answer: its country definition, same clue format
+      const currency = wgCurrencyDefinition();
+      item.className = `clue ${wgState.found.has(word) ? "found" : ""}`;
+      item.dataset.currency = "true";
+      item.innerHTML = `<span class="clue-number">${wgState.found.has(word) ? "✓" : i + 1}</span><span>${currency ? currency.definition : ""}<span class="clue-answer">${wgState.found.has(word) ? word : wgHintPattern(word)}</span></span>`;
+      list.append(item);
+      return;
+    }
     item.className = `clue ${wgState.found.has(word) ? "found" : ""}`;
     const answer = wgState.puzzleModel.answers?.find(item=>item.word===word),financial=answer?wgIsFinancialCategory(answer.category):(!wgState.puzzleModel.expanded||word===wgState.puzzleModel.anchorWord),presentation=FinLitPuzzleBank.answerPresentation?.(answer||(!financial?{word,category:"support"}:null));
     const label = financial
@@ -657,15 +677,6 @@ function wgRenderDefinitionsList() {
     if(presentation)item.setAttribute("aria-label",`${wgState.found.has(word)?"Found. ":""}${presentation.accessibilityLabel}`);
     list.append(item);
   });
-  // The currency entry, in the same clue format as the other answers (definition = its country).
-  const currency = wgCurrencyDefinition();
-  if (currency) {
-    const item = document.createElement("div");
-    item.className = `clue ${currency.found ? "found" : ""}`;
-    item.dataset.currency = "true";
-    item.innerHTML = `<span class="clue-number">${currency.found ? "✓" : wgState.words.length + 1}</span><span>${currency.definition}<span class="clue-answer">${currency.found ? currency.word : wgHintPattern(currency.word)}</span></span>`;
-    list.append(item);
-  }
 }
 
 function wgRenderWheel(letters) {
@@ -878,7 +889,7 @@ function wgSubmitWord() {
   if (result.status === "empty") return wgClearSelection();
   wgState.tries[word] = (wgState.tries[word] || 0) + 1;
   if (result.status === "duplicate") { wgShowWordFeedback(word, "duplicate"); wgAudio.duplicate(); return toast("Already found"); }
-  if (result.status === "target") { wgShowWordFeedback(word, "correct"); return wgFoundWord(word); }
+  if (result.status === "target") { const currency = wgIsCurrencyAnswer(word) ? wgCurrencyDefinition() : null; wgShowWordFeedback(currency ? `${word} — ${FinLitCurrencyBonus.NAMES[word] || currency.definition}` : word, "correct"); return wgFoundWord(word); }
   if (result.status === "bonus") {
     // Optional bonus word (e.g. DUE): zero coins, zero XP, not saved, not part of completion (wgState.found is untouched).
     wgState.foundBonus.add(word);
@@ -900,14 +911,15 @@ function wgFoundWord(word) {
   wgState.lastFoundWord = word;
   const progress = wgProgress();
   const canonical = wgCanonicalRecord();
-  const reward = FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, word, wgRewardHistory(progress), wgRewardRecord(canonical));
+  const isCurrency = wgIsCurrencyAnswer(word);
+  const reward = isCurrency ? wgCurrencyAnswerReward(word, wgRewardRecord(canonical)) : FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, word, wgRewardHistory(progress), wgRewardRecord(canonical));
   if (reward.isNewSolve) {
     wgState.puzzleCoins += reward.coins;
     wgState.puzzleXp += reward.xp;
     learning.save.player.coins = (learning.save.player.coins || 0) + reward.coins;
     learning.save.player.xp += reward.xp;
     learning.save.player.level = FinLitLearning.levelForXp(learning.save.player.xp);
-    progress[reward.historyKey].push(word);
+    if (reward.historyKey) progress[reward.historyKey].push(word);
     if (reward.termId && !progress.rewardedFinancialTermIds.includes(reward.termId)) progress.rewardedFinancialTermIds.push(reward.termId);
   }
   learning.save.canonicalPuzzleProgress[wgState.puzzle.id] = FinLitPuzzleBank.recordCanonicalAnswer(canonical, word);
@@ -923,7 +935,8 @@ function wgFoundWord(word) {
   wgPlayFoundSound(word, reward);
   wgCelebrateFinancialTerm(reward);
   // Owner request 2026-11-13: coin confetti whenever the key term is found. Visual only; it reads the reward already granted above.
-  if (word === wgState.puzzleModel.anchorWord) window.FinLitCoinConfetti?.burst({ coins: reward.isNewSolve ? reward.coins : 0, from: $("#wgCrossword") });
+  // Owner decision 2026-11-19: the currency-code answer triggers the same coin confetti.
+  if (word === wgState.puzzleModel.anchorWord || isCurrency) window.FinLitCoinConfetti?.burst({ coins: reward.isNewSolve ? reward.coins : 0, from: $("#wgCrossword") });
   if (wgState.found.size < wgState.words.length) celebrate();
   if (wgState.found.size === wgState.words.length) {
     const bankState = wgBankState();
@@ -953,7 +966,7 @@ function wgPlayFoundSound(word, reward) {
     toast(`Key term found: ${word}${reward.coins ? ` · +${reward.coins} coins` : ""}`);
     return;
   }
-  wgAudio.correct(wgIsFinancialCategory(reward.category) ? "financial" : "ordinary");
+  wgAudio.correct(wgIsFinancialCategory(reward.category) || reward.category === "currency" ? "financial" : "ordinary");
   if (reward.isNewSolve && reward.coins > 0) wgAudio.coinReward({ coins: reward.coins, delay: .2 });
 }
 
@@ -973,7 +986,7 @@ function wgCompletionSoundKind() {
 // coin celebration. This function only reads the reward already granted above.
 function wgCelebrateFinancialTerm(reward) {
   const completesPuzzle = wgState.found.size === wgState.words.length;
-  if (completesPuzzle || !reward.isNewSolve || !wgIsFinancialCategory(reward.category) || reward.coins <= 0) return;
+  if (completesPuzzle || !reward.isNewSolve || !(wgIsFinancialCategory(reward.category) || reward.category === "currency") || reward.coins <= 0) return;
   wgTermVictory.start({
     kind: "term", newlySolved: true, coins: reward.coins,
     from: $("#wgCrossword"), to: document.querySelector(".wg-currency"),
@@ -1155,6 +1168,7 @@ function wgUpdateMission() {
   const nextWord = !wgState.found.has(anchor) ? anchor : wgState.words.find(w => !wgState.found.has(w));
   if (!nextWord) return;
   const term = wgState.byWord[nextWord];
+  if (wgIsCurrencyAnswer(nextWord)) return wgUpdateCurrencyMission(nextWord);
   const reward = FinLitPuzzleBank.canonicalAnswerReward(wgState.puzzle, nextWord, wgRewardHistory(wgProgress()), wgRewardRecord(wgCanonicalRecord()));
   const revealed = wgState.revealed.has(nextWord);
   const answer = wgState.puzzleModel.answers?.find(item=>item.word===nextWord),isAnchor=nextWord===anchor,isFinancial=answer?wgIsFinancialCategory(answer.category):(!wgState.puzzleModel.expanded||isAnchor),presentation=FinLitPuzzleBank.answerPresentation?.(answer||(!isFinancial?{word:nextWord,category:"support"}:null));
@@ -1173,6 +1187,19 @@ function wgUpdateMission() {
   $("#wgMissionXp").textContent = `+${reward.xp}`;
   const remaining = wgState.words.length - wgState.found.size;
   $("#wgMissionCount").textContent = `${remaining} left`;
+}
+
+// Mission for the currency-code answer (same mission card, financial styling): pattern, country once revealed, reward, count.
+function wgUpdateCurrencyMission(word) {
+  const reward = wgCurrencyAnswerReward(word, wgRewardRecord(wgCanonicalRecord())), currency = wgCurrencyDefinition(), revealed = wgState.revealed.has(word);
+  $("#wgMissionWord").textContent = revealed ? word : wgHintPattern(word);
+  $("#wgMissionDefinition").textContent = revealed && currency ? currency.definition : "Solve this currency code to reveal its country.";
+  const missionCard = $("#wgMissionCard"), missionReward = $("#wgMissionReward");
+  missionCard.classList.remove("non-financial"); missionReward.classList.remove("non-financial");
+  $("#wgMissionRewardLabel").textContent = "REWARD"; missionCard.removeAttribute("aria-label");
+  $("#wgMissionCoins").textContent = `+${reward.coins}`;
+  $("#wgMissionXp").textContent = `+${reward.xp}`;
+  $("#wgMissionCount").textContent = `${wgState.words.length - wgState.found.size} left`;
 }
 
 function wgUpdateHeader() {
@@ -1248,7 +1275,7 @@ function wgRevealFull() {
   wgUpdateHeader();
   wgUpdateMission();
   const answer = wgState.puzzleModel.answers?.find(item=>item.word===nextWord),presentation=FinLitPuzzleBank.answerPresentation?.(answer||{word:nextWord,category:nextWord===wgState.puzzleModel.anchorWord?"financial":"support"});
-  toast((answer&&wgIsFinancialCategory(answer.category))||nextWord===wgState.puzzleModel.anchorWord ? "Financial term and definition revealed" : presentation?.revealMessage||"Word revealed");
+  toast(wgIsCurrencyAnswer(nextWord) ? "Currency code and country revealed" : (answer&&wgIsFinancialCategory(answer.category))||nextWord===wgState.puzzleModel.anchorWord ? "Financial term and definition revealed" : presentation?.revealMessage||"Word revealed");
 }
 
 function wgShowDefinitions() { wgRenderDefinitionsList(); $("#wgDefinitionsPanel").classList.remove("hidden"); }

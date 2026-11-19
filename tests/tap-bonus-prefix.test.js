@@ -57,10 +57,10 @@ test("no other puzzle changes: every tap decision outside the four pairs is iden
   assert.equal(Wheel.canSubmitTapWord("PAY",["PAY","PAYMENT"],new Set(["PAYMENT"])),true);
 });
 
-test("currency codes and swipe input are unaffected",()=>{
+test("currency codes can be tapped and swiped",()=>{
   puzzles.forEach(p=>{const s=session(p),c=s.options().currency;if(!c)return;
-    assert.equal(s.canTap(c.code)||Wheel.shouldSubmitOnRetap(true,c.code,s.model.words,s.state.found,s.options()),true,`${p.anchorWord} ${c.code}`);
-    assert.equal(s.submit(c.code).outcome,"currency");});
+    assert.equal(s.canTap(c.code)||Wheel.shouldSubmitOnRetap(true,c.code,s.state.words,s.state.found,s.options()),true,`${p.anchorWord} ${c.code}`);
+    assert.equal(s.submit(c.code).outcome,"required","the code is a required answer (owner decision 2026-11-19)");});
   // swipe release submits whatever was traced through wgSubmitWord, without the tap rule
   const app=fs.readFileSync(path.join(ROOT,"word-game-app.js"),"utf8");
   assert.match(app,/const shouldSubmit = wgState\.selected\.length > 1 && wgGestureLetters > 1[^\n]*\n\s*wgResetPointer\(\);\n\s*if \(shouldSubmit\) wgSubmitWord\(\);/);
