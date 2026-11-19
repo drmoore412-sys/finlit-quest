@@ -2759,8 +2759,8 @@
         },
         {
           "word": "LONG",
-          "r": 1,
-          "c": 1,
+          "r": 2,
+          "c": 0,
           "dir": "v"
         },
         {
@@ -3917,5 +3917,23 @@
         "phone320x568": 22.86
       }
     }
-  }
+  },
+  "layoutAdjustments": [
+    {
+      "puzzleId": "FQ-V3:retirement:LONGEVITY:R1",
+      "word": "LONG",
+      "from": {
+        "r": 1,
+        "c": 1,
+        "dir": "v"
+      },
+      "to": {
+        "r": 2,
+        "c": 0,
+        "dir": "v"
+      },
+      "approvedOn": "2026-11-19",
+      "reason": "Owner-approved: makes room for the assigned currency code NIO as a crossword entry. Same answers, wheel and key term; grid stays 6x9."
+    }
+  ]
 }

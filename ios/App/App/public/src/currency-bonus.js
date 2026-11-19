@@ -23,8 +23,22 @@
     "FQ-V3:credit:AUTOPAY:R1":"AOA","FQ-V3:taxes:TAXFILING:R1":"XAF","FQ-V3:insurance:LIABILITY:R1":"ALL","FQ-V3:insurance:CASHVALUE:R1":"UAH",
     "FQ-V3:coins:PROOFLIKE:R1":"PKR","FQ-V3:coins:MELTVALUE:R1":"ALL",
   });
+  // Owner-approved substitutions for puzzles whose assigned code has no valid crossword placement (2026-11-19).
+  const GRID_SUBSTITUTIONS=Object.freeze({
+    "FQ-V3:moneybasics:REFUND:R1":"ERN","FQ-V3:banking:CONVERT:R2":"ERN","FQ-V3:real_estate:REFINANCE:R1":"AFN","FQ-V3:coins:COINGRADE:R1":"CAD",
+  });
   const NAMES=Object.freeze(Object.fromEntries([...POOL,...DESIGNATED_POOL].map(c=>[c.code,c.name])));
   const ALL_CODES=Object.freeze(Object.keys(NAMES));
+  // Definitions for the currency entries (owner format 2026-11-19): "[Country] — Currency code for [currency name]", with a region for a
+  // shared currency. Shown in the puzzle's Definitions section and the end-of-level list. NOT curriculum terms: they live here only.
+  const COUNTRIES=Object.freeze({
+    NIO:"Nicaragua",INR:"India",AED:"United Arab Emirates",RON:"Romania",IDR:"Indonesia",SAR:"Saudi Arabia",ARS:"Argentina",TRY:"Türkiye",
+    EUR:"Eurozone",PEN:"Peru",SCR:"Seychelles",CAD:"Canada",NPR:"Nepal",AUD:"Australia",LSL:"Lesotho",NAD:"Namibia",KES:"Kenya",
+    SEK:"Sweden",NOK:"Norway",USD:"United States",AFN:"Afghanistan",ERN:"Eritrea",BDT:"Bangladesh",HTG:"Haiti",AOA:"Angola",
+    XAF:"Central Africa",ALL:"Albania",UAH:"Ukraine",PKR:"Pakistan",
+  });
+  function countryFor(code){return Object.prototype.hasOwnProperty.call(COUNTRIES,code)?COUNTRIES[code]:null}
+  function definitionFor(code){const country=countryFor(code);return country&&NAMES[code]?`${country} — Currency code for ${NAMES[code]}`:null}
 
   // same multiset rule as FinLitGameEngine.canForm: every letter must be on the wheel, repeats need repeated tiles (LSL needs two L tiles)
   function canSpell(word,letters){
@@ -52,6 +66,14 @@
       options.sort((a,b)=>used[a]-used[b]||hash(puzzle.id+":"+a)-hash(puzzle.id+":"+b)||a.localeCompare(b));
       assignments[puzzle.id]=options[0];used[options[0]]++;
     }
+    // Owner-approved substitutions (2026-11-19): the assigned code could not be placed in the crossword grid, so another approved
+    // code that fits is used. Applied after the automatic picks, so no other puzzle's assignment moves.
+    for(const puzzle of puzzles){
+      const substitute=GRID_SUBSTITUTIONS[puzzle.id];
+      if(!substitute)continue;
+      if(!canSpell(substitute,puzzle.letters)||(puzzle.requiredWords||[]).includes(substitute))throw new Error(`substitute ${substitute} does not fit ${puzzle.id}`);
+      assignments[puzzle.id]=substitute;
+    }
     return assignments;
   }
   let manifest;
@@ -76,5 +98,31 @@
     }
     return code?{code,name:NAMES[code]}:null;
   }
-  return {POOL,CODES,DESIGNATED_POOL,DESIGNATED,ALL_CODES,NAMES,canSpell,hash,eligibleCodes,assign,forPuzzle};
+  // ---- crossword grid entry (owner correction 2026-11-18): the code gets its own three squares in the puzzle's crossword ----
+  // Deterministic search over every crossing with an existing answer. A candidate is accepted only if the puzzle's own layout plus
+  // the code still passes the game's crossword validator (validateFn = FinLitGameEngine.validateCrosswordLayout): matching letters at
+  // crossings, clear end caps, no side-by-side letters, no unintended words, connected. Smallest grid growth wins, then position.
+  // The puzzle layout is never changed; the code's placement is stored separately in the generated manifest.
+  function gridBounds(placements){
+    let r0=Infinity,c0=Infinity,r1=-Infinity,c1=-Infinity;
+    placements.forEach(p=>{for(let i=0;i<p.word.length;i++){const r=p.r+(p.dir==="v"?i:0),c=p.c+(p.dir==="h"?i:0);r0=Math.min(r0,r);c0=Math.min(c0,c);r1=Math.max(r1,r);c1=Math.max(c1,c)}});
+    return {rows:r1-r0+1,columns:c1-c0+1};
+  }
+  function findGridPlacement(code,layout,requiredWords,validateFn){
+    const base=gridBounds(layout),area=b=>b.rows*b.columns,candidates=[];
+    for(const q of layout)for(let b=0;b<q.word.length;b++)for(let a=0;a<code.length;a++){
+      if(code[a]!==q.word[b])continue;
+      const dir=q.dir==="h"?"v":"h",candidate={word:code,r:q.r+(q.dir==="v"?b:0)-(dir==="v"?a:0),c:q.c+(q.dir==="h"?b:0)-(dir==="h"?a:0),dir};
+      if(!validateFn([...requiredWords,code],[...layout,candidate]).valid)continue;
+      candidates.push({candidate,growth:area(gridBounds([...layout,candidate]))-area(base)});
+    }
+    candidates.sort((x,y)=>x.growth-y.growth||x.candidate.r-y.candidate.r||x.candidate.c-y.candidate.c||(x.candidate.dir<y.candidate.dir?-1:x.candidate.dir>y.candidate.dir?1:0));
+    return candidates.length?candidates[0].candidate:null;
+  }
+  // The stored grid placement of a puzzle's currency code ({word,r,c,dir} in the puzzle layout's coordinates), or null.
+  function placementFor(puzzleId,dataOverride){
+    const data=dataOverride||loadManifest(),placement=data&&data.placements&&puzzleId?data.placements[puzzleId]:null;
+    return placement?{word:placement.word,r:placement.r,c:placement.c,dir:placement.dir}:null;
+  }
+  return {POOL,CODES,DESIGNATED_POOL,DESIGNATED,GRID_SUBSTITUTIONS,COUNTRIES,countryFor,definitionFor,ALL_CODES,NAMES,gridBounds,findGridPlacement,placementFor,canSpell,hash,eligibleCodes,assign,forPuzzle};
 });
