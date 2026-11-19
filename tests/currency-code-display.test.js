@@ -40,3 +40,10 @@ test("wiring: the bar is on the puzzle screen, rendered when a puzzle opens and 
   assert.match(read("word-game.css"),/\.wg-currency-code\{/);
   assert.match(read("mobile-polish.css"),/#worldGameScreen\.wg-playing \.wg-currency-code\{order:-1/);
 });
+
+test("the full currency name is never cut off: the bar wraps instead of truncating",()=>{
+  const css=fs.readFileSync(path.join(ROOT,"word-game.css"),"utf8"),bar=css.slice(css.indexOf(".wg-currency-code{"));
+  assert.match(bar,/^\.wg-currency-code\{[^}]*flex-wrap:wrap/);
+  assert.match(css,/\.wg-currency-code em\{font-style:normal\}/);
+  assert.ok(!/\.wg-currency-code em\{[^}]*(ellipsis|nowrap)/.test(css+fs.readFileSync(path.join(ROOT,"mobile-polish.css"),"utf8")));
+});
