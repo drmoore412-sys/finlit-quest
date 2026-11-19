@@ -1,10 +1,9 @@
 (function (root) {
   "use strict";
 
-  // Artwork is loaded only after a player enters a world. The three owner-
-  // approved images stay explicitly unresolved until their exact files are
-  // supplied; thematic CSS fallbacks are presentation-only and are not
-  // substitutes for the approved art.
+  // Artwork is loaded only after a player enters a world. All thirteen worlds
+  // use their final, owner-approved images; thematic CSS fallbacks are
+  // presentation-only.
   const backgrounds = {
     moneybasics: {
       theme: "Magical golden financial kingdom",
@@ -48,10 +47,7 @@
     },
     coins: {
       theme: "Golden treasure vault",
-      // Interim (owner instruction 2026-11-19): existing Banking vault scene until the approved file is supplied.
-      imageUrl: "assets/worlds/banking-basics.jpg",
-      expectedFile: "assets/worlds/coins-currency-approved.jpg",
-      assetStatus: "interim-existing-art",
+      imageUrl: "assets/worlds/coins-currency-approved.jpg",
       position: "center center",
       mobilePosition: "center center",
       accent: "#ffca52",
@@ -83,10 +79,7 @@
     },
     insurance: {
       theme: "Glowing protective shield surrounding a home and car",
-      // Interim (owner instruction 2026-11-19): existing Credit fortress scene until the approved file is supplied.
-      imageUrl: "assets/worlds/credit-foundations.jpg",
-      expectedFile: "assets/worlds/insurance-protection-approved.jpg",
-      assetStatus: "interim-existing-art",
+      imageUrl: "assets/worlds/insurance-protection-approved.jpg",
       position: "center center",
       mobilePosition: "center center",
       accent: "#55e4cc",
@@ -102,10 +95,7 @@
     },
     social_media: {
       theme: "Neon digital creator and gaming studio",
-      // Interim (owner instruction 2026-11-19): existing neon city scene (welcome screen) until the approved file is supplied.
-      imageUrl: "assets/welcome/defi-city-night.webp",
-      expectedFile: "assets/worlds/social-media-approved.jpg",
-      assetStatus: "interim-existing-art",
+      imageUrl: "assets/worlds/social-media-approved.jpg",
       position: "center center",
       mobilePosition: "center center",
       accent: "#df65ff",
