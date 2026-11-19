@@ -14,13 +14,14 @@ function grabFunction(source,name){
   for(;i<source.length;i++){const ch=source[i];if(ch==="{")depth++;else if(ch==="}"){depth--;if(depth===0)break}}
   return source.slice(start,i+1);
 }
-const RUNTIME_FUNCTIONS=["wgWordOptions","wgBuildWordContext","wgCanSubmitTapWord","wgSubmitWord"];
+const RUNTIME_FUNCTIONS=["wgWordOptions","wgBuildWordContext","wgCanSubmitTapWord","wgSubmitWord","wgRenderCurrencyCode"];
 const runtimeSource=RUNTIME_FUNCTIONS.map(name=>grabFunction(appSource,name)).join("\n");
 
 // One simulated play session of one puzzle through the real runtime functions.
 function session(puzzle,modelOverride){
   const model=modelOverride||Bank.puzzleModel(puzzle);
   const log={feedback:[],toasts:[],found:[],audio:[]};
+  const elements={},fakeElement=()=>{const classes=new Set(["hidden"]);return{textContent:"",classList:{toggle:(c,on)=>{on?classes.add(c):classes.delete(c)},contains:c=>classes.has(c)}}};
   const wgState={puzzle,puzzleModel:model,words:model.words,found:new Set(),foundBonus:new Set(),tries:{},selected:[],pending:""};
   const context={
     FinLitWheelInteraction:Wheel,FinLitUniversalVocabulary:Vocab,FinLitCurrencyBonus:Currency,wgState,
@@ -29,11 +30,15 @@ function session(puzzle,modelOverride){
     wgAudio:{duplicate:()=>log.audio.push("duplicate"),wrong:()=>log.audio.push("wrong")},
     toast:message=>log.toasts.push(message),
     wgFoundWord:word=>{wgState.found.add(word);log.found.push(word)},
+    // stand-in elements for the currency code bar (wgRenderCurrencyCode); tests read them through display
+    $:selector=>elements[selector]||(elements[selector]=fakeElement()),
   };
   context.window=context;
   vm.createContext(context);
   vm.runInContext(runtimeSource+"\nthis.wgBuildWordContext=wgBuildWordContext;this.wgWordOptions=wgWordOptions;this.wgCanSubmitTapWord=wgCanSubmitTapWord;this.wgSubmitWord=wgSubmitWord;",context);
   wgState.wordContext=context.wgBuildWordContext(puzzle,model);
+  context.wgRenderCurrencyCode(); // as when the puzzle opens
+  const display=()=>{const bar=elements["#wgCurrencyCode"];return bar?{visible:!bar.classList.contains("hidden"),code:(elements["#wgCurrencyCodeValue"]||{}).textContent,name:(elements["#wgCurrencyCodeName"]||{}).textContent,status:(elements["#wgCurrencyCodeStatus"]||{}).textContent,found:bar.classList.contains("is-found")}:null};
   // submit one word exactly as gameplay does; returns what the player saw
   function submit(word){
     const before={feedback:log.feedback.length,toasts:log.toasts.length,found:log.found.length};
@@ -48,7 +53,7 @@ function session(puzzle,modelOverride){
     else outcome="other:"+toast;
     return{outcome,toast,feedback};
   }
-  return{puzzle,model,state:wgState,log,submit,options:()=>context.wgWordOptions(),canTap:word=>context.wgCanSubmitTapWord(word)};
+  return{puzzle,model,state:wgState,log,submit,options:()=>context.wgWordOptions(),display,canTap:word=>context.wgCanSubmitTapWord(word)};
 }
 
 // The 61 released levels exactly as the loader resolves them (canonical library + the sequence/revision files).
