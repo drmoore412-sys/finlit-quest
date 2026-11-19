@@ -19,14 +19,14 @@ These images are local gameplay assets. The runtime loads only the selected worl
 
 All ten were generated with the built-in image-generation tool as original, wide 16:9, premium cinematic stylized-3D mobile-game environments. Shared constraints: environment only; crop-safe for portrait mobile; darker central gameplay space; no people, readable text, logos, UI, currency marks, watermarks, flashing effects, or copied commercial game art. The generated PNG sources remain in the Codex generated-image library; these JPEG derivatives are the optimized runtime assets.
 
-## Owner-approved artwork still required
+## Owner-approved artwork (installed 2026-11-19)
 
-The owner approved these three images before this milestone, but the exact files were not present in the repository. On the owner's instruction (2026-11-19) each world now uses existing game artwork in the interim, so no puzzle shows a blank background: Coins & Currency uses `banking-basics.jpg`, Insurance & Protection uses `credit-foundations.jpg`, and Social Media & Digital Income uses `../welcome/defi-city-night.webp`. The approved files are still required at the listed paths.
+The three owner-approved images supplied on 2026-11-19 replaced the interim art. They are the supplied 1672x941 (16:9) images converted from PNG to JPEG (quality 82-86) so each stays under the 750 KB runtime budget; resolution, proportions, and the embedded affirmations are unchanged.
 
-| World | Required exact file |
-|---|---|
-| Coins & Currency | `coins-currency-approved.jpg` |
-| Insurance & Protection | `insurance-protection-approved.jpg` |
-| Social Media & Digital Income | `social-media-approved.jpg` |
+| World | File | Scene |
+|---|---|---|
+| Coins & Currency | `coins-currency-approved.jpg` | Purple moonlit ocean with palm trees, hibiscus flowers, and glowing water. |
+| Insurance & Protection | `insurance-protection-approved.jpg` | Purple fantasy waterfall with lanterns, crystals, and glowing foliage. |
+| Social Media & Digital Income | `social-media-approved.jpg` | Purple lavender fields, mountain sunset, and lanterns. |
 
-After adding an approved file, update its `imageUrl` and remove its pending status in `content/world-backgrounds.js`, rebuild `www/`, synchronize Capacitor, and rerun the full suite.
+Unlike the ten generated worlds above, these three images carry embedded financial affirmations as part of the artwork.

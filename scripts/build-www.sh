@@ -56,8 +56,7 @@ for f in content/world-definitions-2027.js content/2027-new-world-terms.js conte
   copy "$f"
 done
 
-# Optimized world artwork. The three owner-approved files remain absent until
-# their exact assets are supplied; the runtime config records that explicitly.
+# Optimized world artwork (all thirteen worlds, including the three owner-approved images).
 for f in "$ROOT"/assets/worlds/*.jpg; do
   copy "${f#$ROOT/}"
 done

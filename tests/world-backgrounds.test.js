@@ -28,10 +28,10 @@ test("all 13 playable worlds have one explicit background mapping", () => {
   });
 });
 
-test("the ten final world backgrounds resolve to optimized local files", () => {
+test("the thirteen final world backgrounds resolve to optimized local files", () => {
   const backgrounds = loadBackgrounds();
-  const final = WORLD_IDS.filter(worldId => backgrounds[worldId].imageUrl && backgrounds[worldId].assetStatus !== "interim-existing-art");
-  assert.equal(final.length, 10);
+  const final = WORLD_IDS.filter(worldId => backgrounds[worldId].imageUrl && !backgrounds[worldId].assetStatus);
+  assert.equal(final.length, 13);
   final.forEach(worldId => {
     const entry = backgrounds[worldId];
     assert.match(entry.imageUrl, /^assets\/worlds\/.+\.jpg$/);
@@ -41,22 +41,22 @@ test("the ten final world backgrounds resolve to optimized local files", () => {
   });
 });
 
-test("every world has a background: the three awaiting approved artwork use existing art in the interim (owner instruction 2026-11-19)", () => {
+test("Coins, Insurance and Social Media use their owner-approved artwork (installed 2026-11-19)", () => {
   const backgrounds = loadBackgrounds();
-  WORLD_IDS.forEach(worldId => assert.ok(backgrounds[worldId].imageUrl, `${worldId} has a background`));
-  const interim = {
-    coins: ["assets/worlds/banking-basics.jpg", "assets/worlds/coins-currency-approved.jpg"],
-    insurance: ["assets/worlds/credit-foundations.jpg", "assets/worlds/insurance-protection-approved.jpg"],
-    social_media: ["assets/welcome/defi-city-night.webp", "assets/worlds/social-media-approved.jpg"],
+  const approved = {
+    coins: "assets/worlds/coins-currency-approved.jpg",
+    insurance: "assets/worlds/insurance-protection-approved.jpg",
+    social_media: "assets/worlds/social-media-approved.jpg",
   };
-  Object.entries(interim).forEach(([worldId, [imageUrl, expectedFile]]) => {
+  Object.entries(approved).forEach(([worldId, imageUrl]) => {
     const entry = backgrounds[worldId];
     assert.equal(entry.imageUrl, imageUrl);
+    assert.equal(entry.assetStatus, undefined, `${worldId} is no longer interim`);
+    assert.equal(entry.expectedFile, undefined);
     assert.ok(fs.existsSync(path.join(ROOT, imageUrl)), imageUrl);
     assert.ok(fs.existsSync(path.join(ROOT, "ios/App/App/public", imageUrl)), `${imageUrl} is in the iOS bundle`);
-    assert.equal(entry.expectedFile, expectedFile, "the approved file is still recorded for replacement");
-    assert.equal(entry.assetStatus, "interim-existing-art");
   });
+  assert.equal(new Set(Object.values(approved)).size, 3, "three distinct images");
 });
 
 test("runtime applies a selected world's mapping without touching gameplay state", () => {
