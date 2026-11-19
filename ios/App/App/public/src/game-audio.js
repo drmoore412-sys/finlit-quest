@@ -74,6 +74,16 @@
     function busyVoices(now){while(ends.length&&ends[0]<=now)ends.shift();return ends.length}
     function track(end){ends.push(end);ends.sort((a,b)=>a-b)}
 
+    // Release finished sound nodes (fix 2026-11-19). Before this, every voice (oscillator, optional filter, envelope) and every
+    // per-sound bus stayed connected for the whole session, so the audio graph grew without limit as players advanced through
+    // levels (music alone added ~9 connected nodes per beat). A voice now disconnects its nodes when it ends, and a temporary
+    // bus disconnects once its last voice has ended. master and musicMaster are never released here.
+    function release(nodes){nodes.forEach(node=>{try{if(node&&typeof node.disconnect==="function")node.disconnect()}catch(_){}})}
+    function voiceEnded(bus){
+      if(!bus||bus===master||bus===musicMaster)return;
+      bus.__finlitVoices=Math.max(0,(bus.__finlitVoices||1)-1);
+      if(bus.__finlitVoices===0)release([bus]);
+    }
     // One enveloped oscillator. `gain` is capped at MAX_GAIN so no single voice can be loud.
     function voice(bus,{type="sine",freq,end=null,start,dur,gain=.04,attack=.004,filter=null,tracked=true}){
       const osc=ctx.createOscillator(),amp=ctx.createGain(),level=Math.min(MAX_GAIN,gain);
@@ -82,9 +92,11 @@
       amp.gain.setValueAtTime(0,start);
       amp.gain.linearRampToValueAtTime(level,start+attack);
       amp.gain.exponentialRampToValueAtTime(.0001,start+dur);
-      let node=osc;
-      if(filter&&typeof ctx.createBiquadFilter==="function"){const f=ctx.createBiquadFilter();f.type="lowpass";f.frequency.value=filter;osc.connect(f);node=f}
+      let node=osc;const chain=[osc,amp];
+      if(filter&&typeof ctx.createBiquadFilter==="function"){const f=ctx.createBiquadFilter();f.type="lowpass";f.frequency.value=filter;osc.connect(f);node=f;chain.push(f)}
       node.connect(amp);amp.connect(bus);
+      if(bus&&bus!==master&&bus!==musicMaster)bus.__finlitVoices=(bus.__finlitVoices||0)+1;
+      osc.onended=()=>{release(chain);voiceEnded(bus)};
       osc.start(start);osc.stop(start+dur+.02);
       if(tracked)track(start+dur+.02);
       return osc;

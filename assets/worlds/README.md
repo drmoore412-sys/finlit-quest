@@ -21,7 +21,7 @@ All ten were generated with the built-in image-generation tool as original, wide
 
 ## Owner-approved artwork still required
 
-The owner approved these three images before this milestone, but the exact files were not present in the repository. They have **not** been silently replaced. The runtime uses a clearly temporary thematic gradient until the exact approved file is supplied at the listed path.
+The owner approved these three images before this milestone, but the exact files were not present in the repository. On the owner's instruction (2026-11-19) each world now uses existing game artwork in the interim, so no puzzle shows a blank background: Coins & Currency uses `banking-basics.jpg`, Insurance & Protection uses `credit-foundations.jpg`, and Social Media & Digital Income uses `../welcome/defi-city-night.webp`. The approved files are still required at the listed paths.
 
 | World | Required exact file |
 |---|---|

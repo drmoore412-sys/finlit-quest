@@ -398,3 +398,41 @@ test("the audio module ships in the page and the native bundle and loads before 
   assert.match(app,/musicUrl: window\.FINLIT_AUDIO_CONFIG\?\.musicTrackUrl \|\| ""/);
   assert.match(read("content/audio-config.js"),/musicTrackUrl:""/,"the unlicensed placeholder stays empty and the synth remains active");
 });
+
+// Fix 2026-11-19: finished sounds release their audio nodes, so the graph no longer grows as players advance through levels.
+function leakWindow(){
+  const live=new Set(),oscs=[];
+  const node=extra=>{const n={connect(){live.add(n)},disconnect(){live.delete(n)},...extra};return n};
+  const param=()=>({value:1,setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){},cancelScheduledValues(){}});
+  class Ctx{
+    constructor(){this.currentTime=0;this.state="running";this.destination={}}
+    resume(){return Promise.resolve()}close(){}
+    createGain(){return node({gain:param()})}
+    createDynamicsCompressor(){return node({threshold:{},ratio:{}})}
+    createBiquadFilter(){return node({type:"",frequency:{}})}
+    createOscillator(){const o=node({type:"",frequency:param(),start(){},stop(){}});oscs.push(o);return o}
+  }
+  return{win:{AudioContext:Ctx},live,oscs,endAll(){oscs.splice(0).forEach(o=>o.onended&&o.onended())}};
+}
+test("music and effects release their nodes when they end: the connected graph stays flat across many beats and level changes",()=>{
+  const w=leakWindow(),intervals=[];
+  const api=audio.create({window:w.win,getMusicVolume:()=>audio.DEFAULT_MUSIC_VOLUME,setIntervalFn:cb=>{intervals.push(cb);return 1},clearIntervalFn(){}});
+  api.unlock();api.startMusic();w.endAll();
+  const baseline=w.live.size;                              // compressor, master, musicMaster
+  for(let level=1;level<=60;level++){                     // 60 level changes, 8 beats + effects each
+    for(let beat=0;beat<8;beat++)intervals[0]();
+    api.correct("ordinary");api.letter(3);api.coinReward({coins:20});
+    if(level%5===0)api.levelComplete({coins:6});
+    w.endAll();
+  }
+  assert.equal(w.live.size,baseline,"no finished voice or bus stays connected");
+  for(let beat=0;beat<8;beat++)intervals[0]();
+  assert.ok(w.live.size>baseline,"sounds that are still playing stay connected until they end");
+  w.endAll();assert.equal(w.live.size,baseline);
+});
+test("the music loop is unchanged: one timer, same tempo, same notes",()=>{
+  assert.equal(audio.MUSIC_BEAT_MS,500);
+  const src=read("src/game-audio.js");
+  assert.match(src,/musicTimer=scheduleInterval\(playMusicBeat,MUSIC_BEAT_MS\);/);
+  assert.match(src,/if\(musicRunning\)return true;/,"startMusic never starts a second loop");
+});
