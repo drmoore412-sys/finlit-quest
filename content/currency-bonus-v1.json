@@ -138,7 +138,7 @@
  "assignments": {
   "FQ-V3:business:FREELANCE:R1": "AFN",
   "FQ-V3:moneybasics:BUDGET:R2": "BDT",
-  "FQ-V3:moneybasics:REFUND:R1": "EUR",
+  "FQ-V3:moneybasics:REFUND:R1": "ERN",
   "FQ-V3:crypto:INCOME:R2": "NIO",
   "FQ-V3:investing:SAVING:R2": null,
   "FQ-V3:moneybasics:RECEIPT:R4": null,
@@ -156,7 +156,7 @@
   "FQ-V3:investing:MARKET:R4": null,
   "FQ-V3:taxes:TAXFILING:R1": "XAF",
   "FQ-V3:taxes:INCOMETAX:R1": "NIO",
-  "FQ-V3:banking:CONVERT:R2": "RON",
+  "FQ-V3:banking:CONVERT:R2": "ERN",
   "FQ-V3:credit:CREDITOR:R2": "IDR",
   "FQ-V3:banking:DEPOSITOR:R1": "IDR",
   "FQ-V3:business:WHOLESALE:R1": "LSL",
@@ -166,7 +166,7 @@
   "FQ-V3:investing:RETURN:R4": "EUR",
   "FQ-V3:business:FRANCHISE:R1": "SCR",
   "FQ-V3:credit:PRINCIPAL:R2": "NPR",
-  "FQ-V3:real_estate:REFINANCE:R1": "INR",
+  "FQ-V3:real_estate:REFINANCE:R1": "AFN",
   "FQ-V3:banking:PASSKEY:R2": "SEK",
   "FQ-V3:business:NETINCOME:R1": "NIO",
   "FQ-V3:insurance:EXCLUSION:R1": "NIO",
@@ -182,7 +182,7 @@
   "FQ-V3:ai_technology:AUTOTRADE:R1": "AUD",
   "FQ-V3:coins:SPOTPRICE:R1": "SCR",
   "FQ-V3:credit:CAPACITY:R1": null,
-  "FQ-V3:coins:COINGRADE:R1": "NAD",
+  "FQ-V3:coins:COINGRADE:R1": "CAD",
   "FQ-V3:coins:PROOFLIKE:R1": "PKR",
   "FQ-V3:insurance:TRIPDELAY:R1": "TRY",
   "FQ-V3:coins:MELTVALUE:R1": "ALL",
@@ -200,27 +200,26 @@
  },
  "usage": {
   "AED": 2,
-  "AFN": 1,
+  "AFN": 2,
   "ALL": 2,
   "AOA": 1,
   "ARS": 2,
   "AUD": 3,
   "BDT": 1,
-  "CAD": 2,
-  "ERN": 1,
-  "EUR": 2,
+  "CAD": 3,
+  "ERN": 3,
+  "EUR": 1,
   "HTG": 1,
   "IDR": 3,
-  "INR": 3,
+  "INR": 2,
   "KES": 1,
   "LSL": 2,
-  "NAD": 1,
   "NIO": 5,
   "NOK": 2,
   "NPR": 2,
   "PEN": 1,
   "PKR": 1,
-  "RON": 3,
+  "RON": 2,
   "SAR": 2,
   "SCR": 2,
   "SEK": 1,
@@ -239,5 +238,314 @@
   "FQ-V3:crypto:CHAIN:R2",
   "FQ-V3:crypto:BLOCK:R3",
   "FQ-V3:business:RETAIL:R2"
- ]
+ ],
+ "placements": {
+  "FQ-V3:business:FREELANCE:R1": {
+   "word": "AFN",
+   "r": 2,
+   "c": 5,
+   "dir": "v"
+  },
+  "FQ-V3:moneybasics:BUDGET:R2": {
+   "word": "BDT",
+   "r": 0,
+   "c": 5,
+   "dir": "v"
+  },
+  "FQ-V3:moneybasics:REFUND:R1": {
+   "word": "ERN",
+   "r": 3,
+   "c": -2,
+   "dir": "h"
+  },
+  "FQ-V3:crypto:INCOME:R2": {
+   "word": "NIO",
+   "r": 1,
+   "c": -1,
+   "dir": "h"
+  },
+  "FQ-V3:moneybasics:PAYMENT:R1": {
+   "word": "PEN",
+   "r": 2,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:credit:AUTOPAY:R1": {
+   "word": "AOA",
+   "r": 0,
+   "c": 2,
+   "dir": "h"
+  },
+  "FQ-V3:real_estate:APARTMENT:R2": {
+   "word": "NPR",
+   "r": -1,
+   "c": 3,
+   "dir": "v"
+  },
+  "FQ-V3:banking:PASSWORD:R2": {
+   "word": "ARS",
+   "r": 1,
+   "c": 2,
+   "dir": "h"
+  },
+  "FQ-V3:credit:REPAYMENT:R2": {
+   "word": "TRY",
+   "r": 5,
+   "c": 12,
+   "dir": "v"
+  },
+  "FQ-V3:retirement:LIFESTYLE:R1": {
+   "word": "LSL",
+   "r": 0,
+   "c": -1,
+   "dir": "h"
+  },
+  "FQ-V3:business:MARKETING:R1": {
+   "word": "INR",
+   "r": 5,
+   "c": -2,
+   "dir": "h"
+  },
+  "FQ-V3:investing:TRADE:R4": {
+   "word": "AED",
+   "r": 1,
+   "c": 4,
+   "dir": "h"
+  },
+  "FQ-V3:investing:GROWTH:R2": {
+   "word": "HTG",
+   "r": 2,
+   "c": 5,
+   "dir": "v"
+  },
+  "FQ-V3:taxes:TAXFILING:R1": {
+   "word": "XAF",
+   "r": 2,
+   "c": -2,
+   "dir": "h"
+  },
+  "FQ-V3:taxes:INCOMETAX:R1": {
+   "word": "NIO",
+   "r": 0,
+   "c": 6,
+   "dir": "h"
+  },
+  "FQ-V3:banking:CONVERT:R2": {
+   "word": "ERN",
+   "r": 0,
+   "c": 1,
+   "dir": "h"
+  },
+  "FQ-V3:credit:CREDITOR:R2": {
+   "word": "IDR",
+   "r": -1,
+   "c": 1,
+   "dir": "v"
+  },
+  "FQ-V3:banking:DEPOSITOR:R1": {
+   "word": "IDR",
+   "r": -1,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:business:WHOLESALE:R1": {
+   "word": "LSL",
+   "r": -2,
+   "c": 5,
+   "dir": "v"
+  },
+  "FQ-V3:business:INVENTORY:R1": {
+   "word": "INR",
+   "r": 1,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:business:TRADEMARK:R1": {
+   "word": "AED",
+   "r": 4,
+   "c": 3,
+   "dir": "v"
+  },
+  "FQ-V3:investing:RETURN:R4": {
+   "word": "EUR",
+   "r": -2,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:business:FRANCHISE:R1": {
+   "word": "SCR",
+   "r": 3,
+   "c": 8,
+   "dir": "v"
+  },
+  "FQ-V3:credit:PRINCIPAL:R2": {
+   "word": "NPR",
+   "r": -1,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:real_estate:REFINANCE:R1": {
+   "word": "AFN",
+   "r": 3,
+   "c": 7,
+   "dir": "h"
+  },
+  "FQ-V3:banking:PASSKEY:R2": {
+   "word": "SEK",
+   "r": 2,
+   "c": 2,
+   "dir": "v"
+  },
+  "FQ-V3:business:NETINCOME:R1": {
+   "word": "NIO",
+   "r": 1,
+   "c": 8,
+   "dir": "v"
+  },
+  "FQ-V3:insurance:EXCLUSION:R1": {
+   "word": "NIO",
+   "r": 2,
+   "c": 8,
+   "dir": "v"
+  },
+  "FQ-V3:banking:NETWORK:R2": {
+   "word": "NOK",
+   "r": -2,
+   "c": 8,
+   "dir": "v"
+  },
+  "FQ-V3:social_media:ROYALTIES:R1": {
+   "word": "SAR",
+   "r": 4,
+   "c": 5,
+   "dir": "h"
+  },
+  "FQ-V3:insurance:LIABILITY:R1": {
+   "word": "ALL",
+   "r": 1,
+   "c": 5,
+   "dir": "v"
+  },
+  "FQ-V3:taxes:TAXCREDIT:R1": {
+   "word": "CAD",
+   "r": 0,
+   "c": 3,
+   "dir": "v"
+  },
+  "FQ-V3:social_media:ADREVENUE:R1": {
+   "word": "AUD",
+   "r": 1,
+   "c": 6,
+   "dir": "h"
+  },
+  "FQ-V3:retirement:LONGEVITY:R1": {
+   "word": "NIO",
+   "r": 0,
+   "c": 1,
+   "dir": "v"
+  },
+  "FQ-V3:business:BREAKEVEN:R1": {
+   "word": "ERN",
+   "r": 0,
+   "c": 8,
+   "dir": "h"
+  },
+  "FQ-V3:crypto:TOKEN:R2": {
+   "word": "NOK",
+   "r": 2,
+   "c": 4,
+   "dir": "v"
+  },
+  "FQ-V3:business:RETENTION:R1": {
+   "word": "RON",
+   "r": 0,
+   "c": 5,
+   "dir": "h"
+  },
+  "FQ-V3:ai_technology:AUTOTRADE:R1": {
+   "word": "AUD",
+   "r": 0,
+   "c": 7,
+   "dir": "v"
+  },
+  "FQ-V3:coins:SPOTPRICE:R1": {
+   "word": "SCR",
+   "r": 0,
+   "c": -1,
+   "dir": "h"
+  },
+  "FQ-V3:coins:COINGRADE:R1": {
+   "word": "CAD",
+   "r": 3,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:coins:PROOFLIKE:R1": {
+   "word": "PKR",
+   "r": 3,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:insurance:TRIPDELAY:R1": {
+   "word": "TRY",
+   "r": 0,
+   "c": -1,
+   "dir": "h"
+  },
+  "FQ-V3:coins:MELTVALUE:R1": {
+   "word": "ALL",
+   "r": 1,
+   "c": 3,
+   "dir": "h"
+  },
+  "FQ-V3:crypto:STAKE:R2": {
+   "word": "KES",
+   "r": -1,
+   "c": 4,
+   "dir": "v"
+  },
+  "FQ-V3:retirement:COASTFIRE:R1": {
+   "word": "ARS",
+   "r": 5,
+   "c": 0,
+   "dir": "h"
+  },
+  "FQ-V3:business:FACTORING:R1": {
+   "word": "RON",
+   "r": 5,
+   "c": 7,
+   "dir": "v"
+  },
+  "FQ-V3:retirement:SIMPLEIRA:R1": {
+   "word": "SAR",
+   "r": 1,
+   "c": 6,
+   "dir": "h"
+  },
+  "FQ-V3:retirement:FIDUCIARY:R1": {
+   "word": "CAD",
+   "r": -1,
+   "c": 2,
+   "dir": "v"
+  },
+  "FQ-V3:insurance:CASHVALUE:R1": {
+   "word": "UAH",
+   "r": 0,
+   "c": 2,
+   "dir": "h"
+  },
+  "FQ-V3:credit:DEFAULT:R2": {
+   "word": "AUD",
+   "r": -2,
+   "c": 0,
+   "dir": "v"
+  },
+  "FQ-V3:credit:CREDIT:R2": {
+   "word": "IDR",
+   "r": 0,
+   "c": 3,
+   "dir": "h"
+  }
+ },
+ "notPlaced": []
 }

@@ -508,11 +508,11 @@ function wgRenderPuzzle() {
   wgState.words = model.words;
   wgState.wordContext = wgBuildWordContext(puzzle, model);
   wgState.placements = selectedLayout;
+  wgState.currencyPlacement = wgCurrencyPlacement(puzzle, model, wgState.wordContext.currency);
   wgState.byWord = Object.fromEntries(wgWorld().vocabulary().map(t => [t.word, t]));
   (model.answers || []).forEach(answer => { wgState.byWord[answer.word] = {...wgState.byWord[answer.word], ...answer}; });
   wgState.found = new Set();
   wgState.foundBonus = new Set();
-  wgRenderCurrencyCode();
   wgState.hints = new Set();
   wgState.revealed = new Set();
   wgState.selected = [];
@@ -576,30 +576,60 @@ function wgLayout() { return wgState.placements || []; }
 function wgHintPattern(word) { return [...word].map((letter, i) => wgIsLetterVisible(word, i) ? letter : "_").join(" "); }
 function wgIsLetterVisible(word, index) {
   if (wgState.hints.has(`${word}:${index}`)) return true;
-  const placements = wgLayout(), target = placements.find(item => item.word === word);
+  const placements = wgLayout(), target = placements.find(item => item.word === word) || (wgState.currencyPlacement?.word === word ? wgState.currencyPlacement : null);
   if (!target) return false;
   const row = target.r + (target.dir === "v" ? index : 0), column = target.c + (target.dir === "h" ? index : 0);
-  return placements.some(item => wgState.found.has(item.word) && [...item.word].some((_, i) => item.r + (item.dir === "v" ? i : 0) === row && item.c + (item.dir === "h" ? i : 0) === column));
+  const currency = wgState.currencyPlacement && wgState.foundBonus?.has(wgState.currencyPlacement.word) ? [wgState.currencyPlacement] : [];
+  return [...placements.filter(item => wgState.found.has(item.word)), ...currency].some(item => [...item.word].some((_, i) => item.r + (item.dir === "v" ? i : 0) === row && item.c + (item.dir === "h" ? i : 0) === column));
+}
+
+// The puzzle's currency code as its own crossword entry (owner correction 2026-11-18): the stored placement from
+// content/currency-bonus-v1.js, used only if it is this puzzle's code and the layout plus the code passes the crossword rules.
+// It is kept apart from wgState.placements, so required answers, completion and layout checks are unchanged.
+function wgCurrencyPlacement(puzzle, model, currency) {
+  const placement = currency && window.FinLitCurrencyBonus?.placementFor ? FinLitCurrencyBonus.placementFor(puzzle && puzzle.id) : null;
+  if (!placement || placement.word !== currency.code) return null;
+  const check = FinLitGameEngine.validateCrosswordLayout([...model.words, placement.word], [...(wgState.placements || []), placement]);
+  return check.valid ? placement : null;
+}
+// Cell model of the crossword: every required answer plus the currency entry (filled once its code is found).
+function wgGridCells() {
+  const entries = wgLayout().map(p => ({ p, found: wgState.found.has(p.word), currency: false }));
+  if (wgState.currencyPlacement) entries.push({ p: wgState.currencyPlacement, found: wgState.foundBonus.has(wgState.currencyPlacement.word), currency: true });
+  let minRow = 0, minColumn = 0;
+  entries.forEach(({ p }) => { minRow = Math.min(minRow, p.r); minColumn = Math.min(minColumn, p.c); });
+  const cells = new Map();
+  entries.forEach(({ p, found, currency }) => p.word.split("").forEach((letter, i) => {
+    const r = p.r + (p.dir === "v" ? i : 0) - minRow, c = p.c + (p.dir === "h" ? i : 0) - minColumn, key = `${r}-${c}`;
+    const cell = cells.get(key) || { key, r, c, letter, words: [], filled: false, hinted: false, justFound: false, delay: 0, currency: false };
+    cell.words.push(p.word);
+    if (currency) cell.currency = true;
+    if (found) { cell.filled = true; if (wgState.lastFoundWord === p.word) { cell.justFound = true; cell.delay = i * 38; } }
+    else if (!currency && wgState.hints.has(`${p.word}:${i}`)) cell.hinted = true;
+    cells.set(key, cell);
+  }));
+  return [...cells.values()];
 }
 
 function wgRenderGrid() {
   const grid = $("#wgCrossword");
   grid.innerHTML = "";
-  const placements = wgLayout();
   let maxRow = 0, maxColumn = 0;
-  placements.forEach(p => p.word.split("").forEach((letter, i) => {
-    const r = p.r + (p.dir === "v" ? i : 0), c = p.c + (p.dir === "h" ? i : 0), key = `${r}-${c}`;
-    maxRow = Math.max(maxRow, r); maxColumn = Math.max(maxColumn, c);
-    let cell = grid.querySelector(`[data-key="${key}"]`);
-    if (!cell) { cell = document.createElement("div"); cell.className = "cell"; cell.setAttribute("role", "gridcell"); cell.dataset.key = key; cell.style.gridRow = r + 1; cell.style.gridColumn = c + 1; grid.append(cell); }
-    cell.dataset.words = (cell.dataset.words || "") + ` ${p.word}`;
-    cell.dataset.letter = letter;
-    if (wgState.found.has(p.word)) {
-      cell.textContent = letter; cell.classList.add("found"); cell.setAttribute("aria-label", letter);
-      if (wgState.lastFoundWord === p.word) { cell.classList.add("just-found"); cell.style.animationDelay = `${i * 38}ms`; }
+  wgGridCells().forEach(model => {
+    maxRow = Math.max(maxRow, model.r); maxColumn = Math.max(maxColumn, model.c);
+    const cell = document.createElement("div");
+    cell.className = "cell"; cell.setAttribute("role", "gridcell"); cell.dataset.key = model.key;
+    cell.style.gridRow = model.r + 1; cell.style.gridColumn = model.c + 1;
+    cell.dataset.words = model.words.map(word => ` ${word}`).join("");
+    cell.dataset.letter = model.letter;
+    if (model.currency) cell.dataset.currency = "true";
+    if (model.filled) {
+      cell.textContent = model.letter; cell.classList.add("found"); cell.setAttribute("aria-label", model.letter);
+      if (model.justFound) { cell.classList.add("just-found"); cell.style.animationDelay = `${model.delay}ms`; }
     }
-    else if (wgState.hints.has(`${p.word}:${i}`)) { cell.textContent = letter; cell.classList.add("hinted"); }
-  }));
+    if (model.hinted) { cell.textContent = model.letter; cell.classList.add("hinted"); }
+    grid.append(cell);
+  });
   grid.style.setProperty("--wg-grid-cols", maxColumn + 1);
   grid.style.setProperty("--wg-grid-rows", maxRow + 1);
   grid.style.setProperty("--wg-grid-max-width", `${(maxColumn + 1) * 42 + maxColumn * 4}px`);
@@ -608,6 +638,11 @@ function wgRenderGrid() {
   wgRenderDefinitionsList();
 }
 
+// The puzzle's currency entry as a definition: its code and country (src/currency-bonus.js COUNTRIES), or null.
+function wgCurrencyDefinition() {
+  const placement = wgState.currencyPlacement, definition = placement && window.FinLitCurrencyBonus?.definitionFor ? FinLitCurrencyBonus.definitionFor(placement.word) : null;
+  return definition ? { word: placement.word, definition, found: Boolean(wgState.foundBonus?.has(placement.word)) } : null;
+}
 function wgRenderDefinitionsList() {
   const list = $("#wgDefinitionsList");
   list.innerHTML = "";
@@ -622,6 +657,15 @@ function wgRenderDefinitionsList() {
     if(presentation)item.setAttribute("aria-label",`${wgState.found.has(word)?"Found. ":""}${presentation.accessibilityLabel}`);
     list.append(item);
   });
+  // The currency entry, in the same clue format as the other answers (definition = its country).
+  const currency = wgCurrencyDefinition();
+  if (currency) {
+    const item = document.createElement("div");
+    item.className = `clue ${currency.found ? "found" : ""}`;
+    item.dataset.currency = "true";
+    item.innerHTML = `<span class="clue-number">${currency.found ? "✓" : wgState.words.length + 1}</span><span>${currency.definition}<span class="clue-answer">${currency.found ? currency.word : wgHintPattern(currency.word)}</span></span>`;
+    list.append(item);
+  }
 }
 
 function wgRenderWheel(letters) {
@@ -666,19 +710,6 @@ function wgWordOptions() {
 // Universal word acceptance + currency bonus context for the current puzzle (built once per puzzle, never saved).
 // Every vocabulary word the wheel can spell is an optional bonus word in every world (src/universal-vocabulary.js), and the puzzle may designate
 // one three-letter currency code (src/currency-bonus.js). Required answers, rewards and progression are untouched: classifyWord checks required answers first.
-// The puzzle's assigned currency code is shown on the puzzle screen from the moment it opens (owner correction 2026-11-18).
-// Display only: the code stays a zero-reward bonus answer that never counts toward completion. Hidden when the puzzle has no code.
-function wgRenderCurrencyCode() {
-  const bar = $("#wgCurrencyCode"), currency = wgState.wordContext && wgState.wordContext.currency;
-  if (!bar) return;
-  bar.classList.toggle("hidden", !currency);
-  if (!currency) return;
-  const found = wgState.foundBonus.has(currency.code);
-  $("#wgCurrencyCodeValue").textContent = currency.code;
-  $("#wgCurrencyCodeName").textContent = currency.name;
-  $("#wgCurrencyCodeStatus").textContent = found ? "Found ✓" : "Bonus · no coins or XP";
-  bar.classList.toggle("is-found", found);
-}
 function wgBuildWordContext(puzzle, model) {
   const letters = model.letters || [];
   const vocabulary = window.FinLitUniversalVocabulary && FinLitUniversalVocabulary.shared();
@@ -851,9 +882,10 @@ function wgSubmitWord() {
   if (result.status === "bonus") {
     // Optional bonus word (e.g. DUE): zero coins, zero XP, not saved, not part of completion (wgState.found is untouched).
     wgState.foundBonus.add(word);
-    wgRenderCurrencyCode();
     // The designated currency code is shown with its full currency name; it is recognised once, pays nothing extra and is never required.
     const isCurrency = result.kind === "currency";
+    // Its own crossword squares fill, using the normal solved-word rendering (no reward path is touched).
+    if (isCurrency && wgState.currencyPlacement?.word === word) { wgState.lastFoundWord = word; wgRenderGrid(); }
     wgShowWordFeedback(isCurrency ? `${result.code} — ${result.currency}` : word, "duplicate");
     wgAudio.duplicate();
     return toast(isCurrency ? `Currency bonus: ${result.code} · ${result.currency}` : "Bonus word — no coins or XP");
@@ -966,6 +998,15 @@ function wgShowPuzzleComplete() {
     } else item.append(heading, definition);
     list.append(item);
   });
+  // The currency entry with its country, in the same format (a currency code, not a curriculum term).
+  const currency = wgCurrencyDefinition();
+  if (currency) {
+    const item = document.createElement("div"), heading = document.createElement("h4"), origin = document.createElement("small"), definition = document.createElement("p");
+    item.className = "wg-complete-term"; item.dataset.currency = "true";
+    heading.textContent = currency.word; origin.textContent = "Currency code"; definition.textContent = currency.definition;
+    item.append(heading, origin, definition);
+    list.append(item);
+  }
   learningSummary.unresolved.forEach(reference => {
     const item = document.createElement("li");
     item.textContent = `${reference.word || "Unknown term"} (${reference.termId || "no permanent ID"}): ${reference.reason}`;

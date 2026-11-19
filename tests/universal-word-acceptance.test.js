@@ -129,7 +129,9 @@ test("exactly one designated code per puzzle where one fits: 51 verified (41 poo
     const possible=Currency.CODES.filter(c=>canForm(c,s.model.letters));
     if(code===null){assert.equal(context,null);assert.deepEqual(Currency.eligibleCodes(s.model.letters,s.model.words),[]);assert.ok(possible.every(c=>s.model.words.includes(c)),`${puzzle.id}: no approved code fits the wheel`);continue}
     assigned++;
-    if(DESIGNATED[puzzle.anchorWord])assert.equal(code,DESIGNATED[puzzle.anchorWord],puzzle.id);else assert.ok(CURRENCY_NAMES[code],puzzle.id+" uses the 20-code pool");
+    if(DESIGNATED[puzzle.anchorWord])assert.equal(code,DESIGNATED[puzzle.anchorWord],puzzle.id);
+    else if(Currency.GRID_SUBSTITUTIONS[puzzle.id])assert.equal(code,Currency.GRID_SUBSTITUTIONS[puzzle.id],puzzle.id+" owner-approved grid substitution");
+    else assert.ok(CURRENCY_NAMES[code],puzzle.id+" uses the 20-code pool");
     assert.ok(ALL_NAMES[code]);assert.ok(canForm(code,s.model.letters),`${puzzle.id} can spell ${code}`);
     assert.equal(s.model.words.includes(code),false);assert.deepEqual(context,{code,name:ALL_NAMES[code]});
   }
