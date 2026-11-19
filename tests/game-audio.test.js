@@ -314,7 +314,7 @@ test("sound tiers: completion fanfares only use the victory controller, mini onl
   assert.match(fn,/fresh && word === wgState\.puzzleModel\.anchorWord/);
   assert.equal((fn.match(/miniJackpot\(\)/g)||[]).length,1);
   assert.ok(!/grandJackpot/.test(fn),"the grand jackpot is never started from the per-word path");
-  assert.match(fn,/wgAudio\.correct\(wgIsFinancialCategory\(reward\.category\) \? "financial" : "ordinary"\)/);
+  assert.match(fn,/wgAudio\.correct\(wgIsFinancialCategory\(reward\.category\) \|\| reward\.category === "currency" \? "financial" : "ordinary"\)/);
   assert.match(app,/world: wgAudio\.worldComplete,[\s\S]*level: wgAudio\.levelComplete,[\s\S]*crossword: wgAudio\.grandJackpot/,"the victory controller selects the progression tier");
   assert.equal((app.match(/wgAudio\.grandJackpot/g)||[]).length,2,"crossword is the explicit tier and safe fallback in one dispatcher");
   const found=app.slice(app.indexOf("function wgFoundWord"),app.indexOf("function wgPlayFoundSound"));

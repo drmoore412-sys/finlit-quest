@@ -55,7 +55,7 @@ test("the per-player game order keeps every puzzle in its own level and never op
 
 test("the key-term confetti is presentation only and the order is not written into the learning save",()=>{
   const source=read("word-game-app.js"),polish=read("src/mobile-polish.js");
-  assert.match(source,/if \(word === wgState\.puzzleModel\.anchorWord\) window\.FinLitCoinConfetti\?\.burst\(/);
+  assert.match(source,/if \(word === wgState\.puzzleModel\.anchorWord \|\| isCurrency\) window\.FinLitCoinConfetti\?\.burst\(/);
   assert.doesNotMatch(polish,/learning\.|localStorage/);
   assert.match(source,/const WG_PUZZLE_ORDER_KEY = "finlitQuest\.puzzleOrder\.v1";/);
 });

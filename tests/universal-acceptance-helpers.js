@@ -14,7 +14,7 @@ function grabFunction(source,name){
   for(;i<source.length;i++){const ch=source[i];if(ch==="{")depth++;else if(ch==="}"){depth--;if(depth===0)break}}
   return source.slice(start,i+1);
 }
-const RUNTIME_FUNCTIONS=["wgWordOptions","wgBuildWordContext","wgCanSubmitTapWord","wgSubmitWord","wgLayout","wgCurrencyPlacement","wgGridCells","wgCurrencyDefinition","wgHintPattern","wgIsLetterVisible"];
+const RUNTIME_FUNCTIONS=["wgWordOptions","wgBuildWordContext","wgCanSubmitTapWord","wgSubmitWord","wgLayout","wgCurrencyPlacement","wgGridCells","wgCurrencyDefinition","wgHintPattern","wgIsLetterVisible","wgIsCurrencyAnswer","wgCurrencyAnswerReward"];
 const runtimeSource=RUNTIME_FUNCTIONS.map(name=>grabFunction(appSource,name)).join("\n");
 
 // One simulated play session of one puzzle through the real runtime functions.
@@ -29,17 +29,18 @@ function session(puzzle,modelOverride){
     wgAudio:{duplicate:()=>log.audio.push("duplicate"),wrong:()=>log.audio.push("wrong")},
     toast:message=>log.toasts.push(message),
     wgFoundWord:word=>{wgState.found.add(word);log.found.push(word)},
-    FinLitGameEngine:Engine,
+    FinLitGameEngine:Engine,FinLitPuzzleBank:Bank,
     // the grid redraw is recorded through the real cell model (wgGridCells); tests read it through grid()
     wgRenderGrid:()=>{log.gridRenders++;wgState.lastFoundWord=null},
   };
   context.window=context;
   vm.createContext(context);
-  vm.runInContext(runtimeSource+"\nthis.wgCurrencyPlacement=wgCurrencyPlacement;this.wgGridCells=wgGridCells;this.wgCurrencyDefinition=wgCurrencyDefinition;this.wgHintPattern=wgHintPattern;this.wgBuildWordContext=wgBuildWordContext;this.wgWordOptions=wgWordOptions;this.wgCanSubmitTapWord=wgCanSubmitTapWord;this.wgSubmitWord=wgSubmitWord;",context);
+  vm.runInContext(runtimeSource+"\nthis.wgCurrencyPlacement=wgCurrencyPlacement;this.wgGridCells=wgGridCells;this.wgCurrencyDefinition=wgCurrencyDefinition;this.wgCurrencyAnswerReward=wgCurrencyAnswerReward;this.wgIsCurrencyAnswer=wgIsCurrencyAnswer;this.wgHintPattern=wgHintPattern;this.wgBuildWordContext=wgBuildWordContext;this.wgWordOptions=wgWordOptions;this.wgCanSubmitTapWord=wgCanSubmitTapWord;this.wgSubmitWord=wgSubmitWord;",context);
   wgState.wordContext=context.wgBuildWordContext(puzzle,model);
   // as when the puzzle opens: the stored layout, then the currency entry (wgRenderPuzzle order)
   wgState.placements=(puzzle.layout||[]).map(item=>({...item}));
   wgState.currencyPlacement=context.wgCurrencyPlacement(puzzle,model,wgState.wordContext.currency);
+  if(wgState.currencyPlacement)wgState.words=[...model.words,wgState.currencyPlacement.word]; // as wgRenderPuzzle: the code is a required answer
   wgState.hints=new Set();
   const grid=()=>context.wgGridCells();
   // submit one word exactly as gameplay does; returns what the player saw
@@ -56,7 +57,7 @@ function session(puzzle,modelOverride){
     else outcome="other:"+toast;
     return{outcome,toast,feedback};
   }
-  return{puzzle,model,state:wgState,log,submit,options:()=>context.wgWordOptions(),grid,definition:()=>context.wgCurrencyDefinition(),hintPattern:w=>context.wgHintPattern(w),canTap:word=>context.wgCanSubmitTapWord(word)};
+  return{puzzle,model,state:wgState,log,submit,options:()=>context.wgWordOptions(),grid,definition:()=>context.wgCurrencyDefinition(),currencyReward:(word,record)=>JSON.parse(JSON.stringify(context.wgCurrencyAnswerReward(word,record))),hintPattern:w=>context.wgHintPattern(w),canTap:word=>context.wgCanSubmitTapWord(word)};
 }
 
 // The 61 released levels exactly as the loader resolves them (canonical library + the sequence/revision files).

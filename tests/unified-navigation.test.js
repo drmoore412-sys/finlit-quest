@@ -71,7 +71,7 @@ test("unified mode navigation: Exit/logo return to the level map from a puzzle, 
 });
 test("reward record hook: identity without the dev UI, lineage union with it",()=>{
   assert.match(app,/function wgRewardRecord\(record\) \{\s*return window\.FinLitUnifiedUI\?\.rewardRecord \? FinLitUnifiedUI\.rewardRecord\(record, wgState\.puzzle && wgState\.puzzle\.id\) : record;\s*\}/);
-  assert.equal((app.match(/wgRewardRecord\(/g)||[]).length,3,"definition plus the two reward call sites");
+  assert.equal((app.match(/wgRewardRecord\(/g)||[]).length,5,"definition plus the two reward call sites and the two currency-code reward call sites (owner decision 2026-11-19)");
   assert.equal(/canonicalAnswerReward\([^)]*,\s*(canonical|wgCanonicalRecord\(\))\)/.test(app),false,"no reward call bypasses the hook");
   const ui=require("../src/unified-levels-ui.js"),P=require("../src/unified-progress.js");
   const manifest={sequenceId:"main-levels",sequenceVersion:2,devOnly:true,entries:[{position:1,puzzleId:"NEW",replaces:["OLD"],compatibility:"fresh",compositionRuleVersion:"v1",releaseStatus:"development",validation:{}}],retired:[{puzzleId:"OLD",replaces:[]}]};

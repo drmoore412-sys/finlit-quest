@@ -266,7 +266,7 @@ test("the game wires the celebration after rewards are granted, once per puzzle,
 
 test("new financial terms receive the compact coin celebration without changing rewards or double-celebrating the final word",()=>{
   const app=read("word-game-app.js"),fn=app.slice(app.indexOf("function wgCelebrateFinancialTerm"),app.indexOf("// Victory celebration"));
-  assert.match(fn,/completesPuzzle \|\| !reward\.isNewSolve \|\| !wgIsFinancialCategory\(reward\.category\) \|\| reward\.coins <= 0/);
+  assert.match(fn,/completesPuzzle \|\| !reward\.isNewSolve \|\| !\(wgIsFinancialCategory\(reward\.category\) \|\| reward\.category === "currency"\) \|\| reward\.coins <= 0/);
   assert.match(fn,/kind: "term"/);assert.match(fn,/coins: reward\.coins/);
   assert.ok(!/learning\.save|\.coins\s*\+?=|\.xp\s*\+?=|answerReward/.test(fn),"term animation grants nothing");
   const found=app.slice(app.indexOf("function wgFoundWord"),app.indexOf("function wgPlayFoundSound"));
