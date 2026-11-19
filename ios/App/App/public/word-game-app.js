@@ -512,6 +512,7 @@ function wgRenderPuzzle() {
   (model.answers || []).forEach(answer => { wgState.byWord[answer.word] = {...wgState.byWord[answer.word], ...answer}; });
   wgState.found = new Set();
   wgState.foundBonus = new Set();
+  wgRenderCurrencyCode();
   wgState.hints = new Set();
   wgState.revealed = new Set();
   wgState.selected = [];
@@ -665,6 +666,19 @@ function wgWordOptions() {
 // Universal word acceptance + currency bonus context for the current puzzle (built once per puzzle, never saved).
 // Every vocabulary word the wheel can spell is an optional bonus word in every world (src/universal-vocabulary.js), and the puzzle may designate
 // one three-letter currency code (src/currency-bonus.js). Required answers, rewards and progression are untouched: classifyWord checks required answers first.
+// The puzzle's assigned currency code is shown on the puzzle screen from the moment it opens (owner correction 2026-11-18).
+// Display only: the code stays a zero-reward bonus answer that never counts toward completion. Hidden when the puzzle has no code.
+function wgRenderCurrencyCode() {
+  const bar = $("#wgCurrencyCode"), currency = wgState.wordContext && wgState.wordContext.currency;
+  if (!bar) return;
+  bar.classList.toggle("hidden", !currency);
+  if (!currency) return;
+  const found = wgState.foundBonus.has(currency.code);
+  $("#wgCurrencyCodeValue").textContent = currency.code;
+  $("#wgCurrencyCodeName").textContent = currency.name;
+  $("#wgCurrencyCodeStatus").textContent = found ? "Found ✓" : "Bonus · no coins or XP";
+  bar.classList.toggle("is-found", found);
+}
 function wgBuildWordContext(puzzle, model) {
   const letters = model.letters || [];
   const vocabulary = window.FinLitUniversalVocabulary && FinLitUniversalVocabulary.shared();
@@ -837,6 +851,7 @@ function wgSubmitWord() {
   if (result.status === "bonus") {
     // Optional bonus word (e.g. DUE): zero coins, zero XP, not saved, not part of completion (wgState.found is untouched).
     wgState.foundBonus.add(word);
+    wgRenderCurrencyCode();
     // The designated currency code is shown with its full currency name; it is recognised once, pays nothing extra and is never required.
     const isCurrency = result.kind === "currency";
     wgShowWordFeedback(isCurrency ? `${result.code} — ${result.currency}` : word, "duplicate");
