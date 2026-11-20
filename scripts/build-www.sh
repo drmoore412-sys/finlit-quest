@@ -37,7 +37,7 @@ copy assets/defi-tower/defi-tower-thumb.jpg
 copy assets/defi-tower/defi-tower-map.jpg
 
 # Stylesheets
-for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css mobile-polish.css unified-levels-dev.css; do
+for f in design-tokens.css styles.css hints.css premium.css learning-engine.css micro-lessons.css journey.css workbook-engine.css word-game.css currency-rush.css mobile-polish.css onboarding.css unified-levels-dev.css; do
   copy "$f"
 done
 
@@ -47,7 +47,7 @@ for f in app.js learning-engine.js word-game-app.js workbook-app.js; do
 done
 
 # Scripts (src/ pure modules actually referenced by index.html)
-for f in src/content-validator.js src/game-engine.js src/wheel-interaction.js src/universal-vocabulary.js src/currency-bonus.js src/puzzle-bank-engine.js src/v3-puzzle-slate.js src/game-audio.js src/victory-celebration.js src/currency-rush.js src/mobile-polish.js src/dense-grid-zoom.js src/unified-progress.js src/unified-sequence.js src/composition-rules.js src/sha256.js src/unified-release.js src/unified-prototype-loader.js src/unified-levels-ui.js src/workbook-engine.js src/world-loader.js; do
+for f in src/onboarding.js src/content-validator.js src/game-engine.js src/wheel-interaction.js src/universal-vocabulary.js src/currency-bonus.js src/puzzle-bank-engine.js src/v3-puzzle-slate.js src/game-audio.js src/victory-celebration.js src/currency-rush.js src/mobile-polish.js src/dense-grid-zoom.js src/unified-progress.js src/unified-sequence.js src/composition-rules.js src/sha256.js src/unified-release.js src/unified-prototype-loader.js src/unified-levels-ui.js src/workbook-engine.js src/world-loader.js; do
   copy "$f"
 done
 
