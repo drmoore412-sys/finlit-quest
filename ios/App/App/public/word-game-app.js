@@ -538,6 +538,7 @@ function wgRenderPuzzle() {
   document.documentElement.dataset.finlitRuntime = WG_RUNTIME_VERSION;
   document.documentElement.dataset.finlitPuzzleMode = WG_V3_ENABLED ? "v3" : "legacy";
   console.info("FinLit Quest puzzle loaded", wgPuzzleDiagnostic());
+  window.FinLitOnboarding?.puzzleShown?.(wgState.levelNumber, Boolean(wgState.unified));   // first-time tutorial on Level 1 (new players only)
 }
 
 function wgPuzzleDiagnostic() {
@@ -923,6 +924,8 @@ function wgFoundWord(word) {
     if (reward.termId && !progress.rewardedFinancialTermIds.includes(reward.termId)) progress.rewardedFinancialTermIds.push(reward.termId);
   }
   learning.save.canonicalPuzzleProgress[wgState.puzzle.id] = FinLitPuzzleBank.recordCanonicalAnswer(canonical, word);
+  window.FinLitOnboarding?.wordFound?.(word);
+  if (reward.isNewSolve && (reward.coins > 0 || reward.xp > 0)) window.FinLitOnboarding?.rewardGranted?.();   // one-time coins & XP tip
   const newAchievements = learning.touchActivity();
   learning.persist();
   newAchievements.forEach(a => toast(`${a.title} unlocked: +${a.xp} XP`));
@@ -1032,6 +1035,7 @@ function wgShowPuzzleComplete() {
   $("#wgCompletePanel").classList.remove("hidden");
   requestAnimationFrame(() => $("#wgCompleteContinue").focus());
   wgStartVictory();
+  window.FinLitOnboarding?.levelCompleted?.(wgState.levelNumber, Boolean(wgState.unified));   // one-time worlds & levels tip
 }
 
 // Victory celebration (presentation only): it is handed the coins/XP already granted by
@@ -1536,6 +1540,9 @@ if (fqPrototype12Enabled()) {
     });
   } catch (error) { console.warn("Unified levels unavailable; using the existing level flow:", error.message); window.__finlitUnifiedLevels = { ready: false, error: error.message }; }
 }
+
+// First-time tutorial, one-time tips and Help (src/onboarding.js): reads and writes only save.onboarding.
+window.FinLitOnboarding?.mount?.({ getSave: () => learning.save, persist: () => learning.persist() });
 
 // Initial screen. With unified levels the welcome page is the single hub: a new browser session always starts there, and a refresh
 // restores the current screen (gameplay, Bonus Games, Learning Quests or My Progress) from sessionStorage. Without unified levels the

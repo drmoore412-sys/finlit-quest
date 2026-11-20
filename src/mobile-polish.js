@@ -85,6 +85,7 @@
     syncScreen();
   }
   $("#wgInfoButton")?.addEventListener("click",()=>screen.classList.contains("wg-sheet-open")?closeSheet():openSheet());
+  root.FinLitSettingsSheet={open:openSheet,close:closeSheet};   // Help's "Sound and settings" on phones (src/onboarding.js)
   $("#wgSheetBackdrop")?.addEventListener("click",closeSheet);
   $("#wgSheetClose")?.addEventListener("click",()=>{closeSheet();$("#wgInfoButton")?.focus({preventScroll:true})});
 

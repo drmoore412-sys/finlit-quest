@@ -59,7 +59,17 @@
   function reviewDefaults(){return {againCount:0,hardCount:0,goodCount:0,easyCount:0,currentEaseFactor:2.5,currentInterval:0,nextReviewDate:null,lastReviewed:null}}
   function emptyProgress(){return {masteryLevel:0,masteryPercent:0,puzzle:puzzleDefaults(),challenge:challengeDefaults(),review:reviewDefaults(),dateUnlocked:null,dateMastered:null}}
   function playerDefaults(){return {xp:0,level:1,coins:DEFAULT_ECONOMY_CONFIG.startingCoins,streak:0,lastPlayed:null,activityDates:[],weeklyGoal:5,achievements:[]}}
-  function createSave(now=new Date()){return {saveVersion:CURRENT_SAVE_VERSION,player:playerDefaults(),termProgress:{},objectiveProgress:{},scenarioProgress:{},libraryChallengeProgress:{},canonicalPuzzleProgress:{},worlds:{},settings:{theme:"light",reducedMotion:false,skipLessons:false},updatedAt:iso(now)}}
+  // First-time tutorial and one-time tips (2026-11-19). A brand-new save starts "pending"; a save that existed before this field
+  // (any stored save without it) is an existing player: never shown the automatic tutorial or the one-time tips.
+  const ONBOARDING_VERSION=1,ONBOARDING_OUTCOMES=["pending","completed","skipped","existing-player"],ONBOARDING_TIPS=["rewards","worlds"];
+  function newPlayerOnboarding(){return {version:ONBOARDING_VERSION,tutorial:"pending",tips:{}}}
+  function existingPlayerOnboarding(){return {version:ONBOARDING_VERSION,tutorial:"existing-player",tips:Object.fromEntries(ONBOARDING_TIPS.map(id=>[id,true]))}}
+  function normalizeOnboarding(value){
+    if(!isPlainObject(value))return existingPlayerOnboarding();
+    const tips={};if(isPlainObject(value.tips))Object.keys(value.tips).forEach(id=>{if(value.tips[id]===true)tips[id]=true});
+    return {version:ONBOARDING_VERSION,tutorial:ONBOARDING_OUTCOMES.includes(value.tutorial)?value.tutorial:"existing-player",tips};
+  }
+  function createSave(now=new Date()){return {saveVersion:CURRENT_SAVE_VERSION,player:playerDefaults(),termProgress:{},objectiveProgress:{},scenarioProgress:{},libraryChallengeProgress:{},canonicalPuzzleProgress:{},worlds:{},settings:{theme:"light",reducedMotion:false,skipLessons:false},onboarding:newPlayerOnboarding(),updatedAt:iso(now)}}
   function mergeProgress(value={}){
     const progress={...emptyProgress(),...value,puzzle:{...puzzleDefaults(),...(value.puzzle||{})},challenge:{...challengeDefaults(),...(value.challenge||{})},review:{...reviewDefaults(),...(value.review||{})}};
     if(value.timesSeen&&!progress.puzzle.timesSeen)progress.puzzle.timesSeen=value.timesSeen;
@@ -76,6 +86,7 @@
       const save=createSave(now),legacyReview=safeJson(storage.getItem("yw_review"),{}),legacyYield=Number(storage.getItem("yw_yield")||0);
       save.player.xp=Math.max(0,Math.round(legacyYield));
       Object.entries(legacyReview).forEach(([word,weight])=>{const id=`crypto.${word.toLowerCase()}`,p=emptyProgress();p.dateUnlocked=iso(now);p.puzzle.timesSeen=Math.max(1,Number(weight)||1);p.puzzle.timesSolved=1;save.termProgress[id]=p});
+      if(legacyYield>0||Object.keys(legacyReview).length)save.onboarding=existingPlayerOnboarding(); // legacy progress = existing player
       return save;
     }
     const save={...createSave(now),...raw,player:{...playerDefaults(),...(raw.player||{})},settings:{theme:"light",reducedMotion:false,skipLessons:false,...(raw.settings||{})},termProgress:{...(raw.termProgress||{})},objectiveProgress:{...(raw.objectiveProgress||{})},scenarioProgress:{...(raw.scenarioProgress||{})},libraryChallengeProgress:{...(raw.libraryChallengeProgress||{})},canonicalPuzzleProgress:isPlainObject(raw.canonicalPuzzleProgress)?{...raw.canonicalPuzzleProgress}:{},worlds:{...(raw.worlds||{})}};
@@ -86,6 +97,8 @@
     if(!Array.isArray(save.player.achievements))save.player.achievements=[];
     if(save.player.achievementRewards!==undefined&&!isPlainObject(save.player.achievementRewards))delete save.player.achievementRewards;
     Object.keys(save.termProgress).forEach(id=>save.termProgress[id]=mergeProgress(save.termProgress[id]));
+    // Backwards-compatible migration: keep a valid stored onboarding record; a save without one predates the tutorial.
+    save.onboarding=normalizeOnboarding(raw.onboarding);
     save.saveVersion=CURRENT_SAVE_VERSION;return save;
   }
   function safeJson(value,fallback){try{return JSON.parse(value||"")}catch(_){return fallback}}
@@ -319,5 +332,5 @@
     recordWorkbookAttempt(worldId,workbookId,{percent,passed,xpValue}){const p=this.workbookProgress(worldId,workbookId);p.attempts++;p.bestScorePercent=Math.max(p.bestScorePercent,percent);let xpGained=0;if(passed&&p.status!=="completed"){p.status="completed";p.dateCompleted=iso(this.now());xpGained=xpValue;p.xpAwarded=xpValue;this.save.player.xp+=xpValue;this.save.player.level=levelForXp(this.save.player.xp);this.unlockAchievements()}this.touchActivity();this.persist();return {progress:{...p},xpGained}}
     workbookWorldStats(worldId,workbookIds){const worlds=this.save.worlds[worldId]||{workbooks:{}};const records=workbookIds.map(id=>worlds.workbooks?.[id]).filter(Boolean);const completed=records.filter(r=>r.status==="completed").length;const xpEarned=records.reduce((sum,r)=>sum+(r.xpAwarded||0),0);return {worldId,totalWorkbooks:workbookIds.length,completed,completionPercent:workbookIds.length?Math.round(completed/workbookIds.length*100):0,xpEarned}}
   }
-  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,XP_PER_LEVEL,levelForXp,xpIntoLevel,ACHIEVEMENTS,DAILY_LOGIN_SCHEDULE,localDayKey,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
+  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,ONBOARDING_TIPS,newPlayerOnboarding,existingPlayerOnboarding,normalizeOnboarding,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,XP_PER_LEVEL,levelForXp,xpIntoLevel,ACHIEVEMENTS,DAILY_LOGIN_SCHEDULE,localDayKey,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
 });
