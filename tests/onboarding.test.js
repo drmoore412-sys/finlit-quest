@@ -12,7 +12,7 @@ const engine=seed=>new L.LearningEngine({terms:[],storage:store(seed)});
 
 test("a brand-new save starts the tutorial as pending with no tips shown",()=>{
   const e=engine({});
-  assert.deepEqual(e.save.onboarding,{version:1,tutorial:"pending",tips:{}});
+  assert.deepEqual(e.save.onboarding,{version:1,tutorial:"pending",tips:{},explainers:{}});
   assert.equal(O.shouldAutoStart(e.save,1,true),true,"Level 1 of the unified levels");
   assert.equal(O.shouldAutoStart(e.save,2,true),false,"not on other levels");
   assert.equal(O.shouldAutoStart(e.save,1,false),false,"not in the old per-world flow");
@@ -52,7 +52,7 @@ test("Skip and completion are remembered across reloads; a corrupted record fall
   assert.equal(O.recordTutorial(e.save,"completed"),true,"a later replay can complete it");
   assert.equal(O.recordTutorial(e.save,"bogus"),false);assert.equal(O.recordTutorial(e.save,"pending"),false,"replay never re-arms the automatic start");
   const bad=engine({[L.SAVE_KEY]:JSON.stringify({saveVersion:4,player:{},onboarding:{tutorial:"weird",tips:{rewards:"yes",worlds:true}}})});
-  assert.deepEqual(bad.save.onboarding,{version:1,tutorial:"existing-player",tips:{worlds:true}});
+  assert.deepEqual(bad.save.onboarding,{version:1,tutorial:"existing-player",tips:{worlds:true},explainers:{}});
 });
 
 test("one-time tips fire once each, even for players who skipped the tutorial",()=>{

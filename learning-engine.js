@@ -62,12 +62,15 @@
   // First-time tutorial and one-time tips (2026-11-19). A brand-new save starts "pending"; a save that existed before this field
   // (any stored save without it) is an existing player: never shown the automatic tutorial or the one-time tips.
   const ONBOARDING_VERSION=1,ONBOARDING_OUTCOMES=["pending","completed","skipped","existing-player"],ONBOARDING_TIPS=["rewards","worlds"];
-  function newPlayerOnboarding(){return {version:ONBOARDING_VERSION,tutorial:"pending",tips:{}}}
-  function existingPlayerOnboarding(){return {version:ONBOARDING_VERSION,tutorial:"existing-player",tips:Object.fromEntries(ONBOARDING_TIPS.map(id=>[id,true]))}}
+  // Currency Rush stage explainers (2026-11-20): shown once to every player, existing players included, because Currency Rush
+  // keeps no completion record. Saves written before this field existed simply have none seen yet.
+  const ONBOARDING_EXPLAINERS=["currency-study","currency-recall","currency-memory"];
+  function seenMap(value,allowed){const out={};if(isPlainObject(value))Object.keys(value).forEach(id=>{if(value[id]===true&&(!allowed||allowed.includes(id)))out[id]=true});return out}
+  function newPlayerOnboarding(){return {version:ONBOARDING_VERSION,tutorial:"pending",tips:{},explainers:{}}}
+  function existingPlayerOnboarding(){return {version:ONBOARDING_VERSION,tutorial:"existing-player",tips:Object.fromEntries(ONBOARDING_TIPS.map(id=>[id,true])),explainers:{}}}
   function normalizeOnboarding(value){
     if(!isPlainObject(value))return existingPlayerOnboarding();
-    const tips={};if(isPlainObject(value.tips))Object.keys(value.tips).forEach(id=>{if(value.tips[id]===true)tips[id]=true});
-    return {version:ONBOARDING_VERSION,tutorial:ONBOARDING_OUTCOMES.includes(value.tutorial)?value.tutorial:"existing-player",tips};
+    return {version:ONBOARDING_VERSION,tutorial:ONBOARDING_OUTCOMES.includes(value.tutorial)?value.tutorial:"existing-player",tips:seenMap(value.tips),explainers:seenMap(value.explainers,ONBOARDING_EXPLAINERS)};
   }
   function createSave(now=new Date()){return {saveVersion:CURRENT_SAVE_VERSION,player:playerDefaults(),termProgress:{},objectiveProgress:{},scenarioProgress:{},libraryChallengeProgress:{},canonicalPuzzleProgress:{},worlds:{},settings:{theme:"light",reducedMotion:false,skipLessons:false},onboarding:newPlayerOnboarding(),updatedAt:iso(now)}}
   function mergeProgress(value={}){
@@ -332,5 +335,5 @@
     recordWorkbookAttempt(worldId,workbookId,{percent,passed,xpValue}){const p=this.workbookProgress(worldId,workbookId);p.attempts++;p.bestScorePercent=Math.max(p.bestScorePercent,percent);let xpGained=0;if(passed&&p.status!=="completed"){p.status="completed";p.dateCompleted=iso(this.now());xpGained=xpValue;p.xpAwarded=xpValue;this.save.player.xp+=xpValue;this.save.player.level=levelForXp(this.save.player.xp);this.unlockAchievements()}this.touchActivity();this.persist();return {progress:{...p},xpGained}}
     workbookWorldStats(worldId,workbookIds){const worlds=this.save.worlds[worldId]||{workbooks:{}};const records=workbookIds.map(id=>worlds.workbooks?.[id]).filter(Boolean);const completed=records.filter(r=>r.status==="completed").length;const xpEarned=records.reduce((sum,r)=>sum+(r.xpAwarded||0),0);return {worldId,totalWorkbooks:workbookIds.length,completed,completionPercent:workbookIds.length?Math.round(completed/workbookIds.length*100):0,xpEarned}}
   }
-  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,ONBOARDING_TIPS,newPlayerOnboarding,existingPlayerOnboarding,normalizeOnboarding,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,XP_PER_LEVEL,levelForXp,xpIntoLevel,ACHIEVEMENTS,DAILY_LOGIN_SCHEDULE,localDayKey,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
+  return {LearningEngine,LearningRepository,CURRENT_SAVE_VERSION,SAVE_KEY,ONBOARDING_TIPS,ONBOARDING_EXPLAINERS,newPlayerOnboarding,existingPlayerOnboarding,normalizeOnboarding,DEFAULT_MASTERY_CONFIG,DEFAULT_ECONOMY_CONFIG,buildEconomyConfig,XP_PER_LEVEL,levelForXp,xpIntoLevel,ACHIEVEMENTS,DAILY_LOGIN_SCHEDULE,localDayKey,calculateMastery,calculateStreak,createSave,emptyProgress,normalizeSave};
 });

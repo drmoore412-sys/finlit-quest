@@ -61,9 +61,13 @@
       $("crRoundLabel").textContent=`ROUND ${stageNumber} OF ${currentStage.total} · ${currentStage.mode.label}`;$("crRoundTitle").textContent=`Currency Wheel ${currentStage.wheelNumber} · Stage ${(stageNumber-1)%3+1}`;
       $("crReferencePanel").classList.toggle("hidden",!hasReference);$("crReferenceTitle").textContent=currentStage.mode.reference==="full"?"Currency Reference":"Country & Currency Clues";$("crReferenceNote").textContent=currentStage.mode.reference==="full"?"Study the country, currency, and code while you play.":"Recall each three-letter code from the country and currency name.";$("crCountLabel").textContent=hasReference?"CURRENCIES FOUND":"CURRENCIES REMAINING";
       $("crResults").classList.add("hidden");$("crReveal").classList.add("hidden");renderWheel();renderStats();renderFound();setMessage("Connect three letters to discover a currency","");
-      timer=win.setInterval(()=>{session.tick(1);renderStats();if(session.state.finished){stopTimer();showResults()}},1000);
+      startTimer();
+      win.FinLitOnboarding?.currencyStageShown?.(currentStage.mode.id);   // first visit to a stage type: explainer pop-up (pauses the clock)
     }
+    function startTimer(){stopTimer();timer=win.setInterval(()=>{session.tick(1);renderStats();if(session.state.finished){stopTimer();showResults()}},1000)}
     function stopTimer(){if(timer!==null)win.clearInterval(timer);timer=null}
+    // Explainer pop-ups pause and resume the round clock; the round itself (time, answers, scoring) is unchanged.
+    win.FinLitCurrencyRushTimer={pause:stopTimer,resume:()=>{if(timer===null&&session&&!session.state.finished&&!screen.classList.contains("hidden"))startTimer()}};
     function renderStats(){$("crTime").textContent=String(Math.ceil(session.state.remaining)).padStart(2,"0");$("crScore").textContent=session.state.score.toLocaleString();$("crFoundCount").textContent=currentStage.mode.reference!=="hidden"?`${session.state.found.length} / ${session.state.required.length}`:String(session.state.required.length-session.state.found.length);$("crTimerRing").style.setProperty("--time-ratio",session.state.remaining/data.scoring.durationSeconds)}
     function renderWheel(){
       const wheel=$("crWheel");wheel.querySelectorAll(".cr-letter").forEach(item=>item.remove());

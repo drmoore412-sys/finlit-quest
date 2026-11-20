@@ -28,3 +28,19 @@
 .flq-help-close{border:1px solid #ffffff40;background:transparent;color:#eef3ff}
 .flq-help-card button:focus-visible{outline:3px solid #f2b84b;outline-offset:2px}
 .flq-settings-flash{box-shadow:0 0 0 3px #f2b84b,0 0 24px #f2b84b99!important;transition:box-shadow .3s ease}
+/* Currency Rush: "?" beside the music button, and the stage explainer dialog (2026-11-20) */
+.currency-rush-screen .cr-topbar{grid-template-columns:44px 1fr auto}
+.cr-top-actions{display:flex;align-items:center;gap:8px}
+.cr-help{min-width:44px;min-height:44px;border:1px solid #fff4;background:#0e123fbb;color:#fff;border-radius:14px;font-size:18px;font-weight:850;cursor:pointer}
+.cr-help:focus-visible{outline:3px solid #f2b84b;outline-offset:2px}
+.flq-help-card button.hidden{display:none}
+.flq-explainer{z-index:97;overflow:auto}
+.flq-explainer-card{width:min(420px,100%);max-height:100%;overflow:auto;gap:8px}
+.flq-explainer-card .flq-tour-step{margin:0}
+.flq-explainer-body p{margin:0 0 8px;color:#dfe7f5;line-height:1.5}
+.flq-explainer-codes{margin:0 0 10px;padding:0 0 0 20px;color:#eef3ff;line-height:1.7}
+.flq-explainer-codes b{color:#f2b84b;letter-spacing:.06em}
+.flq-explainer-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px}
+.flq-explainer-actions .flq-tour-skip{min-height:44px}
+.flq-explainer-actions .flq-help-action{padding:0 22px}
+@media(max-width:520px){.currency-rush-screen .cr-topbar{column-gap:8px}.cr-top-actions{gap:6px}.currency-rush-screen .cr-heading small{font-size:9.5px;letter-spacing:.08em}.currency-rush-screen .cr-heading strong{font-size:15px}}
