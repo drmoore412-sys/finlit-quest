@@ -3,6 +3,9 @@
 //   is "pending"). Each step spotlights a real control and shows a short card with Back, Next and Skip tutorial.
 // - Two one-time tips: coins and XP after the first reward, worlds and levels after Level 1 is completed.
 // - A Help entry ("?" in the puzzle header) to replay the tutorial and reach sound and settings.
+// - Currency Rush stage explainers (2026-11-20): one pop-up per stage type (Guided Study, Code Recall, Memory Challenge), shown
+//   automatically the first time a player opens that stage, once per player, replayable from the "?" in the Currency Rush bar.
+//   The round timer is paused while an explainer is open; nothing else in Currency Rush changes.
 // The tutorial never spends coins, never triggers a hint, and never changes answers, rewards or progress. It only reads the
 // page and writes save.onboarding. Pure rules are exported for tests; the UI mounts only in a browser.
 (function(root,factory){const api=factory(root);if(typeof module==="object"&&module.exports)module.exports=api;root.FinLitOnboarding=api})(typeof globalThis!=="undefined"?globalThis:this,function(root){
@@ -27,6 +30,21 @@
       text:"Levels unlock one after another, and each comes from one of 13 money worlds, such as Banking, Credit and Crypto. Tap Next Puzzle to keep going."}),
   });
 
+  // Owner-supplied copy (2026-11-20), word for word. Keyed by the Currency Rush stage mode id.
+  const EXPLAINERS=Object.freeze({
+    "currency-study":Object.freeze({mode:"study",kicker:"Currency Rush · Guided Study",title:"Learn Currency Codes",button:"Got It!",
+      paragraphs:Object.freeze(["Currency codes are three-letter abbreviations used to identify currencies around the world.","For example:"]),
+      examples:Object.freeze([["USD","United States dollar"],["CAD","Canadian dollar"],["EUR","Euro"]]),
+      after:Object.freeze(["In this level, all the answers are provided so you can learn which currency codes belong to each country.","Study the codes and their countries. You'll need to remember them as you advance!"])}),
+    "currency-recall":Object.freeze({mode:"recall",kicker:"Currency Rush · Code Recall",title:"Match the Country to Its Currency",button:"Let's Play!",
+      paragraphs:Object.freeze(["Now it's time to practice what you learned!","In this level, the country names are provided, but the currency codes are hidden.","Use the country names and what you learned in Level 1 to figure out the correct three-letter currency codes."]),
+      examples:Object.freeze([]),after:Object.freeze([])}),
+    "currency-memory":Object.freeze({mode:"memory",kicker:"Currency Rush · Memory Challenge",title:"The Currency Challenge",button:"Start Challenge!",
+      paragraphs:Object.freeze(["You've learned the currency codes and practiced matching them to their countries.","Now it's time to test your memory!","In this level, neither the country names nor the currency codes are provided.","Use what you remember from the previous levels to solve the challenge."]),
+      examples:Object.freeze([]),after:Object.freeze([])}),
+  });
+  const explainerIdForMode=mode=>{const id=`currency-${mode}`;return EXPLAINERS[id]?id:null};
+
   // ---------- pure rules (tested) ----------
   function state(save){
     const o=save&&save.onboarding;
@@ -48,8 +66,18 @@
     o.tips[id]=true;return true;
   }
 
+  // Explainers have no completion record to key on, so every player (existing players too) sees each one once.
+  function explainerDue(save,id){
+    const o=state(save);return Boolean(o&&EXPLAINERS[id]&&!(o.explainers&&o.explainers[id]===true));
+  }
+  function recordExplainer(save,id){
+    const o=state(save);if(!o||!EXPLAINERS[id])return false;
+    if(!o.explainers||typeof o.explainers!=="object")o.explainers={};
+    o.explainers[id]=true;return true;
+  }
+
   // ---------- browser UI ----------
-  let env=null,ui=null,active=null,tip=null,pendingTip=null,tipTimer=0,layoutQueued=0,observer=null;
+  let env=null,ui=null,active=null,tip=null,pendingTip=null,tipTimer=0,layoutQueued=0,observer=null,explainer=null,helpOpener=null,helpPausedRush=false;
   const doc=()=>root.document;
   const $=selector=>doc().querySelector(selector);
   function visible(el){if(!el)return false;const r=el.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(el).visibility!=="hidden"}
@@ -173,26 +201,40 @@
     help.setAttribute("aria-modal","true");help.setAttribute("aria-labelledby","flqHelpTitle");
     help.innerHTML='<div class="flq-help-card"><h2 id="flqHelpTitle" tabindex="-1">Help</h2><p>Need a refresher, or want to change the sound?</p>'+
       '<button type="button" class="flq-help-action" id="flqHelpReplay">Replay the tutorial</button>'+
+      '<button type="button" class="flq-help-action hidden" id="flqHelpExplain">Explain this round</button>'+
       '<button type="button" class="flq-help-action" id="flqHelpSettings">Sound and settings</button>'+
       '<button type="button" class="flq-help-close" id="flqHelpClose">Close</button></div>';
     doc().body.append(help);
-    const close=()=>{help.classList.add("hidden");try{$("#wgHelpButton").focus({preventScroll:true})}catch(_){}};
+    // In Currency Rush the round clock waits while Help is open; it restarts on close unless an explainer took over.
+    const hide=()=>{help.classList.add("hidden");if(helpPausedRush){helpPausedRush=false;if(!explainer)rushTimer("resume")}};
+    const close=()=>{hide();try{(helpOpener||$("#wgHelpButton")).focus({preventScroll:true})}catch(_){}};
     help.addEventListener("click",event=>{if(event.target===help)close()});
     help.addEventListener("keydown",event=>{
       if(event.key==="Escape"){event.preventDefault();close();return}
       if(event.key!=="Tab")return;
-      const items=[...help.querySelectorAll("button")],first=items[0],last=items[items.length-1];
+      const items=[...help.querySelectorAll("button")].filter(b=>!b.classList.contains("hidden")),first=items[0],last=items[items.length-1];
       if(event.shiftKey&&doc().activeElement===first){event.preventDefault();last.focus()}
       else if(!event.shiftKey&&doc().activeElement===last){event.preventDefault();first.focus()}
     });
     help.querySelector("#flqHelpClose").addEventListener("click",close);
     help.querySelector("#flqHelpReplay").addEventListener("click",()=>{help.classList.add("hidden");setTimeout(()=>start({replay:true}),150)});
-    help.querySelector("#flqHelpSettings").addEventListener("click",()=>{help.classList.add("hidden");openSettings()});
+    help.querySelector("#flqHelpExplain").addEventListener("click",()=>{const id=explainerIdForMode(currencyStage());if(id){helpPausedRush=false;help.classList.add("hidden");openExplainer(id,{replay:true,returnFocus:helpOpener})}else close()});
+    help.querySelector("#flqHelpSettings").addEventListener("click",()=>{hide();openSettings()});
     return help;
   }
-  function openHelp(){const help=buildHelp();help.classList.remove("hidden");help.querySelector("#flqHelpTitle").focus({preventScroll:true})}
+  function currencyRushOpen(){const screen=$("#currencyRushScreen");return Boolean(screen&&!screen.classList.contains("hidden"))}
+  function currencyStage(){const screen=$("#currencyRushScreen");return screen?screen.dataset.learningStage||"":""}
+  function openHelp(event){
+    const help=buildHelp(),inRush=currencyRushOpen();
+    helpOpener=(event&&event.currentTarget)||doc().activeElement;
+    help.querySelector("#flqHelpReplay").classList.toggle("hidden",inRush);                         // the tour needs the crossword
+    help.querySelector("#flqHelpExplain").classList.toggle("hidden",!(inRush&&explainerIdForMode(currencyStage())));
+    if(inRush&&help.classList.contains("hidden")){helpPausedRush=true;rushTimer("pause")}
+    help.classList.remove("hidden");help.querySelector("#flqHelpTitle").focus({preventScroll:true})
+  }
   // Phones: the gear's settings sheet. Wider screens: the sound and volume controls that are always in the top bar.
   function openSettings(){
+    if(currencyRushOpen()){const music=$("#crMusicToggle");if(music){music.classList.add("flq-settings-flash");setTimeout(()=>music.classList.remove("flq-settings-flash"),1600);try{music.focus({preventScroll:true})}catch(_){}}return}
     const gear=$("#wgInfoButton");
     if(visible(gear)){if(root.FinLitSettingsSheet&&root.FinLitSettingsSheet.open)root.FinLitSettingsSheet.open();else gear.click();return}
     const control=$("#wgVolumeSlider")||$("#wgSoundButton"),bar=$(".wg-topbar");
@@ -201,10 +243,61 @@
     try{control&&control.focus({preventScroll:true})}catch(_){}
   }
 
+  // ---------- Currency Rush explainers ----------
+  function buildExplainer(){
+    let box=$("#flqExplainer");if(box)return box;
+    box=doc().createElement("div");box.id="flqExplainer";box.className="flq-help flq-explainer hidden";box.setAttribute("role","dialog");
+    box.setAttribute("aria-modal","true");box.setAttribute("aria-labelledby","flqExplainerTitle");box.setAttribute("aria-describedby","flqExplainerBody");
+    box.innerHTML='<div class="flq-help-card flq-explainer-card"><p class="flq-tour-step" id="flqExplainerKicker"></p><h2 id="flqExplainerTitle" tabindex="-1"></h2>'+
+      '<div class="flq-explainer-body" id="flqExplainerBody"></div><div class="flq-explainer-actions">'+
+      '<button type="button" class="flq-tour-skip" id="flqExplainerSkip">Skip</button><button type="button" class="flq-help-action" id="flqExplainerGo"></button></div></div>';
+    doc().body.append(box);
+    box.querySelector("#flqExplainerSkip").addEventListener("click",()=>closeExplainer());
+    box.querySelector("#flqExplainerGo").addEventListener("click",()=>closeExplainer());
+    box.addEventListener("keydown",event=>{
+      if(event.key==="Escape"){event.preventDefault();event.stopPropagation();closeExplainer();return}
+      if(event.key!=="Tab")return;
+      const items=[...box.querySelectorAll("button")],first=items[0],last=items[items.length-1];
+      if(event.shiftKey&&doc().activeElement===first){event.preventDefault();last.focus()}
+      else if(!event.shiftKey&&doc().activeElement===last){event.preventDefault();first.focus()}
+    });
+    return box;
+  }
+  function rushTimer(action){try{const t=root.FinLitCurrencyRushTimer;t&&t[action]&&t[action]()}catch(_){}}
+  function openExplainer(id,options={}){
+    const content=EXPLAINERS[id];if(!content)return false;
+    const s=save();if(!options.replay){if(!explainerDue(s,id))return false;recordExplainer(s,id);persist()}   // seen once, even if closed without a tap
+    const box=buildExplainer(),body=box.querySelector("#flqExplainerBody"),d=doc();
+    box.querySelector("#flqExplainerKicker").textContent=content.kicker;
+    box.querySelector("#flqExplainerTitle").textContent=content.title;
+    box.querySelector("#flqExplainerGo").textContent=content.button;
+    body.textContent="";
+    const para=text=>{const p=d.createElement("p");p.textContent=text;body.append(p)};
+    content.paragraphs.forEach(para);
+    if(content.examples.length){const ul=d.createElement("ul");ul.className="flq-explainer-codes";
+      content.examples.forEach(([code,name])=>{const li=d.createElement("li"),b=d.createElement("b");b.textContent=code;li.append(b,` — ${name}`);ul.append(li)});body.append(ul)}
+    content.after.forEach(para);
+    box.classList.toggle("flq-reduced",reducedMotion());
+    if(!explainer)explainer={id,returnFocus:options.returnFocus||d.activeElement};else explainer.id=id;
+    rushTimer("pause");                                   // the round clock waits for the player
+    box.classList.remove("hidden");box.scrollTop=0;
+    try{box.querySelector("#flqExplainerTitle").focus({preventScroll:true})}catch(_){}
+    return true;
+  }
+  function closeExplainer(){
+    if(!explainer)return;
+    const returnFocus=explainer.returnFocus;explainer=null;
+    const box=$("#flqExplainer");if(box)box.classList.add("hidden");
+    rushTimer("resume");
+    try{if(returnFocus&&returnFocus.focus&&returnFocus!==doc().body)returnFocus.focus({preventScroll:true})}catch(_){}
+  }
+  // Called by Currency Rush each time a stage opens. Returns true when an explainer opened (and paused the clock).
+  function currencyStageShown(mode){const id=explainerIdForMode(mode);return id?openExplainer(id):false}
+
   // ---------- game hooks ----------
   function mount(options){
     env=options||{};
-    const button=$("#wgHelpButton");if(button&&!button.dataset.flqBound){button.dataset.flqBound="1";button.addEventListener("click",openHelp)}
+    ["#wgHelpButton","#crHelpButton"].forEach(selector=>{const button=$(selector);if(button&&!button.dataset.flqBound){button.dataset.flqBound="1";button.addEventListener("click",openHelp)}});
   }
   function puzzleShown(levelNumber,unified){
     if(active)finish("skipped");                       // leaving the tutorial puzzle ends the tour
@@ -215,6 +308,7 @@
   function rewardGranted(){showTip("rewards")}
   function levelCompleted(levelNumber,unified){if(unified&&levelNumber===1)setTimeout(()=>showTip("worlds"),900)}
 
-  return {STEPS,TIPS,shouldAutoStart,recordTutorial,tipDue,recordTip,mount,start,finish,openHelp,openSettings,puzzleShown,wordFound,rewardGranted,levelCompleted,
-    isActive:()=>Boolean(active),activeStep:()=>active?STEPS[active.index].id:null,activeTip:()=>tip,closeTip};
+  return {STEPS,TIPS,EXPLAINERS,shouldAutoStart,recordTutorial,tipDue,recordTip,explainerDue,recordExplainer,explainerIdForMode,mount,start,finish,openHelp,openSettings,
+    puzzleShown,wordFound,rewardGranted,levelCompleted,currencyStageShown,openExplainer,closeExplainer,
+    isActive:()=>Boolean(active),activeStep:()=>active?STEPS[active.index].id:null,activeTip:()=>tip,closeTip,activeExplainer:()=>explainer?explainer.id:null};
 });
